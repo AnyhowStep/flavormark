@@ -9,7 +9,7 @@ var reCodeFence = /^`{3,}(?!.*`)|^~{3,}(?!.*~)/;
 
 var reClosingCodeFence = /^(?:`{3,}|~{3,})(?= *$)/;
 
-export class FencedCodeBlockParser extends BlockParser {
+export class FencedCodeBlockParser extends BlockParser<BlockNode> {
     tryStart= (parser : Parser) => {
         var match;
         if (!parser.indented &&
@@ -68,6 +68,19 @@ export class FencedCodeBlockParser extends BlockParser {
     earlyExitOnEnd = true;
     ignoreLastLineBlank = (_parser : Parser, _container : Node) => { return true; };
     isLeaf = true;
+    public appendString (node : BlockNode, str : string) : void {
+        if (node.string_content == null) {
+            node.string_content = "";
+        }
+        node.string_content += str;
+    }
+    public getString (node : BlockNode) : string {
+        return node.string_content || "";
+    }
+    // allow raw string to be garbage collected
+    public unsetString (node : BlockNode) : void {
+        node.string_content = null;
+    }
 }
 
 export const fencedCodeBlockParser = new FencedCodeBlockParser("fenced_code_block", BlockNode);

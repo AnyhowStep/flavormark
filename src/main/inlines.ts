@@ -5,6 +5,7 @@ import {fromCodePoint} from "./from-code-point";
 import {decodeHTML} from "entities";
 var normalizeURI = common.normalizeURI;
 var unescapeString = common.unescapeString;
+import {BlockParser} from "./refactored/BlockParser";
 
 // Constants for character codes:
 
@@ -971,14 +972,14 @@ export class InlineParser {
 
     // Parse string content in block into inline children,
     // using refmap to resolve references.
-    parse (block : Node) {
-        this.subject = (block.string_content || "").trim();
+    parse (blockParser : BlockParser, block : Node) {
+        this.subject = (blockParser.getString(block)).trim();
         this.pos = 0;
         this.delimiters = null;
         this.brackets = null;
         while (this.parseInline(block)) {
         }
-        block.string_content = null; // allow raw string to be garbage collected
+        blockParser.unsetString(block); // allow raw string to be garbage collected
         this.processEmphasis(null);
     }
 }

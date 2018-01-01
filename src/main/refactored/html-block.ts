@@ -28,7 +28,7 @@ var reHtmlBlockOpen = [
     new RegExp('^(?:' + OPENTAG + '|' + CLOSETAG + ')\\s*$', 'i')
 ];
 
-export class HtmlBlockParser extends BlockParser {
+export class HtmlBlockParser extends BlockParser<BlockNode> {
     tryStart= (parser : Parser, container : Node) => {
         if (!parser.indented &&
             peek(parser.currentLine, parser.nextNonspace) === C_LESSTHAN) {
@@ -82,6 +82,19 @@ export class HtmlBlockParser extends BlockParser {
         );
     };
     isLeaf = true;
+    public appendString (node : BlockNode, str : string) : void {
+        if (node.string_content == null) {
+            node.string_content = "";
+        }
+        node.string_content += str;
+    }
+    public getString (node : BlockNode) : string {
+        return node.string_content || "";
+    }
+    // allow raw string to be garbage collected
+    public unsetString (node : BlockNode) : void {
+        node.string_content = null;
+    }
 }
 
 export const htmlBlockParser = new HtmlBlockParser("html_block", BlockNode);

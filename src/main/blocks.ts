@@ -75,16 +75,17 @@ export class Parser {
         if (this.tip == null) {
             throw new Error("this.tip cannot be null")
         }
-        if (!blockParserCollection.get(this.tip).acceptsLines) {
+        const p = this.getBlockParser(this.tip);
+        if (!p.acceptsLines) {
             throw new Error(`Cannot add line to ${this.tip.type}; it does not accept lines`)
         }
         if (this.partiallyConsumedTab) {
           this.offset += 1; // skip over tab
           // add space characters:
           var charsToTab = 4 - (this.column % 4);
-          this.tip.string_content += (' '.repeat(charsToTab));
+          p.appendString(this.tip, ' '.repeat(charsToTab));
         }
-        this.tip.string_content += this.currentLine.slice(this.offset) + '\n';
+        p.appendString(this.tip, this.currentLine.slice(this.offset) + '\n');
     };
 
     // Add block of type tag as a child of the tip.  If the tip can't
@@ -103,7 +104,6 @@ export class Parser {
 
         var column_number = offset + 1; // offset 0 = column 1
         var newBlock = new ctor(tag, [[this.lineNumber, column_number], [0, 0]]);
-        newBlock.string_content = '';
         this.tip.appendChild(newBlock);
         this.tip = newBlock;
         return newBlock;
@@ -375,7 +375,7 @@ export class Parser {
         while ((event = walker.next())) {
             node = event.node;
             if (!event.entering && blockParserCollection.get(node).parseInlines) {
-                this.inlineParser.parse(node);
+                this.inlineParser.parse(this.getBlockParser(node), node);
             }
         }
     };

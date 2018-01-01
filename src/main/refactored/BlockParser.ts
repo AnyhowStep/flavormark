@@ -34,4 +34,13 @@ export abstract class BlockParser<NodeT extends BlockNode=BlockNode> {
     isParagraph? : boolean; //Has no effect unless acceptsLines is true
     isList? : boolean;
     isListItem? : boolean;
+
+    public appendString (_node : NodeT, _str : string) : void {
+        throw new Error(`appendString() not implemented for ${this.getNodeType()}`);
+    } //Only called if acceptsLines is true
+    public getString (_node : NodeT) : string {
+        return "";
+    }
+    // allow raw string to be garbage collected
+    public unsetString (_node : NodeT) : void {}
 };

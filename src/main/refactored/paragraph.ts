@@ -6,7 +6,7 @@ import {BlockNode} from "./BlockNode";
 
 var C_OPEN_BRACKET = 91;
 
-export class ParagraphParser extends BlockParser {
+export class ParagraphParser extends BlockParser<BlockNode> {
     continue= (parser : Parser) =>{
         return (parser.blank ? false : true);
     };
@@ -35,6 +35,19 @@ export class ParagraphParser extends BlockParser {
     acceptLazyContinuation = true;
     isLeaf = true;
     isParagraph = true;
+    public appendString (node : BlockNode, str : string) : void {
+        if (node.string_content == null) {
+            node.string_content = "";
+        }
+        node.string_content += str;
+    }
+    public getString (node : BlockNode) : string {
+        return node.string_content || "";
+    }
+    // allow raw string to be garbage collected
+    public unsetString (node : BlockNode) : void {
+        node.string_content = null;
+    }
 }
 
 export const paragraphParser = new ParagraphParser("paragraph", BlockNode);

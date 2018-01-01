@@ -33,6 +33,13 @@ export class SetextHeadingParser extends BlockParser {
     acceptsLines= false;
     parseInlines = true;
     isLeaf = true;
+    public getString (node : BlockNode) : string {
+        return node.string_content || "";
+    }
+    // allow raw string to be garbage collected
+    public unsetString (node : BlockNode) : void {
+        node.string_content = null;
+    }
 }
 
 export const setextHeadingParser = new SetextHeadingParser("setext_heading", BlockNode);
