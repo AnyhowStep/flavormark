@@ -8,25 +8,17 @@ var reMaybeSpecial = /^[#`~*+_=<>0-9-]/;
 
 var reLineEnding = /\r\n|\n|\r/;
 
-
-// DOC PARSER
-
-// These are methods of a Parser object, defined below.
-
 import {documentParser} from "./refactored/document";
 import {listParser} from "./refactored/list";
 import {blockquoteParser} from "./refactored/blockquote";
 import {itemParser} from "./refactored/item";
-//import {headingParser} from "./refactored/heading";
 import {thematicBreakParser} from "./refactored/thematic-break";
-//import {codeBlockParser} from "./refactored/code-block";
 import {htmlBlockParser} from "./refactored/html-block";
 import {paragraphParser} from "./refactored/paragraph";
 import {atxHeadingParser} from "./refactored/atx-heading";
 import {setextHeadingParser} from "./refactored/setext-heading";
 import {fencedCodeBlockParser} from "./refactored/fenced-code-block";
 import {indentedCodeBlockParser} from "./refactored/indented-code-block";
-//import {BlockParser} from "./refactored/BlockParser";
 import {BlockParserCollection} from "./refactored/BlockParserCollection";
 
 const blockParserCollection = new BlockParserCollection(
@@ -43,62 +35,7 @@ const blockParserCollection = new BlockParserCollection(
     .add(indentedCodeBlockParser)
 
     .add(listParser);
-/*
-// 'finalize' is run when the block is closed.
-// 'continue' is run to check whether the block is continuing
-// at a certain line and offset (e.g. whether a block quote
-// contains a `>`.  It returns 0 for matched, 1 for not matched,
-// and 2 for "we've dealt with this line completely, go to next."
-var blocks : {
-    [k : string] : BlockParser
-} = {
-    document: documentParser,
-    list: listParser,
-    block_quote: blockquoteParser,
-    item: itemParser,
-    atx_heading: atxHeadingParser,
-    setext_heading: setextHeadingParser,
-    thematic_break: thematicBreakParser,
-    indented_code_block: indentedCodeBlockParser,
-    fenced_code_block: fencedCodeBlockParser,
-    html_block: htmlBlockParser,
-    paragraph: paragraphParser
-};
 
-// block start functions.  Return values:
-// 0 = no match
-// 1 = matched container, keep going
-// 2 = matched leaf, no more block starts
-var blockStarts : BlockParser[] = [
-    // block quote
-    blockquoteParser,
-
-    // ATX heading
-    atxHeadingParser,
-
-    // Fenced code block
-    fencedCodeBlockParser,
-
-    // HTML block
-    htmlBlockParser,
-
-    // Setext heading
-    setextHeadingParser,
-
-    // thematic break
-    thematicBreakParser,
-
-    // list item
-    itemParser,
-
-    // indented code block
-    indentedCodeBlockParser,
-
-    //Used for the isParagraph boolean
-    paragraphParser,
-
-];
-*/
 export class Document extends BlockNode {
     constructor () {
         super("document", [[1, 1], [0, 0]]);
@@ -142,7 +79,7 @@ export class Parser {
         if (this.tip == null) {
             throw new Error("this.tip cannot be null")
         }
-        if (!blockParserCollection.get(this.tip.type).acceptsLines) {
+        if (!blockParserCollection.get(this.tip).acceptsLines) {
             throw new Error(`Cannot add line to ${this.tip.type}; it does not accept lines`)
         }
         if (this.partiallyConsumedTab) {
@@ -161,7 +98,7 @@ export class Parser {
         if (this.tip == null) {
             throw new Error("this.tip cannot be null");
         }
-        while (!blockParserCollection.get(this.tip.type).canContain(tag)) {
+        while (!blockParserCollection.get(this.tip).canContain(tag)) {
             this.finalize(this.tip, this.lineNumber - 1);
         }
 
@@ -255,7 +192,6 @@ export class Parser {
     // then finalizing the document.
     incorporateLine(ln : string) {
         var all_matched = true;
-        var t;
 
         var container : BlockNode|null = this.doc;
         this.oldtip = this.tip;
@@ -281,9 +217,9 @@ export class Parser {
 
             this.findNextNonspace();
 
-            const continued = (blockParserCollection.get(container.type).continue(this, container));
+            const continued = (blockParserCollection.get(container).continue(this, container));
             if (!continued) {
-                if (blockParserCollection.get(container.type).earlyExitOnEnd) {
+                if (blockParserCollection.get(container).earlyExitOnEnd) {
                     // we've hit end of line for fenced code close and can return
                     this.lastLineLength = ln.length;
                     return;
@@ -322,9 +258,9 @@ export class Parser {
         }
         this.lastMatchedContainer = container;
 
-        var matchedLeaf = !(blockParserCollection.get(container.type).acceptsLines && blockParserCollection.get(container.type).isParagraph) &&
+        var matchedLeaf = !(blockParserCollection.get(container).acceptsLines && blockParserCollection.get(container.type).isParagraph) &&
                 (//blocks[container.type].acceptsLines ||
-                    blockParserCollection.get(container.type).isLeaf
+                    blockParserCollection.get(container).isLeaf
                 );
         var startsLen = blockParserCollection.length();
         // Unless last matched container is a code block, try new container starts,
@@ -378,7 +314,7 @@ export class Parser {
        // First check for a lazy paragraph continuation:
         if (!this.allClosed && !this.blank &&
             this.tip != null &&
-            blockParserCollection.get(this.tip.type).acceptLazyContinuation) {
+            blockParserCollection.get(this.tip).acceptLazyContinuation) {
             // lazy paragraph continuation
             this.addLine();
 
@@ -392,8 +328,7 @@ export class Parser {
                 container.lastChild.lastLineBlank = true;
             }
 
-            t = container.type;
-            const ignoreLastLineBlankPredicate = blockParserCollection.get(container.type).ignoreLastLineBlank;
+            const ignoreLastLineBlankPredicate = blockParserCollection.get(container).ignoreLastLineBlank;
             // Block quote lines are never blank as they start with >
             // and we don't count blanks in fenced code for purposes of tight/loose
             // lists or breaking out of lists.  We also don't set _lastLineBlank
@@ -411,9 +346,9 @@ export class Parser {
                 cont = cont.parent;
             }
 
-            if (blockParserCollection.get(t).acceptsLines) {
+            if (blockParserCollection.get(container).acceptsLines) {
                 this.addLine();
-                const finalizeAtLine = blockParserCollection.get(container.type).finalizeAtLine;
+                const finalizeAtLine = blockParserCollection.get(container).finalizeAtLine;
                 if (finalizeAtLine != null && finalizeAtLine(this, container)) {
                     this.finalize(container, this.lineNumber);
                 }
@@ -441,7 +376,7 @@ export class Parser {
             throw new Error("block.sourcepos cannot be null")
         }
         block.sourcepos[1] = [lineNumber, this.lastLineLength];
-        blockParserCollection.get(block.type).finalize(this, block);
+        blockParserCollection.get(block).finalize(this, block);
 
         /*if (above == null) {
             throw new Error("above cannot be null")
@@ -452,14 +387,13 @@ export class Parser {
     // Walk through a block & children recursively, parsing string content
     // into inline content where appropriate.
     processInlines(block : BlockNode) {
-        var node, event, t;
+        var node, event;
         var walker = block.walker();
         this.inlineParser.refmap = this.refmap;
         this.inlineParser.options = this.options;
         while ((event = walker.next())) {
             node = event.node;
-            t = node.type;
-            if (!event.entering && blockParserCollection.get(t).parseInlines) {
+            if (!event.entering && blockParserCollection.get(node).parseInlines) {
                 this.inlineParser.parse(node);
             }
         }

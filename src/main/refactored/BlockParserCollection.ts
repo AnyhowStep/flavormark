@@ -1,4 +1,5 @@
 import {BlockParser} from "./BlockParser";
+import {BlockNode} from "./BlockNode";
 
 export class BlockParserCollection {
     private documentParser : BlockParser;
@@ -38,10 +39,13 @@ export class BlockParserCollection {
         this.arr.push(parser);
         return this;
     }
-    public get (name : string) {
-        const result = this.dict[name];
+    public get (key : string|BlockNode) : BlockParser {
+        if (typeof key != "string") {
+            return this.get(key.type);
+        }
+        const result = this.dict[key];
         if (result == null) {
-            throw new Error(`Parser ${name} does not exist`);
+            throw new Error(`Parser ${key} does not exist`);
         }
         return result;
     }
