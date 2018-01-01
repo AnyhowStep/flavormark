@@ -10,7 +10,7 @@ export const setextHeadingParser = {
             container.type === 'paragraph' &&
                    ((match = parser.currentLine.slice(parser.nextNonspace).match(reSetextHeadingLine)))) {
             parser.closeUnmatchedBlocks();
-            var heading = new Node('heading', container.sourcepos);
+            var heading = new Node('setext_heading', container.sourcepos);
             heading.level = match[0][0] === '=' ? 1 : 2;
             heading.string_content = container.string_content;
             container.insertAfter(heading);
@@ -21,5 +21,12 @@ export const setextHeadingParser = {
         } else {
             return 0;
         }
-    }
+    },
+    continue: function() {
+        // a heading can never container > 1 line, so fail to match:
+        return false;
+    },
+    finalize: function() { return; },
+    canContain: function() { return false; },
+    acceptsLines: false
 }

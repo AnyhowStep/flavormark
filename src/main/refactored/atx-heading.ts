@@ -12,7 +12,7 @@ export const atxHeadingParser = {
             parser.advanceNextNonspace();
             parser.advanceOffset(match[0].length, false);
             parser.closeUnmatchedBlocks();
-            var container = parser.addChild('heading', parser.nextNonspace);
+            var container = parser.addChild('atx_heading', parser.nextNonspace);
             container.level = match[0].trim().length; // number of #s
             // remove trailing ###s:
             container.string_content =
@@ -22,5 +22,12 @@ export const atxHeadingParser = {
         } else {
             return 0;
         }
-    }
+    },
+    continue: function() {
+        // a heading can never container > 1 line, so fail to match:
+        return false;
+    },
+    finalize: function() { return; },
+    canContain: function() { return false; },
+    acceptsLines: false
 }

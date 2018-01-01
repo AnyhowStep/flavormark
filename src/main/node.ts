@@ -52,7 +52,8 @@ export type NodeType = (
     "list"|
     "item"|
     "paragraph"|
-    "heading"|
+    "atx_heading"|
+    "setext_heading"|
     "emph"|
     "link"|
     "image"|
@@ -114,7 +115,8 @@ export class Node {
             case 'list':
             case 'item':
             case 'paragraph':
-            case 'heading':
+            case 'atx_heading':
+            case 'setext_heading':
             case 'emph':
             case 'strong':
             case 'link':

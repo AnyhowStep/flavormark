@@ -145,7 +145,7 @@ export class HtmlRenderer extends Renderer {
       }
     }
 
-     heading(node:Node, entering:boolean) {
+     atx_heading(node:Node, entering:boolean) {
       var tagname = 'h' + node.level
         , attrs = this.attrs(node);
       if (entering) {
@@ -156,6 +156,17 @@ export class HtmlRenderer extends Renderer {
         this.cr();
       }
     }
+    setext_heading(node:Node, entering:boolean) {
+     var tagname = 'h' + node.level
+       , attrs = this.attrs(node);
+     if (entering) {
+       this.cr();
+       this.tag(tagname, attrs);
+     } else {
+       this.tag('/' + tagname);
+       this.cr();
+     }
+   }
 
      code(node:Node) {
       this.tag('code');

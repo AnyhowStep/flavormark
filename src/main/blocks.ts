@@ -26,7 +26,7 @@ import {documentParser} from "./refactored/document";
 import {listParser} from "./refactored/list";
 import {blockquoteParser} from "./refactored/blockquote";
 import {itemParser} from "./refactored/item";
-import {headingParser} from "./refactored/heading";
+//import {headingParser} from "./refactored/heading";
 import {thematicBreakParser} from "./refactored/thematic-break";
 //import {codeBlockParser} from "./refactored/code-block";
 import {htmlBlockParser} from "./refactored/html-block";
@@ -50,7 +50,8 @@ var blocks : {
     list: listParser,
     block_quote: blockquoteParser,
     item: itemParser,
-    heading: headingParser,
+    atx_heading: atxHeadingParser,
+    setext_heading: setextHeadingParser,
     thematic_break: thematicBreakParser,
     indented_code_block: indentedCodeBlockParser,
     fenced_code_block: fencedCodeBlockParser,
@@ -448,7 +449,7 @@ export class Parser {
         while ((event = walker.next())) {
             node = event.node;
             t = node.type;
-            if (!event.entering && (t === 'paragraph' || t === 'heading')) {
+            if (!event.entering && (t === 'paragraph' || t === 'atx_heading' || t === 'setext_heading')) {
                 this.inlineParser.parse(node);
             }
         }
