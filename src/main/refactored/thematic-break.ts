@@ -1,9 +1,10 @@
+import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
 
 var reThematicBreak = /^(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:-[ \t]*){3,})[ \t]*$/;
 
-export const thematicBreakParser = {
-    tryStart: function(parser : Parser) {
+export class ThematicBreakParser extends BlockParser {
+    tryStart= (parser : Parser) => {
         if (!parser.indented &&
             reThematicBreak.test(parser.currentLine.slice(parser.nextNonspace))) {
             parser.closeUnmatchedBlocks();
@@ -13,13 +14,15 @@ export const thematicBreakParser = {
         } else {
             return false;
         }
-    },
-    continue: function() : boolean {
+    };
+    continue= () : boolean => {
         // a thematic break can never container > 1 line, so fail to match:
         return false;
-    },
-    finalize: function() { return; },
-    canContain: function() { return false; },
-    acceptsLines: false,
-    isLeaf : true,
+    };
+    finalize= () => { return; };
+    canContain= () => { return false; };
+    acceptsLines= false;
+    isLeaf = true;
 }
+
+export const thematicBreakParser = new ThematicBreakParser();

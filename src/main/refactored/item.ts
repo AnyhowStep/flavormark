@@ -1,4 +1,4 @@
-//import {BlockParser} from "./BlockParser";
+import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek, isSpaceOrTab, isBlank} from "./util";
@@ -117,8 +117,8 @@ var listsMatch = function(list_data : {
             list_data.bulletChar === item_data.bulletChar);
 };
 
-export const itemParser = {
-    tryStart: function(parser : Parser, container : Node) {
+export class ItemParser extends BlockParser {
+    tryStart= (parser : Parser, container : Node) => {
         var data;
 
         if ((!parser.indented || container.type === 'list')
@@ -143,8 +143,8 @@ export const itemParser = {
         } else {
             return false;
         }
-    },
-    continue: function(parser : Parser, container : Node) {
+    };
+    continue= (parser : Parser, container : Node) => {
         if (parser.blank) {
             if (container.firstChild == null) {
                 // Blank line after empty list item
@@ -164,15 +164,17 @@ export const itemParser = {
             return false;
         }
         return true;
-    },
-    finalize: function() { return; },
-    canContain: function(t:string) { return (t !== 'item'); },
-    acceptsLines: false,
-    ignoreLastLineBlank: (parser : Parser, container : Node) => {
+    };
+    finalize= () => { return; };
+    canContain= (t:string) => { return (t !== 'item'); };
+    acceptsLines: false;
+    ignoreLastLineBlank= (parser : Parser, container : Node) => {
         return (
             container.firstChild == null &&
             container.sourcepos != null &&
             container.sourcepos[0][0] === parser.lineNumber
         );
     }
-};
+}
+
+export const itemParser = new ItemParser();

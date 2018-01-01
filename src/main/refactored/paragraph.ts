@@ -5,11 +5,11 @@ import {peek, isBlank} from "./util";
 
 var C_OPEN_BRACKET = 91;
 
-export const paragraphParser : BlockParser = {
-    continue: function(parser : Parser) {
+export class ParagraphParser extends BlockParser {
+    continue= (parser : Parser) =>{
         return (parser.blank ? false : true);
-    },
-    finalize: function(parser : Parser, block : Node) {
+    };
+    finalize= (parser : Parser, block : Node) =>{
         var pos;
         var hasReferenceDefs = false;
 
@@ -27,11 +27,13 @@ export const paragraphParser : BlockParser = {
         if (hasReferenceDefs && isBlank(block.string_content)) {
             block.unlink();
         }
-    },
-    canContain: function() { return false; },
-    acceptsLines: true,
-    parseInlines : true,
-    acceptLazyContinuation : true,
-    isLeaf : true,
-    isParagraph : true,
-};
+    };
+    canContain= () =>{ return false; };
+    acceptsLines= true;
+    parseInlines = true;
+    acceptLazyContinuation = true;
+    isLeaf = true;
+    isParagraph = true;
+}
+
+export const paragraphParser = new ParagraphParser();

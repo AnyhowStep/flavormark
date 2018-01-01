@@ -1,3 +1,4 @@
+import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek, isSpaceOrTab, CODE_INDENT} from "./util";
@@ -7,8 +8,8 @@ var reCodeFence = /^`{3,}(?!.*`)|^~{3,}(?!.*~)/;
 
 var reClosingCodeFence = /^(?:`{3,}|~{3,})(?= *$)/;
 
-export const fencedCodeBlockParser = {
-    tryStart: function(parser : Parser) {
+export class FencedCodeBlockParser extends BlockParser {
+    tryStart= (parser : Parser) => {
         var match;
         if (!parser.indented &&
             (match = parser.currentLine.slice(parser.nextNonspace).match(reCodeFence))) {
@@ -25,8 +26,8 @@ export const fencedCodeBlockParser = {
         } else {
             return false;
         }
-    },
-    continue: function(parser : Parser, container : Node) {
+    };
+    continue= (parser : Parser, container : Node)=>  {
         var ln = parser.currentLine;
         var indent = parser.indent;
         if (container.isFenced) { // fenced
@@ -58,8 +59,8 @@ export const fencedCodeBlockParser = {
             }
         }
         return true;
-    },
-    finalize: function(_parser : Parser, block : Node) {
+    };
+    finalize= (_parser : Parser, block : Node)=>  {
         if (block.isFenced) { // fenced
             // first line becomes info string
             var content = block.string_content;
@@ -78,10 +79,12 @@ export const fencedCodeBlockParser = {
             block.literal = block.string_content.replace(/(\n *)+$/, '\n');
         }
         block.string_content = null; // allow GC
-    },
-    canContain: function() { return false; },
-    acceptsLines: true,
-    earlyExitOnEnd : true,
-    ignoreLastLineBlank : (_parser : Parser, _container : Node) => { return true; },
-    isLeaf : true,
+    };
+    canContain= () => { return false; };
+    acceptsLines = true;
+    earlyExitOnEnd = true;
+    ignoreLastLineBlank = (_parser : Parser, _container : Node) => { return true; };
+    isLeaf = true;
 }
+
+export const fencedCodeBlockParser = new FencedCodeBlockParser();

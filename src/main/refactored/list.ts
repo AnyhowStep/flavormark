@@ -3,9 +3,9 @@ import {Parser} from "../blocks";
 import {Node} from "../node";
 import {endsWithBlankLine} from "./util";
 
-export const listParser : BlockParser = {
-    continue: function() { return true; },
-    finalize: function(_parser : Parser, block : Node) {
+export class ListParser extends BlockParser {
+    continue= () =>{ return true; };
+    finalize= (_parser : Parser, block : Node) =>{
         var item = block.firstChild;
         while (item) {
             // check for non-final list item ending with blank line:
@@ -26,7 +26,9 @@ export const listParser : BlockParser = {
             }
             item = item.next;
         }
-    },
-    canContain: function(t:string) { return (t === 'item'); },
-    acceptsLines: false
-};
+    };
+    canContain= (t:string)=> { return (t === 'item'); };
+    acceptsLines= false;
+}
+
+export const listParser = new ListParser();

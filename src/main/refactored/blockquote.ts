@@ -1,12 +1,12 @@
-//import {BlockParser} from "./BlockParser";
+import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek, isSpaceOrTab} from "./util";
 
 var C_GREATERTHAN = 62;
 
-export const blockquoteParser = {
-    tryStart: function(parser : Parser) {
+export class BlockquoteParser extends BlockParser {
+    tryStart= (parser : Parser) => {
         if (!parser.indented &&
             peek(parser.currentLine, parser.nextNonspace) === C_GREATERTHAN) {
             parser.advanceNextNonspace();
@@ -21,8 +21,8 @@ export const blockquoteParser = {
         } else {
             return false;
         }
-    },
-    continue: function(parser : Parser) {
+    };
+    continue= (parser : Parser) =>{
         var ln = parser.currentLine;
         if (!parser.indented &&
             peek(ln, parser.nextNonspace) === C_GREATERTHAN) {
@@ -35,9 +35,11 @@ export const blockquoteParser = {
             return false;
         }
         return true;
-    },
-    finalize: function() { return; },
-    canContain: function(t:string) { return (t !== 'item'); },
-    acceptsLines: false,
-    ignoreLastLineBlank : (_parser : Parser, _container : Node) => { return true; },
-};
+    };
+    finalize= ()=> { return; };
+    canContain= (t:string) =>{ return (t !== 'item'); };
+    acceptsLines = false;
+    ignoreLastLineBlank = (_parser : Parser, _container : Node) => { return true; };
+}
+
+export const blockquoteParser = new BlockquoteParser();

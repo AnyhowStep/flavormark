@@ -1,3 +1,4 @@
+import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek, isSpaceOrTab, CODE_INDENT} from "./util";
@@ -5,8 +6,8 @@ import {unescapeString} from "../common";
 
 var reClosingCodeFence = /^(?:`{3,}|~{3,})(?= *$)/;
 
-export const indentedCodeBlockParser = {
-    tryStart: function(parser : Parser) {
+export class IndentedCodeBlockParser extends BlockParser {
+    tryStart= (parser : Parser) => {
         if (parser.indented &&
             parser.tip != null &&
             parser.tip.type !== 'paragraph' &&
@@ -19,8 +20,8 @@ export const indentedCodeBlockParser = {
         } else {
             return false;
         }
-    },
-    continue: function(parser : Parser, container : Node) {
+    };
+    continue= (parser : Parser, container : Node) => {
         var ln = parser.currentLine;
         var indent = parser.indent;
         if (container.isFenced) { // fenced
@@ -52,8 +53,8 @@ export const indentedCodeBlockParser = {
             }
         }
         return true;
-    },
-    finalize: function(_parser : Parser, block : Node) {
+    };
+    finalize= (_parser : Parser, block : Node) => {
         if (block.isFenced) { // fenced
             // first line becomes info string
             var content = block.string_content;
@@ -72,8 +73,10 @@ export const indentedCodeBlockParser = {
             block.literal = block.string_content.replace(/(\n *)+$/, '\n');
         }
         block.string_content = null; // allow GC
-    },
-    canContain: function() { return false; },
-    acceptsLines: true,
-    isLeaf : true,
+    };
+    canContain= () => { return false; };
+    acceptsLines= true;
+    isLeaf = true;
 }
+
+export const indentedCodeBlockParser = new IndentedCodeBlockParser();

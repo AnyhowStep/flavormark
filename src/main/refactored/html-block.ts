@@ -1,3 +1,4 @@
+import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek} from "./util";
@@ -26,9 +27,8 @@ var reHtmlBlockOpen = [
     new RegExp('^(?:' + OPENTAG + '|' + CLOSETAG + ')\\s*$', 'i')
 ];
 
-
-export const htmlBlockParser = {
-    tryStart: function(parser : Parser, container : Node) {
+export class HtmlBlockParser extends BlockParser {
+    tryStart= (parser : Parser, container : Node) => {
         if (!parser.indented &&
             peek(parser.currentLine, parser.nextNonspace) === C_LESSTHAN) {
             var s = parser.currentLine.slice(parser.nextNonspace);
@@ -51,8 +51,8 @@ export const htmlBlockParser = {
 
         return false;
 
-    },
-    continue: function(parser : Parser, container : Node) {
+    };
+    continue= (parser : Parser, container : Node) => {
         return (
             (
                 parser.blank &&
@@ -62,23 +62,25 @@ export const htmlBlockParser = {
                 )
             ) ? false : true
         );
-    },
-    finalize: function(_parser : Parser, block : Node) {
+    };
+    finalize= (_parser : Parser, block : Node) => {
         if (block.string_content == null) {
             throw new Error("block.string_content cannot be null")
         }
         block.literal = block.string_content.replace(/(\n *)+$/, '');
         block.string_content = null; // allow GC
-    },
-    canContain: function() { return false; },
-    acceptsLines: true,
-    finalizeAtLine:(parser : Parser, container : Node) => {
+    };
+    canContain= () => { return false; };
+    acceptsLines= true;
+    finalizeAtLine=(parser : Parser, container : Node) => {
         return (
             container.htmlBlockType != null &&
             container.htmlBlockType >= 1 &&
             container.htmlBlockType <= 5 &&
             reHtmlBlockClose[container.htmlBlockType].test(parser.currentLine.slice(parser.offset))
         );
-    },
-    isLeaf : true,
-};
+    };
+    isLeaf = true;
+}
+
+export const htmlBlockParser = new HtmlBlockParser();

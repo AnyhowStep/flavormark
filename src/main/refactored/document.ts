@@ -1,7 +1,9 @@
 import {BlockParser} from "./BlockParser";
-export const documentParser : BlockParser = {
-    continue: function() { return true; },
-    finalize: function() { return; },
-    canContain: function(t:string) { return (t !== 'item'); },
-    acceptsLines: false
-};
+
+export class DocumentParser extends BlockParser {
+    continue= () => { return true; };
+    finalize= () => { return; };
+    canContain= (t:string) => { return (t !== 'item'); };
+    acceptsLines = false;
+}
+export const documentParser = new DocumentParser();

@@ -1,10 +1,11 @@
+import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 
 var reSetextHeadingLine = /^(?:=+|-+)[ \t]*$/;
 
-export const setextHeadingParser = {
-    tryStart: function(parser : Parser, container : Node) {
+export class SetextHeadingParser extends BlockParser {
+    tryStart= (parser : Parser, container : Node) => {
         var match;
         if (!parser.indented &&
             container.type === 'paragraph' &&
@@ -21,14 +22,16 @@ export const setextHeadingParser = {
         } else {
             return false;
         }
-    },
-    continue: function() {
+    };
+    continue= () => {
         // a heading can never container > 1 line, so fail to match:
         return false;
-    },
-    finalize: function() { return; },
-    canContain: function() { return false; },
-    acceptsLines: false,
-    parseInlines : true,
-    isLeaf : true,
+    };
+    finalize= () => { return; };
+    canContain= () => { return false; };
+    acceptsLines= false;
+    parseInlines = true;
+    isLeaf = true;
 }
+
+export const setextHeadingParser = new SetextHeadingParser();
