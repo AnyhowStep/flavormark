@@ -1,11 +1,11 @@
 import {Parser} from "../blocks";
-
+import {Node} from "../node";
+import {BlockParser} from "./BlockParser";
 
 var reATXHeadingMarker = /^#{1,6}(?:[ \t]+|$)/;
 
-
-export const atxHeadingParser = {
-    tryStart: function(parser : Parser) {
+class AtxHeadingParser extends BlockParser<Node> {
+    tryStart=(parser : Parser) => {
         var match;
         if (!parser.indented &&
             (match = parser.currentLine.slice(parser.nextNonspace).match(reATXHeadingMarker))) {
@@ -22,14 +22,16 @@ export const atxHeadingParser = {
         } else {
             return false;
         }
-    },
-    continue: function() {
+    };
+    continue=() => {
         // a heading can never container > 1 line, so fail to match:
         return false;
-    },
-    finalize: function() { return; },
-    canContain: function() { return false; },
-    acceptsLines: false,
-    parseInlines : true,
-    isLeaf : true,
+    };
+    finalize = ()=> { return; };
+    canContain= () =>{ return false; };
+    acceptsLines= false;
+    parseInlines = true;
+    isLeaf = true;
 }
+
+export const atxHeadingParser = new AtxHeadingParser();
