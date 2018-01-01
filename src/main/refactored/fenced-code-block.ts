@@ -16,7 +16,6 @@ export class FencedCodeBlockParser extends BlockParser {
             var fenceLength = match[0].length;
             parser.closeUnmatchedBlocks();
             var container = parser.addChild('fenced_code_block', parser.nextNonspace);
-            container.isFenced = true;
             container.fenceLength = fenceLength;
             container.fenceChar = match[0][0];
             container.fenceOffset = parser.indent;

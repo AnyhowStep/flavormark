@@ -95,7 +95,6 @@ export class Node {
     info : string|null = null;
     destination : string|null|undefined = null;
     title : string|null = null;
-    isFenced = false;
     fenceChar : string|null = null;
     fenceLength = 0;
     fenceOffset : number|null = null;
