@@ -273,7 +273,7 @@ export class Parser {
 
             this.findNextNonspace();
 
-            /*const continued = (this.blocks[container.type].continue(this, container) == 0);
+            const continued = (this.blocks[container.type].continue(this, container));
             if (!continued) {
                 if (this.blocks[container.type].earlyExitOnEnd) {
                     // we've hit end of line for fenced code close and can return
@@ -283,12 +283,13 @@ export class Parser {
                     // we've failed to match a block
                     all_matched = false;
                 }
-            }*/
+            }
+            /*
             let continueResult : 0|1|2 = this.blocks[container.type].continue(this, container);
-            /*if (continueResult == 1 && this.blocks[container.type].earlyExitOnEnd == true) {
+            if (continueResult == 1 && this.blocks[container.type].earlyExitOnEnd == true) {
                 console.log(container.type);
                 continueResult = 2;
-            }*/
+            }
             switch (continueResult) {
                 case 0: // we've matched, keep going
                     break;
@@ -300,7 +301,7 @@ export class Parser {
                     return;
                 default:
                     throw 'continue returned illegal value, must be 0, 1, or 2';
-            }
+            }*/
             if (!all_matched) {
                 container = container.parent; // back up to last matching block
                 break;

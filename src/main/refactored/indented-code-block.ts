@@ -30,7 +30,7 @@ export const indentedCodeBlockParser = {
             if (match && match[0].length >= container.fenceLength) {
                 // closing fence - we're at end of line, so we can return
                 parser.finalize(container, parser.lineNumber);
-                return 2;
+                return false;
             } else {
                 // skip optional spaces of fence offset
                 var i = container.fenceOffset;
@@ -48,10 +48,10 @@ export const indentedCodeBlockParser = {
             } else if (parser.blank) {
                 parser.advanceNextNonspace();
             } else {
-                return 1;
+                return false;
             }
         }
-        return 0;
+        return true;
     },
     finalize: function(_parser : Parser, block : Node) {
         if (block.isFenced) { // fenced

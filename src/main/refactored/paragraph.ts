@@ -7,7 +7,7 @@ var C_OPEN_BRACKET = 91;
 
 export const paragraphParser : BlockParser = {
     continue: function(parser : Parser) {
-        return (parser.blank ? 1 : 0);
+        return (parser.blank ? false : true);
     },
     finalize: function(parser : Parser, block : Node) {
         var pos;

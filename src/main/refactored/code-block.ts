@@ -1,4 +1,4 @@
-import {BlockParser} from "./BlockParser";
+/*import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek, isSpaceOrTab, CODE_INDENT} from "./util";
@@ -65,3 +65,4 @@ export const codeBlockParser : BlockParser = {
     canContain: function() { return false; },
     acceptsLines: true,
 };
+*/

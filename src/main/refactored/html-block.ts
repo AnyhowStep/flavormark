@@ -51,7 +51,7 @@ export const htmlBlockParser = {
                     container.htmlBlockType === 6 ||
                     container.htmlBlockType === 7
                 )
-            ) ? 1 : 0
+            ) ? false : true
         );
     },
     finalize: function(_parser : Parser, block : Node) {

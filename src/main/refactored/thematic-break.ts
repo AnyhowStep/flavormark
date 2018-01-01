@@ -14,9 +14,9 @@ export const thematicBreakParser = {
             return 0;
         }
     },
-    continue: function() : 0|1 {
+    continue: function() : boolean {
         // a thematic break can never container > 1 line, so fail to match:
-        return 1;
+        return false;
     },
     finalize: function() { return; },
     canContain: function() { return false; },

@@ -148,7 +148,7 @@ export const itemParser = {
         if (parser.blank) {
             if (container.firstChild == null) {
                 // Blank line after empty list item
-                return 1;
+                return false;
             } else {
                 parser.advanceNextNonspace();
             }
@@ -161,9 +161,9 @@ export const itemParser = {
             parser.advanceOffset(container.listData.markerOffset +
                 container.listData.padding, true);
         } else {
-            return 1;
+            return false;
         }
-        return 0;
+        return true;
     },
     finalize: function() { return; },
     canContain: function(t:string) { return (t !== 'item'); },

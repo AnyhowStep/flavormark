@@ -4,7 +4,7 @@ import {Node} from "../node";
 import {endsWithBlankLine} from "./util";
 
 export const listParser : BlockParser = {
-    continue: function() { return 0; },
+    continue: function() { return true; },
     finalize: function(_parser : Parser, block : Node) {
         var item = block.firstChild;
         while (item) {

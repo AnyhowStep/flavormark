@@ -32,9 +32,9 @@ export const blockquoteParser = {
                 parser.advanceOffset(1, true);
             }
         } else {
-            return 1;
+            return false;
         }
-        return 0;
+        return true;
     },
     finalize: function() { return; },
     canContain: function(t:string) { return (t !== 'item'); },
