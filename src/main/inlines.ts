@@ -10,7 +10,6 @@ import {BlockNode} from "./refactored/BlockNode";
 
 // Constants for character codes:
 
-var C_NEWLINE = 10;
 var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;
 var C_BACKTICK = 96;
@@ -46,8 +45,6 @@ var reLinkTitle = new RegExp(
 var reLinkDestinationBraces = new RegExp(
     '^(?:[<](?:[^ <>\\t\\n\\\\\\x00]' + '|' + ESCAPED_CHAR + '|' + '\\\\)*[>])');
 
-var reEscapable = new RegExp('^' + ESCAPABLE);
-
 var reEntityHere = new RegExp('^' + ENTITY, 'i');
 
 var reTicks = /`+/;
@@ -70,10 +67,6 @@ var reWhitespace = /[ \t\n\x0b\x0c\x0d]+/g;
 
 var reUnicodeWhitespaceChar = /^\s/;
 
-var reFinalSpace = / *$/;
-
-var reInitialSpace = /^ */;
-
 var reSpaceAtEndOfLine = /^ *(?:\n|$)/;
 
 var reLinkLabel = new RegExp('^\\[(?:[^\\\\\\[\\]]|' + ESCAPED_CHAR +
@@ -84,9 +77,10 @@ var reMain = /^[^\n`\[\]\\!<&*_'"]+/m;
 
 import {InParser} from "./refactored-inline/InParser";
 import {NewlineParser} from "./refactored-inline/NewlineParser";
+import {BackslashParser} from "./refactored-inline/BackslashParser";
 const inParsers : InParser[] = [
     new NewlineParser(),
-
+    new BackslashParser(),
 ];
 
 function text(s : string) {
@@ -168,6 +162,10 @@ export class InlineParser {
         }
     };
 
+    text (s : string) {
+        return text(s);
+    }
+
     // Parse zero or more space characters, including at most one newline
     spnl() {
         this.match(reSpnl);
@@ -201,27 +199,6 @@ export class InlineParser {
         // If we got here, we didn't match a closing backtick sequence.
         this.pos = afterOpenTicks;
         block.appendChild(text(ticks));
-        return true;
-    };
-
-    // Parse a backslash-escaped special character, adding either the escaped
-    // character, a hard line break (if the backslash is followed by a newline),
-    // or a literal backslash to the block's children.  Assumes current character
-    // is a backslash.
-    parseBackslash(block : Node) {
-        var subj = this.subject;
-        var node;
-        this.pos += 1;
-        if (this.peek() === C_NEWLINE) {
-            this.pos += 1;
-            node = new Node('linebreak');
-            block.appendChild(node);
-        } else if (reEscapable.test(subj.charAt(this.pos))) {
-            block.appendChild(text(subj.charAt(this.pos)));
-            this.pos += 1;
-        } else {
-            block.appendChild(text('\\'));
-        }
         return true;
     };
 
@@ -903,26 +880,6 @@ export class InlineParser {
     };
 
 
-    // Parse a newline.  If it was preceded by two spaces, return a hard
-    // line break; otherwise a soft line break.
-    parseNewline (block : Node) {
-        this.pos += 1; // assume we're at a \n
-        // check previous node for trailing spaces
-        var lastc = block.lastChild;
-        if (lastc && lastc.type === "text" && lastc.literal == null) {
-            throw new Error("lastc.literal cannot be null");
-        }
-        if (lastc && lastc.type === 'text' && lastc.literal != null && lastc.literal[lastc.literal.length - 1] === ' ') {
-            var hardbreak = lastc.literal[lastc.literal.length - 2] === ' ';
-            lastc.literal = lastc.literal.replace(reFinalSpace, '');
-            block.appendChild(new Node(hardbreak ? 'linebreak' : 'softbreak'));
-        } else {
-            block.appendChild(new Node('softbreak'));
-        }
-        this.match(reInitialSpace); // gobble leading spaces in next line
-        return true;
-    };
-
     // Parse the next inline element in subject, advancing subject position.
     // On success, add the result to block's children and return true.
     // On failure, return false.
@@ -938,12 +895,6 @@ export class InlineParser {
             }
         }
         switch(c) {
-        case C_NEWLINE:
-            //res = this.parseNewline(block);
-            break;
-        case C_BACKSLASH:
-            res = this.parseBackslash(block);
-            break;
         case C_BACKTICK:
             res = this.parseBackticks(block);
             break;

@@ -9,6 +9,8 @@ var reFinalSpace = / *$/;
 var reInitialSpace = /^ */;
 
 export class NewlineParser extends InParser {
+    // Parse a newline.  If it was preceded by two spaces, return a hard
+    // line break; otherwise a soft line break.
     public parse (parser : InlineParser, block : BlockNode) : boolean {
         const c = parser.peek();
         if (c != C_NEWLINE) {
