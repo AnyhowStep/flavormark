@@ -44,12 +44,12 @@ export const htmlBlockParser = {
                     var b = parser.addChild('html_block',
                                             parser.offset);
                     b.htmlBlockType = blockType;
-                    return 2;
+                    return true;
                 }
             }
         }
 
-        return 0;
+        return false;
 
     },
     continue: function(parser : Parser, container : Node) {
@@ -79,5 +79,6 @@ export const htmlBlockParser = {
             container.htmlBlockType <= 5 &&
             reHtmlBlockClose[container.htmlBlockType].test(parser.currentLine.slice(parser.offset))
         );
-    }
+    },
+    isLeaf : true,
 };

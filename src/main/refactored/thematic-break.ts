@@ -9,9 +9,9 @@ export const thematicBreakParser = {
             parser.closeUnmatchedBlocks();
             parser.addChild('thematic_break', parser.nextNonspace);
             parser.advanceOffset(parser.currentLine.length - parser.offset, false);
-            return 2;
+            return true;
         } else {
-            return 0;
+            return false;
         }
     },
     continue: function() : boolean {
@@ -20,5 +20,6 @@ export const thematicBreakParser = {
     },
     finalize: function() { return; },
     canContain: function() { return false; },
-    acceptsLines: false
+    acceptsLines: false,
+    isLeaf : true,
 }

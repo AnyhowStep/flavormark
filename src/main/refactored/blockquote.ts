@@ -17,9 +17,9 @@ export const blockquoteParser = {
             }
             parser.closeUnmatchedBlocks();
             parser.addChild('block_quote', parser.nextNonspace);
-            return 1;
+            return true;
         } else {
-            return 0;
+            return false;
         }
     },
     continue: function(parser : Parser) {

@@ -54,30 +54,30 @@ var blocks : {
 // 0 = no match
 // 1 = matched container, keep going
 // 2 = matched leaf, no more block starts
-var blockStarts = [
+var blockStarts : BlockParser[] = [
     // block quote
-    blockquoteParser.tryStart,
+    blockquoteParser,
 
     // ATX heading
-    atxHeadingParser.tryStart,
+    atxHeadingParser,
 
     // Fenced code block
-    fencedCodeBlockParser.tryStart,
+    fencedCodeBlockParser,
 
     // HTML block
-    htmlBlockParser.tryStart,
+    htmlBlockParser,
 
     // Setext heading
-    setextHeadingParser.tryStart,
+    setextHeadingParser,
 
     // thematic break
-    thematicBreakParser.tryStart,
+    thematicBreakParser,
 
     // list item
-    itemParser.tryStart,
+    itemParser,
 
     // indented code block
-    indentedCodeBlockParser.tryStart
+    indentedCodeBlockParser
 
 ];
 
@@ -328,14 +328,21 @@ export class Parser {
                 if (container == null) {
                     throw new Error("container cannot be null")
                 }
-                var res = starts[i](this, container);
-                if (res === 1) {
-                    container = this.tip;
-                    break;
-                } else if (res === 2) {
-                    container = this.tip;
-                    matchedLeaf = true;
-                    break;
+                const blockParser = starts[i];
+                if (blockParser.tryStart == null) {
+                    continue;
+                }
+                var res = blockParser.tryStart(this, container);
+
+                if (res) {
+                    if (blockParser.isLeaf) {
+                        container = this.tip;
+                        matchedLeaf = true;
+                        break;
+                    } else {
+                        container = this.tip;
+                        break;
+                    }
                 } else {
                     i++;
                 }

@@ -139,9 +139,9 @@ export const itemParser = {
             // add the list item
             container = parser.addChild('item', parser.nextNonspace);
             container.listData = data;
-            return 1;
+            return true;
         } else {
-            return 0;
+            return false;
         }
     },
     continue: function(parser : Parser, container : Node) {

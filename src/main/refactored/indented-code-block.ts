@@ -15,9 +15,9 @@ export const indentedCodeBlockParser = {
             parser.advanceOffset(CODE_INDENT, true);
             parser.closeUnmatchedBlocks();
             parser.addChild('indented_code_block', parser.offset);
-            return 2;
+            return true;
         } else {
-            return 0;
+            return false;
         }
     },
     continue: function(parser : Parser, container : Node) {
@@ -75,4 +75,5 @@ export const indentedCodeBlockParser = {
     },
     canContain: function() { return false; },
     acceptsLines: true,
+    isLeaf : true,
 }

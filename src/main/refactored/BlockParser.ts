@@ -2,7 +2,7 @@ import {Parser} from "../blocks";
 import {Node} from "../node";
 
 export interface BlockParser {
-    tryStart?: (parser : Parser, container : Node) => 0|1|2,
+    tryStart?: (parser : Parser, container : Node) => boolean,
     continue: (parser : Parser, block : Node) => boolean,
     finalize: (parser : Parser, block : Node) => void,
     canContain: (t:string) => boolean,
@@ -12,4 +12,5 @@ export interface BlockParser {
     parseInlines? : boolean,
     finalizeAtLine? : (parser : Parser, container : Node) => boolean,
     acceptLazyContinuation? : boolean, //This has no effect unless acceptsLines is true
+    isLeaf? : boolean,
 };

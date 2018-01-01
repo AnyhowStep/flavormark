@@ -17,9 +17,9 @@ export const setextHeadingParser = {
             container.unlink();
             parser.tip = heading;
             parser.advanceOffset(parser.currentLine.length - parser.offset, false);
-            return 2;
+            return true;
         } else {
-            return 0;
+            return false;
         }
     },
     continue: function() {
@@ -30,4 +30,5 @@ export const setextHeadingParser = {
     canContain: function() { return false; },
     acceptsLines: false,
     parseInlines : true,
+    isLeaf : true,
 }

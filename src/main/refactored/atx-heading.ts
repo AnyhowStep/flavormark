@@ -18,9 +18,9 @@ export const atxHeadingParser = {
             container.string_content =
                 parser.currentLine.slice(parser.offset).replace(/^[ \t]*#+[ \t]*$/, '').replace(/[ \t]+#+[ \t]*$/, '');
             parser.advanceOffset(parser.currentLine.length - parser.offset);
-            return 2;
+            return true;
         } else {
-            return 0;
+            return false;
         }
     },
     continue: function() {
@@ -31,4 +31,5 @@ export const atxHeadingParser = {
     canContain: function() { return false; },
     acceptsLines: false,
     parseInlines : true,
+    isLeaf : true,
 }

@@ -21,9 +21,9 @@ export const fencedCodeBlockParser = {
             container.fenceOffset = parser.indent;
             parser.advanceNextNonspace();
             parser.advanceOffset(fenceLength, false);
-            return 2;
+            return true;
         } else {
-            return 0;
+            return false;
         }
     },
     continue: function(parser : Parser, container : Node) {
@@ -83,4 +83,5 @@ export const fencedCodeBlockParser = {
     acceptsLines: true,
     earlyExitOnEnd : true,
     ignoreLastLineBlank : (_parser : Parser, _container : Node) => { return true; },
+    isLeaf : true,
 }
