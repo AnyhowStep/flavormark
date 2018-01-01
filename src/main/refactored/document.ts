@@ -6,4 +6,4 @@ export class DocumentParser extends BlockParser {
     canContain= (t:string) => { return (t !== 'item'); };
     acceptsLines = false;
 }
-export const documentParser = new DocumentParser();
+export const documentParser = new DocumentParser("document");

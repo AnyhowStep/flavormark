@@ -36,4 +36,4 @@ export class ParagraphParser extends BlockParser {
     isParagraph = true;
 }
 
-export const paragraphParser = new ParagraphParser();
+export const paragraphParser = new ParagraphParser("paragraph");

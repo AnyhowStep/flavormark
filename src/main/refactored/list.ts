@@ -31,4 +31,4 @@ export class ListParser extends BlockParser {
     acceptsLines= false;
 }
 
-export const listParser = new ListParser();
+export const listParser = new ListParser("list");

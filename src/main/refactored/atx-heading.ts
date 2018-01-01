@@ -1,10 +1,10 @@
 import {Parser} from "../blocks";
-import {Node} from "../node";
+//import {Node} from "../node";
 import {BlockParser} from "./BlockParser";
 
 var reATXHeadingMarker = /^#{1,6}(?:[ \t]+|$)/;
 
-class AtxHeadingParser extends BlockParser<Node> {
+class AtxHeadingParser extends BlockParser {
     tryStart=(parser : Parser) => {
         var match;
         if (!parser.indented &&
@@ -34,4 +34,4 @@ class AtxHeadingParser extends BlockParser<Node> {
     isLeaf = true;
 }
 
-export const atxHeadingParser = new AtxHeadingParser();
+export const atxHeadingParser = new AtxHeadingParser("atx_heading");

@@ -46,7 +46,7 @@ export class NodeWalker {
     };
 }
 
-export type NodeType = (
+export type NodeType = string;/*(
     "document"|
     "block_quote"|
     "list"|
@@ -69,7 +69,7 @@ export type NodeType = (
     "fenced_code_block"|
     "thematic_break"|
     "html_block"
-);
+);*/
 
 export class Node {
     type : NodeType;

@@ -42,4 +42,4 @@ export class BlockquoteParser extends BlockParser {
     ignoreLastLineBlank = (_parser : Parser, _container : Node) => { return true; };
 }
 
-export const blockquoteParser = new BlockquoteParser();
+export const blockquoteParser = new BlockquoteParser("block_quote");

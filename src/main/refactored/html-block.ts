@@ -83,4 +83,4 @@ export class HtmlBlockParser extends BlockParser {
     isLeaf = true;
 }
 
-export const htmlBlockParser = new HtmlBlockParser();
+export const htmlBlockParser = new HtmlBlockParser("html_block");

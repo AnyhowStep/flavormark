@@ -25,4 +25,4 @@ export class ThematicBreakParser extends BlockParser {
     isLeaf = true;
 }
 
-export const thematicBreakParser = new ThematicBreakParser();
+export const thematicBreakParser = new ThematicBreakParser("thematic_break");

@@ -34,4 +34,4 @@ export class SetextHeadingParser extends BlockParser {
     isLeaf = true;
 }
 
-export const setextHeadingParser = new SetextHeadingParser();
+export const setextHeadingParser = new SetextHeadingParser("setext_heading");

@@ -177,4 +177,4 @@ export class ItemParser extends BlockParser {
     }
 }
 
-export const itemParser = new ItemParser();
+export const itemParser = new ItemParser("item");
