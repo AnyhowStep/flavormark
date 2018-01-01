@@ -1,5 +1,5 @@
 import {Node} from "../node";
-
+import {BlockParserCollection} from "./BlockParserCollection";
 
 var reNonSpace = /[^ \t\f\v\r\n]/;
 
@@ -25,13 +25,13 @@ export var peek = function(ln : string|null, pos : number) {
 
 // Returns true if block ends with a blank line, descending if needed
 // into lists and sublists.
-export var endsWithBlankLine = function(block : Node|null) {
+export var endsWithBlankLine = function(blockParsers : BlockParserCollection, block : Node|null) {
     while (block) {
         if (block.lastLineBlank) {
             return true;
         }
-        var t = block.type;
-        if (t === 'list' || t === 'item') {
+        const p = blockParsers.get(block);
+        if (p.isList || p.isListItem) {
             block = block.lastChild;
         } else {
             break;

@@ -6,11 +6,11 @@ import {BlockNode} from "./BlockNode";
 
 export class ListParser extends BlockParser {
     continue= () =>{ return true; };
-    finalize= (_parser : Parser, block : Node) =>{
+    finalize= (parser : Parser, block : Node) =>{
         var item = block.firstChild;
         while (item) {
             // check for non-final list item ending with blank line:
-            if (endsWithBlankLine(item) && item.next) {
+            if (endsWithBlankLine(parser.getBlockParsers(), item) && item.next) {
                 block.listData.tight = false;
                 break;
             }
@@ -18,7 +18,7 @@ export class ListParser extends BlockParser {
             // spaces between any of them:
             var subitem = item.firstChild;
             while (subitem) {
-                if (endsWithBlankLine(subitem) &&
+                if (endsWithBlankLine(parser.getBlockParsers(), subitem) &&
                     (item.next || subitem.next)) {
                     block.listData.tight = false;
                     break;

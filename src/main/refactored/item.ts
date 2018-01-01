@@ -131,7 +131,7 @@ export class ItemParser extends BlockParser {
     tryStart= (parser : Parser, container : Node) => {
         var data;
 
-        if ((!parser.indented || container.type === 'list')
+        if ((!parser.indented || parser.getBlockParser(container).isList)
                 && (data = parseListMarker(parser, container))) {
             parser.closeUnmatchedBlocks();
 
@@ -140,7 +140,7 @@ export class ItemParser extends BlockParser {
             }
 
             // add the list if needed
-            if (parser.tip.type !== 'list' ||
+            if (!parser.getBlockParser(parser.tip).isList ||
                 !(listsMatch(container.listData, data))) {
                 container = parser.addChild(this.listParser, parser.nextNonspace);
                 container.listData = data;

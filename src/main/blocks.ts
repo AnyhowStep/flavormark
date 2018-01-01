@@ -418,4 +418,10 @@ export class Parser {
     public isParagraphNode (node : BlockNode) {
         return blockParserCollection.isParagraphNode(node);
     }
+    public getBlockParser (key : string|BlockNode) {
+        return blockParserCollection.get(key);
+    }
+    public getBlockParsers () {
+        return blockParserCollection;
+    }
 }

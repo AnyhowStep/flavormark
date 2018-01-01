@@ -1,7 +1,7 @@
 import {BlockParser} from "./BlockParser";
 import {BlockNode} from "./BlockNode";
 
-export class BlockParserCollection<DocumentT extends BlockNode, ParagraphT extends BlockNode> {
+export class BlockParserCollection<DocumentT extends BlockNode=BlockNode, ParagraphT extends BlockNode=BlockNode> {
     private documentParser : BlockParser<DocumentT>;
     private paragraphParser : BlockParser<ParagraphT>;
 
