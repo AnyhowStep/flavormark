@@ -307,7 +307,9 @@ export class Parser {
         this.lastMatchedContainer = container;
 
         var matchedLeaf = container.type !== 'paragraph' &&
-                blocks[container.type].acceptsLines;
+                (//blocks[container.type].acceptsLines ||
+                    blocks[container.type].isLeaf
+                );
         var starts = this.blockStarts;
         var startsLen = starts.length;
         // Unless last matched container is a code block, try new container starts,

@@ -32,4 +32,5 @@ export const paragraphParser : BlockParser = {
     acceptsLines: true,
     parseInlines : true,
     acceptLazyContinuation : true,
+    isLeaf : true,
 };
