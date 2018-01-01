@@ -8,4 +8,5 @@ export interface BlockParser {
     canContain: (t:string) => boolean,
     acceptsLines: boolean,
     earlyExitOnEnd? : boolean,
+    ignoreLastLineBlank? : ((parser : Parser, container : Node) => boolean),
 };

@@ -82,4 +82,5 @@ export const fencedCodeBlockParser = {
     canContain: function() { return false; },
     acceptsLines: true,
     earlyExitOnEnd : true,
+    ignoreLastLineBlank : (_parser : Parser, _container : Node) => { return true; },
 }

@@ -1,6 +1,6 @@
 //import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
-//import {Node} from "../node";
+import {Node} from "../node";
 import {peek, isSpaceOrTab} from "./util";
 
 var C_GREATERTHAN = 62;
@@ -38,5 +38,6 @@ export const blockquoteParser = {
     },
     finalize: function() { return; },
     canContain: function(t:string) { return (t !== 'item'); },
-    acceptsLines: false
+    acceptsLines: false,
+    ignoreLastLineBlank : (_parser : Parser, _container : Node) => { return true; },
 };

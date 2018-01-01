@@ -167,5 +167,12 @@ export const itemParser = {
     },
     finalize: function() { return; },
     canContain: function(t:string) { return (t !== 'item'); },
-    acceptsLines: false
+    acceptsLines: false,
+    ignoreLastLineBlank: (parser : Parser, container : Node) => {
+        return (
+            container.firstChild == null &&
+            container.sourcepos != null &&
+            container.sourcepos[0][0] === parser.lineNumber
+        );
+    }
 };
