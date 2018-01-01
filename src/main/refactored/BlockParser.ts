@@ -11,4 +11,5 @@ export interface BlockParser {
     ignoreLastLineBlank? : ((parser : Parser, container : Node) => boolean),
     parseInlines? : boolean,
     finalizeAtLine? : (parser : Parser, container : Node) => boolean,
+    acceptLazyContinuation? : boolean, //This has no effect unless acceptsLines is true
 };

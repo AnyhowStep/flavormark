@@ -123,17 +123,17 @@ export class Parser {
     // Add a line to the block at the tip.  We assume the tip
     // can accept lines -- that check should be done before calling this.
     addLine() {
+        if (this.tip == null) {
+            throw new Error("this.tip cannot be null")
+        }
+        if (!blocks[this.tip.type].acceptsLines) {
+            throw new Error(`Cannot add line to ${this.tip.type}; it does not accept lines`)
+        }
         if (this.partiallyConsumedTab) {
           this.offset += 1; // skip over tab
           // add space characters:
           var charsToTab = 4 - (this.column % 4);
-          if (this.tip == null) {
-              throw new Error("this.tip cannot be null")
-          }
           this.tip.string_content += (' '.repeat(charsToTab));
-        }
-        if (this.tip == null) {
-            throw new Error("this.tip cannot be null");
         }
         this.tip.string_content += this.currentLine.slice(this.offset) + '\n';
     };
@@ -353,7 +353,7 @@ export class Parser {
        // First check for a lazy paragraph continuation:
         if (!this.allClosed && !this.blank &&
             this.tip != null &&
-            this.tip.type === 'paragraph') {
+            blocks[this.tip.type].acceptLazyContinuation) {
             // lazy paragraph continuation
             this.addLine();
 
