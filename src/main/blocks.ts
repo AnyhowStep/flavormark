@@ -4,15 +4,6 @@ var C_NEWLINE = 10;
 
 import {InlineParser, Options as InlineParserOptions}  from "./inlines";
 
-var reHtmlBlockClose = [
-   /./, // dummy for 0
-   /<\/(?:script|pre|style)>/i,
-   /-->/,
-   /\?>/,
-   />/,
-   /\]\]>/
-];
-
 var reMaybeSpecial = /^[#`~*+_=<>0-9-]/;
 
 var reLineEnding = /\r\n|\n|\r/;
@@ -397,12 +388,8 @@ export class Parser {
 
             if (this.blocks[t].acceptsLines) {
                 this.addLine();
-                // if HtmlBlock, check for end condition
-                if (t === 'html_block' &&
-                    container.htmlBlockType != null &&
-                    container.htmlBlockType >= 1 &&
-                    container.htmlBlockType <= 5 &&
-                    reHtmlBlockClose[container.htmlBlockType].test(this.currentLine.slice(this.offset))) {
+                const finalizeAtLine = blocks[container.type].finalizeAtLine;
+                if (finalizeAtLine != null && finalizeAtLine(this, container)) {
                     this.finalize(container, this.lineNumber);
                 }
 

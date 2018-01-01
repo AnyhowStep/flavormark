@@ -5,6 +5,15 @@ import {OPENTAG, CLOSETAG} from "../common";
 
 var C_LESSTHAN = 60;
 
+var reHtmlBlockClose = [
+   /./, // dummy for 0
+   /<\/(?:script|pre|style)>/i,
+   /-->/,
+   /\?>/,
+   />/,
+   /\]\]>/
+];
+
 
 var reHtmlBlockOpen = [
    /./, // dummy for 0
@@ -62,5 +71,13 @@ export const htmlBlockParser = {
         block.string_content = null; // allow GC
     },
     canContain: function() { return false; },
-    acceptsLines: true
+    acceptsLines: true,
+    finalizeAtLine:(parser : Parser, container : Node) => {
+        return (
+            container.htmlBlockType != null &&
+            container.htmlBlockType >= 1 &&
+            container.htmlBlockType <= 5 &&
+            reHtmlBlockClose[container.htmlBlockType].test(parser.currentLine.slice(parser.offset))
+        );
+    }
 };

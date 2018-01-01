@@ -10,4 +10,5 @@ export interface BlockParser {
     earlyExitOnEnd? : boolean,
     ignoreLastLineBlank? : ((parser : Parser, container : Node) => boolean),
     parseInlines? : boolean,
+    finalizeAtLine? : (parser : Parser, container : Node) => boolean,
 };
