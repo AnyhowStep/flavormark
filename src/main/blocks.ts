@@ -77,7 +77,10 @@ var blockStarts : BlockParser[] = [
     itemParser,
 
     // indented code block
-    indentedCodeBlockParser
+    indentedCodeBlockParser,
+
+    //Used for the isParagraph boolean
+    paragraphParser,
 
 ];
 
@@ -306,7 +309,7 @@ export class Parser {
         }
         this.lastMatchedContainer = container;
 
-        var matchedLeaf = container.type !== 'paragraph' &&
+        var matchedLeaf = !(blocks[container.type].acceptsLines && blocks[container.type].isParagraph) &&
                 (//blocks[container.type].acceptsLines ||
                     blocks[container.type].isLeaf
                 );
@@ -332,6 +335,7 @@ export class Parser {
                 }
                 const blockParser = starts[i];
                 if (blockParser.tryStart == null) {
+                    ++i;
                     continue;
                 }
                 var res = blockParser.tryStart(this, container);
@@ -404,9 +408,20 @@ export class Parser {
 
             } else if (this.offset < ln.length && !this.blank) {
                 // create paragraph container for line
-                container = this.addChild('paragraph', this.offset);
-                this.advanceNextNonspace();
-                this.addLine();
+                let createdParagraph = false;
+                for (let b of blockStarts) {
+                    if (b.acceptsLines && b.isParagraph) {
+                        container = this.addChild('paragraph', this.offset);
+                        this.advanceNextNonspace();
+                        this.addLine();
+
+                        createdParagraph = true;
+                        break;
+                    }
+                }
+                if (!createdParagraph) {
+                    throw new Error("At least one block parser must be a paragraph");
+                }
             }
         }
         this.lastLineLength = ln.length;

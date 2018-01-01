@@ -13,4 +13,5 @@ export interface BlockParser {
     finalizeAtLine? : (parser : Parser, container : Node) => boolean,
     acceptLazyContinuation? : boolean, //This has no effect unless acceptsLines is true
     isLeaf? : boolean,
+    isParagraph? : boolean, //Has no effect unless acceptsLines is true
 };
