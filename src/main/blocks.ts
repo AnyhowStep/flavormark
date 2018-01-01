@@ -239,7 +239,7 @@ export class Parser {
         }
         this.lastMatchedContainer = container;
 
-        var matchedLeaf = !(blockParserCollection.get(container).acceptsLines && blockParserCollection.get(container.type).isParagraph) &&
+        var matchedLeaf = !this.isParagraphNode(container) &&
                 (//blocks[container.type].acceptsLines ||
                     blockParserCollection.get(container).isLeaf
                 );
