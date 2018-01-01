@@ -29,5 +29,6 @@ export const atxHeadingParser = {
     },
     finalize: function() { return; },
     canContain: function() { return false; },
-    acceptsLines: false
+    acceptsLines: false,
+    parseInlines : true,
 }

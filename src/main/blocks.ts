@@ -447,7 +447,7 @@ export class Parser {
         while ((event = walker.next())) {
             node = event.node;
             t = node.type;
-            if (!event.entering && (t === 'paragraph' || t === 'atx_heading' || t === 'setext_heading')) {
+            if (!event.entering && blocks[t].parseInlines) {
                 this.inlineParser.parse(node);
             }
         }

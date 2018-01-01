@@ -29,5 +29,6 @@ export const paragraphParser : BlockParser = {
         }
     },
     canContain: function() { return false; },
-    acceptsLines: true
+    acceptsLines: true,
+    parseInlines : true,
 };
