@@ -2,17 +2,24 @@ import {Parser} from "../blocks";
 //import {Node} from "../node";
 import {BlockNode} from "./BlockNode";
 
+export type BlockNodeCtor<NodeT extends BlockNode> = {
+    new (nodeType : string, sourcepos : [[number, number], [number, number]]) : NodeT
+};
+
 export abstract class BlockParser<NodeT extends BlockNode=BlockNode> {
     private readonly nodeType : string;
-    public constructor (nodeType : string) {
+    private readonly nodeCtor : BlockNodeCtor<NodeT>;
+    public constructor (nodeType : string, nodeCtor : BlockNodeCtor<NodeT>) {
         this.nodeType = nodeType;
+        this.nodeCtor = nodeCtor;
     }
 
     public getNodeType () : string {
         return this.nodeType;
     }
-
-    //getNodeCtor: () => {new(nodeType : NodeType, sourcepos : [[number, number], [number, number]]):NodeT};
+    public getNodeCtor () : BlockNodeCtor<NodeT> {
+        return this.nodeCtor;
+    }
     tryStart?: (parser : Parser, container : NodeT) => boolean;
     continue: (parser : Parser, block : NodeT) => boolean;
     finalize: (parser : Parser, block : NodeT) => void;

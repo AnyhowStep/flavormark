@@ -2,6 +2,7 @@ import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek, isBlank} from "./util";
+import {BlockNode} from "./BlockNode";
 
 var C_OPEN_BRACKET = 91;
 
@@ -36,4 +37,4 @@ export class ParagraphParser extends BlockParser {
     isParagraph = true;
 }
 
-export const paragraphParser = new ParagraphParser("paragraph");
+export const paragraphParser = new ParagraphParser("paragraph", BlockNode);

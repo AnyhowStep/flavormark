@@ -1,5 +1,5 @@
 import {Parser} from "../blocks";
-//import {Node} from "../node";
+import {BlockNode} from "./BlockNode";
 import {BlockParser} from "./BlockParser";
 
 var reATXHeadingMarker = /^#{1,6}(?:[ \t]+|$)/;
@@ -12,7 +12,7 @@ class AtxHeadingParser extends BlockParser {
             parser.advanceNextNonspace();
             parser.advanceOffset(match[0].length, false);
             parser.closeUnmatchedBlocks();
-            var container = parser.addChild('atx_heading', parser.nextNonspace);
+            var container = parser.addChild(this, parser.nextNonspace);
             container.level = match[0].trim().length; // number of #s
             // remove trailing ###s:
             container.string_content =
@@ -34,4 +34,4 @@ class AtxHeadingParser extends BlockParser {
     isLeaf = true;
 }
 
-export const atxHeadingParser = new AtxHeadingParser("atx_heading");
+export const atxHeadingParser = new AtxHeadingParser("atx_heading", BlockNode);

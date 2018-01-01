@@ -20,6 +20,7 @@ import {setextHeadingParser} from "./refactored/setext-heading";
 import {fencedCodeBlockParser} from "./refactored/fenced-code-block";
 import {indentedCodeBlockParser} from "./refactored/indented-code-block";
 import {BlockParserCollection} from "./refactored/BlockParserCollection";
+import {BlockParser} from "./refactored/BlockParser";
 
 const blockParserCollection = new BlockParserCollection(
     documentParser,
@@ -36,19 +37,14 @@ const blockParserCollection = new BlockParserCollection(
 
     .add(listParser);
 
-export class Document extends BlockNode {
-    constructor () {
-        super("document", [[1, 1], [0, 0]]);
-    }
-}
-
-
 export interface Options extends InlineParserOptions {
     time? : boolean
 }
 
 export class Parser {
-    doc = new Document();
+    doc = blockParserCollection.instantiateDocument(
+        [[1, 1], [0, 0]]
+    );
     tip : BlockNode|null = this.doc;
     oldtip : BlockNode|null = this.doc;
     currentLine = "";
@@ -94,16 +90,19 @@ export class Parser {
     // Add block of type tag as a child of the tip.  If the tip can't
     // accept children, close and finalize it and try its parent,
     // and so on til we find a block that can accept children.
-    addChild(tag : string, offset : number) {
+    addChild(blockParser : BlockParser, offset : number) {
         if (this.tip == null) {
             throw new Error("this.tip cannot be null");
         }
+        const tag = blockParser.getNodeType();
         while (!blockParserCollection.get(this.tip).canContain(tag)) {
             this.finalize(this.tip, this.lineNumber - 1);
         }
 
+        const ctor = blockParser.getNodeCtor();
+
         var column_number = offset + 1; // offset 0 = column 1
-        var newBlock = new BlockNode(tag, [[this.lineNumber, column_number], [0, 0]]);
+        var newBlock = new ctor(tag, [[this.lineNumber, column_number], [0, 0]]);
         newBlock.string_content = '';
         this.tip.appendChild(newBlock);
         this.tip = newBlock;
@@ -228,24 +227,6 @@ export class Parser {
                     all_matched = false;
                 }
             }
-            /*
-            let continueResult : 0|1|2 = this.blocks[container.type].continue(this, container);
-            if (continueResult == 1 && this.blocks[container.type].earlyExitOnEnd == true) {
-                console.log(container.type);
-                continueResult = 2;
-            }
-            switch (continueResult) {
-                case 0: // we've matched, keep going
-                    break;
-                case 1: // we've failed to match a block
-                    all_matched = false;
-                    break;
-                case 2: // we've hit end of line for fenced code close and can return
-                    this.lastLineLength = ln.length;
-                    return;
-                default:
-                    throw 'continue returned illegal value, must be 0, 1, or 2';
-            }*/
             if (!all_matched) {
                 container = container.parent; // back up to last matching block
                 break;
@@ -356,7 +337,7 @@ export class Parser {
             } else if (this.offset < ln.length && !this.blank) {
                 // create paragraph container for line
                 //const b = blockParserCollection.getParagraphParser();
-                container = this.addChild('paragraph', this.offset);
+                container = this.addChild(blockParserCollection.getParagraphParser(), this.offset);
                 this.advanceNextNonspace();
                 this.addLine();
             }
@@ -401,7 +382,9 @@ export class Parser {
 
     // The main parsing function.  Returns a parsed document AST.
     parse(input : string) {
-        this.doc = new Document();
+        this.doc = blockParserCollection.instantiateDocument(
+            [[1, 1], [0, 0]]
+        );
         this.tip = this.doc;
         this.refmap = {};
         this.lineNumber = 0;
@@ -431,4 +414,8 @@ export class Parser {
         if (this.options.time) { console.timeEnd("inline parsing"); }
         return this.doc;
     };
+
+    public isParagraphNode (node : BlockNode) {
+        return blockParserCollection.isParagraphNode(node);
+    }
 }

@@ -1,18 +1,21 @@
 import {BlockParser} from "./BlockParser";
 import {BlockNode} from "./BlockNode";
 
-export class BlockParserCollection {
-    private documentParser : BlockParser;
-    private paragraphParser : BlockParser;
+export class BlockParserCollection<DocumentT extends BlockNode, ParagraphT extends BlockNode> {
+    private documentParser : BlockParser<DocumentT>;
+    private paragraphParser : BlockParser<ParagraphT>;
 
     private dict : {
         [name : string] : BlockParser|undefined
     } = {};
     private arr : BlockParser[] = [];
 
-    public constructor (documentParser : BlockParser, paragraphParser : BlockParser) {
+    public constructor (documentParser : BlockParser<DocumentT>, paragraphParser : BlockParser<ParagraphT>) {
         if (!paragraphParser.acceptsLines || !paragraphParser.isParagraph) {
             throw new Error(`Paragraph parser must accept lines and be a paragraph`);
+        }
+        if (documentParser.getNodeType() == paragraphParser.getNodeType()) {
+            throw new Error(`Document and paragraph parser cannot both have the same name ${documentParser.getNodeType()}`);
         }
         this.documentParser = documentParser;
         this.paragraphParser = paragraphParser;
@@ -54,5 +57,15 @@ export class BlockParserCollection {
     }
     public at (index : number) {
         return this.arr[index];
+    }
+    public isParagraphNode (node : BlockNode) : node is ParagraphT {
+        return (
+            this.getParagraphParser().getNodeType() == node.type &&
+            node instanceof this.getParagraphParser().getNodeCtor()
+        );
+    }
+    public instantiateDocument (sourcepos : [[number, number], [number, number]]) : DocumentT {
+        const ctor = this.getDocumentParser().getNodeCtor();
+        return new ctor(this.getDocumentParser().getNodeType(), sourcepos);
     }
 }

@@ -3,6 +3,7 @@ import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek, isSpaceOrTab} from "./util";
 import {unescapeString} from "../common";
+import {BlockNode} from "./BlockNode";
 
 var reCodeFence = /^`{3,}(?!.*`)|^~{3,}(?!.*~)/;
 
@@ -15,7 +16,7 @@ export class FencedCodeBlockParser extends BlockParser {
             (match = parser.currentLine.slice(parser.nextNonspace).match(reCodeFence))) {
             var fenceLength = match[0].length;
             parser.closeUnmatchedBlocks();
-            var container = parser.addChild('fenced_code_block', parser.nextNonspace);
+            var container = parser.addChild(this, parser.nextNonspace);
             container.fenceLength = fenceLength;
             container.fenceChar = match[0][0];
             container.fenceOffset = parser.indent;
@@ -69,4 +70,4 @@ export class FencedCodeBlockParser extends BlockParser {
     isLeaf = true;
 }
 
-export const fencedCodeBlockParser = new FencedCodeBlockParser("fenced_code_block");
+export const fencedCodeBlockParser = new FencedCodeBlockParser("fenced_code_block", BlockNode);

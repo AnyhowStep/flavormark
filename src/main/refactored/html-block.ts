@@ -3,6 +3,7 @@ import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek} from "./util";
 import {OPENTAG, CLOSETAG} from "../common";
+import {BlockNode} from "./BlockNode";
 
 var C_LESSTHAN = 60;
 
@@ -37,11 +38,11 @@ export class HtmlBlockParser extends BlockParser {
             for (blockType = 1; blockType <= 7; blockType++) {
                 if (reHtmlBlockOpen[blockType].test(s) &&
                     (blockType < 7 ||
-                     container.type !== 'paragraph')) {
+                        !parser.isParagraphNode(container))) {
                     parser.closeUnmatchedBlocks();
                     // We don't adjust parser.offset;
                     // spaces are part of the HTML block:
-                    var b = parser.addChild('html_block',
+                    var b = parser.addChild(this,
                                             parser.offset);
                     b.htmlBlockType = blockType;
                     return true;
@@ -83,4 +84,4 @@ export class HtmlBlockParser extends BlockParser {
     isLeaf = true;
 }
 
-export const htmlBlockParser = new HtmlBlockParser("html_block");
+export const htmlBlockParser = new HtmlBlockParser("html_block", BlockNode);

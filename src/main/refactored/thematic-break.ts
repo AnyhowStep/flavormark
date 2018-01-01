@@ -1,5 +1,6 @@
 import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
+import {BlockNode} from "./BlockNode";
 
 var reThematicBreak = /^(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:-[ \t]*){3,})[ \t]*$/;
 
@@ -8,7 +9,7 @@ export class ThematicBreakParser extends BlockParser {
         if (!parser.indented &&
             reThematicBreak.test(parser.currentLine.slice(parser.nextNonspace))) {
             parser.closeUnmatchedBlocks();
-            parser.addChild('thematic_break', parser.nextNonspace);
+            parser.addChild(this, parser.nextNonspace);
             parser.advanceOffset(parser.currentLine.length - parser.offset, false);
             return true;
         } else {
@@ -25,4 +26,4 @@ export class ThematicBreakParser extends BlockParser {
     isLeaf = true;
 }
 
-export const thematicBreakParser = new ThematicBreakParser("thematic_break");
+export const thematicBreakParser = new ThematicBreakParser("thematic_break", BlockNode);

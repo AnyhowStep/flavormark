@@ -2,6 +2,7 @@ import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 import {endsWithBlankLine} from "./util";
+import {BlockNode} from "./BlockNode";
 
 export class ListParser extends BlockParser {
     continue= () =>{ return true; };
@@ -31,4 +32,4 @@ export class ListParser extends BlockParser {
     acceptsLines= false;
 }
 
-export const listParser = new ListParser("list");
+export const listParser = new ListParser("list", BlockNode);

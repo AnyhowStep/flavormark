@@ -2,6 +2,8 @@ import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek, isSpaceOrTab, isBlank} from "./util";
+import {BlockNode} from "./BlockNode";
+import {BlockNodeCtor} from "./BlockParser";
 
 var reBulletListMarker = /^[*+-]/;
 
@@ -42,7 +44,7 @@ var parseListMarker = function(parser : Parser, container : Node) :
         data.bulletChar = match[0][0];
 
     } else if ((match = rest.match(reOrderedListMarker)) &&
-                (container.type !== 'paragraph' ||
+                (!parser.isParagraphNode(container) ||
                  match[1] === '1')) {
         data.type = 'ordered';
         data.start = parseInt(match[1]);
@@ -57,7 +59,7 @@ var parseListMarker = function(parser : Parser, container : Node) :
     }
 
     // if it interrupts paragraph, make sure first line isn't blank
-    if (container.type === 'paragraph' && isBlank(parser.currentLine.slice(parser.nextNonspace + match[0].length))) {
+    if (parser.isParagraphNode(container) && isBlank(parser.currentLine.slice(parser.nextNonspace + match[0].length))) {
         return null;
     }
 
@@ -117,7 +119,15 @@ var listsMatch = function(list_data : {
             list_data.bulletChar === item_data.bulletChar);
 };
 
+export type ItemNodeT = BlockNode;
+export type ListNodeT = BlockNode;
+
 export class ItemParser extends BlockParser {
+    private listParser : BlockParser<ListNodeT>;
+    public constructor (nodeType : string, nodeCtor : BlockNodeCtor<ItemNodeT>, listParser : BlockParser<ListNodeT>) {
+        super(nodeType, nodeCtor);
+        this.listParser = listParser;
+    }
     tryStart= (parser : Parser, container : Node) => {
         var data;
 
@@ -132,12 +142,12 @@ export class ItemParser extends BlockParser {
             // add the list if needed
             if (parser.tip.type !== 'list' ||
                 !(listsMatch(container.listData, data))) {
-                container = parser.addChild('list', parser.nextNonspace);
+                container = parser.addChild(this.listParser, parser.nextNonspace);
                 container.listData = data;
             }
 
             // add the list item
-            container = parser.addChild('item', parser.nextNonspace);
+            container = parser.addChild(this, parser.nextNonspace);
             container.listData = data;
             return true;
         } else {
@@ -177,4 +187,5 @@ export class ItemParser extends BlockParser {
     }
 }
 
-export const itemParser = new ItemParser("item");
+import {listParser} from "./list";
+export const itemParser = new ItemParser("item", BlockNode, listParser);

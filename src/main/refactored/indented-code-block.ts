@@ -2,17 +2,18 @@ import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 import {CODE_INDENT} from "./util";
+import {BlockNode} from "./BlockNode";
 
 export class IndentedCodeBlockParser extends BlockParser {
     tryStart= (parser : Parser) => {
         if (parser.indented &&
             parser.tip != null &&
-            parser.tip.type !== 'paragraph' &&
+            !parser.isParagraphNode(parser.tip) &&
             !parser.blank) {
             // indented code
             parser.advanceOffset(CODE_INDENT, true);
             parser.closeUnmatchedBlocks();
-            parser.addChild('indented_code_block', parser.offset);
+            parser.addChild(this, parser.offset);
             return true;
         } else {
             return false;
@@ -41,4 +42,4 @@ export class IndentedCodeBlockParser extends BlockParser {
     isLeaf = true;
 }
 
-export const indentedCodeBlockParser = new IndentedCodeBlockParser("indented_code_block");
+export const indentedCodeBlockParser = new IndentedCodeBlockParser("indented_code_block", BlockNode);

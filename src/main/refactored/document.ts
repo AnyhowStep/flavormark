@@ -1,4 +1,5 @@
 import {BlockParser} from "./BlockParser";
+import {BlockNode} from "./BlockNode";
 
 export class DocumentParser extends BlockParser {
     continue= () => { return true; };
@@ -6,4 +7,4 @@ export class DocumentParser extends BlockParser {
     canContain= (t:string) => { return (t !== 'item'); };
     acceptsLines = false;
 }
-export const documentParser = new DocumentParser("document");
+export const documentParser = new DocumentParser("document", BlockNode);
