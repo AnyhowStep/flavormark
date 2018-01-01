@@ -6,6 +6,7 @@ import {decodeHTML} from "entities";
 var normalizeURI = common.normalizeURI;
 var unescapeString = common.unescapeString;
 import {BlockParser} from "./refactored/BlockParser";
+import {BlockNode} from "./refactored/BlockNode";
 
 // Constants for character codes:
 
@@ -81,6 +82,12 @@ var reLinkLabel = new RegExp('^\\[(?:[^\\\\\\[\\]]|' + ESCAPED_CHAR +
 // Matches a string of non-special characters.
 var reMain = /^[^\n`\[\]\\!<&*_'"]+/m;
 
+import {InParser} from "./refactored-inline/InParser";
+import {NewlineParser} from "./refactored-inline/NewlineParser";
+const inParsers : InParser[] = [
+    new NewlineParser(),
+
+];
 
 function text(s : string) {
     var node = new Node('text');
@@ -919,15 +926,20 @@ export class InlineParser {
     // Parse the next inline element in subject, advancing subject position.
     // On success, add the result to block's children and return true.
     // On failure, return false.
-    parseInline (block : Node) {
+    parseInline (block : BlockNode) {
         var res : undefined|boolean = false;
         var c = this.peek();
         if (c === -1) {
             return false;
         }
+        for (let p of inParsers) {
+            if (p.parse(this, block)) {
+                return true;
+            }
+        }
         switch(c) {
         case C_NEWLINE:
-            res = this.parseNewline(block);
+            //res = this.parseNewline(block);
             break;
         case C_BACKSLASH:
             res = this.parseBackslash(block);
@@ -972,7 +984,7 @@ export class InlineParser {
 
     // Parse string content in block into inline children,
     // using refmap to resolve references.
-    parse (blockParser : BlockParser, block : Node) {
+    parse (blockParser : BlockParser, block : BlockNode) {
         this.subject = (blockParser.getString(block)).trim();
         this.pos = 0;
         this.delimiters = null;
