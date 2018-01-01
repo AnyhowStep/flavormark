@@ -95,7 +95,7 @@ export class Parser {
             throw new Error("this.tip cannot be null");
         }
         const tag = blockParser.getNodeType();
-        while (!blockParserCollection.get(this.tip).canContain(tag)) {
+        while (!blockParserCollection.get(this.tip).canContain(blockParser)) {
             this.finalize(this.tip, this.lineNumber - 1);
         }
 

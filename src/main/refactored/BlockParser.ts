@@ -23,7 +23,7 @@ export abstract class BlockParser<NodeT extends BlockNode=BlockNode> {
     tryStart?: (parser : Parser, container : NodeT) => boolean;
     continue: (parser : Parser, block : NodeT) => boolean;
     finalize: (parser : Parser, block : NodeT) => void;
-    canContain: (t:string) => boolean;
+    canContain: (blockParser : BlockParser) => boolean;
     acceptsLines: boolean;
     earlyExitOnEnd? : boolean;
     ignoreLastLineBlank? : ((parser : Parser, container : NodeT) => boolean);
@@ -32,4 +32,6 @@ export abstract class BlockParser<NodeT extends BlockNode=BlockNode> {
     acceptLazyContinuation? : boolean; //This has no effect unless acceptsLines is true
     isLeaf? : boolean;
     isParagraph? : boolean; //Has no effect unless acceptsLines is true
+    isList? : boolean;
+    isListItem? : boolean;
 };

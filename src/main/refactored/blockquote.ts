@@ -38,7 +38,7 @@ export class BlockquoteParser extends BlockParser {
         return true;
     };
     finalize= ()=> { return; };
-    canContain= (t:string) =>{ return (t !== 'item'); };
+    canContain= (blockParser : BlockParser) =>{ return blockParser.isListItem != true; };
     acceptsLines = false;
     ignoreLastLineBlank = (_parser : Parser, _container : Node) => { return true; };
 }

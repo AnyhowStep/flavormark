@@ -176,7 +176,7 @@ export class ItemParser extends BlockParser {
         return true;
     };
     finalize= () => { return; };
-    canContain= (t:string) => { return (t !== 'item'); };
+    canContain= (blockParser : BlockParser) =>{ return blockParser.isListItem != true; };
     acceptsLines: false;
     ignoreLastLineBlank= (parser : Parser, container : Node) => {
         return (
@@ -184,7 +184,8 @@ export class ItemParser extends BlockParser {
             container.sourcepos != null &&
             container.sourcepos[0][0] === parser.lineNumber
         );
-    }
+    };
+    isListItem = true;
 }
 
 import {listParser} from "./list";

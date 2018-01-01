@@ -28,8 +28,10 @@ export class ListParser extends BlockParser {
             item = item.next;
         }
     };
-    canContain= (t:string)=> { return (t === 'item'); };
+
+    canContain= (blockParser : BlockParser) =>{ return blockParser.isListItem == true; };
     acceptsLines= false;
+    isList = true;
 }
 
 export const listParser = new ListParser("list", BlockNode);
