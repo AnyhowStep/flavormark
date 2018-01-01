@@ -26,9 +26,24 @@ import {atxHeadingParser} from "./refactored/atx-heading";
 import {setextHeadingParser} from "./refactored/setext-heading";
 import {fencedCodeBlockParser} from "./refactored/fenced-code-block";
 import {indentedCodeBlockParser} from "./refactored/indented-code-block";
-import {BlockParser} from "./refactored/BlockParser";
+//import {BlockParser} from "./refactored/BlockParser";
+import {BlockParserCollection} from "./refactored/BlockParserCollection";
 
+const blockParserCollection = new BlockParserCollection(
+    documentParser,
+    paragraphParser
+)
+    .add(blockquoteParser)
+    .add(atxHeadingParser)
+    .add(fencedCodeBlockParser)
+    .add(htmlBlockParser)
+    .add(setextHeadingParser)
+    .add(thematicBreakParser)
+    .add(itemParser)
+    .add(indentedCodeBlockParser)
 
+    .add(listParser);
+/*
 // 'finalize' is run when the block is closed.
 // 'continue' is run to check whether the block is continuing
 // at a certain line and offset (e.g. whether a block quote
@@ -83,7 +98,7 @@ var blockStarts : BlockParser[] = [
     paragraphParser,
 
 ];
-
+*/
 export class Document extends BlockNode {
     constructor () {
         super("document", [[1, 1], [0, 0]]);
@@ -97,8 +112,6 @@ export interface Options extends InlineParserOptions {
 
 export class Parser {
     doc = new Document();
-    blocks = blocks;
-    blockStarts = blockStarts;
     tip : BlockNode|null = this.doc;
     oldtip : BlockNode|null = this.doc;
     currentLine = "";
@@ -129,7 +142,7 @@ export class Parser {
         if (this.tip == null) {
             throw new Error("this.tip cannot be null")
         }
-        if (!blocks[this.tip.type].acceptsLines) {
+        if (!blockParserCollection.get(this.tip.type).acceptsLines) {
             throw new Error(`Cannot add line to ${this.tip.type}; it does not accept lines`)
         }
         if (this.partiallyConsumedTab) {
@@ -148,7 +161,7 @@ export class Parser {
         if (this.tip == null) {
             throw new Error("this.tip cannot be null");
         }
-        while (!this.blocks[this.tip.type].canContain(tag)) {
+        while (!blockParserCollection.get(this.tip.type).canContain(tag)) {
             this.finalize(this.tip, this.lineNumber - 1);
         }
 
@@ -268,9 +281,9 @@ export class Parser {
 
             this.findNextNonspace();
 
-            const continued = (this.blocks[container.type].continue(this, container));
+            const continued = (blockParserCollection.get(container.type).continue(this, container));
             if (!continued) {
-                if (this.blocks[container.type].earlyExitOnEnd) {
+                if (blockParserCollection.get(container.type).earlyExitOnEnd) {
                     // we've hit end of line for fenced code close and can return
                     this.lastLineLength = ln.length;
                     return;
@@ -309,12 +322,11 @@ export class Parser {
         }
         this.lastMatchedContainer = container;
 
-        var matchedLeaf = !(blocks[container.type].acceptsLines && blocks[container.type].isParagraph) &&
+        var matchedLeaf = !(blockParserCollection.get(container.type).acceptsLines && blockParserCollection.get(container.type).isParagraph) &&
                 (//blocks[container.type].acceptsLines ||
-                    blocks[container.type].isLeaf
+                    blockParserCollection.get(container.type).isLeaf
                 );
-        var starts = this.blockStarts;
-        var startsLen = starts.length;
+        var startsLen = blockParserCollection.length();
         // Unless last matched container is a code block, try new container starts,
         // adding children to the last matched container:
         while (!matchedLeaf) {
@@ -333,7 +345,7 @@ export class Parser {
                 if (container == null) {
                     throw new Error("container cannot be null")
                 }
-                const blockParser = starts[i];
+                const blockParser = blockParserCollection.at(i);
                 if (blockParser.tryStart == null) {
                     ++i;
                     continue;
@@ -366,7 +378,7 @@ export class Parser {
        // First check for a lazy paragraph continuation:
         if (!this.allClosed && !this.blank &&
             this.tip != null &&
-            blocks[this.tip.type].acceptLazyContinuation) {
+            blockParserCollection.get(this.tip.type).acceptLazyContinuation) {
             // lazy paragraph continuation
             this.addLine();
 
@@ -381,7 +393,7 @@ export class Parser {
             }
 
             t = container.type;
-            const ignoreLastLineBlankPredicate = blocks[container.type].ignoreLastLineBlank;
+            const ignoreLastLineBlankPredicate = blockParserCollection.get(container.type).ignoreLastLineBlank;
             // Block quote lines are never blank as they start with >
             // and we don't count blanks in fenced code for purposes of tight/loose
             // lists or breaking out of lists.  We also don't set _lastLineBlank
@@ -399,29 +411,19 @@ export class Parser {
                 cont = cont.parent;
             }
 
-            if (this.blocks[t].acceptsLines) {
+            if (blockParserCollection.get(t).acceptsLines) {
                 this.addLine();
-                const finalizeAtLine = blocks[container.type].finalizeAtLine;
+                const finalizeAtLine = blockParserCollection.get(container.type).finalizeAtLine;
                 if (finalizeAtLine != null && finalizeAtLine(this, container)) {
                     this.finalize(container, this.lineNumber);
                 }
 
             } else if (this.offset < ln.length && !this.blank) {
                 // create paragraph container for line
-                let createdParagraph = false;
-                for (let b of blockStarts) {
-                    if (b.acceptsLines && b.isParagraph) {
-                        container = this.addChild('paragraph', this.offset);
-                        this.advanceNextNonspace();
-                        this.addLine();
-
-                        createdParagraph = true;
-                        break;
-                    }
-                }
-                if (!createdParagraph) {
-                    throw new Error("At least one block parser must be a paragraph");
-                }
+                //const b = blockParserCollection.getParagraphParser();
+                container = this.addChild('paragraph', this.offset);
+                this.advanceNextNonspace();
+                this.addLine();
             }
         }
         this.lastLineLength = ln.length;
@@ -439,8 +441,7 @@ export class Parser {
             throw new Error("block.sourcepos cannot be null")
         }
         block.sourcepos[1] = [lineNumber, this.lastLineLength];
-
-        this.blocks[block.type].finalize(this, block);
+        blockParserCollection.get(block.type).finalize(this, block);
 
         /*if (above == null) {
             throw new Error("above cannot be null")
@@ -458,7 +459,7 @@ export class Parser {
         while ((event = walker.next())) {
             node = event.node;
             t = node.type;
-            if (!event.entering && blocks[t].parseInlines) {
+            if (!event.entering && blockParserCollection.get(t).parseInlines) {
                 this.inlineParser.parse(node);
             }
         }
