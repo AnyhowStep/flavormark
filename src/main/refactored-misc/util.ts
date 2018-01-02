@@ -1,11 +1,16 @@
 import {InlineParser} from "../inlines";
 import {normalizeURI, unescapeString, ESCAPABLE} from "../common";
 import {fromCodePoint} from "../from-code-point";
+import {normalizeReference} from "../normalize-reference";
 
 var C_BACKSLASH = 92;
 var C_OPEN_PAREN = 40;
 var C_CLOSE_PAREN = 41;
 var ESCAPED_CHAR = '\\\\' + ESCAPABLE;
+
+var C_COLON = 58;
+
+var reSpaceAtEndOfLine = /^ *(?:\n|$)/;
 
 var reLinkTitle = new RegExp(
     '^(?:"(' + ESCAPED_CHAR + '|[^"\\x00])*"' +
@@ -84,4 +89,89 @@ export function parseLinkLabel(parser : InlineParser) {
     } else {
         return m.length;
     }
+};
+
+export type RefMap = {
+    [k : string] : undefined|{ destination: string, title: string }
+}
+// Attempt to parse a link reference, modifying refmap.
+export function parseReference(parser : InlineParser, s : string|null, refmap : RefMap) {
+    if (s == null) {
+        return;
+    }
+    parser.subject = s;
+    parser.pos = 0;
+    var rawlabel;
+    var dest;
+    var title;
+    var matchChars;
+    var startpos = parser.pos;
+
+    // label:
+    matchChars = parseLinkLabel(parser);
+    if (matchChars === 0) {
+        return 0;
+    } else {
+        rawlabel = parser.subject.substr(0, matchChars);
+    }
+
+    // colon:
+    if (parser.peek() === C_COLON) {
+        parser.pos++;
+    } else {
+        parser.pos = startpos;
+        return 0;
+    }
+
+    //  link url
+    parser.spnl();
+
+    dest = parseLinkDestination(parser);
+    if (dest === null || dest.length === 0) {
+        parser.pos = startpos;
+        return 0;
+    }
+
+    var beforetitle = parser.pos;
+    parser.spnl();
+    title = parseLinkTitle(parser);
+    if (title === null) {
+        title = '';
+        // rewind before spaces
+        parser.pos = beforetitle;
+    }
+
+    // make sure we're at line end:
+    var atLineEnd = true;
+    if (parser.match(reSpaceAtEndOfLine) === null) {
+        if (title === '') {
+            atLineEnd = false;
+        } else {
+            // the potential title we found is not at the line end,
+            // but it could still be a legal link reference if we
+            // discard the title
+            title = '';
+            // rewind before spaces
+            parser.pos = beforetitle;
+            // and instead check if the link URL is at the line end
+            atLineEnd = parser.match(reSpaceAtEndOfLine) !== null;
+        }
+    }
+
+    if (!atLineEnd) {
+        parser.pos = startpos;
+        return 0;
+    }
+
+    var normlabel = normalizeReference(rawlabel);
+    if (normlabel === '') {
+        // label must contain non-whitespace characters
+        parser.pos = startpos;
+        return 0;
+    }
+
+    if (!refmap[normlabel]) {
+        refmap[normlabel] = { destination: dest, title: title };
+    }
+    return parser.pos - startpos;
 };

@@ -3,6 +3,7 @@ import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek, isBlank} from "./util";
 import {BlockNode} from "./BlockNode";
+import {parseReference} from "../refactored-misc/util";
 
 var C_OPEN_BRACKET = 91;
 
@@ -17,7 +18,7 @@ export class ParagraphParser extends BlockParser<BlockNode> {
         // try parsing the beginning as link reference definitions:
         while (peek(block.string_content, 0) === C_OPEN_BRACKET &&
                (pos =
-                parser.inlineParser.parseReference(block.string_content,
+                parseReference(parser.inlineParser, block.string_content,
                                                    parser.refmap))) {
            if (block.string_content== null) {
                throw new Error("block.string_content cannot be null");

@@ -1,16 +1,13 @@
 import {Node} from "./node";
-import {normalizeReference} from "./normalize-reference";
+
 import {fromCodePoint} from "./from-code-point";
 import {BlockParser} from "./refactored/BlockParser";
 import {BlockNode} from "./refactored/BlockNode";
-
-import {parseLinkTitle, parseLinkDestination, parseLinkLabel} from "./refactored-misc/util";
 
 // Constants for character codes:
 
 var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;
-var C_COLON = 58;
 var C_SINGLEQUOTE = 39;
 var C_DOUBLEQUOTE = 34;
 
@@ -19,8 +16,6 @@ var rePunctuation = new RegExp(/[!"#$%&'()*+,\-./:;<=>?@\[\]^_`{|}~\xA1\xA7\xAB\
 var reSpnl = /^ *(?:\n *)?/;
 
 var reUnicodeWhitespaceChar = /^\s/;
-
-var reSpaceAtEndOfLine = /^ *(?:\n|$)/;
 
 
 import {InParser} from "./refactored-inline/InParser";
@@ -335,89 +330,6 @@ export class InlineParser {
     };
 
 
-
-
-    // Attempt to parse a link reference, modifying refmap.
-    parseReference(s : string|null, refmap : RefMap) {
-        if (s == null) {
-            return;
-        }
-        this.subject = s;
-        this.pos = 0;
-        var rawlabel;
-        var dest;
-        var title;
-        var matchChars;
-        var startpos = this.pos;
-
-        // label:
-        matchChars = parseLinkLabel(this);
-        if (matchChars === 0) {
-            return 0;
-        } else {
-            rawlabel = this.subject.substr(0, matchChars);
-        }
-
-        // colon:
-        if (this.peek() === C_COLON) {
-            this.pos++;
-        } else {
-            this.pos = startpos;
-            return 0;
-        }
-
-        //  link url
-        this.spnl();
-
-        dest = parseLinkDestination(this);
-        if (dest === null || dest.length === 0) {
-            this.pos = startpos;
-            return 0;
-        }
-
-        var beforetitle = this.pos;
-        this.spnl();
-        title = parseLinkTitle(this);
-        if (title === null) {
-            title = '';
-            // rewind before spaces
-            this.pos = beforetitle;
-        }
-
-        // make sure we're at line end:
-        var atLineEnd = true;
-        if (this.match(reSpaceAtEndOfLine) === null) {
-            if (title === '') {
-                atLineEnd = false;
-            } else {
-                // the potential title we found is not at the line end,
-                // but it could still be a legal link reference if we
-                // discard the title
-                title = '';
-                // rewind before spaces
-                this.pos = beforetitle;
-                // and instead check if the link URL is at the line end
-                atLineEnd = this.match(reSpaceAtEndOfLine) !== null;
-            }
-        }
-
-        if (!atLineEnd) {
-            this.pos = startpos;
-            return 0;
-        }
-
-        var normlabel = normalizeReference(rawlabel);
-        if (normlabel === '') {
-            // label must contain non-whitespace characters
-            this.pos = startpos;
-            return 0;
-        }
-
-        if (!refmap[normlabel]) {
-            refmap[normlabel] = { destination: dest, title: title };
-        }
-        return this.pos - startpos;
-    };
 
 
 
