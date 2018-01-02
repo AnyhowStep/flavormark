@@ -1,4 +1,4 @@
-import {BlockParser} from "./BlockParser";
+import {BlockParser, BlockParserMeta} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek, isSpaceOrTab, isBlank} from "./util";
@@ -176,8 +176,8 @@ export class ItemParser extends BlockParser {
         return true;
     };
     finalize= () => { return; };
-    canContain= (blockParser : BlockParser) =>{ return blockParser.isListItem != true; };
-    acceptsLines: false;
+    canContain= (blockParser : BlockParserMeta) =>{ return blockParser.isListItem != true; };
+    acceptsLines = false;
     ignoreLastLineBlank= (parser : Parser, container : Node) => {
         return (
             container.firstChild == null &&

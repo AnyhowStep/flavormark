@@ -6,7 +6,7 @@ export class BlockParserCollection<DocumentT extends BlockNode=BlockNode, Paragr
     private paragraphParser : BlockParser<ParagraphT>;
 
     private dict : {
-        [name : string] : BlockParser|undefined
+        [name : string] : BlockParser<any>|undefined
     } = {};
     private arr : BlockParser[] = [];
 
@@ -42,7 +42,9 @@ export class BlockParserCollection<DocumentT extends BlockNode=BlockNode, Paragr
         this.arr.push(parser);
         return this;
     }
-    public get (key : string|BlockNode) : BlockParser {
+    public get<NodeT extends BlockNode> (key : NodeT) : BlockParser<NodeT>;
+    public get (key : string) : BlockParser<BlockNode>;
+    public get (key : string|BlockNode) : BlockParser<BlockNode> {
         if (typeof key != "string") {
             return this.get(key.type);
         }
@@ -55,7 +57,7 @@ export class BlockParserCollection<DocumentT extends BlockNode=BlockNode, Paragr
     public length () {
         return this.arr.length;
     }
-    public at (index : number) {
+    public at (index : number) : BlockParser<BlockNode> {
         return this.arr[index];
     }
     public isParagraphNode (node : BlockNode) : node is ParagraphT {

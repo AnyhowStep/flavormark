@@ -398,8 +398,10 @@ export class Parser {
     public isParagraphNode (node : BlockNode) {
         return this.blockParsers.isParagraphNode(node);
     }
-    public getBlockParser (key : string|BlockNode) {
-        return this.blockParsers.get(key);
+    public getBlockParser<NodeT extends BlockNode> (key : NodeT) : BlockParser<NodeT>;
+    public getBlockParser (key : string) : BlockParser<BlockNode>;
+    public getBlockParser (key : BlockNode|string) : BlockParser {
+        return this.blockParsers.get(key as any);
     }
     public getBlockParsers () {
         return this.blockParsers;

@@ -1,12 +1,11 @@
-import {BlockParser} from "./BlockParser";
+import {BlockParser, BlockParserMeta} from "./BlockParser";
 import {Parser} from "../blocks";
-import {Node} from "../node";
 import {endsWithBlankLine} from "./util";
 import {BlockNode} from "./BlockNode";
 
 export class ListParser extends BlockParser {
     continue= () =>{ return true; };
-    finalize= (parser : Parser, block : Node) =>{
+    finalize= (parser : Parser, block : BlockNode) =>{
         var item = block.firstChild;
         while (item) {
             // check for non-final list item ending with blank line:
@@ -29,7 +28,7 @@ export class ListParser extends BlockParser {
         }
     };
 
-    canContain= (blockParser : BlockParser) =>{ return blockParser.isListItem == true; };
+    canContain= (blockParser : BlockParserMeta) =>{ return blockParser.isListItem == true; };
     acceptsLines= false;
     isList = true;
 }

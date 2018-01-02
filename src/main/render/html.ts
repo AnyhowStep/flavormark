@@ -145,7 +145,7 @@ export class HtmlRenderer extends Renderer {
       }
     }
 
-     atx_heading(node:Node, entering:boolean) {
+     atx_heading(node:any, entering:boolean) {
       var tagname = 'h' + node.level
         , attrs = this.attrs(node);
       if (entering) {
@@ -156,7 +156,7 @@ export class HtmlRenderer extends Renderer {
         this.cr();
       }
     }
-    setext_heading(node:Node, entering:boolean) {
+    setext_heading(node:any, entering:boolean) {
      var tagname = 'h' + node.level
        , attrs = this.attrs(node);
      if (entering) {
