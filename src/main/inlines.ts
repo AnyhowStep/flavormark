@@ -5,11 +5,8 @@ import {fromCodePoint} from "./from-code-point";
 import {BlockParser} from "./refactored/BlockParser";
 import {BlockNode} from "./refactored/BlockNode";
 
-// Constants for character codes:
-
-var reSpnl = /^ *(?:\n *)?/;
-
 import {InParser} from "./refactored-inline/InParser";
+import {RegexStream} from "./refactored-misc/RegexStream";
 
 export interface Options {
 }
@@ -19,41 +16,14 @@ export interface Options {
 // These are methods of an InlineParser object, defined below.
 // An InlineParser keeps track of a subject (a string to be
 // parsed) and a position in that subject.
-export class InlineParser {
-    subject : string = '';
-    pos = 0;
+//TODO consider having InlineParser CONTAIN RegexStream, rather than extending.
+//     It makes more sense since the role of the parser isn't really to be a regex stream
+export class InlineParser extends RegexStream {
     options : Options;
     constructor (options : undefined|Options) {
+        super("");
         this.options = options || {};
     }
-
-    // If re matches at current position in the subject, advance
-    // position in subject and return the match; otherwise return null.
-    match(re : RegExp) {
-        var m = re.exec(this.subject.slice(this.pos));
-        if (m === null) {
-            return null;
-        } else {
-            this.pos += m.index + m[0].length;
-            return m[0];
-        }
-    };
-
-    // Returns the code for the character at the current subject position, or -1
-    // there are no more characters.
-    peek() {
-        if (this.pos < this.subject.length) {
-            return this.subject.charCodeAt(this.pos);
-        } else {
-            return -1;
-        }
-    };
-
-    // Parse zero or more space characters, including at most one newline
-    spnl() {
-        this.match(reSpnl);
-        return true;
-    };
 
     text (s : string) : InlineNode {
         return new TextNode(s);

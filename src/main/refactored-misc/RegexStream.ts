@@ -23,7 +23,7 @@ export class RegexStream {
     };
 
     public hasCharacters () {
-        return (this.pos >= 0 && this.pos <= this.subject.length);
+        return (this.pos >= 0 && this.pos < this.subject.length);
     }
 
     // Returns the code for the character at the current subject position, or -1
