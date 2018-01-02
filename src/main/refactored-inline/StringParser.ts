@@ -10,18 +10,10 @@ var reDash = /--+/g;
 // Matches a string of non-special characters.
 var reMain = /^[^\n`\[\]\\!<&*_'"]+/m;
 
-var C_LESSTHAN = 60;
-
 export class StringParser extends InParser {
     // Parse a run of ordinary characters, or a single character with
     // a special meaning in markdown, as a plain string.
     public parse (parser : InlineParser, block : BlockNode) : boolean {
-        //BEGIN HACK : Needed so we don't parse potential autolinks or html tags as strings
-        const c = parser.peek();
-        if (c == C_LESSTHAN) {
-            return false;
-        }
-        //END HACK
         var m;
         if ((m = parser.match(reMain))) {
             if (parser.options.smart) {

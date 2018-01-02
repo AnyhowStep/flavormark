@@ -54,6 +54,7 @@ import {BangParser} from "./refactored-inline/BangParser";
 import {CloseBracketParser} from "./refactored-inline/CloseBracketParser";
 import {AutolinkParser} from "./refactored-inline/AutolinkParser";
 import {HtmlTagParser} from "./refactored-inline/HtmlTagParser";
+import {LessThanLiteralParser} from "./refactored-inline/LessThanLiteralParser";
 import {EntityParser} from "./refactored-inline/EntityParser";
 import {StringParser} from "./refactored-inline/StringParser";
 const inParsers : InParser[] = [
@@ -66,6 +67,7 @@ const inParsers : InParser[] = [
     new CloseBracketParser(),
     new AutolinkParser(),
     new HtmlTagParser(),
+    new LessThanLiteralParser(),
     new EntityParser(),
 
     new StringParser(), //Should this be a default parser that cannot be removed?
