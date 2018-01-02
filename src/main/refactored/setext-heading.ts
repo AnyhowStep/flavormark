@@ -1,18 +1,19 @@
 import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
-import {Node} from "../node";
+//import {Node} from "../node";
 import {BlockNode} from "./BlockNode";
+import {HeadingNode} from "./HeadingNode";
 
 var reSetextHeadingLine = /^(?:=+|-+)[ \t]*$/;
 
-export class SetextHeadingParser extends BlockParser {
-    tryStart= (parser : Parser, container : Node) => {
+export class SetextHeadingParser extends BlockParser<HeadingNode> {
+    tryStart= (parser : Parser, container : BlockNode) => {
         var match;
         if (!parser.indented &&
             parser.isParagraphNode(container) &&
                    ((match = parser.currentLine.slice(parser.nextNonspace).match(reSetextHeadingLine)))) {
             parser.closeUnmatchedBlocks();
-            var heading = new BlockNode(this.getNodeType(), container.sourcepos);
+            var heading = new HeadingNode(this.getNodeType(), container.sourcepos);
             heading.level = match[0][0] === '=' ? 1 : 2;
             heading.string_content = container.string_content;
             container.insertAfter(heading);
@@ -42,4 +43,4 @@ export class SetextHeadingParser extends BlockParser {
     }
 }
 
-export const setextHeadingParser = new SetextHeadingParser("setext_heading", BlockNode);
+export const setextHeadingParser = new SetextHeadingParser("setext_heading", HeadingNode);

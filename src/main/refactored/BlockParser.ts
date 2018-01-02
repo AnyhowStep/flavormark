@@ -21,7 +21,7 @@ export abstract class BlockParser<NodeT extends BlockNode=BlockNode> {
         return this.nodeCtor;
     }
     public reinit () {}
-    tryStart?: (parser : Parser, container : NodeT) => boolean;
+    tryStart?: (parser : Parser, container : BlockNode) => boolean;
     continue: (parser : Parser, block : NodeT) => boolean;
     finalize: (parser : Parser, block : NodeT) => void;
     canContain: (blockParser : BlockParser) => boolean;

@@ -1,10 +1,10 @@
 import {Parser} from "../blocks";
-import {BlockNode} from "./BlockNode";
 import {BlockParser} from "./BlockParser";
+import {HeadingNode} from "./HeadingNode";
 
 var reATXHeadingMarker = /^#{1,6}(?:[ \t]+|$)/;
 
-class AtxHeadingParser extends BlockParser {
+class AtxHeadingParser extends BlockParser<HeadingNode> {
     tryStart=(parser : Parser) => {
         var match;
         if (!parser.indented &&
@@ -12,7 +12,7 @@ class AtxHeadingParser extends BlockParser {
             parser.advanceNextNonspace();
             parser.advanceOffset(match[0].length, false);
             parser.closeUnmatchedBlocks();
-            var container = parser.addChild(this, parser.nextNonspace);
+            const container : HeadingNode = parser.addChild<HeadingNode>(this, parser.nextNonspace);
             container.level = match[0].trim().length; // number of #s
             // remove trailing ###s:
             container.string_content =
@@ -32,13 +32,13 @@ class AtxHeadingParser extends BlockParser {
     acceptsLines= false;
     parseInlines = true;
     isLeaf = true;
-    public getString (node : BlockNode) : string {
+    public getString (node : HeadingNode) : string {
         return node.string_content || "";
     }
     // allow raw string to be garbage collected
-    public unsetString (node : BlockNode) : void {
+    public unsetString (node : HeadingNode) : void {
         node.string_content = null;
     }
 }
 
-export const atxHeadingParser = new AtxHeadingParser("atx_heading", BlockNode);
+export const atxHeadingParser = new AtxHeadingParser("atx_heading", HeadingNode);

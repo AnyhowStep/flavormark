@@ -98,7 +98,7 @@ export class Node {
     fenceChar : string|null = null;
     fenceLength = 0;
     fenceOffset : number|null = null;
-    level : number|null = null;
+    //level : number|null = null;
     onEnter = null;
     onExit = null;
     htmlBlockType : number|null = null;

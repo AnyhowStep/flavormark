@@ -73,7 +73,7 @@ export class Parser {
     // Add block of type tag as a child of the tip.  If the tip can't
     // accept children, close and finalize it and try its parent,
     // and so on til we find a block that can accept children.
-    addChild(blockParser : BlockParser, offset : number) {
+    addChild<NodeT extends BlockNode>(blockParser : BlockParser<NodeT>, offset : number) : NodeT {
         if (this.tip == null) {
             throw new Error("this.tip cannot be null");
         }
@@ -354,7 +354,7 @@ export class Parser {
         var walker = block.walker();
         while ((event = walker.next())) {
             node = event.node;
-            if (!event.entering && this.blockParsers.get(node).parseInlines) {
+            if (!event.entering && node instanceof BlockNode && this.blockParsers.get(node).parseInlines) {
                 this.inlineParser.parse(this.getBlockParser(node), node);
             }
         }
