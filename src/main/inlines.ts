@@ -9,36 +9,6 @@ import {processEmphasis} from "./refactored-misc/emphasis";
 
 var reSpnl = /^ *(?:\n *)?/;
 
-
-import {InParser} from "./refactored-inline/InParser";
-import {NewlineParser} from "./refactored-inline/NewlineParser";
-import {BackslashParser} from "./refactored-inline/BackslashParser";
-import {BacktickParser} from "./refactored-inline/BacktickParser";
-import {DelimParser} from "./refactored-inline/DelimParser";
-import {OpenBracketParser} from "./refactored-inline/OpenBracketParser";
-import {BangParser} from "./refactored-inline/BangParser";
-import {CloseBracketParser} from "./refactored-inline/CloseBracketParser";
-import {AutolinkParser} from "./refactored-inline/AutolinkParser";
-import {HtmlTagParser} from "./refactored-inline/HtmlTagParser";
-import {LessThanLiteralParser} from "./refactored-inline/LessThanLiteralParser";
-import {EntityParser} from "./refactored-inline/EntityParser";
-import {StringParser} from "./refactored-inline/StringParser";
-const inParsers : InParser[] = [
-    new NewlineParser(),
-    new BackslashParser(),
-    new BacktickParser(),
-    new DelimParser(),
-    new OpenBracketParser(),
-    new BangParser(),
-    new CloseBracketParser(),
-    new AutolinkParser(),
-    new HtmlTagParser(),
-    new LessThanLiteralParser(),
-    new EntityParser(),
-
-    new StringParser(), //Should this be a default parser that cannot be removed?
-];
-
 function text(s : string) {
     var node = new Node('text');
     node.literal = s;
@@ -46,6 +16,7 @@ function text(s : string) {
 };
 import {DelimiterCollection} from "./refactored-misc/DelimiterCollection";
 import {BracketCollection} from "./refactored-misc/BracketCollection";
+import {InParser} from "./refactored-inline/InParser";
 
 export interface Options {
     smart? : boolean
@@ -60,7 +31,6 @@ export class InlineParser {
     delimiters = new DelimiterCollection();
     brackets = new BracketCollection(this.delimiters);
     pos = 0;
-    refmap : RefMap = {};
     options : Options;
     constructor (options : undefined|Options) {
         this.options = options || {};
@@ -108,7 +78,7 @@ export class InlineParser {
     // Parse the next inline element in subject, advancing subject position.
     // On success, add the result to block's children and return true.
     // On failure, return false.
-    parseInline (block : BlockNode) {
+    parseInline (block : BlockNode, inParsers : InParser[]) {
         var c = this.peek();
         if (c === -1) {
             return false;
@@ -124,13 +94,12 @@ export class InlineParser {
     };
 
     // Parse string content in block into inline children,
-    // using refmap to resolve references.
-    parse (blockParser : BlockParser, block : BlockNode) {
+    parse (blockParser : BlockParser, block : BlockNode, inParsers : InParser[]) {
         this.subject = (blockParser.getString(block)).trim();
         this.pos = 0;
         this.delimiters = new DelimiterCollection();
         this.brackets = new BracketCollection(this.delimiters);
-        while (this.parseInline(block)) {
+        while (this.parseInline(block, inParsers)) {
         }
         blockParser.unsetString(block); // allow raw string to be garbage collected
         processEmphasis(this.delimiters, null);

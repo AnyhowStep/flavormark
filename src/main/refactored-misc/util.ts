@@ -90,10 +90,8 @@ export function parseLinkLabel(parser : InlineParser) {
         return m.length;
     }
 };
+import {RefMap} from "./RefMap";
 
-export type RefMap = {
-    [k : string] : undefined|{ destination: string, title: string }
-}
 // Attempt to parse a link reference, modifying refmap.
 export function parseReference(parser : InlineParser, s : string|null, refmap : RefMap) {
     if (s == null) {

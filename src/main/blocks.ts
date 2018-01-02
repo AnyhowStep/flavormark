@@ -14,7 +14,7 @@ import {blockquoteParser} from "./refactored/blockquote";
 import {itemParser} from "./refactored/item";
 import {thematicBreakParser} from "./refactored/thematic-break";
 import {htmlBlockParser} from "./refactored/html-block";
-import {paragraphParser} from "./refactored/paragraph";
+import {ParagraphParser} from "./refactored/paragraph";
 import {atxHeadingParser} from "./refactored/atx-heading";
 import {setextHeadingParser} from "./refactored/setext-heading";
 import {fencedCodeBlockParser} from "./refactored/fenced-code-block";
@@ -22,9 +22,12 @@ import {indentedCodeBlockParser} from "./refactored/indented-code-block";
 import {BlockParserCollection} from "./refactored/BlockParserCollection";
 import {BlockParser} from "./refactored/BlockParser";
 
+import {RefMap} from "./refactored-misc/RefMap";
+const refMap : RefMap = {};
+
 const blockParserCollection = new BlockParserCollection(
     documentParser,
-    paragraphParser
+    new ParagraphParser("paragraph", BlockNode, refMap)
 )
     .add(blockquoteParser)
     .add(atxHeadingParser)
@@ -36,6 +39,37 @@ const blockParserCollection = new BlockParserCollection(
     .add(indentedCodeBlockParser)
 
     .add(listParser);
+
+
+import {InParser} from "./refactored-inline/InParser";
+import {NewlineParser} from "./refactored-inline/NewlineParser";
+import {BackslashParser} from "./refactored-inline/BackslashParser";
+import {BacktickParser} from "./refactored-inline/BacktickParser";
+import {DelimParser} from "./refactored-inline/DelimParser";
+import {OpenBracketParser} from "./refactored-inline/OpenBracketParser";
+import {BangParser} from "./refactored-inline/BangParser";
+import {CloseBracketParser} from "./refactored-inline/CloseBracketParser";
+import {AutolinkParser} from "./refactored-inline/AutolinkParser";
+import {HtmlTagParser} from "./refactored-inline/HtmlTagParser";
+import {LessThanLiteralParser} from "./refactored-inline/LessThanLiteralParser";
+import {EntityParser} from "./refactored-inline/EntityParser";
+import {StringParser} from "./refactored-inline/StringParser";
+const inParsers : InParser[] = [
+    new NewlineParser(),
+    new BackslashParser(),
+    new BacktickParser(),
+    new DelimParser(),
+    new OpenBracketParser(),
+    new BangParser(),
+    new CloseBracketParser(refMap),
+    new AutolinkParser(),
+    new HtmlTagParser(),
+    new LessThanLiteralParser(),
+    new EntityParser(),
+
+    new StringParser(), //Should this be a default parser that cannot be removed?
+];
+
 
 export interface Options extends InlineParserOptions {
     time? : boolean
@@ -59,7 +93,6 @@ export class Parser {
     partiallyConsumedTab = false;
     allClosed = true;
     lastMatchedContainer : BlockNode = this.doc;
-    refmap = {};
     lastLineLength = 0;
     inlineParser : InlineParser ;
     options : Options;
@@ -370,23 +403,25 @@ export class Parser {
     processInlines(block : BlockNode) {
         var node, event;
         var walker = block.walker();
-        this.inlineParser.refmap = this.refmap;
         this.inlineParser.options = this.options;
         while ((event = walker.next())) {
             node = event.node;
             if (!event.entering && blockParserCollection.get(node).parseInlines) {
-                this.inlineParser.parse(this.getBlockParser(node), node);
+                this.inlineParser.parse(this.getBlockParser(node), node, inParsers);
             }
         }
     };
 
     // The main parsing function.  Returns a parsed document AST.
     parse(input : string) {
+        for (let k of Object.keys(refMap)) {
+            delete refMap[k];
+        }
+
         this.doc = blockParserCollection.instantiateDocument(
             [[1, 1], [0, 0]]
         );
         this.tip = this.doc;
-        this.refmap = {};
         this.lineNumber = 0;
         this.lastLineLength = 0;
         this.offset = 0;

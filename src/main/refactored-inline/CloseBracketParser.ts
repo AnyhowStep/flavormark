@@ -5,6 +5,7 @@ import {InlineNode} from "./InlineNode";
 import {normalizeReference} from "../normalize-reference";
 import {parseLinkTitle, parseLinkDestination, parseLinkLabel} from "../refactored-misc/util";
 import {processEmphasis} from "../refactored-misc/emphasis";
+import {RefMap} from "../refactored-misc/RefMap";
 
 var C_CLOSE_BRACKET = 93;
 var C_OPEN_PAREN = 40;
@@ -13,6 +14,11 @@ var C_CLOSE_PAREN = 41;
 var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
 
 export class CloseBracketParser extends InParser {
+    private refMap : RefMap;
+    public constructor (refMap : RefMap) {
+        super();
+        this.refMap = refMap;
+    }
     // Try to match close bracket against an opening in the delimiter
     // stack.  Add either a link or image, or a plain [ character,
     // to block's children.  If there is a matching delimiter,
@@ -94,7 +100,7 @@ export class CloseBracketParser extends InParser {
 
             if (reflabel) {
                 // lookup rawlabel in refmap
-                var link = parser.refmap[normalizeReference(reflabel)];
+                var link = this.refMap[normalizeReference(reflabel)];
                 if (link) {
                     dest = link.destination;
                     title = link.title;

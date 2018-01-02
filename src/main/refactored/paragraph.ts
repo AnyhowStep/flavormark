@@ -1,13 +1,19 @@
-import {BlockParser} from "./BlockParser";
+import {BlockParser, BlockNodeCtor} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek, isBlank} from "./util";
 import {BlockNode} from "./BlockNode";
 import {parseReference} from "../refactored-misc/util";
+import {RefMap} from "../refactored-misc/RefMap";
 
 var C_OPEN_BRACKET = 91;
 
 export class ParagraphParser extends BlockParser<BlockNode> {
+    private refMap : RefMap;
+    public constructor (nodeType : string, nodeCtor : BlockNodeCtor<BlockNode>, refMap : RefMap) {
+        super(nodeType, nodeCtor);
+        this.refMap = refMap;
+    }
     continue= (parser : Parser) =>{
         return (parser.blank ? false : true);
     };
@@ -18,8 +24,7 @@ export class ParagraphParser extends BlockParser<BlockNode> {
         // try parsing the beginning as link reference definitions:
         while (peek(block.string_content, 0) === C_OPEN_BRACKET &&
                (pos =
-                parseReference(parser.inlineParser, block.string_content,
-                                                   parser.refmap))) {
+                parseReference(parser.inlineParser, block.string_content, this.refMap))) {
            if (block.string_content== null) {
                throw new Error("block.string_content cannot be null");
            }
@@ -51,4 +56,4 @@ export class ParagraphParser extends BlockParser<BlockNode> {
     }
 }
 
-export const paragraphParser = new ParagraphParser("paragraph", BlockNode);
+//export const paragraphParser = new ParagraphParser("paragraph", BlockNode);
