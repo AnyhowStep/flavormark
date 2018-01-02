@@ -52,3 +52,10 @@ export class DelimiterCollection {
         return this.top;
     }
 }
+
+export function removeDelimitersBetween(bottom : Delimiter|null, top : Delimiter) {
+    if (bottom && bottom.next !== top) {
+        bottom.next = top;
+        top.previous = bottom;
+    }
+};

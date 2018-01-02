@@ -4,6 +4,7 @@ import {BlockNode} from "../refactored/BlockNode";
 import {InlineNode} from "./InlineNode";
 import {normalizeReference} from "../normalize-reference";
 import {parseLinkTitle, parseLinkDestination, parseLinkLabel} from "../refactored-misc/util";
+import {processEmphasis} from "../refactored-misc/emphasis";
 
 var C_CLOSE_BRACKET = 93;
 var C_OPEN_PAREN = 40;
@@ -116,7 +117,7 @@ export class CloseBracketParser extends InParser {
                 tmp = next;
             }
             block.appendChild(node);
-            parser.processEmphasis(opener.previousDelimiter);
+            processEmphasis(parser.delimiters, opener.previousDelimiter);
             parser.brackets.pop();
             opener.node.unlink();
 
