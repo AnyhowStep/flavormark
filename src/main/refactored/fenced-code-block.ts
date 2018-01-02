@@ -27,7 +27,7 @@ export class FencedCodeBlockParser extends BlockParser<BlockNode> {
             return false;
         }
     };
-    continue= (parser : Parser, container : Node)=>  {
+    continue= (parser : Parser, container : BlockNode)=>  {
         var ln = parser.currentLine;
         var indent = parser.indent;
         var match = (indent <= 3 &&
@@ -50,7 +50,7 @@ export class FencedCodeBlockParser extends BlockParser<BlockNode> {
         }
         return true;
     };
-    finalize= (_parser : Parser, block : Node)=>  {
+    finalize= (_parser : Parser, block : BlockNode)=>  {
         // first line becomes info string
         var content = block.string_content;
         if (content == null) {

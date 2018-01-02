@@ -11,7 +11,7 @@ var reOrderedListMarker = /^(\d{1,9})([.)])/;
 
 // Parse a list marker and return data on the marker (type,
 // start, delimiter, bullet character, padding) or null.
-var parseListMarker = function(parser : Parser, container : Node) :
+var parseListMarker = function(parser : Parser, container : BlockNode) :
 { type: string,
              tight: boolean,  // lists are tight by default
              bulletChar: string|null,
@@ -128,7 +128,7 @@ export class ItemParser extends BlockParser {
         super(nodeType, nodeCtor);
         this.listParser = listParser;
     }
-    tryStart= (parser : Parser, container : Node) => {
+    tryStart= (parser : Parser, container : BlockNode) => {
         var data;
 
         if ((!parser.indented || parser.getBlockParser(container).isList)
