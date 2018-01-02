@@ -22,14 +22,14 @@ export class ParagraphParser extends BlockParser<BlockNode> {
     continue= (parser : Parser) =>{
         return (parser.blank ? false : true);
     };
-    finalize= (parser : Parser, block : Node) =>{
+    finalize= (_parser : Parser, block : Node) =>{
         var pos;
         var hasReferenceDefs = false;
 
         // try parsing the beginning as link reference definitions:
         while (peek(block.string_content, 0) === C_OPEN_BRACKET &&
                (pos =
-                parseReference(parser.inlineParser, block.string_content, this.refMap))) {
+                parseReference(block.string_content, this.refMap))) {
            if (block.string_content== null) {
                throw new Error("block.string_content cannot be null");
            }

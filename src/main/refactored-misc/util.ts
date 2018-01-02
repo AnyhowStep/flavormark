@@ -2,6 +2,7 @@ import {InlineParser} from "../inlines";
 import {normalizeURI, unescapeString, ESCAPABLE} from "../common";
 import {fromCodePoint} from "../from-code-point";
 import {normalizeReference} from "../normalize-reference";
+import {RegexStream} from "./RegexStream";
 
 var C_BACKSLASH = 92;
 var C_OPEN_PAREN = 40;
@@ -30,7 +31,7 @@ var reLinkTitle = new RegExp(
 
 // Attempt to parse link title (sans quotes), returning the string
 // or null if no match.
-export function parseLinkTitle (parser : InlineParser) {
+export function parseLinkTitle (parser : RegexStream|InlineParser) {
     var title = parser.match(reLinkTitle);
     if (title === null) {
         return null;
@@ -42,7 +43,7 @@ export function parseLinkTitle (parser : InlineParser) {
 
 // Attempt to parse link destination, returning the string or
 // null if no match.
-export function parseLinkDestination(parser : InlineParser) {
+export function parseLinkDestination(parser : RegexStream|InlineParser) {
     var res = parser.match(reLinkDestinationBraces);
     if (res === null) {
         // TODO handrolled parser; res should be null or the string
@@ -80,7 +81,7 @@ export function parseLinkDestination(parser : InlineParser) {
 
 
 // Attempt to parse a link label, returning number of characters parsed.
-export function parseLinkLabel(parser : InlineParser) {
+export function parseLinkLabel(parser : RegexStream|InlineParser) {
     var m = parser.match(reLinkLabel);
     // Note:  our regex will allow something of form [..\];
     // we disallow it here rather than using lookahead in the regex:
@@ -93,12 +94,11 @@ export function parseLinkLabel(parser : InlineParser) {
 import {RefMap} from "./RefMap";
 
 // Attempt to parse a link reference, modifying refmap.
-export function parseReference(parser : InlineParser, s : string|null, refmap : RefMap) {
+export function parseReference(s : string|null, refmap : RefMap) {
     if (s == null) {
         return;
     }
-    parser.subject = s;
-    parser.pos = 0;
+    const parser = new RegexStream(s);
     var rawlabel;
     var dest;
     var title;

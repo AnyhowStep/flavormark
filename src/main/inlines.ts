@@ -49,19 +49,18 @@ export class InlineParser {
         }
     };
 
-    text (s : string) : InlineNode {
-        return new TextNode(s);
-    }
-    public isTextNode (node : InlineNode) : node is TextNode {
-        return node instanceof TextNode;
-    }
-
     // Parse zero or more space characters, including at most one newline
     spnl() {
         this.match(reSpnl);
         return true;
     };
 
+    text (s : string) : InlineNode {
+        return new TextNode(s);
+    }
+    public isTextNode (node : InlineNode) : node is TextNode {
+        return node instanceof TextNode;
+    }
 
     // Parse the next inline element in subject, advancing subject position.
     // On success, add the result to block's children and return true.
