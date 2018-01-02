@@ -1,4 +1,3 @@
-import {InlineParser} from "../inlines";
 import {normalizeURI, unescapeString, ESCAPABLE} from "../common";
 import {fromCodePoint} from "../from-code-point";
 import {normalizeReference} from "../normalize-reference";
@@ -31,7 +30,7 @@ var reLinkTitle = new RegExp(
 
 // Attempt to parse link title (sans quotes), returning the string
 // or null if no match.
-export function parseLinkTitle (parser : RegexStream|InlineParser) {
+export function parseLinkTitle (parser : RegexStream) {
     var title = parser.match(reLinkTitle);
     if (title === null) {
         return null;
@@ -43,7 +42,7 @@ export function parseLinkTitle (parser : RegexStream|InlineParser) {
 
 // Attempt to parse link destination, returning the string or
 // null if no match.
-export function parseLinkDestination(parser : RegexStream|InlineParser) {
+export function parseLinkDestination(parser : RegexStream) {
     var res = parser.match(reLinkDestinationBraces);
     if (res === null) {
         // TODO handrolled parser; res should be null or the string
@@ -81,7 +80,7 @@ export function parseLinkDestination(parser : RegexStream|InlineParser) {
 
 
 // Attempt to parse a link label, returning number of characters parsed.
-export function parseLinkLabel(parser : RegexStream|InlineParser) {
+export function parseLinkLabel(parser : RegexStream) {
     var m = parser.match(reLinkLabel);
     // Note:  our regex will allow something of form [..\];
     // we disallow it here rather than using lookahead in the regex:
