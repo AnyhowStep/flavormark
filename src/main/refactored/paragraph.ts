@@ -14,6 +14,11 @@ export class ParagraphParser extends BlockParser<BlockNode> {
         super(nodeType, nodeCtor);
         this.refMap = refMap;
     }
+    public reinit () {
+        for (let k of Object.keys(this.refMap)) {
+            delete this.refMap[k];
+        }
+    }
     continue= (parser : Parser) =>{
         return (parser.blank ? false : true);
     };

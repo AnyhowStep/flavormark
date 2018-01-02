@@ -20,6 +20,7 @@ export abstract class BlockParser<NodeT extends BlockNode=BlockNode> {
     public getNodeCtor () : BlockNodeCtor<NodeT> {
         return this.nodeCtor;
     }
+    public reinit () {}
     tryStart?: (parser : Parser, container : NodeT) => boolean;
     continue: (parser : Parser, block : NodeT) => boolean;
     finalize: (parser : Parser, block : NodeT) => void;

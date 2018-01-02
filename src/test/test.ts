@@ -40,8 +40,73 @@ var cursor = {
 };
 
 var writer = new commonmark.HtmlRenderer();
-var reader = new commonmark.Parser();
-var readerSmart = new commonmark.Parser({smart: true});
+
+
+import {documentParser} from "../main/refactored/document";
+import {listParser} from "../main/refactored/list";
+import {blockquoteParser} from "../main/refactored/blockquote";
+import {itemParser} from "../main/refactored/item";
+import {thematicBreakParser} from "../main/refactored/thematic-break";
+import {htmlBlockParser} from "../main/refactored/html-block";
+import {ParagraphParser} from "../main/refactored/paragraph";
+import {atxHeadingParser} from "../main/refactored/atx-heading";
+import {setextHeadingParser} from "../main/refactored/setext-heading";
+import {fencedCodeBlockParser} from "../main/refactored/fenced-code-block";
+import {indentedCodeBlockParser} from "../main/refactored/indented-code-block";
+import {BlockParserCollection} from "../main/refactored/BlockParserCollection";
+import {BlockNode} from "../main/refactored/BlockNode";
+
+import {RefMap} from "../main/refactored-misc/RefMap";
+const refMap : RefMap = {};
+
+const blockParserCollection = new BlockParserCollection(
+    documentParser,
+    new ParagraphParser("paragraph", BlockNode, refMap)
+)
+    .add(blockquoteParser)
+    .add(atxHeadingParser)
+    .add(fencedCodeBlockParser)
+    .add(htmlBlockParser)
+    .add(setextHeadingParser)
+    .add(thematicBreakParser)
+    .add(itemParser)
+    .add(indentedCodeBlockParser)
+
+    .add(listParser);
+
+
+import {InParser} from "../main/refactored-inline/InParser";
+import {NewlineParser} from "../main/refactored-inline/NewlineParser";
+import {BackslashParser} from "../main/refactored-inline/BackslashParser";
+import {BacktickParser} from "../main/refactored-inline/BacktickParser";
+import {DelimParser} from "../main/refactored-inline/DelimParser";
+import {OpenBracketParser} from "../main/refactored-inline/OpenBracketParser";
+import {BangParser} from "../main/refactored-inline/BangParser";
+import {CloseBracketParser} from "../main/refactored-inline/CloseBracketParser";
+import {AutolinkParser} from "../main/refactored-inline/AutolinkParser";
+import {HtmlTagParser} from "../main/refactored-inline/HtmlTagParser";
+import {LessThanLiteralParser} from "../main/refactored-inline/LessThanLiteralParser";
+import {EntityParser} from "../main/refactored-inline/EntityParser";
+import {StringParser} from "../main/refactored-inline/StringParser";
+const inParsers : InParser[] = [
+    new NewlineParser(),
+    new BackslashParser(),
+    new BacktickParser(),
+    new DelimParser(),
+    new OpenBracketParser(),
+    new BangParser(),
+    new CloseBracketParser(refMap),
+    new AutolinkParser(),
+    new HtmlTagParser(),
+    new LessThanLiteralParser(),
+    new EntityParser(),
+
+    new StringParser(), //Should this be a default parser that cannot be removed?
+];
+
+
+var reader = new commonmark.Parser(blockParserCollection, inParsers);
+var readerSmart = new commonmark.Parser(blockParserCollection, inParsers, {smart: true});
 
 var results : { passed : number, failed : number } = {
     passed: 0,
@@ -184,7 +249,7 @@ process.exit();*/
     results,
     function(z) {
         const x = reader.parse(z);
-        
+
         return writer.render(x);
     }
 )

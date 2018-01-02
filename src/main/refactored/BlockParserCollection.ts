@@ -68,4 +68,11 @@ export class BlockParserCollection<DocumentT extends BlockNode=BlockNode, Paragr
         const ctor = this.getDocumentParser().getNodeCtor();
         return new ctor(this.getDocumentParser().getNodeType(), sourcepos);
     }
+    public reinit () {
+        this.documentParser.reinit();
+        this.paragraphParser.reinit();
+        for (let b of this.arr) {
+            b.reinit();
+        }
+    }
 }

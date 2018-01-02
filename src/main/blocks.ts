@@ -1,4 +1,8 @@
 import {BlockNode} from "./refactored/BlockNode";
+import {BlockParser} from "./refactored/BlockParser";
+import {BlockParserCollection} from "./refactored/BlockParserCollection";
+import {InParser} from "./refactored-inline/InParser";
+
 var CODE_INDENT = 4;
 var C_NEWLINE = 10;
 
@@ -8,79 +12,15 @@ var reMaybeSpecial = /^[#`~*+_=<>0-9-]/;
 
 var reLineEnding = /\r\n|\n|\r/;
 
-import {documentParser} from "./refactored/document";
-import {listParser} from "./refactored/list";
-import {blockquoteParser} from "./refactored/blockquote";
-import {itemParser} from "./refactored/item";
-import {thematicBreakParser} from "./refactored/thematic-break";
-import {htmlBlockParser} from "./refactored/html-block";
-import {ParagraphParser} from "./refactored/paragraph";
-import {atxHeadingParser} from "./refactored/atx-heading";
-import {setextHeadingParser} from "./refactored/setext-heading";
-import {fencedCodeBlockParser} from "./refactored/fenced-code-block";
-import {indentedCodeBlockParser} from "./refactored/indented-code-block";
-import {BlockParserCollection} from "./refactored/BlockParserCollection";
-import {BlockParser} from "./refactored/BlockParser";
-
-import {RefMap} from "./refactored-misc/RefMap";
-const refMap : RefMap = {};
-
-const blockParserCollection = new BlockParserCollection(
-    documentParser,
-    new ParagraphParser("paragraph", BlockNode, refMap)
-)
-    .add(blockquoteParser)
-    .add(atxHeadingParser)
-    .add(fencedCodeBlockParser)
-    .add(htmlBlockParser)
-    .add(setextHeadingParser)
-    .add(thematicBreakParser)
-    .add(itemParser)
-    .add(indentedCodeBlockParser)
-
-    .add(listParser);
-
-
-import {InParser} from "./refactored-inline/InParser";
-import {NewlineParser} from "./refactored-inline/NewlineParser";
-import {BackslashParser} from "./refactored-inline/BackslashParser";
-import {BacktickParser} from "./refactored-inline/BacktickParser";
-import {DelimParser} from "./refactored-inline/DelimParser";
-import {OpenBracketParser} from "./refactored-inline/OpenBracketParser";
-import {BangParser} from "./refactored-inline/BangParser";
-import {CloseBracketParser} from "./refactored-inline/CloseBracketParser";
-import {AutolinkParser} from "./refactored-inline/AutolinkParser";
-import {HtmlTagParser} from "./refactored-inline/HtmlTagParser";
-import {LessThanLiteralParser} from "./refactored-inline/LessThanLiteralParser";
-import {EntityParser} from "./refactored-inline/EntityParser";
-import {StringParser} from "./refactored-inline/StringParser";
-const inParsers : InParser[] = [
-    new NewlineParser(),
-    new BackslashParser(),
-    new BacktickParser(),
-    new DelimParser(),
-    new OpenBracketParser(),
-    new BangParser(),
-    new CloseBracketParser(refMap),
-    new AutolinkParser(),
-    new HtmlTagParser(),
-    new LessThanLiteralParser(),
-    new EntityParser(),
-
-    new StringParser(), //Should this be a default parser that cannot be removed?
-];
-
 
 export interface Options extends InlineParserOptions {
     time? : boolean
 }
 
 export class Parser {
-    doc = blockParserCollection.instantiateDocument(
-        [[1, 1], [0, 0]]
-    );
-    tip : BlockNode|null = this.doc;
-    oldtip : BlockNode|null = this.doc;
+    doc : BlockNode;
+    tip : BlockNode|null;
+    oldtip : BlockNode|null;
     currentLine = "";
     lineNumber = 0;
     offset = 0;
@@ -92,13 +32,25 @@ export class Parser {
     blank = false;
     partiallyConsumedTab = false;
     allClosed = true;
-    lastMatchedContainer : BlockNode = this.doc;
+    lastMatchedContainer : BlockNode;
     lastLineLength = 0;
     inlineParser : InlineParser ;
     options : Options;
-    constructor (options? : Options|undefined) {
+    blockParsers : BlockParserCollection;
+    inParsers : InParser[];
+    constructor (blockParsers : BlockParserCollection, inParsers : InParser[], options? : Options|undefined) {
         this.inlineParser = new InlineParser(options);
         this.options = options || {};
+        this.blockParsers = blockParsers;
+        this.inParsers = inParsers;
+
+        //TODO, delete this safely?
+        this.doc = blockParsers.instantiateDocument(
+            [[1, 1], [0, 0]]
+        );
+        this.tip = this.doc;
+        this.oldtip = this.doc;
+        this.lastMatchedContainer = this.doc;
     }
 
 
@@ -128,7 +80,7 @@ export class Parser {
         if (this.tip == null) {
             throw new Error("this.tip cannot be null");
         }
-        while (!blockParserCollection.get(this.tip).canContain(blockParser)) {
+        while (!this.blockParsers.get(this.tip).canContain(blockParser)) {
             this.finalize(this.tip, this.lineNumber - 1);
         }
 
@@ -249,9 +201,9 @@ export class Parser {
 
             this.findNextNonspace();
 
-            const continued = (blockParserCollection.get(container).continue(this, container));
+            const continued = (this.blockParsers.get(container).continue(this, container));
             if (!continued) {
-                if (blockParserCollection.get(container).earlyExitOnEnd) {
+                if (this.blockParsers.get(container).earlyExitOnEnd) {
                     // we've hit end of line for fenced code close and can return
                     this.lastLineLength = ln.length;
                     return;
@@ -274,9 +226,9 @@ export class Parser {
 
         var matchedLeaf = !this.isParagraphNode(container) &&
                 (//blocks[container.type].acceptsLines ||
-                    blockParserCollection.get(container).isLeaf
+                    this.blockParsers.get(container).isLeaf
                 );
-        var startsLen = blockParserCollection.length();
+        var startsLen = this.blockParsers.length();
         // Unless last matched container is a code block, try new container starts,
         // adding children to the last matched container:
         while (!matchedLeaf) {
@@ -295,7 +247,7 @@ export class Parser {
                 if (container == null) {
                     throw new Error("container cannot be null")
                 }
-                const blockParser = blockParserCollection.at(i);
+                const blockParser = this.blockParsers.at(i);
                 if (blockParser.tryStart == null) {
                     ++i;
                     continue;
@@ -328,7 +280,7 @@ export class Parser {
        // First check for a lazy paragraph continuation:
         if (!this.allClosed && !this.blank &&
             this.tip != null &&
-            blockParserCollection.get(this.tip).acceptLazyContinuation) {
+            this.blockParsers.get(this.tip).acceptLazyContinuation) {
             // lazy paragraph continuation
             this.addLine();
 
@@ -342,7 +294,7 @@ export class Parser {
                 container.lastChild.lastLineBlank = true;
             }
 
-            const ignoreLastLineBlankPredicate = blockParserCollection.get(container).ignoreLastLineBlank;
+            const ignoreLastLineBlankPredicate = this.blockParsers.get(container).ignoreLastLineBlank;
             // Block quote lines are never blank as they start with >
             // and we don't count blanks in fenced code for purposes of tight/loose
             // lists or breaking out of lists.  We also don't set _lastLineBlank
@@ -360,17 +312,17 @@ export class Parser {
                 cont = cont.parent;
             }
 
-            if (blockParserCollection.get(container).acceptsLines) {
+            if (this.blockParsers.get(container).acceptsLines) {
                 this.addLine();
-                const finalizeAtLine = blockParserCollection.get(container).finalizeAtLine;
+                const finalizeAtLine = this.blockParsers.get(container).finalizeAtLine;
                 if (finalizeAtLine != null && finalizeAtLine(this, container)) {
                     this.finalize(container, this.lineNumber);
                 }
 
             } else if (this.offset < ln.length && !this.blank) {
                 // create paragraph container for line
-                //const b = blockParserCollection.getParagraphParser();
-                container = this.addChild(blockParserCollection.getParagraphParser(), this.offset);
+                //const b = this.blockParsers.getParagraphParser();
+                container = this.addChild(this.blockParsers.getParagraphParser(), this.offset);
                 this.advanceNextNonspace();
                 this.addLine();
             }
@@ -390,7 +342,7 @@ export class Parser {
             throw new Error("block.sourcepos cannot be null")
         }
         block.sourcepos[1] = [lineNumber, this.lastLineLength];
-        blockParserCollection.get(block).finalize(this, block);
+        this.blockParsers.get(block).finalize(this, block);
 
         /*if (above == null) {
             throw new Error("above cannot be null")
@@ -406,19 +358,16 @@ export class Parser {
         this.inlineParser.options = this.options;
         while ((event = walker.next())) {
             node = event.node;
-            if (!event.entering && blockParserCollection.get(node).parseInlines) {
-                this.inlineParser.parse(this.getBlockParser(node), node, inParsers);
+            if (!event.entering && this.blockParsers.get(node).parseInlines) {
+                this.inlineParser.parse(this.getBlockParser(node), node, this.inParsers);
             }
         }
     };
 
     // The main parsing function.  Returns a parsed document AST.
     parse(input : string) {
-        for (let k of Object.keys(refMap)) {
-            delete refMap[k];
-        }
-
-        this.doc = blockParserCollection.instantiateDocument(
+        this.blockParsers.reinit();
+        this.doc = this.blockParsers.instantiateDocument(
             [[1, 1], [0, 0]]
         );
         this.tip = this.doc;
@@ -451,12 +400,12 @@ export class Parser {
     };
 
     public isParagraphNode (node : BlockNode) {
-        return blockParserCollection.isParagraphNode(node);
+        return this.blockParsers.isParagraphNode(node);
     }
     public getBlockParser (key : string|BlockNode) {
-        return blockParserCollection.get(key);
+        return this.blockParsers.get(key);
     }
     public getBlockParsers () {
-        return blockParserCollection;
+        return this.blockParsers;
     }
 }
