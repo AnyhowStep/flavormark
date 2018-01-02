@@ -85,15 +85,7 @@ function removeDelimitersBetween(bottom : Delimiter|null, top : Delimiter) {
     }
 };
 import {DelimiterCollection, Delimiter} from "./refactored-misc/DelimiterCollection";
-export interface Bracket {
-    node: Node,
-    previous: Bracket|null,
-    previousDelimiter: Delimiter|null,
-    index: number,
-    image: boolean,
-    active: boolean,
-    bracketAfter? : boolean
-}
+import {BracketCollection} from "./refactored-misc/BracketCollection";
 
 export interface Options {
     smart? : boolean
@@ -106,7 +98,7 @@ export type RefMap = {
 export class InlineParser {
     subject : string = '';
     delimiters = new DelimiterCollection();
-    brackets: null|Bracket;
+    brackets = new BracketCollection(this.delimiters);
     pos = 0;
     refmap : RefMap = {};
     options : Options;
@@ -508,26 +500,6 @@ export class InlineParser {
     };
 
 
-    addBracket (node : Node, index : number, image : boolean) {
-        if (this.brackets !== null) {
-            this.brackets.bracketAfter = true;
-        }
-        this.brackets = { node: node,
-                          previous: this.brackets,
-                          previousDelimiter: this.delimiters.peek(),
-                          index: index,
-                          image: image,
-                          active: true };
-    };
-
-    removeBracket () {
-        if (this.brackets == null) {
-            throw new Error("Removed more than we added");
-        }
-        this.brackets = this.brackets.previous;
-    };
-
-
 
     // Parse the next inline element in subject, advancing subject position.
     // On success, add the result to block's children and return true.
@@ -553,7 +525,7 @@ export class InlineParser {
         this.subject = (blockParser.getString(block)).trim();
         this.pos = 0;
         this.delimiters = new DelimiterCollection();
-        this.brackets = null;
+        this.brackets = new BracketCollection(this.delimiters);
         while (this.parseInline(block)) {
         }
         blockParser.unsetString(block); // allow raw string to be garbage collected

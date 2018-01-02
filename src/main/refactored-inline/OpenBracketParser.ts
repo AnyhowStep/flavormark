@@ -19,7 +19,7 @@ export class OpenBracketParser extends InParser {
         block.appendChild(node);
 
         // Add entry to stack for this opener
-        parser.addBracket(node, startpos, false);
+        parser.brackets.push(node, startpos, false);
         return true;
     }
 }

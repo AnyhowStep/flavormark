@@ -23,7 +23,7 @@ export class BangParser extends InParser {
             block.appendChild(node);
 
             // Add entry to stack for this opener
-            parser.addBracket(node, startpos + 1, true);
+            parser.brackets.push(node, startpos + 1, true);
         } else {
             block.appendChild(parser.text('!'));
         }

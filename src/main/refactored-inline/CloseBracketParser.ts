@@ -32,7 +32,7 @@ export class CloseBracketParser extends InParser {
         startpos = parser.pos;
 
         // get last [ or ![
-        opener = parser.brackets;
+        opener = parser.brackets.peek();
 
         if (opener === null) {
             // no matched opener, just return a literal
@@ -44,7 +44,7 @@ export class CloseBracketParser extends InParser {
             // no matched opener, just return a literal
             block.appendChild(parser.text(']'));
             // take opener off brackets stack
-            parser.removeBracket();
+            parser.brackets.pop();
             return true;
         }
 
@@ -116,14 +116,14 @@ export class CloseBracketParser extends InParser {
             }
             block.appendChild(node);
             parser.processEmphasis(opener.previousDelimiter);
-            parser.removeBracket();
+            parser.brackets.pop();
             opener.node.unlink();
 
             // We remove this bracket and processEmphasis will remove later delimiters.
             // Now, for a link, we also deactivate earlier link openers.
             // (no links in links)
             if (!is_image) {
-              opener = parser.brackets;
+              opener = parser.brackets.peek();
               while (opener !== null) {
                 if (!opener.image) {
                     opener.active = false; // deactivate this opener
@@ -136,7 +136,7 @@ export class CloseBracketParser extends InParser {
 
         } else { // no match
 
-            parser.removeBracket();  // remove this opener from stack
+            parser.brackets.pop();  // remove this opener from stack
             parser.pos = startpos;
             block.appendChild(parser.text(']'));
             return true;
