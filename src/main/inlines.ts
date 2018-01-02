@@ -52,6 +52,9 @@ export class InlineParser {
     text (s : string) : InlineNode {
         return new TextNode(s);
     }
+    public isTextNode (node : InlineNode) : node is TextNode {
+        return node instanceof TextNode;
+    }
 
     // Parse zero or more space characters, including at most one newline
     spnl() {

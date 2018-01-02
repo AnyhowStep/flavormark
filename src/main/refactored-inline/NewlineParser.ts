@@ -20,12 +20,9 @@ export class NewlineParser extends InParser {
 
         // check previous node for trailing spaces
         var lastc = block.lastChild;
-        if (lastc && lastc.type === "text" && lastc.literal == null) {
-            throw new Error("lastc.literal cannot be null");
-        }
-        if (lastc && lastc.type === 'text' && lastc.literal != null && lastc.literal[lastc.literal.length - 1] === ' ') {
-            var hardbreak = lastc.literal[lastc.literal.length - 2] === ' ';
-            lastc.literal = lastc.literal.replace(reFinalSpace, '');
+        if (lastc != null && parser.isTextNode(lastc) && lastc.getString()[lastc.getString().length - 1] === ' ') {
+            var hardbreak = lastc.getString()[lastc.getString().length - 2] === ' ';
+            lastc.setString(lastc.getString().replace(reFinalSpace, ''));
             block.appendChild(new InlineNode(hardbreak ? 'linebreak' : 'softbreak'));
         } else {
             block.appendChild(new InlineNode('softbreak'));
