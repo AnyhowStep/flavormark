@@ -74,6 +74,10 @@ const blockParserCollection = new BlockParserCollection(
 
     .add(listParser);
 
+import {DelimiterCollection} from "../main/refactored-misc/DelimiterCollection";
+import {BracketCollection} from "../main/refactored-misc/BracketCollection";
+const delimiters = new DelimiterCollection();
+const brackets = new BracketCollection(delimiters);
 
 import {InParser} from "../main/refactored-inline/InParser";
 import {NewlineParser} from "../main/refactored-inline/NewlineParser";
@@ -88,18 +92,20 @@ import {HtmlTagParser} from "../main/refactored-inline/HtmlTagParser";
 import {LessThanLiteralParser} from "../main/refactored-inline/LessThanLiteralParser";
 import {EntityParser} from "../main/refactored-inline/EntityParser";
 import {StringParser} from "../main/refactored-inline/StringParser";
+import {EmphasisParser} from "../main/refactored-inline/EmphasisParser";
 const inParsers : InParser[] = [
     new NewlineParser(),
     new BackslashParser(),
     new BacktickParser(),
-    new DelimParser(),
-    new OpenBracketParser(),
-    new BangParser(),
-    new CloseBracketParser(refMap),
+    new DelimParser(delimiters),
+    new OpenBracketParser(brackets),
+    new BangParser(brackets),
+    new CloseBracketParser(delimiters, brackets, refMap),
     new AutolinkParser(),
     new HtmlTagParser(),
     new LessThanLiteralParser(),
     new EntityParser(),
+    new EmphasisParser(delimiters),
 
     new StringParser(), //Should this be a default parser that cannot be removed?
 ];
@@ -111,14 +117,15 @@ const smartInParsers : InParser[] = [
     new NewlineParser(),
     new BackslashParser(),
     new BacktickParser(),
-    new DelimParser(true),
-    new OpenBracketParser(),
-    new BangParser(),
-    new CloseBracketParser(refMap),
+    new DelimParser(delimiters, true),
+    new OpenBracketParser(brackets),
+    new BangParser(brackets),
+    new CloseBracketParser(delimiters, brackets, refMap),
     new AutolinkParser(),
     new HtmlTagParser(),
     new LessThanLiteralParser(),
     new EntityParser(),
+    new EmphasisParser(delimiters),
 
     new StringParser(true), //Should this be a default parser that cannot be removed?
 ];

@@ -3,6 +3,7 @@ import {InlineParser} from "../inlines";
 import {BlockNode} from "../refactored/BlockNode";
 //import {InlineNode} from "./InlineNode";
 import {fromCodePoint} from "../from-code-point";
+import {DelimiterCollection} from "../refactored-misc/DelimiterCollection";
 
 var C_UNDERSCORE = 95;
 var C_SINGLEQUOTE = 39;
@@ -80,10 +81,15 @@ function scanDelims(parser : InlineParser, cc : number) {
 
 
 export class DelimParser extends InParser {
+    private delimiters : DelimiterCollection;
     private smart : boolean|undefined;
-    public constructor (smart? : boolean) {
+    public constructor (delimiters : DelimiterCollection, smart? : boolean) {
         super();
+        this.delimiters = delimiters;
         this.smart = smart;
+    }
+    public reinit () {
+        this.delimiters.clear();
     }
     // Handle a delimiter marker for emphasis or a quote.
     public parse (parser : InlineParser, block : BlockNode) : boolean {
@@ -122,7 +128,7 @@ export class DelimParser extends InParser {
         block.appendChild(node);
 
         // Add entry to stack for this opener
-        parser.delimiters.push({
+        this.delimiters.push({
             cc: cc,
             numdelims: numdelims,
             origdelims: numdelims,

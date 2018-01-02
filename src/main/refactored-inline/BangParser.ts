@@ -2,11 +2,17 @@ import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
 import {BlockNode} from "../refactored/BlockNode";
 //import {InlineNode} from "./InlineNode";
+import {BracketCollection} from "../refactored-misc/BracketCollection";
 
 var C_BANG = 33;
 var C_OPEN_BRACKET = 91;
 
 export class BangParser extends InParser {
+    private brackets : BracketCollection;
+    public constructor (brackets : BracketCollection) {
+        super();
+        this.brackets = brackets;
+    }
     // IF next character is [, and ! delimiter to delimiter stack and
     // add a text node to block's children.  Otherwise just add a text node.
     public parse (parser : InlineParser, block : BlockNode) : boolean {
@@ -23,7 +29,7 @@ export class BangParser extends InParser {
             block.appendChild(node);
 
             // Add entry to stack for this opener
-            parser.brackets.push(node, startpos + 1, true);
+            this.brackets.push(node, startpos + 1, true);
         } else {
             block.appendChild(parser.text('!'));
         }

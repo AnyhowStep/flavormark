@@ -3,7 +3,6 @@ import {Node} from "./node";
 import {fromCodePoint} from "./from-code-point";
 import {BlockParser} from "./refactored/BlockParser";
 import {BlockNode} from "./refactored/BlockNode";
-import {processEmphasis} from "./refactored-misc/emphasis";
 
 // Constants for character codes:
 
@@ -14,8 +13,6 @@ function text(s : string) {
     node.literal = s;
     return node;
 };
-import {DelimiterCollection} from "./refactored-misc/DelimiterCollection";
-import {BracketCollection} from "./refactored-misc/BracketCollection";
 import {InParser} from "./refactored-inline/InParser";
 
 export interface Options {
@@ -25,21 +22,18 @@ export type RefMap = {
     [k : string] : undefined|{ destination: string, title: string }
 }
 
+// INLINE PARSER
+
+// These are methods of an InlineParser object, defined below.
+// An InlineParser keeps track of a subject (a string to be
+// parsed) and a position in that subject.
 export class InlineParser {
     subject : string = '';
-    delimiters = new DelimiterCollection();
-    brackets = new BracketCollection(this.delimiters);
     pos = 0;
     options : Options;
     constructor (options : undefined|Options) {
         this.options = options || {};
     }
-
-    // INLINE PARSER
-
-    // These are methods of an InlineParser object, defined below.
-    // An InlineParser keeps track of a subject (a string to be
-    // parsed) and a position in that subject.
 
     // If re matches at current position in the subject, advance
     // position in subject and return the match; otherwise return null.
@@ -94,13 +88,16 @@ export class InlineParser {
 
     // Parse string content in block into inline children,
     parse (blockParser : BlockParser, block : BlockNode, inParsers : InParser[]) {
+        for (let i of inParsers) {
+            i.reinit();
+        }
         this.subject = (blockParser.getString(block)).trim();
         this.pos = 0;
-        this.delimiters = new DelimiterCollection();
-        this.brackets = new BracketCollection(this.delimiters);
         while (this.parseInline(block, inParsers)) {
         }
         blockParser.unsetString(block); // allow raw string to be garbage collected
-        processEmphasis(this.delimiters, null);
+        for (let i of inParsers) {
+            i.finalize();
+        }
     }
 }

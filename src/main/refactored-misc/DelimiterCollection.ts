@@ -22,7 +22,9 @@ export interface PushArgs {
 
 export class DelimiterCollection {
     private top : Delimiter|null = null;  // used by handleDelim method
-
+    public clear () {
+        this.top = null;
+    }
     remove(delim : Delimiter|null) {
         if (!delim) {
             return;

@@ -16,6 +16,9 @@ export class BracketCollection {
     public constructor (delimiters : DelimiterCollection) {
         this.delimiters = delimiters;
     }
+    public clear () {
+        this.top = null;
+    }
 
     public push (node : Node, index : number, image : boolean) {
         if (this.top != null) {

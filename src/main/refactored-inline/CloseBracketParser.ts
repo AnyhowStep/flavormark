@@ -6,6 +6,8 @@ import {normalizeReference} from "../normalize-reference";
 import {parseLinkTitle, parseLinkDestination, parseLinkLabel} from "../refactored-misc/util";
 import {processEmphasis} from "../refactored-misc/emphasis";
 import {RefMap} from "../refactored-misc/RefMap";
+import {DelimiterCollection} from "../refactored-misc/DelimiterCollection";
+import {BracketCollection} from "../refactored-misc/BracketCollection";
 
 var C_CLOSE_BRACKET = 93;
 var C_OPEN_PAREN = 40;
@@ -14,9 +16,13 @@ var C_CLOSE_PAREN = 41;
 var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
 
 export class CloseBracketParser extends InParser {
+    private delimiters : DelimiterCollection;
+    private brackets : BracketCollection;
     private refMap : RefMap;
-    public constructor (refMap : RefMap) {
+    public constructor (delimiters : DelimiterCollection, brackets : BracketCollection, refMap : RefMap) {
         super();
+        this.delimiters = delimiters;
+        this.brackets = brackets;
         this.refMap = refMap;
     }
     // Try to match close bracket against an opening in the delimiter
@@ -40,7 +46,7 @@ export class CloseBracketParser extends InParser {
         startpos = parser.pos;
 
         // get last [ or ![
-        opener = parser.brackets.peek();
+        opener = this.brackets.peek();
 
         if (opener === null) {
             // no matched opener, just return a literal
@@ -52,7 +58,7 @@ export class CloseBracketParser extends InParser {
             // no matched opener, just return a literal
             block.appendChild(parser.text(']'));
             // take opener off brackets stack
-            parser.brackets.pop();
+            this.brackets.pop();
             return true;
         }
 
@@ -123,15 +129,15 @@ export class CloseBracketParser extends InParser {
                 tmp = next;
             }
             block.appendChild(node);
-            processEmphasis(parser.delimiters, opener.previousDelimiter);
-            parser.brackets.pop();
+            processEmphasis(this.delimiters, opener.previousDelimiter);
+            this.brackets.pop();
             opener.node.unlink();
 
             // We remove this bracket and processEmphasis will remove later delimiters.
             // Now, for a link, we also deactivate earlier link openers.
             // (no links in links)
             if (!is_image) {
-              opener = parser.brackets.peek();
+              opener = this.brackets.peek();
               while (opener !== null) {
                 if (!opener.image) {
                     opener.active = false; // deactivate this opener
@@ -144,7 +150,7 @@ export class CloseBracketParser extends InParser {
 
         } else { // no match
 
-            parser.brackets.pop();  // remove this opener from stack
+            this.brackets.pop();  // remove this opener from stack
             parser.pos = startpos;
             block.appendChild(parser.text(']'));
             return true;
