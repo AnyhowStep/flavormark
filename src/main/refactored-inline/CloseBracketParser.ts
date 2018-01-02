@@ -3,6 +3,7 @@ import {InlineParser} from "../inlines";
 import {BlockNode} from "../refactored/BlockNode";
 import {InlineNode} from "./InlineNode";
 import {normalizeReference} from "../normalize-reference";
+import {parseLinkTitle} from "../refactored-misc/util";
 
 var C_CLOSE_BRACKET = 93;
 var C_OPEN_PAREN = 40;
@@ -63,7 +64,7 @@ export class CloseBracketParser extends InParser {
                 parser.spnl() &&
                 // make sure there's a space before the title:
                 (reWhitespaceChar.test(parser.subject.charAt(parser.pos - 1)) &&
-                 (title = parser.parseLinkTitle()) || true) &&
+                 (title = parseLinkTitle(parser)) || true) &&
                 parser.spnl() &&
                 parser.peek() === C_CLOSE_PAREN) {
                 parser.pos += 1;
