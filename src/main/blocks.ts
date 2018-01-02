@@ -34,12 +34,12 @@ export class Parser {
     allClosed = true;
     lastMatchedContainer : BlockNode;
     lastLineLength = 0;
-    inlineParser : InlineParser ;
+    inlineParser : InlineParser;
     options : Options;
     blockParsers : BlockParserCollection;
     inParsers : InParser[];
-    constructor (blockParsers : BlockParserCollection, inParsers : InParser[], options? : Options|undefined) {
-        this.inlineParser = new InlineParser();
+    constructor (blockParsers : BlockParserCollection, inParsers : InParser[], inlineParser : InlineParser, options? : Options|undefined) {
+        this.inlineParser = inlineParser;
         this.options = options || {};
         this.blockParsers = blockParsers;
         this.inParsers = inParsers;

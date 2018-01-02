@@ -3,11 +3,8 @@ import {TextNode} from "./refactored-inline/TextNode";
 import {fromCodePoint} from "./from-code-point";
 import {BlockParser} from "./refactored/BlockParser";
 import {BlockNode} from "./refactored/BlockNode";
-
 import {InParser} from "./refactored-inline/InParser";
 import {RegexStream} from "./refactored-misc/RegexStream";
-
-// INLINE PARSER
 
 // These are methods of an InlineParser object, defined below.
 // An InlineParser keeps track of a subject (a string to be

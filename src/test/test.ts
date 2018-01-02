@@ -93,6 +93,8 @@ import {LessThanLiteralParser} from "../main/refactored-inline/LessThanLiteralPa
 import {EntityParser} from "../main/refactored-inline/EntityParser";
 import {StringParser} from "../main/refactored-inline/StringParser";
 import {EmphasisParser} from "../main/refactored-inline/EmphasisParser";
+import {InlineParser} from "../main/inlines";
+
 const inParsers : InParser[] = [
     new NewlineParser(),
     new BackslashParser(),
@@ -111,7 +113,7 @@ const inParsers : InParser[] = [
 ];
 
 
-var reader = new commonmark.Parser(blockParserCollection, inParsers);
+var reader = new commonmark.Parser(blockParserCollection, inParsers, new InlineParser());
 
 const smartInParsers : InParser[] = [
     new NewlineParser(),
@@ -129,7 +131,7 @@ const smartInParsers : InParser[] = [
 
     new StringParser(true), //Should this be a default parser that cannot be removed?
 ];
-var readerSmart = new commonmark.Parser(blockParserCollection, smartInParsers);
+var readerSmart = new commonmark.Parser(blockParserCollection, smartInParsers, new InlineParser());
 
 var results : { passed : number, failed : number } = {
     passed: 0,
