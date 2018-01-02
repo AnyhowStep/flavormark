@@ -73,11 +73,13 @@ import {NewlineParser} from "./refactored-inline/NewlineParser";
 import {BackslashParser} from "./refactored-inline/BackslashParser";
 import {BacktickParser} from "./refactored-inline/BacktickParser";
 import {DelimParser} from "./refactored-inline/DelimParser";
+import {OpenBracketParser} from "./refactored-inline/OpenBracketParser";
 const inParsers : InParser[] = [
     new NewlineParser(),
     new BackslashParser(),
     new BacktickParser(),
     new DelimParser(),
+    new OpenBracketParser(),
 ];
 
 function text(s : string) {
@@ -763,19 +765,6 @@ export class InlineParser {
     };
 
 
-    // Add open bracket to delimiter stack and add a text node to block's children.
-    parseOpenBracket (block : Node) {
-        var startpos = this.pos;
-        this.pos += 1;
-
-        var node = text('[');
-        block.appendChild(node);
-
-        // Add entry to stack for this opener
-        this.addBracket(node, startpos, false);
-        return true;
-    };
-
 
     // Parse a run of ordinary characters, or a single character with
     // a special meaning in markdown, as a plain string.
@@ -826,9 +815,6 @@ export class InlineParser {
             }
         }
         switch(c) {
-        case C_OPEN_BRACKET:
-            res = this.parseOpenBracket(block);
-            break;
         case C_BANG:
             res = this.parseBang(block);
             break;

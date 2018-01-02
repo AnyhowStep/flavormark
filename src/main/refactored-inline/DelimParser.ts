@@ -1,18 +1,12 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
 import {BlockNode} from "../refactored/BlockNode";
-import {InlineNode} from "./InlineNode";
-
-var C_NEWLINE = 10;
+//import {InlineNode} from "./InlineNode";
 
 var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;
 var C_SINGLEQUOTE = 39;
 var C_DOUBLEQUOTE = 34;
-
-var reFinalSpace = / *$/;
-
-var reInitialSpace = /^ */;
 
 export class DelimParser extends InParser {
     // Handle a delimiter marker for emphasis or a quote.
