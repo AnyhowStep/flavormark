@@ -46,17 +46,14 @@ export class DelimParser extends InParser {
         block.appendChild(node);
 
         // Add entry to stack for this opener
-        parser.delimiters = { cc: cc,
-                            numdelims: numdelims,
-                            origdelims: numdelims,
-                            node: node,
-                            previous: parser.delimiters,
-                            next: null,
-                            can_open: res.can_open,
-                            can_close: res.can_close };
-        if (parser.delimiters.previous !== null) {
-            parser.delimiters.previous.next = parser.delimiters;
-        }
+        parser.delimiters.push({
+            cc: cc,
+            numdelims: numdelims,
+            origdelims: numdelims,
+            node: node,
+            can_open: res.can_open,
+            can_close: res.can_close
+        });
 
         return true;
     }

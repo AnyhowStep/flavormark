@@ -1,8 +1,7 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
 import {BlockNode} from "../refactored/BlockNode";
-import {InlineNode} from "./InlineNode";
-import {reHtmlTag} from "../common";
+//import {InlineNode} from "./InlineNode";
 import {fromCodePoint} from "../from-code-point";
 
 var C_LESSTHAN = 60;

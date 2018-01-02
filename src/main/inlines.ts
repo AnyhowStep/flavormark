@@ -84,17 +84,7 @@ function removeDelimitersBetween(bottom : Delimiter|null, top : Delimiter) {
         top.previous = bottom;
     }
 };
-export interface Delimiter {
-    cc: number,
-    numdelims: number,
-    origdelims: number,
-    node: Node,
-    previous: Delimiter|null,
-    next: Delimiter|null,
-    can_open: boolean,
-    can_close: boolean
-}
-
+import {DelimiterCollection, Delimiter} from "./refactored-misc/DelimiterCollection";
 export interface Bracket {
     node: Node,
     previous: Bracket|null,
@@ -115,7 +105,7 @@ export type RefMap = {
 
 export class InlineParser {
     subject : string = '';
-    delimiters : Delimiter|null = null;  // used by handleDelim method
+    delimiters = new DelimiterCollection();
     brackets: null|Bracket;
     pos = 0;
     refmap : RefMap = {};
@@ -223,24 +213,6 @@ export class InlineParser {
                  can_close: can_close };
     };
 
-
-    removeDelimiter(delim : Delimiter|null) {
-        if (!delim) {
-            return;
-        }
-        if (delim.previous !== null) {
-            delim.previous.next = delim.next;
-        }
-        if (delim.next === null) {
-            // top of stack
-            this.delimiters = delim.previous;
-        } else {
-            delim.next.previous = delim.previous;
-        }
-    };
-
-
-
     processEmphasis(stack_bottom : Delimiter|null) {
         var opener, closer, old_closer;
         var opener_inl, closer_inl;
@@ -257,7 +229,7 @@ export class InlineParser {
         openers_bottom[C_DOUBLEQUOTE] = stack_bottom;
 
         // find first closer above stack_bottom:
-        closer = this.delimiters;
+        closer = this.delimiters.peek();
         while (closer !== null && closer.previous !== stack_bottom) {
             closer = closer.previous;
         }
@@ -335,13 +307,13 @@ export class InlineParser {
                         // if opener has 0 delims, remove it and the inline
                         if (opener.numdelims === 0) {
                             opener_inl.unlink();
-                            this.removeDelimiter(opener);
+                            this.delimiters.remove(opener);
                         }
 
                         if (closer.numdelims === 0) {
                             closer_inl.unlink();
                             tempstack = closer.next;
-                            this.removeDelimiter(closer);
+                            this.delimiters.remove(closer);
                             closer = tempstack;
                         }
 
@@ -378,7 +350,7 @@ export class InlineParser {
                     if (!old_closer.can_open) {
                         // We can remove a closer that can't be an opener,
                         // once we've seen there's no matching opener:
-                        this.removeDelimiter(old_closer);
+                        this.delimiters.remove(old_closer);
                     }
                 }
             }
@@ -386,8 +358,8 @@ export class InlineParser {
         }
 
         // remove all delimiters
-        while (this.delimiters !== null && this.delimiters !== stack_bottom) {
-            this.removeDelimiter(this.delimiters);
+        while (this.delimiters.peek() !== null && this.delimiters.peek() !== stack_bottom) {
+            this.delimiters.remove(this.delimiters.peek());
         }
     };
 
@@ -542,7 +514,7 @@ export class InlineParser {
         }
         this.brackets = { node: node,
                           previous: this.brackets,
-                          previousDelimiter: this.delimiters,
+                          previousDelimiter: this.delimiters.peek(),
                           index: index,
                           image: image,
                           active: true };
@@ -580,7 +552,7 @@ export class InlineParser {
     parse (blockParser : BlockParser, block : BlockNode) {
         this.subject = (blockParser.getString(block)).trim();
         this.pos = 0;
-        this.delimiters = null;
+        this.delimiters = new DelimiterCollection();
         this.brackets = null;
         while (this.parseInline(block)) {
         }
