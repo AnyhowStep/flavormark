@@ -1,15 +1,11 @@
 import {InlineNode} from "./refactored-inline/InlineNode";
 import {TextNode} from "./refactored-inline/TextNode";
-
 import {fromCodePoint} from "./from-code-point";
 import {BlockParser} from "./refactored/BlockParser";
 import {BlockNode} from "./refactored/BlockNode";
 
 import {InParser} from "./refactored-inline/InParser";
 import {RegexStream} from "./refactored-misc/RegexStream";
-
-export interface Options {
-}
 
 // INLINE PARSER
 
@@ -19,13 +15,11 @@ export interface Options {
 //TODO consider having InlineParser CONTAIN RegexStream, rather than extending.
 //     It makes more sense since the role of the parser isn't really to be a regex stream
 export class InlineParser extends RegexStream {
-    options : Options;
-    constructor (options : undefined|Options) {
+    public constructor () {
         super("");
-        this.options = options || {};
     }
 
-    text (s : string) : InlineNode {
+    public text (s : string) : InlineNode {
         return new TextNode(s);
     }
     public isTextNode (node : InlineNode) : node is TextNode {
@@ -35,7 +29,7 @@ export class InlineParser extends RegexStream {
     // Parse the next inline element in subject, advancing subject position.
     // On success, add the result to block's children and return true.
     // On failure, return false.
-    parseInline (block : BlockNode, inParsers : InParser[]) {
+    public parseInline (block : BlockNode, inParsers : InParser[]) {
         var c = this.peek();
         if (c === -1) {
             return false;
@@ -51,7 +45,7 @@ export class InlineParser extends RegexStream {
     };
 
     // Parse string content in block into inline children,
-    parse (blockParser : BlockParser, block : BlockNode, inParsers : InParser[]) {
+    public parse (blockParser : BlockParser, block : BlockNode, inParsers : InParser[]) {
         for (let i of inParsers) {
             i.reinit();
         }

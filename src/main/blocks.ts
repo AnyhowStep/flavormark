@@ -6,14 +6,14 @@ import {InParser} from "./refactored-inline/InParser";
 var CODE_INDENT = 4;
 var C_NEWLINE = 10;
 
-import {InlineParser, Options as InlineParserOptions}  from "./inlines";
+import {InlineParser}  from "./inlines";
 
 var reMaybeSpecial = /^[#`~*+_=<>0-9-]/;
 
 var reLineEnding = /\r\n|\n|\r/;
 
 
-export interface Options extends InlineParserOptions {
+export interface Options {
     time? : boolean
 }
 
@@ -39,7 +39,7 @@ export class Parser {
     blockParsers : BlockParserCollection;
     inParsers : InParser[];
     constructor (blockParsers : BlockParserCollection, inParsers : InParser[], options? : Options|undefined) {
-        this.inlineParser = new InlineParser(options);
+        this.inlineParser = new InlineParser();
         this.options = options || {};
         this.blockParsers = blockParsers;
         this.inParsers = inParsers;
@@ -355,7 +355,6 @@ export class Parser {
     processInlines(block : BlockNode) {
         var node, event;
         var walker = block.walker();
-        this.inlineParser.options = this.options;
         while ((event = walker.next())) {
             node = event.node;
             if (!event.entering && this.blockParsers.get(node).parseInlines) {
