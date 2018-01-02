@@ -12,10 +12,8 @@ import {BlockNode} from "./refactored/BlockNode";
 
 var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;
-var C_OPEN_BRACKET = 91;
 var C_CLOSE_BRACKET = 93;
 var C_LESSTHAN = 60;
-var C_BANG = 33;
 var C_BACKSLASH = 92;
 var C_AMPERSAND = 38;
 var C_OPEN_PAREN = 40;
@@ -74,12 +72,14 @@ import {BackslashParser} from "./refactored-inline/BackslashParser";
 import {BacktickParser} from "./refactored-inline/BacktickParser";
 import {DelimParser} from "./refactored-inline/DelimParser";
 import {OpenBracketParser} from "./refactored-inline/OpenBracketParser";
+import {BangParser} from "./refactored-inline/BangParser";
 const inParsers : InParser[] = [
     new NewlineParser(),
     new BackslashParser(),
     new BacktickParser(),
     new DelimParser(),
     new OpenBracketParser(),
+    new BangParser(),
 ];
 
 function text(s : string) {
@@ -745,24 +745,6 @@ export class InlineParser {
         }
 
     };
-    // IF next character is [, and ! delimiter to delimiter stack and
-    // add a text node to block's children.  Otherwise just add a text node.
-    parseBang (block : Node) {
-        var startpos = this.pos;
-        this.pos += 1;
-        if (this.peek() === C_OPEN_BRACKET) {
-            this.pos += 1;
-
-            var node = text('![');
-            block.appendChild(node);
-
-            // Add entry to stack for this opener
-            this.addBracket(node, startpos + 1, true);
-        } else {
-            block.appendChild(text('!'));
-        }
-        return true;
-    };
 
 
 
@@ -815,9 +797,6 @@ export class InlineParser {
             }
         }
         switch(c) {
-        case C_BANG:
-            res = this.parseBang(block);
-            break;
         case C_CLOSE_BRACKET:
             res = this.parseCloseBracket(block);
             break;

@@ -1,7 +1,7 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
 import {BlockNode} from "../refactored/BlockNode";
-import {InlineNode} from "./InlineNode";
+//import {InlineNode} from "./InlineNode";
 
 var C_OPEN_BRACKET = 91;
 
