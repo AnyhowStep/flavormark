@@ -12,7 +12,6 @@ import {BlockNode} from "./refactored/BlockNode";
 
 var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;
-var C_CLOSE_BRACKET = 93;
 var C_LESSTHAN = 60;
 var C_BACKSLASH = 92;
 var C_AMPERSAND = 38;
@@ -73,6 +72,7 @@ import {BacktickParser} from "./refactored-inline/BacktickParser";
 import {DelimParser} from "./refactored-inline/DelimParser";
 import {OpenBracketParser} from "./refactored-inline/OpenBracketParser";
 import {BangParser} from "./refactored-inline/BangParser";
+import {CloseBracketParser} from "./refactored-inline/CloseBracketParser";
 const inParsers : InParser[] = [
     new NewlineParser(),
     new BackslashParser(),
@@ -80,6 +80,7 @@ const inParsers : InParser[] = [
     new DelimParser(),
     new OpenBracketParser(),
     new BangParser(),
+    new CloseBracketParser(),
 ];
 
 function text(s : string) {
@@ -616,138 +617,6 @@ export class InlineParser {
         this.brackets = this.brackets.previous;
     };
 
-
-    // Try to match close bracket against an opening in the delimiter
-    // stack.  Add either a link or image, or a plain [ character,
-    // to block's children.  If there is a matching delimiter,
-    // remove it from the delimiter stack.
-    parseCloseBracket (block : Node) {
-        var startpos;
-        var is_image;
-        var dest;
-        var title;
-        var matched = false;
-        var reflabel;
-        var opener;
-
-        this.pos += 1;
-        startpos = this.pos;
-
-        // get last [ or ![
-        opener = this.brackets;
-
-        if (opener === null) {
-            // no matched opener, just return a literal
-            block.appendChild(text(']'));
-            return true;
-        }
-
-        if (!opener.active) {
-            // no matched opener, just return a literal
-            block.appendChild(text(']'));
-            // take opener off brackets stack
-            this.removeBracket();
-            return true;
-        }
-
-        // If we got here, open is a potential opener
-        is_image = opener.image;
-
-        // Check to see if we have a link/image
-
-        var savepos = this.pos;
-
-        // Inline link?
-        if (this.peek() === C_OPEN_PAREN) {
-            this.pos++;
-            if (this.spnl() &&
-                ((dest = this.parseLinkDestination()) !== null) &&
-                this.spnl() &&
-                // make sure there's a space before the title:
-                (reWhitespaceChar.test(this.subject.charAt(this.pos - 1)) &&
-                 (title = this.parseLinkTitle()) || true) &&
-                this.spnl() &&
-                this.peek() === C_CLOSE_PAREN) {
-                this.pos += 1;
-                matched = true;
-            } else {
-                this.pos = savepos;
-            }
-        }
-
-        if (!matched) {
-
-            // Next, see if there's a link label
-            var beforelabel = this.pos;
-            var n = this.parseLinkLabel();
-            if (n > 2) {
-                reflabel = this.subject.slice(beforelabel, beforelabel + n);
-            } else if (!opener.bracketAfter) {
-                // Empty or missing second label means to use the first label as the reference.
-                // The reference must not contain a bracket. If we know there's a bracket, we don't even bother checking it.
-                reflabel = this.subject.slice(opener.index, startpos);
-            }
-            if (n === 0) {
-                // If shortcut reference link, rewind before spaces we skipped.
-                this.pos = savepos;
-            }
-
-            if (reflabel) {
-                // lookup rawlabel in refmap
-                var link = this.refmap[normalizeReference(reflabel)];
-                if (link) {
-                    dest = link.destination;
-                    title = link.title;
-                    matched = true;
-                }
-            }
-        }
-
-        if (matched) {
-            var node = new Node(is_image ? 'image' : 'link');
-            node.destination = dest;
-            node.title = title || '';
-
-            var tmp, next;
-            tmp = opener.node.next;
-            while (tmp) {
-                next = tmp.next;
-                tmp.unlink();
-                node.appendChild(tmp);
-                tmp = next;
-            }
-            block.appendChild(node);
-            this.processEmphasis(opener.previousDelimiter);
-            this.removeBracket();
-            opener.node.unlink();
-
-            // We remove this bracket and processEmphasis will remove later delimiters.
-            // Now, for a link, we also deactivate earlier link openers.
-            // (no links in links)
-            if (!is_image) {
-              opener = this.brackets;
-              while (opener !== null) {
-                if (!opener.image) {
-                    opener.active = false; // deactivate this opener
-                }
-                opener = opener.previous;
-              }
-            }
-
-            return true;
-
-        } else { // no match
-
-            this.removeBracket();  // remove this opener from stack
-            this.pos = startpos;
-            block.appendChild(text(']'));
-            return true;
-        }
-
-    };
-
-
-
     // Parse a run of ordinary characters, or a single character with
     // a special meaning in markdown, as a plain string.
     parseString (block : Node) {
@@ -797,9 +666,6 @@ export class InlineParser {
             }
         }
         switch(c) {
-        case C_CLOSE_BRACKET:
-            res = this.parseCloseBracket(block);
-            break;
         case C_LESSTHAN:
             res = this.parseAutolink(block) || this.parseHtmlTag(block);
             break;
