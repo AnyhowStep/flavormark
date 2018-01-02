@@ -47,10 +47,6 @@ var reLinkDestinationBraces = new RegExp(
 
 var reEntityHere = new RegExp('^' + ENTITY, 'i');
 
-var reTicks = /`+/;
-
-var reTicksHere = /^`+/;
-
 var reEllipses = /\.\.\./g;
 
 var reDash = /--+/g;
@@ -62,8 +58,6 @@ var reAutolink = /^<[A-Za-z][A-Za-z0-9.+-]{1,31}:[^<>\x00-\x20]*>/i;
 var reSpnl = /^ *(?:\n *)?/;
 
 var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
-
-var reWhitespace = /[ \t\n\x0b\x0c\x0d]+/g;
 
 var reUnicodeWhitespaceChar = /^\s/;
 
@@ -78,9 +72,11 @@ var reMain = /^[^\n`\[\]\\!<&*_'"]+/m;
 import {InParser} from "./refactored-inline/InParser";
 import {NewlineParser} from "./refactored-inline/NewlineParser";
 import {BackslashParser} from "./refactored-inline/BackslashParser";
+import {BacktickParser} from "./refactored-inline/BacktickParser";
 const inParsers : InParser[] = [
     new NewlineParser(),
     new BackslashParser(),
+    new BacktickParser(),
 ];
 
 function text(s : string) {
@@ -172,35 +168,6 @@ export class InlineParser {
         return true;
     };
 
-    // All of the parsers below try to match something at the current position
-    // in the subject.  If they succeed in matching anything, they
-    // return the inline matched, advancing the subject.
-
-    // Attempt to parse backticks, adding either a backtick code span or a
-    // literal sequence of backticks.
-    parseBackticks(block : Node) {
-        var ticks = this.match(reTicksHere);
-        if (ticks === null) {
-            return false;
-        }
-        var afterOpenTicks = this.pos;
-        var matched;
-        var node;
-        while ((matched = this.match(reTicks)) !== null) {
-            if (matched === ticks) {
-                node = new Node('code');
-                node.literal = this.subject.slice(afterOpenTicks,
-                                            this.pos - ticks.length)
-                              .trim().replace(reWhitespace, ' ');
-                block.appendChild(node);
-                return true;
-            }
-        }
-        // If we got here, we didn't match a closing backtick sequence.
-        this.pos = afterOpenTicks;
-        block.appendChild(text(ticks));
-        return true;
-    };
 
     // Attempt to parse an autolink (URL or email in pointy brackets).
     parseAutolink(block : Node) {
@@ -895,9 +862,6 @@ export class InlineParser {
             }
         }
         switch(c) {
-        case C_BACKTICK:
-            res = this.parseBackticks(block);
-            break;
         case C_ASTERISK:
         case C_UNDERSCORE:
             res = this.handleDelim(c, block);
