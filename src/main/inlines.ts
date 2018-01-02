@@ -17,7 +17,6 @@ var C_CLOSE_PAREN = 41;
 var C_COLON = 58;
 var C_SINGLEQUOTE = 39;
 var C_DOUBLEQUOTE = 34;
-var C_LESSTHAN = 60;
 // Some regexps used in inline parser:
 var ESCAPABLE = common.ESCAPABLE;
 var ESCAPED_CHAR = '\\\\' + ESCAPABLE;
@@ -34,10 +33,6 @@ var reLinkTitle = new RegExp(
 var reLinkDestinationBraces = new RegExp(
     '^(?:[<](?:[^ <>\\t\\n\\\\\\x00]' + '|' + ESCAPED_CHAR + '|' + '\\\\)*[>])');
 
-var reEllipses = /\.\.\./g;
-
-var reDash = /--+/g;
-
 var reSpnl = /^ *(?:\n *)?/;
 
 var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
@@ -48,9 +43,6 @@ var reSpaceAtEndOfLine = /^ *(?:\n|$)/;
 
 var reLinkLabel = new RegExp('^\\[(?:[^\\\\\\[\\]]|' + ESCAPED_CHAR +
   '|\\\\){0,1000}\\]');
-
-// Matches a string of non-special characters.
-var reMain = /^[^\n`\[\]\\!<&*_'"]+/m;
 
 import {InParser} from "./refactored-inline/InParser";
 import {NewlineParser} from "./refactored-inline/NewlineParser";
@@ -63,6 +55,7 @@ import {CloseBracketParser} from "./refactored-inline/CloseBracketParser";
 import {AutolinkParser} from "./refactored-inline/AutolinkParser";
 import {HtmlTagParser} from "./refactored-inline/HtmlTagParser";
 import {EntityParser} from "./refactored-inline/EntityParser";
+import {StringParser} from "./refactored-inline/StringParser";
 const inParsers : InParser[] = [
     new NewlineParser(),
     new BackslashParser(),
@@ -74,6 +67,8 @@ const inParsers : InParser[] = [
     new AutolinkParser(),
     new HtmlTagParser(),
     new EntityParser(),
+
+    new StringParser(), //Should this be a default parser that cannot be removed?
 ];
 
 function text(s : string) {
@@ -558,45 +553,12 @@ export class InlineParser {
         this.brackets = this.brackets.previous;
     };
 
-    // Parse a run of ordinary characters, or a single character with
-    // a special meaning in markdown, as a plain string.
-    parseString (block : Node) {
-        var m;
-        if ((m = this.match(reMain))) {
-            if (this.options.smart) {
-                block.appendChild(text(
-                    m.replace(reEllipses, "\u2026")
-                        .replace(reDash, function(chars : string) {
-                            var enCount = 0;
-                            var emCount = 0;
-                            if (chars.length % 3 === 0) { // If divisible by 3, use all em dashes
-                                emCount = chars.length / 3;
-                            } else if (chars.length % 2 === 0) { // If divisible by 2, use all en dashes
-                                enCount = chars.length / 2;
-                            } else if (chars.length % 3 === 2) { // If 2 extra dashes, use en dash for last 2; em dashes for rest
-                                enCount = 1;
-                                emCount = (chars.length - 2) / 3;
-                            } else { // Use en dashes for last 4 hyphens; em dashes for rest
-                                enCount = 2;
-                                emCount = (chars.length - 4) / 3;
-                            }
-                            return "\u2014".repeat(emCount) + "\u2013".repeat(enCount);
-                        })));
-            } else {
-                block.appendChild(text(m));
-            }
-            return true;
-        } else {
-            return false;
-        }
-    };
 
 
     // Parse the next inline element in subject, advancing subject position.
     // On success, add the result to block's children and return true.
     // On failure, return false.
     parseInline (block : BlockNode) {
-        var res : undefined|boolean = false;
         var c = this.peek();
         if (c === -1) {
             return false;
@@ -606,21 +568,8 @@ export class InlineParser {
                 return true;
             }
         }
-        switch(c) {
-            case C_LESSTHAN:
-            //Do not remove this until you handle parseString() in default label
-            //C_LESSTHAN is a valid string delimiter
-            //But you want to parse autolink or html tags here, not strings
-            break;
-        default:
-            res = this.parseString(block);
-            break;
-        }
-        if (!res) {
-            this.pos += 1;
-            block.appendChild(text(fromCodePoint(c)));
-        }
-
+        this.pos += 1;
+        block.appendChild(text(fromCodePoint(c)));
         return true;
     };
 
