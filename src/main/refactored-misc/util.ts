@@ -20,6 +20,8 @@ var reLinkTitle = new RegExp(
             '^(?:[<](?:[^ <>\\t\\n\\\\\\x00]' + '|' + ESCAPED_CHAR + '|' + '\\\\)*[>])');
 
             var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
+            var reLinkLabel = new RegExp('^\\[(?:[^\\\\\\[\\]]|' + ESCAPED_CHAR +
+              '|\\\\){0,1000}\\]');
 
 // Attempt to parse link title (sans quotes), returning the string
 // or null if no match.
@@ -68,5 +70,18 @@ export function parseLinkDestination(parser : InlineParser) {
         return normalizeURI(unescapeString(res));
     } else {  // chop off surrounding <..>:
         return normalizeURI(unescapeString(res.substr(1, res.length - 2)));
+    }
+};
+
+
+// Attempt to parse a link label, returning number of characters parsed.
+export function parseLinkLabel(parser : InlineParser) {
+    var m = parser.match(reLinkLabel);
+    // Note:  our regex will allow something of form [..\];
+    // we disallow it here rather than using lookahead in the regex:
+    if (m === null || m.length > 1001 || /[^\\]\\\]$/.exec(m)) {
+        return 0;
+    } else {
+        return m.length;
     }
 };

@@ -3,7 +3,7 @@ import {InlineParser} from "../inlines";
 import {BlockNode} from "../refactored/BlockNode";
 import {InlineNode} from "./InlineNode";
 import {normalizeReference} from "../normalize-reference";
-import {parseLinkTitle, parseLinkDestination} from "../refactored-misc/util";
+import {parseLinkTitle, parseLinkDestination, parseLinkLabel} from "../refactored-misc/util";
 
 var C_CLOSE_BRACKET = 93;
 var C_OPEN_PAREN = 40;
@@ -78,7 +78,7 @@ export class CloseBracketParser extends InParser {
 
             // Next, see if there's a link label
             var beforelabel = parser.pos;
-            var n = parser.parseLinkLabel();
+            var n = parseLinkLabel(parser);
             if (n > 2) {
                 reflabel = parser.subject.slice(beforelabel, beforelabel + n);
             } else if (!opener.bracketAfter) {
