@@ -1,7 +1,7 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
 import {BlockNode} from "../refactored/BlockNode";
-import {InlineNode} from "./InlineNode";
+//import {InlineNode} from "./InlineNode";
 import {DelimiterCollection} from "../refactored-misc/DelimiterCollection";
 import {processEmphasis} from "../refactored-misc/emphasis";
 

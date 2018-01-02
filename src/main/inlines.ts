@@ -1,4 +1,5 @@
-import {Node} from "./node";
+import {InlineNode} from "./refactored-inline/InlineNode";
+import {TextNode} from "./refactored-inline/TextNode";
 
 import {fromCodePoint} from "./from-code-point";
 import {BlockParser} from "./refactored/BlockParser";
@@ -8,18 +9,9 @@ import {BlockNode} from "./refactored/BlockNode";
 
 var reSpnl = /^ *(?:\n *)?/;
 
-function text(s : string) {
-    var node = new Node('text');
-    node.literal = s;
-    return node;
-};
 import {InParser} from "./refactored-inline/InParser";
 
 export interface Options {
-}
-
-export type RefMap = {
-    [k : string] : undefined|{ destination: string, title: string }
 }
 
 // INLINE PARSER
@@ -57,8 +49,8 @@ export class InlineParser {
         }
     };
 
-    text (s : string) {
-        return text(s);
+    text (s : string) : InlineNode {
+        return new TextNode(s);
     }
 
     // Parse zero or more space characters, including at most one newline
@@ -82,7 +74,7 @@ export class InlineParser {
             }
         }
         this.pos += 1;
-        block.appendChild(text(fromCodePoint(c)));
+        block.appendChild(this.text(fromCodePoint(c)));
         return true;
     };
 
