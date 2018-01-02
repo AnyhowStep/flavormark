@@ -19,7 +19,6 @@ import {BracketCollection} from "./refactored-misc/BracketCollection";
 import {InParser} from "./refactored-inline/InParser";
 
 export interface Options {
-    smart? : boolean
 }
 
 export type RefMap = {

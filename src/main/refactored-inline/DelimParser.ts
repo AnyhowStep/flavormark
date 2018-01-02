@@ -80,6 +80,11 @@ function scanDelims(parser : InlineParser, cc : number) {
 
 
 export class DelimParser extends InParser {
+    private smart : boolean|undefined;
+    public constructor (smart? : boolean) {
+        super();
+        this.smart = smart;
+    }
     // Handle a delimiter marker for emphasis or a quote.
     public parse (parser : InlineParser, block : BlockNode) : boolean {
         const cc = parser.peek();
@@ -88,7 +93,7 @@ export class DelimParser extends InParser {
             cc == C_UNDERSCORE
         );
         const isSmartQuote = (
-            parser.options.smart == true &&
+            this.smart == true &&
             (
                 cc == C_SINGLEQUOTE ||
                 cc == C_DOUBLEQUOTE

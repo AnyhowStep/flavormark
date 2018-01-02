@@ -11,12 +11,17 @@ var reDash = /--+/g;
 var reMain = /^[^\n`\[\]\\!<&*_'"]+/m;
 
 export class StringParser extends InParser {
+    private smart : boolean|undefined;
+    public constructor (smart? : boolean) {
+        super();
+        this.smart = smart;
+    }
     // Parse a run of ordinary characters, or a single character with
     // a special meaning in markdown, as a plain string.
     public parse (parser : InlineParser, block : BlockNode) : boolean {
         var m;
         if ((m = parser.match(reMain))) {
-            if (parser.options.smart) {
+            if (this.smart) {
                 block.appendChild(parser.text(
                     m.replace(reEllipses, "\u2026")
                         .replace(reDash, function(chars : string) {
