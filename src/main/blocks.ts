@@ -1,7 +1,6 @@
 import {BlockNode} from "./refactored/BlockNode";
 import {BlockParser} from "./refactored/BlockParser";
 import {BlockParserCollection} from "./refactored/BlockParserCollection";
-import {InParser} from "./refactored-inline/InParser";
 
 var CODE_INDENT = 4;
 var C_NEWLINE = 10;
@@ -37,12 +36,10 @@ export class Parser {
     inlineParser : InlineParser;
     options : Options;
     blockParsers : BlockParserCollection;
-    inParsers : InParser[];
-    constructor (blockParsers : BlockParserCollection, inParsers : InParser[], inlineParser : InlineParser, options? : Options|undefined) {
+    constructor (blockParsers : BlockParserCollection, inlineParser : InlineParser, options? : Options|undefined) {
         this.inlineParser = inlineParser;
         this.options = options || {};
         this.blockParsers = blockParsers;
-        this.inParsers = inParsers;
 
         //TODO, delete this safely?
         this.doc = blockParsers.instantiateDocument(
@@ -358,7 +355,7 @@ export class Parser {
         while ((event = walker.next())) {
             node = event.node;
             if (!event.entering && this.blockParsers.get(node).parseInlines) {
-                this.inlineParser.parse(this.getBlockParser(node), node, this.inParsers);
+                this.inlineParser.parse(this.getBlockParser(node), node);
             }
         }
     };

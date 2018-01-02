@@ -113,7 +113,7 @@ const inParsers : InParser[] = [
 ];
 
 
-var reader = new commonmark.Parser(blockParserCollection, inParsers, new InlineParser());
+var reader = new commonmark.Parser(blockParserCollection, new InlineParser(inParsers));
 
 const smartInParsers : InParser[] = [
     new NewlineParser(),
@@ -131,7 +131,7 @@ const smartInParsers : InParser[] = [
 
     new StringParser(true), //Should this be a default parser that cannot be removed?
 ];
-var readerSmart = new commonmark.Parser(blockParserCollection, smartInParsers, new InlineParser());
+var readerSmart = new commonmark.Parser(blockParserCollection, new InlineParser(smartInParsers));
 
 var results : { passed : number, failed : number } = {
     passed: 0,

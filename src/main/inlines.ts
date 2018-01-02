@@ -12,8 +12,10 @@ import {RegexStream} from "./refactored-misc/RegexStream";
 //TODO consider having InlineParser CONTAIN RegexStream, rather than extending.
 //     It makes more sense since the role of the parser isn't really to be a regex stream
 export class InlineParser extends RegexStream {
-    public constructor () {
+    private inParsers : InParser[];
+    public constructor (inParsers : InParser[]) {
         super("");
+        this.inParsers = inParsers;
     }
 
     public text (s : string) : InlineNode {
@@ -26,12 +28,12 @@ export class InlineParser extends RegexStream {
     // Parse the next inline element in subject, advancing subject position.
     // On success, add the result to block's children and return true.
     // On failure, return false.
-    public parseInline (block : BlockNode, inParsers : InParser[]) {
+    public parseInline (block : BlockNode) {
         var c = this.peek();
         if (c === -1) {
             return false;
         }
-        for (let p of inParsers) {
+        for (let p of this.inParsers) {
             if (p.parse(this, block)) {
                 return true;
             }
@@ -42,16 +44,16 @@ export class InlineParser extends RegexStream {
     };
 
     // Parse string content in block into inline children,
-    public parse (blockParser : BlockParser, block : BlockNode, inParsers : InParser[]) {
-        for (let i of inParsers) {
+    public parse (blockParser : BlockParser, block : BlockNode) {
+        for (let i of this.inParsers) {
             i.reinit();
         }
         this.subject = (blockParser.getString(block)).trim();
         this.pos = 0;
-        while (this.parseInline(block, inParsers)) {
+        while (this.parseInline(block)) {
         }
         blockParser.unsetString(block); // allow raw string to be garbage collected
-        for (let i of inParsers) {
+        for (let i of this.inParsers) {
             i.finalize();
         }
     }
