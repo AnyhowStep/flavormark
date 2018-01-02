@@ -12,7 +12,6 @@ import {BlockNode} from "./refactored/BlockNode";
 
 var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;
-var C_BACKTICK = 96;
 var C_OPEN_BRACKET = 91;
 var C_CLOSE_BRACKET = 93;
 var C_LESSTHAN = 60;
@@ -73,10 +72,12 @@ import {InParser} from "./refactored-inline/InParser";
 import {NewlineParser} from "./refactored-inline/NewlineParser";
 import {BackslashParser} from "./refactored-inline/BackslashParser";
 import {BacktickParser} from "./refactored-inline/BacktickParser";
+import {DelimParser} from "./refactored-inline/DelimParser";
 const inParsers : InParser[] = [
     new NewlineParser(),
     new BackslashParser(),
     new BacktickParser(),
+    new DelimParser(),
 ];
 
 function text(s : string) {
@@ -269,43 +270,6 @@ export class InlineParser {
                  can_close: can_close };
     };
 
-    // Handle a delimiter marker for emphasis or a quote.
-    handleDelim(cc : number, block : Node) {
-        var res = this.scanDelims(cc);
-        if (!res) {
-            return false;
-        }
-        var numdelims = res.numdelims;
-        var startpos = this.pos;
-        var contents;
-
-        this.pos += numdelims;
-        if (cc === C_SINGLEQUOTE) {
-            contents = "\u2019";
-        } else if (cc === C_DOUBLEQUOTE) {
-            contents = "\u201C";
-        } else {
-            contents = this.subject.slice(startpos, this.pos);
-        }
-        var node = text(contents);
-        block.appendChild(node);
-
-        // Add entry to stack for this opener
-        this.delimiters = { cc: cc,
-                            numdelims: numdelims,
-                            origdelims: numdelims,
-                            node: node,
-                            previous: this.delimiters,
-                            next: null,
-                            can_open: res.can_open,
-                            can_close: res.can_close };
-        if (this.delimiters.previous !== null) {
-            this.delimiters.previous.next = this.delimiters;
-        }
-
-        return true;
-
-    };
 
     removeDelimiter(delim : Delimiter|null) {
         if (!delim) {
@@ -862,14 +826,6 @@ export class InlineParser {
             }
         }
         switch(c) {
-        case C_ASTERISK:
-        case C_UNDERSCORE:
-            res = this.handleDelim(c, block);
-            break;
-        case C_SINGLEQUOTE:
-        case C_DOUBLEQUOTE:
-            res = this.options.smart && this.handleDelim(c, block);
-            break;
         case C_OPEN_BRACKET:
             res = this.parseOpenBracket(block);
             break;
