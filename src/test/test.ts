@@ -177,7 +177,18 @@ pathologicalTest(
     }
 )
 process.exit();*/
-
+/*pathologicalTest(
+    { name: 'raw html - illegal whitespace',
+      input: '< a><\nfoo><bar/ >\n',
+      expected: '<p>&lt; a&gt;&lt;\nfoo&gt;&lt;bar/ &gt;</p>\n' },
+    results,
+    function(z) {
+        const x = reader.parse(z);
+        
+        return writer.render(x);
+    }
+)
+process.exit();*/
 specTests('src/test/spec.txt', results, function(z : string) {
         return writer.render(reader.parse(z));
     });
