@@ -47,10 +47,6 @@ var reEllipses = /\.\.\./g;
 
 var reDash = /--+/g;
 
-var reEmailAutolink = /^<([a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)>/;
-
-var reAutolink = /^<[A-Za-z][A-Za-z0-9.+-]{1,31}:[^<>\x00-\x20]*>/i;
-
 var reSpnl = /^ *(?:\n *)?/;
 
 var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
@@ -73,6 +69,7 @@ import {DelimParser} from "./refactored-inline/DelimParser";
 import {OpenBracketParser} from "./refactored-inline/OpenBracketParser";
 import {BangParser} from "./refactored-inline/BangParser";
 import {CloseBracketParser} from "./refactored-inline/CloseBracketParser";
+import {AutolinkParser} from "./refactored-inline/AutolinkParser";
 const inParsers : InParser[] = [
     new NewlineParser(),
     new BackslashParser(),
@@ -81,6 +78,7 @@ const inParsers : InParser[] = [
     new OpenBracketParser(),
     new BangParser(),
     new CloseBracketParser(),
+    new AutolinkParser(),
 ];
 
 function text(s : string) {
@@ -170,33 +168,6 @@ export class InlineParser {
     spnl() {
         this.match(reSpnl);
         return true;
-    };
-
-
-    // Attempt to parse an autolink (URL or email in pointy brackets).
-    parseAutolink(block : Node) {
-        var m;
-        var dest;
-        var node;
-        if ((m = this.match(reEmailAutolink))) {
-            dest = m.slice(1, m.length - 1);
-            node = new Node('link');
-            node.destination = normalizeURI('mailto:' + dest);
-            node.title = '';
-            node.appendChild(text(dest));
-            block.appendChild(node);
-            return true;
-        } else if ((m = this.match(reAutolink))) {
-            dest = m.slice(1, m.length - 1);
-            node = new Node('link');
-            node.destination = normalizeURI(dest);
-            node.title = '';
-            node.appendChild(text(dest));
-            block.appendChild(node);
-            return true;
-        } else {
-            return false;
-        }
     };
 
     // Attempt to parse a raw HTML tag.
@@ -667,7 +638,7 @@ export class InlineParser {
         }
         switch(c) {
         case C_LESSTHAN:
-            res = this.parseAutolink(block) || this.parseHtmlTag(block);
+            res =  this.parseHtmlTag(block);
             break;
         case C_AMPERSAND:
             res = this.parseEntity(block);
