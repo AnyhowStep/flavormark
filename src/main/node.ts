@@ -81,8 +81,8 @@ export class Node {
     sourcepos? : [[number, number], [number, number]];
     lastLineBlank = false;
     open = true;
+
     literal : string|null = null;
-    info : string|null = null;
     destination : string|null|undefined = null;
     title : string|null = null;
     onEnter = null;

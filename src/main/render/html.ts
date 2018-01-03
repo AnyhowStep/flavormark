@@ -174,7 +174,7 @@ export class HtmlRenderer extends Renderer {
       this.tag('/code');
     }
 
-     indented_code_block(node:Node) {
+     indented_code_block(node:any) {
       var info_words = node.info ? node.info.split(/\s+/) : []
         , attrs = this.attrs(node);
       if (info_words.length > 0 && info_words[0].length > 0) {
@@ -188,7 +188,7 @@ export class HtmlRenderer extends Renderer {
       this.tag('/pre');
       this.cr();
   }
-  fenced_code_block(node:Node) {
+  fenced_code_block(node:any) {
      var info_words = node.info ? node.info.split(/\s+/) : []
        , attrs = this.attrs(node);
      if (info_words.length > 0 && info_words[0].length > 0) {
