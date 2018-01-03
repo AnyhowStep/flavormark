@@ -14,7 +14,7 @@ class SetextHeadingParser extends BlockParser_1.BlockParser {
                 parser.closeUnmatchedBlocks();
                 var heading = new HeadingNode_1.HeadingNode(this.getNodeType(), container.sourcepos);
                 heading.level = match[0][0] === '=' ? 1 : 2;
-                heading.string_content = container.string_content;
+                heading.string_content = parser.getBlockParsers().getParagraphParser().getString(container);
                 container.insertAfter(heading);
                 container.unlink();
                 parser.tip = heading;

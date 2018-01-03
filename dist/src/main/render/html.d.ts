@@ -19,7 +19,7 @@ export declare class HtmlRenderer extends Renderer {
     image(node: Node, entering: boolean): void;
     emph(_node: Node, entering: boolean): void;
     strong(_node: Node, entering: boolean): void;
-    paragraph(node: Node, entering: boolean): void;
+    paragraph(node: any, entering: boolean): void;
     atx_heading(node: any, entering: boolean): void;
     setext_heading(node: any, entering: boolean): void;
     code(node: Node): void;
@@ -27,7 +27,7 @@ export declare class HtmlRenderer extends Renderer {
     fenced_code_block(node: Node): void;
     thematic_break(node: Node): void;
     block_quote(node: Node, entering: boolean): void;
-    list(node: Node, entering: boolean): void;
+    list(node: any, entering: boolean): void;
     item(node: Node, entering: boolean): void;
     html_inline(node: Node): void;
     html_block(node: Node): void;

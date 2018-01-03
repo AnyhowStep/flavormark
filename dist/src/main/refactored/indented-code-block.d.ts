@@ -1,16 +1,15 @@
 import { BlockParser } from "./BlockParser";
 import { Parser } from "../blocks";
-import { Node } from "../node";
-import { BlockNode } from "./BlockNode";
-export declare class IndentedCodeBlockParser extends BlockParser<BlockNode> {
+import { IndentedCodeBlockNode } from "./IndentedCodeBlockNode";
+export declare class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> {
     tryStart: (parser: Parser) => boolean;
     continue: (parser: Parser) => boolean;
-    finalize: (_parser: Parser, block: Node) => void;
+    finalize: (_parser: Parser, block: IndentedCodeBlockNode) => void;
     canContain: () => boolean;
     acceptsLines: boolean;
     isLeaf: boolean;
-    appendString(node: BlockNode, str: string): void;
-    getString(node: BlockNode): string;
-    unsetString(node: BlockNode): void;
+    appendString(node: IndentedCodeBlockNode, str: string): void;
+    getString(node: IndentedCodeBlockNode): string;
+    unsetString(node: IndentedCodeBlockNode): void;
 }
 export declare const indentedCodeBlockParser: IndentedCodeBlockParser;

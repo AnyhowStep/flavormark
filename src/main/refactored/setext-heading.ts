@@ -9,13 +9,15 @@ var reSetextHeadingLine = /^(?:=+|-+)[ \t]*$/;
 export class SetextHeadingParser extends BlockParser<HeadingNode> {
     tryStart= (parser : Parser, container : BlockNode) => {
         var match;
-        if (!parser.indented &&
+        if (
+            !parser.indented &&
             parser.isParagraphNode(container) &&
-                   ((match = parser.currentLine.slice(parser.nextNonspace).match(reSetextHeadingLine)))) {
+            ((match = parser.currentLine.slice(parser.nextNonspace).match(reSetextHeadingLine)))
+       ) {
             parser.closeUnmatchedBlocks();
             var heading = new HeadingNode(this.getNodeType(), container.sourcepos);
             heading.level = match[0][0] === '=' ? 1 : 2;
-            heading.string_content = container.string_content;
+            heading.string_content = parser.getBlockParsers().getParagraphParser().getString(container);
             container.insertAfter(heading);
             container.unlink();
             parser.tip = heading;
@@ -34,11 +36,11 @@ export class SetextHeadingParser extends BlockParser<HeadingNode> {
     acceptsLines= false;
     parseInlines = true;
     isLeaf = true;
-    public getString (node : BlockNode) : string {
+    public getString (node : HeadingNode) : string {
         return node.string_content || "";
     }
     // allow raw string to be garbage collected
-    public unsetString (node : BlockNode) : void {
+    public unsetString (node : HeadingNode) : void {
         node.string_content = null;
     }
 }

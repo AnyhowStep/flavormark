@@ -10,7 +10,7 @@ export declare class SetextHeadingParser extends BlockParser<HeadingNode> {
     acceptsLines: boolean;
     parseInlines: boolean;
     isLeaf: boolean;
-    getString(node: BlockNode): string;
-    unsetString(node: BlockNode): void;
+    getString(node: HeadingNode): string;
+    unsetString(node: HeadingNode): void;
 }
 export declare const setextHeadingParser: SetextHeadingParser;

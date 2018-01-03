@@ -20,26 +20,12 @@ export declare class Node {
     sourcepos?: [[number, number], [number, number]];
     lastLineBlank: boolean;
     open: boolean;
-    string_content: string | null;
     literal: string | null;
-    listData: {
-        type?: string | null;
-        tight?: boolean | null;
-        bulletChar?: string | null;
-        start?: number | null;
-        delimiter?: string | null;
-        padding?: number | null;
-        markerOffset?: number | null;
-    };
     info: string | null;
     destination: string | null | undefined;
     title: string | null;
-    fenceChar: string | null;
-    fenceLength: number;
-    fenceOffset: number | null;
     onEnter: null;
     onExit: null;
-    htmlBlockType: number | null;
     constructor(nodeType: NodeType, sourcepos?: [[number, number], [number, number]]);
     isContainer(): boolean;
     unlink(): void;

@@ -1,6 +1,6 @@
 import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
-import {Node} from "../node";
+//import {Node} from "../node";
 import {CODE_INDENT} from "./util";
 import {IndentedCodeBlockNode} from "./IndentedCodeBlockNode";
 
@@ -30,7 +30,7 @@ export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> 
         }
         return true;
     };
-    finalize= (_parser : Parser, block : Node) => {
+    finalize= (_parser : Parser, block : IndentedCodeBlockNode) => {
         if (block.string_content == null) {
             throw new Error("block.string_content cannot be null")
         }

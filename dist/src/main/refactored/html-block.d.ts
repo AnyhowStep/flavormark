@@ -1,17 +1,17 @@
 import { BlockParser } from "./BlockParser";
 import { Parser } from "../blocks";
-import { Node } from "../node";
 import { BlockNode } from "./BlockNode";
-export declare class HtmlBlockParser extends BlockParser<BlockNode> {
+import { HtmlBlockNode } from "./HtmlBlockNode";
+export declare class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
     tryStart: (parser: Parser, container: BlockNode) => boolean;
-    continue: (parser: Parser, container: Node) => boolean;
-    finalize: (_parser: Parser, block: Node) => void;
+    continue: (parser: Parser, container: HtmlBlockNode) => boolean;
+    finalize: (_parser: Parser, block: HtmlBlockNode) => void;
     canContain: () => boolean;
     acceptsLines: boolean;
-    finalizeAtLine: (parser: Parser, container: Node) => boolean;
+    finalizeAtLine: (parser: Parser, container: HtmlBlockNode) => boolean;
     isLeaf: boolean;
-    appendString(node: BlockNode, str: string): void;
-    getString(node: BlockNode): string;
-    unsetString(node: BlockNode): void;
+    appendString(node: HtmlBlockNode, str: string): void;
+    getString(node: HtmlBlockNode): string;
+    unsetString(node: HtmlBlockNode): void;
 }
 export declare const htmlBlockParser: HtmlBlockParser;

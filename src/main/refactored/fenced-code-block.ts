@@ -3,7 +3,7 @@ import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek, isSpaceOrTab} from "./util";
 import {unescapeString} from "../common";
-import {BlockNode} from "./BlockNode";
+//import {BlockNode} from "./BlockNode";
 import {FencedCodeBlockNode} from "./FencedCodeBlockNode";
 
 var reCodeFence = /^`{3,}(?!.*`)|^~{3,}(?!.*~)/;
@@ -69,17 +69,17 @@ export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
     earlyExitOnEnd = true;
     ignoreLastLineBlank = (_parser : Parser, _container : Node) => { return true; };
     isLeaf = true;
-    public appendString (node : BlockNode, str : string) : void {
+    public appendString (node : FencedCodeBlockNode, str : string) : void {
         if (node.string_content == null) {
             node.string_content = "";
         }
         node.string_content += str;
     }
-    public getString (node : BlockNode) : string {
+    public getString (node : FencedCodeBlockNode) : string {
         return node.string_content || "";
     }
     // allow raw string to be garbage collected
-    public unsetString (node : BlockNode) : void {
+    public unsetString (node : FencedCodeBlockNode) : void {
         node.string_content = null;
     }
 }

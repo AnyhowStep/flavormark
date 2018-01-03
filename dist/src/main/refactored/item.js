@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./BlockParser");
 const util_1 = require("./util");
-const BlockNode_1 = require("./BlockNode");
+const ListNode_1 = require("./ListNode");
+const ItemNode_1 = require("./ItemNode");
 var reBulletListMarker = /^[*+-]/;
 var reOrderedListMarker = /^(\d{1,9})([.)])/;
 // Parse a list marker and return data on the marker (type,
@@ -91,13 +92,14 @@ class ItemParser extends BlockParser_1.BlockParser {
                 }
                 // add the list if needed
                 if (!parser.getBlockParser(parser.tip).isList ||
-                    !(listsMatch(container.listData, data))) {
-                    container = parser.addChild(this.listParser, parser.nextNonspace);
-                    container.listData = data;
+                    !(container instanceof ListNode_1.ListNode) ||
+                    !listsMatch(container.listData, data)) {
+                    const listNode = parser.addChild(this.listParser, parser.nextNonspace);
+                    listNode.listData = data;
                 }
                 // add the list item
-                container = parser.addChild(this, parser.nextNonspace);
-                container.listData = data;
+                const itemNode = parser.addChild(this, parser.nextNonspace);
+                itemNode.listData = data;
                 return true;
             }
             else {
@@ -141,5 +143,5 @@ class ItemParser extends BlockParser_1.BlockParser {
 }
 exports.ItemParser = ItemParser;
 const list_1 = require("./list");
-exports.itemParser = new ItemParser("item", BlockNode_1.BlockNode, list_1.listParser);
+exports.itemParser = new ItemParser("item", ItemNode_1.ItemNode, list_1.listParser);
 //# sourceMappingURL=item.js.map

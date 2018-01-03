@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./BlockParser");
+//import {Node} from "../node";
 const util_1 = require("./util");
-const BlockNode_1 = require("./BlockNode");
+const IndentedCodeBlockNode_1 = require("./IndentedCodeBlockNode");
 class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
@@ -60,5 +61,5 @@ class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
     }
 }
 exports.IndentedCodeBlockParser = IndentedCodeBlockParser;
-exports.indentedCodeBlockParser = new IndentedCodeBlockParser("indented_code_block", BlockNode_1.BlockNode);
+exports.indentedCodeBlockParser = new IndentedCodeBlockParser("indented_code_block", IndentedCodeBlockNode_1.IndentedCodeBlockNode);
 //# sourceMappingURL=indented-code-block.js.map

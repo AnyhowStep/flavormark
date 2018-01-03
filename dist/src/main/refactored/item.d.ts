@@ -3,13 +3,13 @@ import { Parser } from "../blocks";
 import { Node } from "../node";
 import { BlockNode } from "./BlockNode";
 import { BlockNodeCtor } from "./BlockParser";
-export declare type ItemNodeT = BlockNode;
-export declare type ListNodeT = BlockNode;
-export declare class ItemParser extends BlockParser {
+import { ListNode } from "./ListNode";
+import { ItemNode } from "./ItemNode";
+export declare class ItemParser extends BlockParser<ItemNode> {
     private listParser;
-    constructor(nodeType: string, nodeCtor: BlockNodeCtor<ItemNodeT>, listParser: BlockParser<ListNodeT>);
+    constructor(nodeType: string, nodeCtor: BlockNodeCtor<ItemNode>, listParser: BlockParser<ListNode>);
     tryStart: (parser: Parser, container: BlockNode) => boolean;
-    continue: (parser: Parser, container: Node) => boolean;
+    continue: (parser: Parser, container: ItemNode) => boolean;
     finalize: () => void;
     canContain: (blockParser: BlockParserMeta) => boolean;
     acceptsLines: boolean;

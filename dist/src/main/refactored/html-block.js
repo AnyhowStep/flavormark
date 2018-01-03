@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./BlockParser");
+//import {Node} from "../node";
 const util_1 = require("./util");
 const common_1 = require("../common");
-const BlockNode_1 = require("./BlockNode");
+const HtmlBlockNode_1 = require("./HtmlBlockNode");
 var C_LESSTHAN = 60;
 var reHtmlBlockClose = [
     /./,
@@ -83,5 +84,5 @@ class HtmlBlockParser extends BlockParser_1.BlockParser {
     }
 }
 exports.HtmlBlockParser = HtmlBlockParser;
-exports.htmlBlockParser = new HtmlBlockParser("html_block", BlockNode_1.BlockNode);
+exports.htmlBlockParser = new HtmlBlockParser("html_block", HtmlBlockNode_1.HtmlBlockNode);
 //# sourceMappingURL=html-block.js.map

@@ -3,7 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./BlockParser");
 const util_1 = require("./util");
 const common_1 = require("../common");
-const BlockNode_1 = require("./BlockNode");
+//import {BlockNode} from "./BlockNode";
+const FencedCodeBlockNode_1 = require("./FencedCodeBlockNode");
 var reCodeFence = /^`{3,}(?!.*`)|^~{3,}(?!.*~)/;
 var reClosingCodeFence = /^(?:`{3,}|~{3,})(?= *$)/;
 class FencedCodeBlockParser extends BlockParser_1.BlockParser {
@@ -85,5 +86,5 @@ class FencedCodeBlockParser extends BlockParser_1.BlockParser {
     }
 }
 exports.FencedCodeBlockParser = FencedCodeBlockParser;
-exports.fencedCodeBlockParser = new FencedCodeBlockParser("fenced_code_block", BlockNode_1.BlockNode);
+exports.fencedCodeBlockParser = new FencedCodeBlockParser("fenced_code_block", FencedCodeBlockNode_1.FencedCodeBlockNode);
 //# sourceMappingURL=fenced-code-block.js.map

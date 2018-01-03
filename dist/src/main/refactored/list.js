@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./BlockParser");
 const util_1 = require("./util");
-const BlockNode_1 = require("./BlockNode");
+//import {BlockNode} from "./BlockNode";
+const ListNode_1 = require("./ListNode");
 class ListParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
@@ -35,5 +36,5 @@ class ListParser extends BlockParser_1.BlockParser {
     }
 }
 exports.ListParser = ListParser;
-exports.listParser = new ListParser("list", BlockNode_1.BlockNode);
+exports.listParser = new ListParser("list", ListNode_1.ListNode);
 //# sourceMappingURL=list.js.map

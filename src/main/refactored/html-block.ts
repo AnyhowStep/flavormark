@@ -1,6 +1,6 @@
 import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
-import {Node} from "../node";
+//import {Node} from "../node";
 import {peek} from "./util";
 import {OPENTAG, CLOSETAG} from "../common";
 import {BlockNode} from "./BlockNode";
@@ -64,7 +64,7 @@ export class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
             ) ? false : true
         );
     };
-    finalize= (_parser : Parser, block : Node) => {
+    finalize= (_parser : Parser, block : HtmlBlockNode) => {
         if (block.string_content == null) {
             throw new Error("block.string_content cannot be null")
         }
@@ -82,17 +82,17 @@ export class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
         );
     };
     isLeaf = true;
-    public appendString (node : BlockNode, str : string) : void {
+    public appendString (node : HtmlBlockNode, str : string) : void {
         if (node.string_content == null) {
             node.string_content = "";
         }
         node.string_content += str;
     }
-    public getString (node : BlockNode) : string {
+    public getString (node : HtmlBlockNode) : string {
         return node.string_content || "";
     }
     // allow raw string to be garbage collected
-    public unsetString (node : BlockNode) : void {
+    public unsetString (node : HtmlBlockNode) : void {
         node.string_content = null;
     }
 }

@@ -53,19 +53,12 @@ class Node {
         this.next = null;
         this.lastLineBlank = false;
         this.open = true;
-        this.string_content = null;
         this.literal = null;
-        this.listData = {};
         this.info = null;
         this.destination = null;
         this.title = null;
-        this.fenceChar = null;
-        this.fenceLength = 0;
-        this.fenceOffset = null;
-        //level : number|null = null;
         this.onEnter = null;
         this.onExit = null;
-        this.htmlBlockType = null;
         this.type = nodeType;
         this.sourcepos = sourcepos;
     }

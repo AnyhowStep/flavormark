@@ -81,27 +81,12 @@ export class Node {
     sourcepos? : [[number, number], [number, number]];
     lastLineBlank = false;
     open = true;
-    string_content : string|null = null;
     literal : string|null = null;
-    /*listData : {
-        type? : string|null,
-        tight? : boolean|null,
-        bulletChar? : string|null,
-        start? : number|null,
-        delimiter? : string|null,
-        padding? : number|null,
-        markerOffset? : number|null,
-    } = {};*/
     info : string|null = null;
     destination : string|null|undefined = null;
     title : string|null = null;
-    //fenceChar : string|null = null;
-    //fenceLength = 0;
-    //fenceOffset : number|null = null;
-    //level : number|null = null;
     onEnter = null;
     onExit = null;
-    //htmlBlockType : number|null = null;
 
     public constructor (nodeType : NodeType, sourcepos? : [[number, number], [number, number]]) {
         this.type = nodeType;
