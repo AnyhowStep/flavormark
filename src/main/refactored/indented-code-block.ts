@@ -2,9 +2,9 @@ import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 import {CODE_INDENT} from "./util";
-import {BlockNode} from "./BlockNode";
+import {IndentedCodeBlockNode} from "./IndentedCodeBlockNode";
 
-export class IndentedCodeBlockParser extends BlockParser<BlockNode> {
+export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> {
     tryStart= (parser : Parser) => {
         if (parser.indented &&
             parser.tip != null &&
@@ -40,19 +40,19 @@ export class IndentedCodeBlockParser extends BlockParser<BlockNode> {
     canContain= () => { return false; };
     acceptsLines= true;
     isLeaf = true;
-    public appendString (node : BlockNode, str : string) : void {
+    public appendString (node : IndentedCodeBlockNode, str : string) : void {
         if (node.string_content == null) {
             node.string_content = "";
         }
         node.string_content += str;
     }
-    public getString (node : BlockNode) : string {
+    public getString (node : IndentedCodeBlockNode) : string {
         return node.string_content || "";
     }
     // allow raw string to be garbage collected
-    public unsetString (node : BlockNode) : void {
+    public unsetString (node : IndentedCodeBlockNode) : void {
         node.string_content = null;
     }
 }
 
-export const indentedCodeBlockParser = new IndentedCodeBlockParser("indented_code_block", BlockNode);
+export const indentedCodeBlockParser = new IndentedCodeBlockParser("indented_code_block", IndentedCodeBlockNode);

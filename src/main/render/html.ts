@@ -124,7 +124,7 @@ export class HtmlRenderer extends Renderer {
       this.tag(entering ? 'strong' : '/strong');
     }
 
-     paragraph(node:Node, entering:boolean) {
+     paragraph(node:any, entering:boolean) {
          if (node.parent == null) {
              throw new Error("node.parent cannot be null");
          }
@@ -223,7 +223,7 @@ export class HtmlRenderer extends Renderer {
       }
     }
 
-     list(node:Node, entering:boolean) {
+     list(node:any, entering:boolean) {
       var tagname = node.listData.type === 'bullet' ? 'ul' : 'ol'
         , attrs = this.attrs(node);
 
