@@ -1,5 +1,5 @@
-import { InlineNode } from "./InlineNode";
-export declare class TextNode extends InlineNode {
+import { Node } from "../node";
+export declare class TextNode extends Node {
     constructor(str: string);
     getString(): string;
     setString(str: string): void;

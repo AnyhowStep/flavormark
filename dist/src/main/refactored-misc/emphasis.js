@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const DelimiterCollection_1 = require("./DelimiterCollection");
-const InlineNode_1 = require("../refactored-inline/InlineNode");
+const node_1 = require("../node");
 var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;
 var C_SINGLEQUOTE = 39;
@@ -75,7 +75,7 @@ function processEmphasis(delimiters, stack_bottom) {
                     closer_inl.literal =
                         closer_inl.literal.slice(0, closer_inl.literal.length - use_delims);
                     // build contents for new emph element
-                    var emph = new InlineNode_1.InlineNode(use_delims === 1 ? 'emph' : 'strong');
+                    var emph = new node_1.Node(use_delims === 1 ? 'emph' : 'strong');
                     tmp = opener_inl.next;
                     while (tmp && tmp !== closer_inl) {
                         next = tmp.next;

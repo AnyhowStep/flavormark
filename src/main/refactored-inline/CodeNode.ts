@@ -1,5 +1,5 @@
-import {InlineNode} from "./InlineNode";
+import {Node} from "../node";
 
-export class CodeNode extends InlineNode {
+export class CodeNode extends Node {
     public literal : string|null = null;
 }

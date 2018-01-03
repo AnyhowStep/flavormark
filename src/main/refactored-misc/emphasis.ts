@@ -1,5 +1,4 @@
 import {Delimiter, DelimiterCollection, removeDelimitersBetween} from "./DelimiterCollection";
-import {InlineNode} from "../refactored-inline/InlineNode";
 import {Node} from "../node";
 
 var C_ASTERISK = 42;
@@ -83,7 +82,7 @@ export function processEmphasis(delimiters : DelimiterCollection, stack_bottom :
                                                   closer_inl.literal.length - use_delims);
 
                     // build contents for new emph element
-                    var emph = new InlineNode(use_delims === 1 ? 'emph' : 'strong');
+                    var emph = new Node(use_delims === 1 ? 'emph' : 'strong');
 
                     tmp = opener_inl.next;
                     while (tmp && tmp !== closer_inl) {

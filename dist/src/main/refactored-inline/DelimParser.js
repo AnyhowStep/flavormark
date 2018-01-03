@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InParser_1 = require("./InParser");
-//import {InlineNode} from "./InlineNode";
+//import {Node} from "./Node";
 const from_code_point_1 = require("../from-code-point");
 var C_UNDERSCORE = 95;
 var C_SINGLEQUOTE = 39;

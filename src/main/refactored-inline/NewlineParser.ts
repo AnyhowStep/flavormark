@@ -1,7 +1,6 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
 import {Node} from "../node";
-import {InlineNode} from "./InlineNode";
 
 var C_NEWLINE = 10;
 var reFinalSpace = / *$/;
@@ -23,9 +22,9 @@ export class NewlineParser extends InParser {
         if (lastc != null && parser.isTextNode(lastc) && lastc.getString()[lastc.getString().length - 1] === ' ') {
             var hardbreak = lastc.getString()[lastc.getString().length - 2] === ' ';
             lastc.setString(lastc.getString().replace(reFinalSpace, ''));
-            block.appendChild(new InlineNode(hardbreak ? 'linebreak' : 'softbreak'));
+            block.appendChild(new Node(hardbreak ? 'linebreak' : 'softbreak'));
         } else {
-            block.appendChild(new InlineNode('softbreak'));
+            block.appendChild(new Node('softbreak'));
         }
         parser.match(reInitialSpace); // gobble leading spaces in next line
         return true;

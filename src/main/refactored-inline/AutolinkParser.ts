@@ -1,7 +1,6 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
 import {Node} from "../node";
-import {InlineNode} from "./InlineNode";
 import {normalizeURI} from "../common";
 
 var C_LESSTHAN = 60;
@@ -24,7 +23,7 @@ export class AutolinkParser extends InParser {
         var node;
         if ((m = parser.match(reEmailAutolink))) {
             dest = m.slice(1, m.length - 1);
-            node = new InlineNode('link');
+            node = new Node('link');
             node.destination = normalizeURI('mailto:' + dest);
             node.title = '';
             node.appendChild(parser.text(dest));
@@ -32,7 +31,7 @@ export class AutolinkParser extends InParser {
             return true;
         } else if ((m = parser.match(reAutolink))) {
             dest = m.slice(1, m.length - 1);
-            node = new InlineNode('link');
+            node = new Node('link');
             node.destination = normalizeURI(dest);
             node.title = '';
             node.appendChild(parser.text(dest));

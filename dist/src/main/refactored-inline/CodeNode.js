@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InlineNode_1 = require("./InlineNode");
-class CodeNode extends InlineNode_1.InlineNode {
+const node_1 = require("../node");
+class CodeNode extends node_1.Node {
     constructor() {
         super(...arguments);
         this.literal = null;

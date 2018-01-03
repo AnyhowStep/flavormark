@@ -1,7 +1,6 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
 import {Node} from "../node";
-import {InlineNode} from "./InlineNode";
 import {normalizeReference} from "../normalize-reference";
 import {parseLinkTitle, parseLinkDestination, parseLinkLabel} from "../refactored-misc/util";
 import {processEmphasis} from "../refactored-misc/emphasis";
@@ -116,7 +115,7 @@ export class CloseBracketParser extends InParser {
         }
 
         if (matched) {
-            var node = new InlineNode(is_image ? 'image' : 'link');
+            var node = new Node(is_image ? 'image' : 'link');
             node.destination = dest;
             node.title = title || '';
 

@@ -1,7 +1,7 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
 import {Node} from "../node";
-//import {InlineNode} from "./InlineNode";
+//import {Node} from "./Node";
 
 var reEllipses = /\.\.\./g;
 

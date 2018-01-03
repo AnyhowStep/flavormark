@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InParser_1 = require("./InParser");
-//import {InlineNode} from "./InlineNode";
+//import {Node} from "./Node";
 const common_1 = require("../common");
 const entities_1 = require("entities");
 var C_AMPERSAND = 38;

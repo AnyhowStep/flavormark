@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InParser_1 = require("./InParser");
-//import {InlineNode} from "./InlineNode";
+//import {Node} from "./Node";
 var reEllipses = /\.\.\./g;
 var reDash = /--+/g;
 // Matches a string of non-special characters.

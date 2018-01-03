@@ -1,6 +1,6 @@
-import {InlineNode} from "./InlineNode";
+import {Node} from "../node";
 
-export class TextNode extends InlineNode {
+export class TextNode extends Node {
     public constructor (str : string) {
         super("text");
         this.literal = str;

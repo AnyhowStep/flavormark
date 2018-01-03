@@ -1,7 +1,6 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
 import {Node} from "../node";
-import {InlineNode} from "./InlineNode";
 import {ESCAPABLE} from "../common";
 
 var C_NEWLINE = 10;
@@ -26,7 +25,7 @@ export class BackslashParser extends InParser {
         parser.pos += 1;
         if (parser.peek() === C_NEWLINE) {
             parser.pos += 1;
-            node = new InlineNode('linebreak');
+            node = new Node('linebreak');
             block.appendChild(node);
         } else if (reEscapable.test(subj.charAt(parser.pos))) {
             block.appendChild(parser.text(subj.charAt(parser.pos)));

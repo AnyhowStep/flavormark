@@ -1,4 +1,3 @@
-import {InlineNode} from "./refactored-inline/InlineNode";
 import {TextNode} from "./refactored-inline/TextNode";
 import {fromCodePoint} from "./from-code-point";
 import {BlockParser} from "./refactored/BlockParser";
@@ -18,10 +17,10 @@ export class InlineParser extends RegexStream {
         this.inParsers = inParsers;
     }
 
-    public text (s : string) : InlineNode {
+    public text (s : string) : Node {
         return new TextNode(s);
     }
-    public isTextNode (node : InlineNode) : node is TextNode {
+    public isTextNode (node : Node) : node is TextNode {
         return node instanceof TextNode;
     }
 

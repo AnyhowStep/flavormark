@@ -1,4 +1,4 @@
-import { InlineNode } from "./InlineNode";
-export declare class HtmlNode extends InlineNode {
+import { Node } from "../node";
+export declare class HtmlNode extends Node {
     literal: string | null;
 }

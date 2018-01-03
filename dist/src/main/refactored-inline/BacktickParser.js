@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InParser_1 = require("./InParser");
-//import {InlineNode} from "./InlineNode";
+//import {Node} from "./Node";
 const CodeNode_1 = require("./CodeNode");
 var C_BACKTICK = 96;
 var reTicks = /`+/;
