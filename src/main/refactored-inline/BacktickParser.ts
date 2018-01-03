@@ -1,7 +1,7 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
 import {BlockNode} from "../refactored/BlockNode";
-import {InlineNode} from "./InlineNode";
+//import {InlineNode} from "./InlineNode";
 import {CodeNode} from "./CodeNode";
 
 var C_BACKTICK = 96;

@@ -1,9 +1,9 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
 import {BlockNode} from "../refactored/BlockNode";
-import {InlineNode} from "./InlineNode";
+//import {InlineNode} from "./InlineNode";
 import {reHtmlTag} from "../common";
-
+import {HtmlNode} from "./HtmlNode";
 var C_LESSTHAN = 60;
 
 
@@ -18,7 +18,7 @@ export class HtmlTagParser extends InParser {
         if (m === null) {
             return false;
         } else {
-            var node = new InlineNode('html_inline');
+            var node = new HtmlNode('html_inline');
             node.literal = m;
             block.appendChild(node);
             return true;
