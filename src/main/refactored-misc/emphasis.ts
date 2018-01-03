@@ -1,5 +1,6 @@
 import {Delimiter, DelimiterCollection, removeDelimitersBetween} from "./DelimiterCollection";
 import {InlineNode} from "../refactored-inline/InlineNode";
+import {Node} from "../node";
 
 var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;
@@ -8,7 +9,7 @@ var C_DOUBLEQUOTE = 34;
 
 export function processEmphasis(delimiters : DelimiterCollection, stack_bottom : Delimiter|null) {
     var opener, closer, old_closer;
-    var opener_inl, closer_inl;
+    var opener_inl : Node|null, closer_inl : Node|null;
     var tempstack;
     var use_delims;
     var tmp, next;

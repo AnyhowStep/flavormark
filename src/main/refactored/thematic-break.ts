@@ -1,6 +1,6 @@
 import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
-import {BlockNode} from "./BlockNode";
+import {Node} from "../node";
 
 var reThematicBreak = /^(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:-[ \t]*){3,})[ \t]*$/;
 
@@ -26,4 +26,4 @@ export class ThematicBreakParser extends BlockParser {
     isLeaf = true;
 }
 
-export const thematicBreakParser = new ThematicBreakParser("thematic_break", BlockNode);
+export const thematicBreakParser = new ThematicBreakParser("thematic_break", Node);

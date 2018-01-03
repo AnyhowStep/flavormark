@@ -1,7 +1,8 @@
+
 import {BlockParser, BlockParserMeta} from "./BlockParser";
 import {Parser} from "../blocks";
 import {endsWithBlankLine} from "./util";
-//import {BlockNode} from "./BlockNode";
+//
 import {ListNode} from "./ListNode";
 
 export class ListParser extends BlockParser<ListNode> {

@@ -1,6 +1,6 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
-import {BlockNode} from "../refactored/BlockNode";
+import {Node} from "../node";
 //import {InlineNode} from "./InlineNode";
 import {CodeNode} from "./CodeNode";
 
@@ -19,7 +19,7 @@ export class BacktickParser extends InParser {
 
     // Attempt to parse backticks, adding either a backtick code span or a
     // literal sequence of backticks.
-    public parse (parser : InlineParser, block : BlockNode) : boolean {
+    public parse (parser : InlineParser, block : Node) : boolean {
         const c = parser.peek();
         if (c != C_BACKTICK) {
             return false;

@@ -1,6 +1,7 @@
-import {BlockNode} from "./refactored/BlockNode";
+//import {Node} from "./refactored/Node";
 import {BlockParser} from "./refactored/BlockParser";
 import {BlockParserCollection} from "./refactored/BlockParserCollection";
+import {Node} from "./node";
 
 var CODE_INDENT = 4;
 var C_NEWLINE = 10;
@@ -17,9 +18,9 @@ export interface Options {
 }
 
 export class Parser {
-    doc : BlockNode;
-    tip : BlockNode|null;
-    oldtip : BlockNode|null;
+    doc : Node;
+    tip : Node|null;
+    oldtip : Node|null;
     currentLine = "";
     lineNumber = 0;
     offset = 0;
@@ -31,7 +32,7 @@ export class Parser {
     blank = false;
     partiallyConsumedTab = false;
     allClosed = true;
-    lastMatchedContainer : BlockNode;
+    lastMatchedContainer : Node;
     lastLineLength = 0;
     inlineParser : InlineParser;
     options : Options;
@@ -73,7 +74,7 @@ export class Parser {
     // Add block of type tag as a child of the tip.  If the tip can't
     // accept children, close and finalize it and try its parent,
     // and so on til we find a block that can accept children.
-    addChild<NodeT extends BlockNode>(blockParser : BlockParser<NodeT>, offset : number) : NodeT {
+    addChild<NodeT extends Node>(blockParser : BlockParser<NodeT>, offset : number) : NodeT {
         if (this.tip == null) {
             throw new Error("this.tip cannot be null");
         }
@@ -174,7 +175,7 @@ export class Parser {
     incorporateLine(ln : string) {
         var all_matched = true;
 
-        var container : BlockNode|null = this.doc;
+        var container : Node|null = this.doc;
         this.oldtip = this.tip;
         this.offset = 0;
         this.column = 0;
@@ -303,7 +304,7 @@ export class Parser {
                 );
 
             // propagate lastLineBlank up through parents:
-            var cont : BlockNode|null = container;
+            var cont : Node|null = container;
             while (cont) {
                 cont.lastLineBlank = lastLineBlank;
                 cont = cont.parent;
@@ -332,7 +333,7 @@ export class Parser {
     // or 'loose' status of a list, and parsing the beginnings
     // of paragraphs for reference definitions.  Reset the tip to the
     // parent of the closed block.
-    finalize(block : BlockNode, lineNumber : number) {
+    finalize(block : Node, lineNumber : number) {
         var above = block.parent;
         block.open = false;
         if (block.sourcepos == null) {
@@ -349,12 +350,12 @@ export class Parser {
 
     // Walk through a block & children recursively, parsing string content
     // into inline content where appropriate.
-    processInlines(block : BlockNode) {
+    processInlines(block : Node) {
         var node, event;
         var walker = block.walker();
         while ((event = walker.next())) {
             node = event.node;
-            if (!event.entering && node instanceof BlockNode && this.blockParsers.get(node).parseInlines) {
+            if (!event.entering && node instanceof Node && this.blockParsers.get(node).parseInlines) {
                 this.inlineParser.parse(this.getBlockParser(node), node);
             }
         }
@@ -395,12 +396,12 @@ export class Parser {
         return this.doc;
     };
 
-    public isParagraphNode (node : BlockNode) {
+    public isParagraphNode (node : Node) {
         return this.blockParsers.isParagraphNode(node);
     }
-    public getBlockParser<NodeT extends BlockNode> (key : NodeT) : BlockParser<NodeT>;
-    public getBlockParser (key : string) : BlockParser<BlockNode>;
-    public getBlockParser (key : BlockNode|string) : BlockParser {
+    public getBlockParser<NodeT extends Node> (key : NodeT) : BlockParser<NodeT>;
+    public getBlockParser (key : string) : BlockParser<Node>;
+    public getBlockParser (key : Node|string) : BlockParser {
         return this.blockParsers.get(key as any);
     }
     public getBlockParsers () {

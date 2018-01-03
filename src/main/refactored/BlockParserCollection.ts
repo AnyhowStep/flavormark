@@ -1,7 +1,7 @@
 import {BlockParser} from "./BlockParser";
-import {BlockNode} from "./BlockNode";
+import {Node} from "../node";
 
-export class BlockParserCollection<DocumentT extends BlockNode=BlockNode, ParagraphT extends BlockNode=BlockNode> {
+export class BlockParserCollection<DocumentT extends Node=Node, ParagraphT extends Node=Node> {
     private documentParser : BlockParser<DocumentT>;
     private paragraphParser : BlockParser<ParagraphT>;
 
@@ -42,9 +42,9 @@ export class BlockParserCollection<DocumentT extends BlockNode=BlockNode, Paragr
         this.arr.push(parser);
         return this;
     }
-    public get<NodeT extends BlockNode> (key : NodeT) : BlockParser<NodeT>;
-    public get (key : string) : BlockParser<BlockNode>;
-    public get (key : string|BlockNode) : BlockParser<BlockNode> {
+    public get<NodeT extends Node> (key : NodeT) : BlockParser<NodeT>;
+    public get (key : string) : BlockParser<Node>;
+    public get (key : string|Node) : BlockParser<Node> {
         if (typeof key != "string") {
             return this.get(key.type);
         }
@@ -57,10 +57,10 @@ export class BlockParserCollection<DocumentT extends BlockNode=BlockNode, Paragr
     public length () {
         return this.arr.length;
     }
-    public at (index : number) : BlockParser<BlockNode> {
+    public at (index : number) : BlockParser<Node> {
         return this.arr[index];
     }
-    public isParagraphNode (node : BlockNode) : node is ParagraphT {
+    public isParagraphNode (node : Node) : node is ParagraphT {
         return (
             this.getParagraphParser().getNodeType() == node.type &&
             node instanceof this.getParagraphParser().getNodeCtor()

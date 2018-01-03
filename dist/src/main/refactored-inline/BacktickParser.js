@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InParser_1 = require("./InParser");
-const InlineNode_1 = require("./InlineNode");
+//import {InlineNode} from "./InlineNode";
+const CodeNode_1 = require("./CodeNode");
 var C_BACKTICK = 96;
 var reTicks = /`+/;
 var reTicksHere = /^`+/;
@@ -26,7 +27,7 @@ class BacktickParser extends InParser_1.InParser {
         var node;
         while ((matched = parser.match(reTicks)) !== null) {
             if (matched === ticks) {
-                node = new InlineNode_1.InlineNode('code');
+                node = new CodeNode_1.CodeNode('code');
                 node.literal = parser.subject.slice(afterOpenTicks, parser.pos - ticks.length)
                     .trim().replace(reWhitespace, ' ');
                 block.appendChild(node);

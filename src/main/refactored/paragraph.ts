@@ -2,7 +2,7 @@ import {BlockParser, BlockNodeCtor} from "./BlockParser";
 import {Parser} from "../blocks";
 //import {Node} from "../node";
 import {peek, isBlank} from "./util";
-//import {BlockNode} from "./BlockNode";
+//
 import {parseReference} from "../refactored-misc/util";
 import {RefMap} from "../refactored-misc/RefMap";
 import {ParagraphNode} from "./ParagraphNode";
@@ -62,4 +62,4 @@ export class ParagraphParser extends BlockParser<ParagraphNode> {
     }
 }
 
-//export const paragraphParser = new ParagraphParser("paragraph", BlockNode);
+//export const paragraphParser = new ParagraphParser("paragraph", Node);

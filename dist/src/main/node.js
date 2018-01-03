@@ -45,6 +45,8 @@ class NodeWalker {
 }
 exports.NodeWalker = NodeWalker;
 class Node {
+    //onEnter = null;
+    //onExit = null;
     constructor(nodeType, sourcepos) {
         this.parent = null;
         this.firstChild = null;
@@ -54,11 +56,8 @@ class Node {
         this.lastLineBlank = false;
         this.open = true;
         this.literal = null;
-        this.info = null;
         this.destination = null;
         this.title = null;
-        this.onEnter = null;
-        this.onExit = null;
         this.type = nodeType;
         this.sourcepos = sourcepos;
     }

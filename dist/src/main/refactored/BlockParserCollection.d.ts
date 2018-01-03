@@ -1,6 +1,6 @@
 import { BlockParser } from "./BlockParser";
-import { BlockNode } from "./BlockNode";
-export declare class BlockParserCollection<DocumentT extends BlockNode = BlockNode, ParagraphT extends BlockNode = BlockNode> {
+import { Node } from "../node";
+export declare class BlockParserCollection<DocumentT extends Node = Node, ParagraphT extends Node = Node> {
     private documentParser;
     private paragraphParser;
     private dict;
@@ -10,11 +10,11 @@ export declare class BlockParserCollection<DocumentT extends BlockNode = BlockNo
     getParagraphParser(): BlockParser<ParagraphT>;
     hasName(name: string): boolean;
     add(parser: BlockParser): this;
-    get<NodeT extends BlockNode>(key: NodeT): BlockParser<NodeT>;
-    get(key: string): BlockParser<BlockNode>;
+    get<NodeT extends Node>(key: NodeT): BlockParser<NodeT>;
+    get(key: string): BlockParser<Node>;
     length(): number;
-    at(index: number): BlockParser<BlockNode>;
-    isParagraphNode(node: BlockNode): node is ParagraphT;
+    at(index: number): BlockParser<Node>;
+    isParagraphNode(node: Node): node is ParagraphT;
     instantiateDocument(sourcepos: [[number, number], [number, number]]): DocumentT;
     reinit(): void;
 }

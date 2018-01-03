@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./BlockParser");
+const node_1 = require("../node");
 const util_1 = require("./util");
-const BlockNode_1 = require("./BlockNode");
 var C_GREATERTHAN = 62;
 class BlockquoteParser extends BlockParser_1.BlockParser {
     constructor() {
@@ -46,5 +46,5 @@ class BlockquoteParser extends BlockParser_1.BlockParser {
     }
 }
 exports.BlockquoteParser = BlockquoteParser;
-exports.blockquoteParser = new BlockquoteParser("block_quote", BlockNode_1.BlockNode);
+exports.blockquoteParser = new BlockquoteParser("block_quote", node_1.Node);
 //# sourceMappingURL=blockquote.js.map

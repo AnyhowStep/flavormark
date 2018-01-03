@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const BlockNode_1 = require("./refactored/BlockNode");
+const node_1 = require("./node");
 var CODE_INDENT = 4;
 var C_NEWLINE = 10;
 var reMaybeSpecial = /^[#`~*+_=<>0-9-]/;
@@ -312,7 +312,7 @@ class Parser {
         var walker = block.walker();
         while ((event = walker.next())) {
             node = event.node;
-            if (!event.entering && node instanceof BlockNode_1.BlockNode && this.blockParsers.get(node).parseInlines) {
+            if (!event.entering && node instanceof node_1.Node && this.blockParsers.get(node).parseInlines) {
                 this.inlineParser.parse(this.getBlockParser(node), node);
             }
         }

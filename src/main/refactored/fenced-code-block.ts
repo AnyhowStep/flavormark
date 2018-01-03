@@ -3,7 +3,7 @@ import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek, isSpaceOrTab} from "./util";
 import {unescapeString} from "../common";
-//import {BlockNode} from "./BlockNode";
+//
 import {FencedCodeBlockNode} from "./FencedCodeBlockNode";
 
 var reCodeFence = /^`{3,}(?!.*`)|^~{3,}(?!.*~)/;

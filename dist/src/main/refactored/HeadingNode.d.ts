@@ -1,5 +1,5 @@
-import { BlockNode } from "./BlockNode";
-export declare class HeadingNode extends BlockNode {
+import { Node } from "../node";
+export declare class HeadingNode extends Node {
     level: number;
     string_content: string | null;
 }

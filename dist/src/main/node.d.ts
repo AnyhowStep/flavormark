@@ -21,11 +21,8 @@ export declare class Node {
     lastLineBlank: boolean;
     open: boolean;
     literal: string | null;
-    info: string | null;
     destination: string | null | undefined;
     title: string | null;
-    onEnter: null;
-    onExit: null;
     constructor(nodeType: NodeType, sourcepos?: [[number, number], [number, number]]);
     isContainer(): boolean;
     unlink(): void;

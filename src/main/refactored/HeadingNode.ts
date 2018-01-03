@@ -1,6 +1,6 @@
-import {BlockNode} from "./BlockNode";
+import {Node} from "../node";
 
-export class HeadingNode extends BlockNode {
+export class HeadingNode extends Node {
     public level : number = -1;
     public string_content : string|null = null;
 }

@@ -23,16 +23,14 @@ export declare class HtmlRenderer extends Renderer {
     atx_heading(node: any, entering: boolean): void;
     setext_heading(node: any, entering: boolean): void;
     code(node: Node): void;
-    indented_code_block(node: Node): void;
-    fenced_code_block(node: Node): void;
+    indented_code_block(node: any): void;
+    fenced_code_block(node: any): void;
     thematic_break(node: Node): void;
     block_quote(node: Node, entering: boolean): void;
     list(node: any, entering: boolean): void;
     item(node: Node, entering: boolean): void;
     html_inline(node: Node): void;
     html_block(node: Node): void;
-    custom_inline(node: Node, entering: boolean): void;
-    custom_block(node: Node, entering: boolean): void;
     out(s: string | null): void;
     attrs(node: Node): string[][];
     get(str: string): any;

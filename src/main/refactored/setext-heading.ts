@@ -1,13 +1,13 @@
 import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
-//import {Node} from "../node";
-import {BlockNode} from "./BlockNode";
+import {Node} from "../node";
+
 import {HeadingNode} from "./HeadingNode";
 
 var reSetextHeadingLine = /^(?:=+|-+)[ \t]*$/;
 
 export class SetextHeadingParser extends BlockParser<HeadingNode> {
-    tryStart= (parser : Parser, container : BlockNode) => {
+    tryStart= (parser : Parser, container : Node) => {
         var match;
         if (
             !parser.indented &&

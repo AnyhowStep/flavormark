@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./BlockParser");
 const util_1 = require("./util");
-//import {BlockNode} from "./BlockNode";
+//
 const ListNode_1 = require("./ListNode");
 class ListParser extends BlockParser_1.BlockParser {
     constructor() {

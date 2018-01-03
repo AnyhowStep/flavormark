@@ -1,14 +1,14 @@
-import { BlockNode } from "./refactored/BlockNode";
 import { BlockParser } from "./refactored/BlockParser";
 import { BlockParserCollection } from "./refactored/BlockParserCollection";
+import { Node } from "./node";
 import { InlineParser } from "./inlines";
 export interface Options {
     time?: boolean;
 }
 export declare class Parser {
-    doc: BlockNode;
-    tip: BlockNode | null;
-    oldtip: BlockNode | null;
+    doc: Node;
+    tip: Node | null;
+    oldtip: Node | null;
     currentLine: string;
     lineNumber: number;
     offset: number;
@@ -20,24 +20,24 @@ export declare class Parser {
     blank: boolean;
     partiallyConsumedTab: boolean;
     allClosed: boolean;
-    lastMatchedContainer: BlockNode;
+    lastMatchedContainer: Node;
     lastLineLength: number;
     inlineParser: InlineParser;
     options: Options;
     blockParsers: BlockParserCollection;
     constructor(blockParsers: BlockParserCollection, inlineParser: InlineParser, options?: Options | undefined);
     addLine(): void;
-    addChild<NodeT extends BlockNode>(blockParser: BlockParser<NodeT>, offset: number): NodeT;
+    addChild<NodeT extends Node>(blockParser: BlockParser<NodeT>, offset: number): NodeT;
     closeUnmatchedBlocks(): void;
     advanceOffset(count: number, columns?: boolean): void;
     advanceNextNonspace(): void;
     findNextNonspace(): void;
     incorporateLine(ln: string): void;
-    finalize(block: BlockNode, lineNumber: number): void;
-    processInlines(block: BlockNode): void;
-    parse(input: string): BlockNode;
-    isParagraphNode(node: BlockNode): boolean;
-    getBlockParser<NodeT extends BlockNode>(key: NodeT): BlockParser<NodeT>;
-    getBlockParser(key: string): BlockParser<BlockNode>;
-    getBlockParsers(): BlockParserCollection<BlockNode, BlockNode>;
+    finalize(block: Node, lineNumber: number): void;
+    processInlines(block: Node): void;
+    parse(input: string): Node;
+    isParagraphNode(node: Node): boolean;
+    getBlockParser<NodeT extends Node>(key: NodeT): BlockParser<NodeT>;
+    getBlockParser(key: string): BlockParser<Node>;
+    getBlockParsers(): BlockParserCollection<Node, Node>;
 }

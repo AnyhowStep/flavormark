@@ -1,6 +1,6 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
-import {BlockNode} from "../refactored/BlockNode";
+import {Node} from "../node";
 import {InlineNode} from "./InlineNode";
 import {normalizeReference} from "../normalize-reference";
 import {parseLinkTitle, parseLinkDestination, parseLinkLabel} from "../refactored-misc/util";
@@ -29,7 +29,7 @@ export class CloseBracketParser extends InParser {
     // stack.  Add either a link or image, or a plain [ character,
     // to block's children.  If there is a matching delimiter,
     // remove it from the delimiter stack.
-    public parse (parser : InlineParser, block : BlockNode) : boolean {
+    public parse (parser : InlineParser, block : Node) : boolean {
         const c = parser.peek();
         if (c != C_CLOSE_BRACKET) {
             return false;

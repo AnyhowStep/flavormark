@@ -1,6 +1,6 @@
-import {BlockNode} from "./BlockNode";
+import {Node} from "../node";
 import {ListData} from "./ListData";
 
-export class ListNode extends BlockNode {
+export class ListNode extends Node {
     public listData : ListData = {};
 }

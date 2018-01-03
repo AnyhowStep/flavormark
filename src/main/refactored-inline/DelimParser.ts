@@ -1,6 +1,6 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
-import {BlockNode} from "../refactored/BlockNode";
+import {Node} from "../node";
 //import {InlineNode} from "./InlineNode";
 import {fromCodePoint} from "../from-code-point";
 import {DelimiterCollection} from "../refactored-misc/DelimiterCollection";
@@ -92,7 +92,7 @@ export class DelimParser extends InParser {
         this.delimiters.clear();
     }
     // Handle a delimiter marker for emphasis or a quote.
-    public parse (parser : InlineParser, block : BlockNode) : boolean {
+    public parse (parser : InlineParser, block : Node) : boolean {
         const cc = parser.peek();
         const isEmphasis = (
             cc == C_ASTERISK ||

@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InParser_1 = require("./InParser");
-const InlineNode_1 = require("./InlineNode");
+//import {InlineNode} from "./InlineNode";
 const common_1 = require("../common");
+const HtmlNode_1 = require("./HtmlNode");
 var C_LESSTHAN = 60;
 class HtmlTagParser extends InParser_1.InParser {
     // Attempt to parse a raw HTML tag.
@@ -16,7 +17,7 @@ class HtmlTagParser extends InParser_1.InParser {
             return false;
         }
         else {
-            var node = new InlineNode_1.InlineNode('html_inline');
+            var node = new HtmlNode_1.HtmlNode('html_inline');
             node.literal = m;
             block.appendChild(node);
             return true;

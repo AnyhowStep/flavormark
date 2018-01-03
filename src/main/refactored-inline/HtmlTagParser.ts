@@ -1,6 +1,6 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
-import {BlockNode} from "../refactored/BlockNode";
+import {Node} from "../node";
 //import {InlineNode} from "./InlineNode";
 import {reHtmlTag} from "../common";
 import {HtmlNode} from "./HtmlNode";
@@ -9,7 +9,7 @@ var C_LESSTHAN = 60;
 
 export class HtmlTagParser extends InParser {
     // Attempt to parse a raw HTML tag.
-    public parse (parser : InlineParser, block : BlockNode) : boolean {
+    public parse (parser : InlineParser, block : Node) : boolean {
         const c = parser.peek();
         if (c != C_LESSTHAN) {
             return false;

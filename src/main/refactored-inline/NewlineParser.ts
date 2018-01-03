@@ -1,6 +1,6 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
-import {BlockNode} from "../refactored/BlockNode";
+import {Node} from "../node";
 import {InlineNode} from "./InlineNode";
 
 var C_NEWLINE = 10;
@@ -11,7 +11,7 @@ var reInitialSpace = /^ */;
 export class NewlineParser extends InParser {
     // Parse a newline.  If it was preceded by two spaces, return a hard
     // line break; otherwise a soft line break.
-    public parse (parser : InlineParser, block : BlockNode) : boolean {
+    public parse (parser : InlineParser, block : Node) : boolean {
         const c = parser.peek();
         if (c != C_NEWLINE) {
             return false;

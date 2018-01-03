@@ -1,9 +1,9 @@
 import { BlockParser } from "./BlockParser";
 import { Parser } from "../blocks";
-import { BlockNode } from "./BlockNode";
+import { Node } from "../node";
 import { HeadingNode } from "./HeadingNode";
 export declare class SetextHeadingParser extends BlockParser<HeadingNode> {
-    tryStart: (parser: Parser, container: BlockNode) => boolean;
+    tryStart: (parser: Parser, container: Node) => boolean;
     continue: () => boolean;
     finalize: () => void;
     canContain: () => boolean;

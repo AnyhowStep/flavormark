@@ -1,6 +1,7 @@
-import {BlockNode} from "./BlockNode";
+import {Node} from "../node";
 
-export class HtmlBlockNode extends BlockNode {
+export class HtmlBlockNode extends Node {
     htmlBlockType : number = -1;
     public string_content : string|null = null;
+    public literal : string|null = null;
 }

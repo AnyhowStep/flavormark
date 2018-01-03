@@ -1,9 +1,8 @@
 import {BlockParser} from "./BlockParser";
 import {Parser} from "../blocks";
-//import {Node} from "../node";
+import {Node} from "../node";
 import {peek} from "./util";
 import {OPENTAG, CLOSETAG} from "../common";
-import {BlockNode} from "./BlockNode";
 import {HtmlBlockNode} from "./HtmlBlockNode";
 
 var C_LESSTHAN = 60;
@@ -30,7 +29,7 @@ var reHtmlBlockOpen = [
 ];
 
 export class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
-    tryStart= (parser : Parser, container : BlockNode) => {
+    tryStart= (parser : Parser, container : Node) => {
         if (!parser.indented &&
             peek(parser.currentLine, parser.nextNonspace) === C_LESSTHAN) {
             var s = parser.currentLine.slice(parser.nextNonspace);

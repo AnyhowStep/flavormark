@@ -1,8 +1,8 @@
 import {Parser} from "../blocks";
 //import {Node} from "../node";
-import {BlockNode} from "./BlockNode";
+import {Node} from "../node";
 
-export type BlockNodeCtor<NodeT extends BlockNode> = {
+export type BlockNodeCtor<NodeT extends Node> = {
     new (nodeType : string, sourcepos : [[number, number], [number, number]]) : NodeT
 };
 
@@ -18,7 +18,7 @@ export interface BlockParserMeta {
     isListItem? : boolean;
 }
 
-export abstract class BlockParser<NodeT extends BlockNode=BlockNode> implements BlockParserMeta {
+export abstract class BlockParser<NodeT extends Node=Node> implements BlockParserMeta {
     private readonly nodeType : string;
     private readonly nodeCtor : BlockNodeCtor<NodeT>;
     public constructor (nodeType : string, nodeCtor : BlockNodeCtor<NodeT>) {
@@ -34,7 +34,7 @@ export abstract class BlockParser<NodeT extends BlockNode=BlockNode> implements 
     }
     public reinit () {}
 
-    tryStart?: (parser : Parser, container : BlockNode) => boolean;
+    tryStart?: (parser : Parser, container : Node) => boolean;
     continue: (parser : Parser, block : NodeT) => boolean = () => {
         throw new Error("Not implemented");
     }

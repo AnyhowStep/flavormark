@@ -1,5 +1,5 @@
-import {BlockNode} from "./BlockNode";
+import {Node} from "../node";
 
-export class ParagraphNode extends BlockNode {
+export class ParagraphNode extends Node {
     public string_content : string|null = null;
 }

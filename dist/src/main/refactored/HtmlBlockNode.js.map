@@ -1,1 +1,1 @@
-{"version":3,"file":"HtmlBlockNode.js","sourceRoot":"","sources":["../../../../src/main/refactored/HtmlBlockNode.ts"],"names":[],"mappings":";;AAAA,2CAAsC;AAEtC,mBAA2B,SAAQ,qBAAS;IAA5C;;QACI,kBAAa,GAAY,CAAC,CAAC,CAAC;QACrB,mBAAc,GAAiB,IAAI,CAAC;IAC/C,CAAC;CAAA;AAHD,sCAGC"}
+{"version":3,"file":"HtmlBlockNode.js","sourceRoot":"","sources":["../../../../src/main/refactored/HtmlBlockNode.ts"],"names":[],"mappings":";;AAAA,kCAA6B;AAE7B,mBAA2B,SAAQ,WAAI;IAAvC;;QACI,kBAAa,GAAY,CAAC,CAAC,CAAC;QACrB,mBAAc,GAAiB,IAAI,CAAC;QACpC,YAAO,GAAiB,IAAI,CAAC;IACxC,CAAC;CAAA;AAJD,sCAIC"}

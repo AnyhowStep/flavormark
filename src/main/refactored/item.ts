@@ -2,7 +2,7 @@ import {BlockParser, BlockParserMeta} from "./BlockParser";
 import {Parser} from "../blocks";
 import {Node} from "../node";
 import {peek, isSpaceOrTab, isBlank} from "./util";
-import {BlockNode} from "./BlockNode";
+
 import {BlockNodeCtor} from "./BlockParser";
 import {ListNode} from "./ListNode";
 import {ItemNode} from "./ItemNode";
@@ -13,7 +13,7 @@ var reOrderedListMarker = /^(\d{1,9})([.)])/;
 
 // Parse a list marker and return data on the marker (type,
 // start, delimiter, bullet character, padding) or null.
-var parseListMarker = function(parser : Parser, container : BlockNode) :
+var parseListMarker = function(parser : Parser, container : Node) :
 { type: string,
              tight: boolean,  // lists are tight by default
              bulletChar: string|null,
@@ -127,7 +127,7 @@ export class ItemParser extends BlockParser<ItemNode> {
         super(nodeType, nodeCtor);
         this.listParser = listParser;
     }
-    tryStart= (parser : Parser, container : BlockNode) => {
+    tryStart= (parser : Parser, container : Node) => {
         var data;
 
         if ((!parser.indented || parser.getBlockParser(container).isList)

@@ -1,5 +1,5 @@
-import { BlockNode } from "./BlockNode";
+import { Node } from "../node";
 import { ListData } from "./ListData";
-export declare class ItemNode extends BlockNode {
+export declare class ItemNode extends Node {
     listData: ListData;
 }

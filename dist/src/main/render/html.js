@@ -243,24 +243,25 @@ class HtmlRenderer extends renderer_1.Renderer {
         }
         this.cr();
     }
-    custom_inline(node, entering) {
-        if (entering && node.onEnter) {
+    /*
+         custom_inline(node:Node, entering:boolean) {
+          if (entering && node.onEnter) {
             this.lit(node.onEnter);
-        }
-        else if (!entering && node.onExit) {
+          } else if (!entering && node.onExit) {
             this.lit(node.onExit);
+          }
         }
-    }
-    custom_block(node, entering) {
-        this.cr();
-        if (entering && node.onEnter) {
+    
+         custom_block(node:Node, entering:boolean) {
+          this.cr();
+          if (entering && node.onEnter) {
             this.lit(node.onEnter);
-        }
-        else if (!entering && node.onExit) {
+          } else if (!entering && node.onExit) {
             this.lit(node.onExit);
+          }
+          this.cr();
         }
-        this.cr();
-    }
+    */
     /* Helper methods */
     out(s) {
         if (s == null) {

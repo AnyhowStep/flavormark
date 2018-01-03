@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const BlockNode_1 = require("./BlockNode");
-class ItemNode extends BlockNode_1.BlockNode {
+const node_1 = require("../node");
+class ItemNode extends node_1.Node {
     constructor() {
         super(...arguments);
         this.listData = {};

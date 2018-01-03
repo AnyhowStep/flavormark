@@ -1,4 +1,5 @@
-import { BlockNode } from "./BlockNode";
-export declare class IndentedCodeBlockNode extends BlockNode {
+import { Node } from "../node";
+export declare class IndentedCodeBlockNode extends Node {
     string_content: string | null;
+    literal: string | null;
 }

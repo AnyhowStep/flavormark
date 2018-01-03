@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./BlockParser");
 const util_1 = require("./util");
 const common_1 = require("../common");
-//import {BlockNode} from "./BlockNode";
+//
 const FencedCodeBlockNode_1 = require("./FencedCodeBlockNode");
 var reCodeFence = /^`{3,}(?!.*`)|^~{3,}(?!.*~)/;
 var reClosingCodeFence = /^(?:`{3,}|~{3,})(?= *$)/;

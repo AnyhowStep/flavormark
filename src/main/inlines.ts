@@ -2,9 +2,9 @@ import {InlineNode} from "./refactored-inline/InlineNode";
 import {TextNode} from "./refactored-inline/TextNode";
 import {fromCodePoint} from "./from-code-point";
 import {BlockParser} from "./refactored/BlockParser";
-import {BlockNode} from "./refactored/BlockNode";
 import {InParser} from "./refactored-inline/InParser";
 import {RegexStream} from "./refactored-misc/RegexStream";
+import {Node} from "./node";
 
 // These are methods of an InlineParser object, defined below.
 // An InlineParser keeps track of a subject (a string to be
@@ -28,7 +28,7 @@ export class InlineParser extends RegexStream {
     // Parse the next inline element in subject, advancing subject position.
     // On success, add the result to block's children and return true.
     // On failure, return false.
-    public parseInline (block : BlockNode) {
+    public parseInline (block : Node) {
         var c = this.peek();
         if (c === -1) {
             return false;
@@ -44,7 +44,7 @@ export class InlineParser extends RegexStream {
     };
 
     // Parse string content in block into inline children,
-    public parse (blockParser : BlockParser, block : BlockNode) {
+    public parse (blockParser : BlockParser, block : Node) {
         for (let i of this.inParsers) {
             i.reinit();
         }

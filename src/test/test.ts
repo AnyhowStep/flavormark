@@ -54,7 +54,7 @@ import {setextHeadingParser} from "../main/refactored/setext-heading";
 import {fencedCodeBlockParser} from "../main/refactored/fenced-code-block";
 import {indentedCodeBlockParser} from "../main/refactored/indented-code-block";
 import {BlockParserCollection} from "../main/refactored/BlockParserCollection";
-//import {BlockNode} from "../main/refactored/BlockNode";
+//import {Node} from "../main/refactored/Node";
 import {ParagraphNode} from "../main/refactored/ParagraphNode";
 
 import {RefMap} from "../main/refactored-misc/RefMap";

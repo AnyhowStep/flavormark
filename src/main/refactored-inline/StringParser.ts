@@ -1,6 +1,6 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
-import {BlockNode} from "../refactored/BlockNode";
+import {Node} from "../node";
 //import {InlineNode} from "./InlineNode";
 
 var reEllipses = /\.\.\./g;
@@ -18,7 +18,7 @@ export class StringParser extends InParser {
     }
     // Parse a run of ordinary characters, or a single character with
     // a special meaning in markdown, as a plain string.
-    public parse (parser : InlineParser, block : BlockNode) : boolean {
+    public parse (parser : InlineParser, block : Node) : boolean {
         var m;
         if ((m = parser.match(reMain))) {
             if (this.smart) {
