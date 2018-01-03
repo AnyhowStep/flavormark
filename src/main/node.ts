@@ -19,9 +19,7 @@ export class NodeWalker {
             return null;
         }
 
-        var container = cur.isContainer();
-
-        if (entering && container) {
+        if (entering) {
             if (cur.firstChild) {
                 this.current = cur.firstChild;
                 this.entering = true;
@@ -90,7 +88,7 @@ export class Node {
     public constructor (nodeType : NodeType, sourcepos? : [[number, number], [number, number]]) {
         this.type = nodeType;
         this.sourcepos = sourcepos;
-    }
+    }/*
     isContainer() {
         switch (this.type) {
             case 'document':
@@ -110,7 +108,7 @@ export class Node {
             default:
                 return false;
         }
-    }
+    }*/
 
     unlink () {
         if (this.prev) {

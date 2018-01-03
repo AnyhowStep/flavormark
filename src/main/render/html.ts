@@ -60,15 +60,18 @@ export class HtmlRenderer extends Renderer {
 
     /* Node methods */
 
-     text(node:any) {
+     text(node:any, entering:boolean) {
+         if (!entering) { return; }
       this.out(node.literal);
     }
 
-     softbreak() {
+     softbreak(_node:any, entering:boolean) {
+         if (!entering) { return; }
       this.lit(this.options.softbreak || "\n");
     }
 
-     linebreak() {
+     linebreak(_node:any, entering:boolean) {
+         if (!entering) { return; }
       this.tag('br', [], true);
       this.cr();
     }
@@ -168,13 +171,15 @@ export class HtmlRenderer extends Renderer {
      }
    }
 
-     code(node:any) {
+     code(node:any, entering:boolean) {
+         if (!entering) { return; }
       this.tag('code');
       this.out(node.literal);
       this.tag('/code');
     }
 
-     indented_code_block(node:any) {
+     indented_code_block(node:any, entering:boolean) {
+         if (!entering) { return; }
       var info_words = node.info ? node.info.split(/\s+/) : []
         , attrs = this.attrs(node);
       if (info_words.length > 0 && info_words[0].length > 0) {
@@ -188,7 +193,8 @@ export class HtmlRenderer extends Renderer {
       this.tag('/pre');
       this.cr();
   }
-  fenced_code_block(node:any) {
+  fenced_code_block(node:any, entering:boolean) {
+      if (!entering) { return; }
      var info_words = node.info ? node.info.split(/\s+/) : []
        , attrs = this.attrs(node);
      if (info_words.length > 0 && info_words[0].length > 0) {
@@ -203,7 +209,8 @@ export class HtmlRenderer extends Renderer {
      this.cr();
    }
 
-     thematic_break(node:Node) {
+     thematic_break(node:any, entering:boolean) {
+         if (!entering) { return; }
       var attrs = this.attrs(node);
       this.cr();
       this.tag('hr', attrs, true);
@@ -252,7 +259,8 @@ export class HtmlRenderer extends Renderer {
       }
     }
 
-     html_inline(node:any) {
+     html_inline(node:any, entering:boolean) {
+         if (!entering) { return; }
       if (this.options.safe) {
         this.lit('<!-- raw HTML omitted -->');
       } else {
@@ -260,7 +268,8 @@ export class HtmlRenderer extends Renderer {
       }
     }
 
-     html_block(node:any) {
+     html_block(node:any, entering:boolean) {
+         if (!entering) { return; }
       this.cr();
       if (this.options.safe) {
         this.lit('<!-- raw HTML omitted -->');
