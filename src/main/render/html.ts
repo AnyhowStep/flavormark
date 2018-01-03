@@ -269,7 +269,7 @@ export class HtmlRenderer extends Renderer {
       }
       this.cr();
     }
-
+/*
      custom_inline(node:Node, entering:boolean) {
       if (entering && node.onEnter) {
         this.lit(node.onEnter);
@@ -287,7 +287,7 @@ export class HtmlRenderer extends Renderer {
       }
       this.cr();
     }
-
+*/
     /* Helper methods */
 
      out(s:string|null) {

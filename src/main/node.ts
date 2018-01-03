@@ -85,8 +85,8 @@ export class Node {
     literal : string|null = null;
     destination : string|null|undefined = null;
     title : string|null = null;
-    onEnter = null;
-    onExit = null;
+    //onEnter = null;
+    //onExit = null;
 
     public constructor (nodeType : NodeType, sourcepos? : [[number, number], [number, number]]) {
         this.type = nodeType;
