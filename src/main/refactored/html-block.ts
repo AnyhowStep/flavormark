@@ -4,6 +4,7 @@ import {Node} from "../node";
 import {peek} from "./util";
 import {OPENTAG, CLOSETAG} from "../common";
 import {BlockNode} from "./BlockNode";
+import {HtmlBlockNode} from "./HtmlBlockNode";
 
 var C_LESSTHAN = 60;
 
@@ -28,7 +29,7 @@ var reHtmlBlockOpen = [
     new RegExp('^(?:' + OPENTAG + '|' + CLOSETAG + ')\\s*$', 'i')
 ];
 
-export class HtmlBlockParser extends BlockParser<BlockNode> {
+export class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
     tryStart= (parser : Parser, container : BlockNode) => {
         if (!parser.indented &&
             peek(parser.currentLine, parser.nextNonspace) === C_LESSTHAN) {
@@ -42,8 +43,7 @@ export class HtmlBlockParser extends BlockParser<BlockNode> {
                     parser.closeUnmatchedBlocks();
                     // We don't adjust parser.offset;
                     // spaces are part of the HTML block:
-                    var b = parser.addChild(this,
-                                            parser.offset);
+                    var b = parser.addChild<HtmlBlockNode>(this, parser.offset);
                     b.htmlBlockType = blockType;
                     return true;
                 }
@@ -53,7 +53,7 @@ export class HtmlBlockParser extends BlockParser<BlockNode> {
         return false;
 
     };
-    continue= (parser : Parser, container : Node) => {
+    continue= (parser : Parser, container : HtmlBlockNode) => {
         return (
             (
                 parser.blank &&
@@ -73,7 +73,7 @@ export class HtmlBlockParser extends BlockParser<BlockNode> {
     };
     canContain= () => { return false; };
     acceptsLines= true;
-    finalizeAtLine=(parser : Parser, container : Node) => {
+    finalizeAtLine=(parser : Parser, container : HtmlBlockNode) => {
         return (
             container.htmlBlockType != null &&
             container.htmlBlockType >= 1 &&
@@ -97,4 +97,4 @@ export class HtmlBlockParser extends BlockParser<BlockNode> {
     }
 }
 
-export const htmlBlockParser = new HtmlBlockParser("html_block", BlockNode);
+export const htmlBlockParser = new HtmlBlockParser("html_block", HtmlBlockNode);

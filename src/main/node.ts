@@ -101,7 +101,7 @@ export class Node {
     //level : number|null = null;
     onEnter = null;
     onExit = null;
-    htmlBlockType : number|null = null;
+    //htmlBlockType : number|null = null;
 
     public constructor (nodeType : NodeType, sourcepos? : [[number, number], [number, number]]) {
         this.type = nodeType;
