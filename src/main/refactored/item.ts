@@ -4,6 +4,8 @@ import {Node} from "../node";
 import {peek, isSpaceOrTab, isBlank} from "./util";
 import {BlockNode} from "./BlockNode";
 import {BlockNodeCtor} from "./BlockParser";
+import {ListNode} from "./ListNode";
+import {ItemNode} from "./ItemNode";
 
 var reBulletListMarker = /^[*+-]/;
 
@@ -119,12 +121,9 @@ var listsMatch = function(list_data : {
             list_data.bulletChar === item_data.bulletChar);
 };
 
-export type ItemNodeT = BlockNode;
-export type ListNodeT = BlockNode;
-
-export class ItemParser extends BlockParser {
-    private listParser : BlockParser<ListNodeT>;
-    public constructor (nodeType : string, nodeCtor : BlockNodeCtor<ItemNodeT>, listParser : BlockParser<ListNodeT>) {
+export class ItemParser extends BlockParser<ItemNode> {
+    private listParser : BlockParser<ListNode>;
+    public constructor (nodeType : string, nodeCtor : BlockNodeCtor<ItemNode>, listParser : BlockParser<ListNode>) {
         super(nodeType, nodeCtor);
         this.listParser = listParser;
     }
@@ -140,21 +139,24 @@ export class ItemParser extends BlockParser {
             }
 
             // add the list if needed
-            if (!parser.getBlockParser(parser.tip).isList ||
-                !(listsMatch(container.listData, data))) {
-                container = parser.addChild(this.listParser, parser.nextNonspace);
-                container.listData = data;
+            if (
+                !parser.getBlockParser(parser.tip).isList ||
+                !(container instanceof ListNode) ||
+                !listsMatch(container.listData, data)
+            ) {
+                const listNode = parser.addChild<ListNode>(this.listParser, parser.nextNonspace);
+                listNode.listData = data;
             }
 
             // add the list item
-            container = parser.addChild(this, parser.nextNonspace);
-            container.listData = data;
+            const itemNode = parser.addChild<ItemNode>(this, parser.nextNonspace);
+            itemNode.listData = data;
             return true;
         } else {
             return false;
         }
     };
-    continue= (parser : Parser, container : Node) => {
+    continue= (parser : Parser, container : ItemNode) => {
         if (parser.blank) {
             if (container.firstChild == null) {
                 // Blank line after empty list item
@@ -189,4 +191,4 @@ export class ItemParser extends BlockParser {
 }
 
 import {listParser} from "./list";
-export const itemParser = new ItemParser("item", BlockNode, listParser);
+export const itemParser = new ItemParser("item", ItemNode, listParser);

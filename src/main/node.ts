@@ -83,7 +83,7 @@ export class Node {
     open = true;
     string_content : string|null = null;
     literal : string|null = null;
-    listData : {
+    /*listData : {
         type? : string|null,
         tight? : boolean|null,
         bulletChar? : string|null,
@@ -91,7 +91,7 @@ export class Node {
         delimiter? : string|null,
         padding? : number|null,
         markerOffset? : number|null,
-    } = {};
+    } = {};*/
     info : string|null = null;
     destination : string|null|undefined = null;
     title : string|null = null;
