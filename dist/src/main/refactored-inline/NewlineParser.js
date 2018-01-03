@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InParser_1 = require("./InParser");
-const node_1 = require("../node");
+const HardbreakNode_1 = require("./HardbreakNode");
+const SoftbreakNode_1 = require("./SoftbreakNode");
 var C_NEWLINE = 10;
 var reFinalSpace = / *$/;
 var reInitialSpace = /^ */;
@@ -19,10 +20,15 @@ class NewlineParser extends InParser_1.InParser {
         if (lastc != null && parser.isTextNode(lastc) && lastc.getString()[lastc.getString().length - 1] === ' ') {
             var hardbreak = lastc.getString()[lastc.getString().length - 2] === ' ';
             lastc.setString(lastc.getString().replace(reFinalSpace, ''));
-            block.appendChild(new node_1.Node(hardbreak ? 'linebreak' : 'softbreak'));
+            if (hardbreak) {
+                block.appendChild(new HardbreakNode_1.HardbreakNode());
+            }
+            else {
+                block.appendChild(new SoftbreakNode_1.SoftbreakNode());
+            }
         }
         else {
-            block.appendChild(new node_1.Node('softbreak'));
+            block.appendChild(new SoftbreakNode_1.SoftbreakNode());
         }
         parser.match(reInitialSpace); // gobble leading spaces in next line
         return true;

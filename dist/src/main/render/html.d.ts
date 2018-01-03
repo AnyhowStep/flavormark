@@ -14,7 +14,7 @@ export declare class HtmlRenderer extends Renderer {
     tag(name: string, attrs?: string[][], selfclosing?: boolean): void;
     text(node: any, entering: boolean): void;
     softbreak(_node: any, entering: boolean): void;
-    linebreak(_node: any, entering: boolean): void;
+    hardbreak(_node: any, entering: boolean): void;
     link(node: any, entering: boolean): void;
     image(node: any, entering: boolean): void;
     emph(_node: Node, entering: boolean): void;

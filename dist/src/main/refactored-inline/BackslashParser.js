@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InParser_1 = require("./InParser");
-const node_1 = require("../node");
 const common_1 = require("../common");
+const HardbreakNode_1 = require("./HardbreakNode");
 var C_NEWLINE = 10;
 var C_BACKSLASH = 92;
 var reEscapable = new RegExp('^' + common_1.ESCAPABLE);
@@ -21,7 +21,7 @@ class BackslashParser extends InParser_1.InParser {
         parser.pos += 1;
         if (parser.peek() === C_NEWLINE) {
             parser.pos += 1;
-            node = new node_1.Node('linebreak');
+            node = new HardbreakNode_1.HardbreakNode();
             block.appendChild(node);
         }
         else if (reEscapable.test(subj.charAt(parser.pos))) {

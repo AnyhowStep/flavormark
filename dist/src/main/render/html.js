@@ -58,7 +58,7 @@ class HtmlRenderer extends renderer_1.Renderer {
         }
         this.lit(this.options.softbreak || "\n");
     }
-    linebreak(_node, entering) {
+    hardbreak(_node, entering) {
         if (!entering) {
             return;
         }
