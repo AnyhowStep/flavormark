@@ -55,7 +55,6 @@ class Node {
         this.next = null;
         this.lastLineBlank = false;
         this.open = true;
-        this.literal = null;
         this.destination = null;
         this.title = null;
         this.type = nodeType;

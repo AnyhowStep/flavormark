@@ -20,7 +20,6 @@ export declare class Node {
     sourcepos?: [[number, number], [number, number]];
     lastLineBlank: boolean;
     open: boolean;
-    literal: string | null;
     destination: string | null | undefined;
     title: string | null;
     constructor(nodeType: NodeType, sourcepos?: [[number, number], [number, number]]);

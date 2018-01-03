@@ -60,7 +60,7 @@ export class HtmlRenderer extends Renderer {
 
     /* Node methods */
 
-     text(node:Node) {
+     text(node:any) {
       this.out(node.literal);
     }
 
@@ -168,7 +168,7 @@ export class HtmlRenderer extends Renderer {
      }
    }
 
-     code(node:Node) {
+     code(node:any) {
       this.tag('code');
       this.out(node.literal);
       this.tag('/code');
@@ -252,7 +252,7 @@ export class HtmlRenderer extends Renderer {
       }
     }
 
-     html_inline(node:Node) {
+     html_inline(node:any) {
       if (this.options.safe) {
         this.lit('<!-- raw HTML omitted -->');
       } else {
@@ -260,7 +260,7 @@ export class HtmlRenderer extends Renderer {
       }
     }
 
-     html_block(node:Node) {
+     html_block(node:any) {
       this.cr();
       if (this.options.safe) {
         this.lit('<!-- raw HTML omitted -->');

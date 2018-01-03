@@ -4,6 +4,7 @@ const node_1 = require("../node");
 class TextNode extends node_1.Node {
     constructor(str) {
         super("text");
+        this.literal = null;
         this.literal = str;
     }
     getString() {

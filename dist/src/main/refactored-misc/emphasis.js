@@ -61,22 +61,13 @@ function processEmphasis(delimiters, stack_bottom) {
                     if (opener_inl == null) {
                         throw new Error("opener_inl cannot be null");
                     }
-                    if (opener_inl.literal == null) {
-                        throw new Error("opener_inl.literal cannot be null");
-                    }
                     // remove used delimiters from stack elts and inlines
                     opener.numdelims -= use_delims;
                     closer.numdelims -= use_delims;
-                    opener_inl.literal =
-                        opener_inl.literal.slice(0, opener_inl.literal.length - use_delims);
-                    if (closer_inl.literal == null) {
-                        throw new Error("closer_inl.literal cannot be null");
-                    }
-                    closer_inl.literal =
-                        closer_inl.literal.slice(0, closer_inl.literal.length - use_delims);
+                    opener_inl.setString(opener_inl.getString().slice(0, opener_inl.getString().length - use_delims));
+                    closer_inl.setString(closer_inl.getString().slice(0, closer_inl.getString().length - use_delims));
                     // build contents for new emph element
                     var emph = new node_1.Node(use_delims === 1 ? 'emph' : 'strong');
-                    console.log(opener_inl.type, closer_inl.type);
                     tmp = opener_inl.next;
                     while (tmp && tmp !== closer_inl) {
                         next = tmp.next;
@@ -101,22 +92,22 @@ function processEmphasis(delimiters, stack_bottom) {
                 }
             }
             else if (closercc === C_SINGLEQUOTE) {
-                closer.node.literal = "\u2019";
+                closer.node.setString("\u2019");
                 if (opener_found) {
                     if (opener == null) {
                         throw new Error("opener cannot be null");
                     }
-                    opener.node.literal = "\u2018";
+                    opener.node.setString("\u2018");
                 }
                 closer = closer.next;
             }
             else if (closercc === C_DOUBLEQUOTE) {
-                closer.node.literal = "\u201D";
+                closer.node.setString("\u201D");
                 if (opener_found) {
                     if (opener == null) {
                         throw new Error("opener cannot be null");
                     }
-                    opener.node.literal = "\u201C";
+                    opener.node.setString("\u201C");
                 }
                 closer = closer.next;
             }

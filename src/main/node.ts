@@ -82,7 +82,6 @@ export class Node {
     lastLineBlank = false;
     open = true;
 
-    literal : string|null = null;
     destination : string|null|undefined = null;
     title : string|null = null;
     //onEnter = null;
