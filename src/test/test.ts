@@ -54,14 +54,15 @@ import {setextHeadingParser} from "../main/refactored/setext-heading";
 import {fencedCodeBlockParser} from "../main/refactored/fenced-code-block";
 import {indentedCodeBlockParser} from "../main/refactored/indented-code-block";
 import {BlockParserCollection} from "../main/refactored/BlockParserCollection";
-import {BlockNode} from "../main/refactored/BlockNode";
+//import {BlockNode} from "../main/refactored/BlockNode";
+import {ParagraphNode} from "../main/refactored/ParagraphNode";
 
 import {RefMap} from "../main/refactored-misc/RefMap";
 const refMap : RefMap = {};
 
 const blockParserCollection = new BlockParserCollection(
     documentParser,
-    new ParagraphParser("paragraph", BlockNode, refMap)
+    new ParagraphParser("paragraph", ParagraphNode, refMap)
 )
     .add(blockquoteParser)
     .add(atxHeadingParser)

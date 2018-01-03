@@ -1,16 +1,17 @@
 import {BlockParser, BlockNodeCtor} from "./BlockParser";
 import {Parser} from "../blocks";
-import {Node} from "../node";
+//import {Node} from "../node";
 import {peek, isBlank} from "./util";
-import {BlockNode} from "./BlockNode";
+//import {BlockNode} from "./BlockNode";
 import {parseReference} from "../refactored-misc/util";
 import {RefMap} from "../refactored-misc/RefMap";
+import {ParagraphNode} from "./ParagraphNode";
 
 var C_OPEN_BRACKET = 91;
 
-export class ParagraphParser extends BlockParser<BlockNode> {
+export class ParagraphParser extends BlockParser<ParagraphNode> {
     private refMap : RefMap;
-    public constructor (nodeType : string, nodeCtor : BlockNodeCtor<BlockNode>, refMap : RefMap) {
+    public constructor (nodeType : string, nodeCtor : BlockNodeCtor<ParagraphNode>, refMap : RefMap) {
         super(nodeType, nodeCtor);
         this.refMap = refMap;
     }
@@ -22,7 +23,7 @@ export class ParagraphParser extends BlockParser<BlockNode> {
     continue= (parser : Parser) =>{
         return (parser.blank ? false : true);
     };
-    finalize= (_parser : Parser, block : Node) =>{
+    finalize= (_parser : Parser, block : ParagraphNode) =>{
         var pos;
         var hasReferenceDefs = false;
 
@@ -46,17 +47,17 @@ export class ParagraphParser extends BlockParser<BlockNode> {
     acceptLazyContinuation = true;
     isLeaf = true;
     isParagraph = true;
-    public appendString (node : BlockNode, str : string) : void {
+    public appendString (node : ParagraphNode, str : string) : void {
         if (node.string_content == null) {
             node.string_content = "";
         }
         node.string_content += str;
     }
-    public getString (node : BlockNode) : string {
+    public getString (node : ParagraphNode) : string {
         return node.string_content || "";
     }
     // allow raw string to be garbage collected
-    public unsetString (node : BlockNode) : void {
+    public unsetString (node : ParagraphNode) : void {
         node.string_content = null;
     }
 }
