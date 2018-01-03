@@ -2,6 +2,7 @@ import {InParser} from "./InParser";
 import {InlineParser} from "../inlines";
 import {BlockNode} from "../refactored/BlockNode";
 import {InlineNode} from "./InlineNode";
+import {CodeNode} from "./CodeNode";
 
 var C_BACKTICK = 96;
 var reTicks = /`+/;
@@ -32,7 +33,7 @@ export class BacktickParser extends InParser {
         var node;
         while ((matched = parser.match(reTicks)) !== null) {
             if (matched === ticks) {
-                node = new InlineNode('code');
+                node = new CodeNode('code');
                 node.literal = parser.subject.slice(afterOpenTicks,
                                             parser.pos - ticks.length)
                               .trim().replace(reWhitespace, ' ');
