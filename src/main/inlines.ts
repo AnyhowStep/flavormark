@@ -17,7 +17,7 @@ export class InlineParser extends RegexStream {
         this.inParsers = inParsers;
     }
 
-    public text (s : string) : Node {
+    public text (s : string) : TextNode {
         return new TextNode(s);
     }
     public isTextNode (node : Node) : node is TextNode {

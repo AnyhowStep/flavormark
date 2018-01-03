@@ -1,10 +1,11 @@
-import {Node} from "../node";
+//import {Node} from "../node";
+import {TextNode} from "../refactored-inline/TextNode";
 
 export interface Delimiter {
     cc: number,
     numdelims: number,
     origdelims: number,
-    node: Node,
+    node: TextNode,
     previous: Delimiter|null,
     next: Delimiter|null,
     can_open: boolean,
@@ -15,7 +16,7 @@ export interface PushArgs {
     cc: number,
     numdelims: number,
     origdelims: number,
-    node: Node,
+    node: TextNode,
     can_open: boolean,
     can_close: boolean
 }

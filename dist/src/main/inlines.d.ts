@@ -6,7 +6,7 @@ import { Node } from "./node";
 export declare class InlineParser extends RegexStream {
     private inParsers;
     constructor(inParsers: InParser[]);
-    text(s: string): Node;
+    text(s: string): TextNode;
     isTextNode(node: Node): node is TextNode;
     parseInline(block: Node): boolean;
     parse(blockParser: BlockParser, block: Node): void;

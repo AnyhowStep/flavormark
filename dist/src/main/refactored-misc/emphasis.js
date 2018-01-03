@@ -76,6 +76,7 @@ function processEmphasis(delimiters, stack_bottom) {
                         closer_inl.literal.slice(0, closer_inl.literal.length - use_delims);
                     // build contents for new emph element
                     var emph = new node_1.Node(use_delims === 1 ? 'emph' : 'strong');
+                    console.log(opener_inl.type, closer_inl.type);
                     tmp = opener_inl.next;
                     while (tmp && tmp !== closer_inl) {
                         next = tmp.next;
