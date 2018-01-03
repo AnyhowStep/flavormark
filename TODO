@@ -1,0 +1,3 @@
+Make linebreak, softbreak part of core nodes
+Refactor inline nodes to be more descriptive
+Refactor structure of project

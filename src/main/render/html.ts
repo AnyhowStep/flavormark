@@ -70,7 +70,7 @@ export class HtmlRenderer extends Renderer {
       this.lit(this.options.softbreak || "\n");
     }
 
-     linebreak(_node:any, entering:boolean) {
+     hardbreak(_node:any, entering:boolean) {
          if (!entering) { return; }
       this.tag('br', [], true);
       this.cr();
