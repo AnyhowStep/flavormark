@@ -80,8 +80,6 @@ export class Node {
     lastLineBlank = false;
     open = true;
 
-    destination : string|null|undefined = null;
-    title : string|null = null;
     //onEnter = null;
     //onExit = null;
 

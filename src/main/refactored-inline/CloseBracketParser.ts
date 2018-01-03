@@ -7,6 +7,7 @@ import {processEmphasis} from "../refactored-misc/emphasis";
 import {RefMap} from "../refactored-misc/RefMap";
 import {DelimiterCollection} from "../refactored-misc/DelimiterCollection";
 import {BracketCollection} from "../refactored-misc/BracketCollection";
+import {LinkNode} from "./LinkNode";
 
 var C_CLOSE_BRACKET = 93;
 var C_OPEN_PAREN = 40;
@@ -115,7 +116,7 @@ export class CloseBracketParser extends InParser {
         }
 
         if (matched) {
-            var node = new Node(is_image ? 'image' : 'link');
+            var node = new LinkNode(is_image ? 'image' : 'link');
             node.destination = dest;
             node.title = title || '';
 

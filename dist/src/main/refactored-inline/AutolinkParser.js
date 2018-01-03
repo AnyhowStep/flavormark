@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InParser_1 = require("./InParser");
-const node_1 = require("../node");
 const common_1 = require("../common");
+const LinkNode_1 = require("./LinkNode");
 var C_LESSTHAN = 60;
 var reEmailAutolink = /^<([a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)>/;
 var reAutolink = /^<[A-Za-z][A-Za-z0-9.+-]{1,31}:[^<>\x00-\x20]*>/i;
@@ -18,7 +18,7 @@ class AutolinkParser extends InParser_1.InParser {
         var node;
         if ((m = parser.match(reEmailAutolink))) {
             dest = m.slice(1, m.length - 1);
-            node = new node_1.Node('link');
+            node = new LinkNode_1.LinkNode('link');
             node.destination = common_1.normalizeURI('mailto:' + dest);
             node.title = '';
             node.appendChild(parser.text(dest));
@@ -27,7 +27,7 @@ class AutolinkParser extends InParser_1.InParser {
         }
         else if ((m = parser.match(reAutolink))) {
             dest = m.slice(1, m.length - 1);
-            node = new node_1.Node('link');
+            node = new LinkNode_1.LinkNode('link');
             node.destination = common_1.normalizeURI(dest);
             node.title = '';
             node.appendChild(parser.text(dest));

@@ -46,13 +46,22 @@ class HtmlRenderer extends renderer_1.Renderer {
         this.lastOut = '>';
     }
     /* Node methods */
-    text(node) {
+    text(node, entering) {
+        if (!entering) {
+            return;
+        }
         this.out(node.literal);
     }
-    softbreak() {
+    softbreak(_node, entering) {
+        if (!entering) {
+            return;
+        }
         this.lit(this.options.softbreak || "\n");
     }
-    linebreak() {
+    linebreak(_node, entering) {
+        if (!entering) {
+            return;
+        }
         this.tag('br', [], true);
         this.cr();
     }
@@ -148,12 +157,18 @@ class HtmlRenderer extends renderer_1.Renderer {
             this.cr();
         }
     }
-    code(node) {
+    code(node, entering) {
+        if (!entering) {
+            return;
+        }
         this.tag('code');
         this.out(node.literal);
         this.tag('/code');
     }
-    indented_code_block(node) {
+    indented_code_block(node, entering) {
+        if (!entering) {
+            return;
+        }
         var info_words = node.info ? node.info.split(/\s+/) : [], attrs = this.attrs(node);
         if (info_words.length > 0 && info_words[0].length > 0) {
             attrs.push(['class', 'language-' + this.esc(info_words[0], true)]);
@@ -166,7 +181,10 @@ class HtmlRenderer extends renderer_1.Renderer {
         this.tag('/pre');
         this.cr();
     }
-    fenced_code_block(node) {
+    fenced_code_block(node, entering) {
+        if (!entering) {
+            return;
+        }
         var info_words = node.info ? node.info.split(/\s+/) : [], attrs = this.attrs(node);
         if (info_words.length > 0 && info_words[0].length > 0) {
             attrs.push(['class', 'language-' + this.esc(info_words[0], true)]);
@@ -179,7 +197,10 @@ class HtmlRenderer extends renderer_1.Renderer {
         this.tag('/pre');
         this.cr();
     }
-    thematic_break(node) {
+    thematic_break(node, entering) {
+        if (!entering) {
+            return;
+        }
         var attrs = this.attrs(node);
         this.cr();
         this.tag('hr', attrs, true);
@@ -225,7 +246,10 @@ class HtmlRenderer extends renderer_1.Renderer {
             this.cr();
         }
     }
-    html_inline(node) {
+    html_inline(node, entering) {
+        if (!entering) {
+            return;
+        }
         if (this.options.safe) {
             this.lit('<!-- raw HTML omitted -->');
         }
@@ -233,7 +257,10 @@ class HtmlRenderer extends renderer_1.Renderer {
             this.lit(node.literal);
         }
     }
-    html_block(node) {
+    html_block(node, entering) {
+        if (!entering) {
+            return;
+        }
         this.cr();
         if (this.options.safe) {
             this.lit('<!-- raw HTML omitted -->');

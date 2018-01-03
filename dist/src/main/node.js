@@ -17,8 +17,7 @@ class NodeWalker {
         if (cur === null) {
             return null;
         }
-        var container = cur.isContainer();
-        if (entering && container) {
+        if (entering) {
             if (cur.firstChild) {
                 this.current = cur.firstChild;
                 this.entering = true;
@@ -55,11 +54,9 @@ class Node {
         this.next = null;
         this.lastLineBlank = false;
         this.open = true;
-        this.destination = null;
-        this.title = null;
         this.type = nodeType;
         this.sourcepos = sourcepos;
-    }
+    } /*
     isContainer() {
         switch (this.type) {
             case 'document':
@@ -79,7 +76,7 @@ class Node {
             default:
                 return false;
         }
-    }
+    }*/
     unlink() {
         if (this.prev) {
             this.prev.next = this.next;

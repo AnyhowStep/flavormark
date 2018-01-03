@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InParser_1 = require("./InParser");
-const node_1 = require("../node");
 const normalize_reference_1 = require("../normalize-reference");
 const util_1 = require("../refactored-misc/util");
 const emphasis_1 = require("../refactored-misc/emphasis");
+const LinkNode_1 = require("./LinkNode");
 var C_CLOSE_BRACKET = 93;
 var C_OPEN_PAREN = 40;
 var C_CLOSE_PAREN = 41;
@@ -97,7 +97,7 @@ class CloseBracketParser extends InParser_1.InParser {
             }
         }
         if (matched) {
-            var node = new node_1.Node(is_image ? 'image' : 'link');
+            var node = new LinkNode_1.LinkNode(is_image ? 'image' : 'link');
             node.destination = dest;
             node.title = title || '';
             var tmp, next;

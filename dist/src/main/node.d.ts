@@ -20,10 +20,7 @@ export declare class Node {
     sourcepos?: [[number, number], [number, number]];
     lastLineBlank: boolean;
     open: boolean;
-    destination: string | null | undefined;
-    title: string | null;
     constructor(nodeType: NodeType, sourcepos?: [[number, number], [number, number]]);
-    isContainer(): boolean;
     unlink(): void;
     appendChild(child: Node): void;
     prependChild(child: Node): void;

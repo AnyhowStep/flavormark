@@ -76,7 +76,7 @@ export class HtmlRenderer extends Renderer {
       this.cr();
     }
 
-     link(node:Node, entering:boolean) {
+     link(node:any, entering:boolean) {
       var attrs = this.attrs(node);
       if (entering) {
           if (node.destination == null) {
@@ -94,7 +94,7 @@ export class HtmlRenderer extends Renderer {
       }
     }
 
-     image(node:Node, entering:boolean) {
+     image(node:any, entering:boolean) {
       if (entering) {
         if (this.disableTags === 0) {
             if (node.destination == null) {
