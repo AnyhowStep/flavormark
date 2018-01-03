@@ -95,9 +95,9 @@ export class Node {
     info : string|null = null;
     destination : string|null|undefined = null;
     title : string|null = null;
-    fenceChar : string|null = null;
-    fenceLength = 0;
-    fenceOffset : number|null = null;
+    //fenceChar : string|null = null;
+    //fenceLength = 0;
+    //fenceOffset : number|null = null;
     //level : number|null = null;
     onEnter = null;
     onExit = null;

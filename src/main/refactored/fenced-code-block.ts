@@ -4,19 +4,20 @@ import {Node} from "../node";
 import {peek, isSpaceOrTab} from "./util";
 import {unescapeString} from "../common";
 import {BlockNode} from "./BlockNode";
+import {FencedCodeBlockNode} from "./FencedCodeBlockNode";
 
 var reCodeFence = /^`{3,}(?!.*`)|^~{3,}(?!.*~)/;
 
 var reClosingCodeFence = /^(?:`{3,}|~{3,})(?= *$)/;
 
-export class FencedCodeBlockParser extends BlockParser<BlockNode> {
+export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
     tryStart= (parser : Parser) => {
         var match;
         if (!parser.indented &&
             (match = parser.currentLine.slice(parser.nextNonspace).match(reCodeFence))) {
             var fenceLength = match[0].length;
             parser.closeUnmatchedBlocks();
-            var container = parser.addChild(this, parser.nextNonspace);
+            var container = parser.addChild<FencedCodeBlockNode>(this, parser.nextNonspace);
             container.fenceLength = fenceLength;
             container.fenceChar = match[0][0];
             container.fenceOffset = parser.indent;
@@ -27,7 +28,7 @@ export class FencedCodeBlockParser extends BlockParser<BlockNode> {
             return false;
         }
     };
-    continue= (parser : Parser, container : BlockNode)=>  {
+    continue= (parser : Parser, container : FencedCodeBlockNode)=>  {
         var ln = parser.currentLine;
         var indent = parser.indent;
         var match = (indent <= 3 &&
@@ -50,7 +51,7 @@ export class FencedCodeBlockParser extends BlockParser<BlockNode> {
         }
         return true;
     };
-    finalize= (_parser : Parser, block : BlockNode)=>  {
+    finalize= (_parser : Parser, block : FencedCodeBlockNode)=>  {
         // first line becomes info string
         var content = block.string_content;
         if (content == null) {
@@ -83,4 +84,4 @@ export class FencedCodeBlockParser extends BlockParser<BlockNode> {
     }
 }
 
-export const fencedCodeBlockParser = new FencedCodeBlockParser("fenced_code_block", BlockNode);
+export const fencedCodeBlockParser = new FencedCodeBlockParser("fenced_code_block", FencedCodeBlockNode);
