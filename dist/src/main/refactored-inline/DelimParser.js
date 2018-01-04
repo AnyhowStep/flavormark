@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const InParser_1 = require("./InParser");
 //import {Node} from "./Node";
 const from_code_point_1 = require("../from-code-point");
+const emphasis_1 = require("../refactored-misc/emphasis");
 var C_UNDERSCORE = 95;
 var C_SINGLEQUOTE = 39;
 var C_DOUBLEQUOTE = 34;
@@ -120,6 +121,9 @@ class DelimParser extends InParser_1.InParser {
             can_close: res.can_close
         });
         return true;
+    }
+    finalize() {
+        emphasis_1.processEmphasis(this.delimiters, null);
     }
 }
 exports.DelimParser = DelimParser;

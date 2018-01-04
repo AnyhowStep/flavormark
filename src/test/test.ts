@@ -93,7 +93,6 @@ import {HtmlTagParser} from "../main/refactored-inline/HtmlTagParser";
 import {LessThanLiteralParser} from "../main/refactored-inline/LessThanLiteralParser";
 import {EntityParser} from "../main/refactored-inline/EntityParser";
 import {StringParser} from "../main/refactored-inline/StringParser";
-import {EmphasisParser} from "../main/refactored-inline/EmphasisParser";
 import {InlineParser} from "../main/inlines";
 
 const inParsers : InParser[] = [
@@ -108,7 +107,6 @@ const inParsers : InParser[] = [
     new HtmlTagParser(),
     new LessThanLiteralParser(),
     new EntityParser(),
-    new EmphasisParser(delimiters),
 
     new StringParser(), //Should this be a default parser that cannot be removed?
 ];
@@ -128,7 +126,6 @@ const smartInParsers : InParser[] = [
     new HtmlTagParser(),
     new LessThanLiteralParser(),
     new EntityParser(),
-    new EmphasisParser(delimiters),
 
     new StringParser(true), //Should this be a default parser that cannot be removed?
 ];

@@ -4,6 +4,7 @@ import {Node} from "../node";
 //import {Node} from "./Node";
 import {fromCodePoint} from "../from-code-point";
 import {DelimiterCollection} from "../refactored-misc/DelimiterCollection";
+import {processEmphasis} from "../refactored-misc/emphasis";
 
 var C_UNDERSCORE = 95;
 var C_SINGLEQUOTE = 39;
@@ -138,5 +139,8 @@ export class DelimParser extends InParser {
         });
 
         return true;
+    }
+    public finalize () : void {
+        processEmphasis(this.delimiters, null);
     }
 }

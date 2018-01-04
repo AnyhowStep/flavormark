@@ -8,4 +8,5 @@ export declare class DelimParser extends InParser {
     constructor(delimiters: DelimiterCollection, smart?: boolean);
     reinit(): void;
     parse(parser: InlineParser, block: Node): boolean;
+    finalize(): void;
 }
