@@ -48,6 +48,9 @@ class ParagraphParser extends BlockParser_1.BlockParser {
         }
         node.string_content += str;
     }
+    setString(node, str) {
+        node.string_content = str;
+    }
     getString(node) {
         return node.string_content || "";
     }

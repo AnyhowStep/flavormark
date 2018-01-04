@@ -3,12 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const DelimitedInlineParser_1 = require("../refactored-delimiter/DelimitedInlineParser");
 const node_1 = require("../node");
 const DelimiterCollection_1 = require("../refactored-misc/DelimiterCollection");
-var CARET_CHAR = "^";
-var C_CARET = CARET_CHAR.charCodeAt(0);
-class SuperscriptParser extends DelimitedInlineParser_1.DelimitedInlineParser {
+var TILDE_CHAR = "~";
+var C_TILDE = TILDE_CHAR.charCodeAt(0);
+class StrikethroughParser extends DelimitedInlineParser_1.DelimitedInlineParser {
     getDelimiterCharacterCodes() {
         return [
-            C_CARET,
+            C_TILDE,
         ];
     }
     advanceDelimiter(stream, delimiter) {
@@ -22,8 +22,8 @@ class SuperscriptParser extends DelimitedInlineParser_1.DelimitedInlineParser {
     canClose(info) {
         return info.rightFlanking;
     }
-    getDelimiterContent(_stream, _delimiterStartPosition, _delimiter) {
-        return CARET_CHAR;
+    getDelimiterContent(stream, delimiterStartPosition, _delimiter) {
+        return stream.subject.slice(delimiterStartPosition, stream.pos);
     }
     tryParse(args, _delimiter) {
         if (args.closer == null) {
@@ -37,16 +37,15 @@ class SuperscriptParser extends DelimitedInlineParser_1.DelimitedInlineParser {
                 throw new Error("opener cannot be null");
             }
             // calculate actual number of delimiters used from closer
-            let delimitersUsed = 1;
             let opener_inl = args.opener.node;
             let closer_inl = args.closer.node;
             // remove used delimiters from stack
-            args.opener.numdelims -= delimitersUsed;
-            args.closer.numdelims -= delimitersUsed;
-            opener_inl.setString(opener_inl.getString().slice(0, opener_inl.getString().length - delimitersUsed));
-            closer_inl.setString(closer_inl.getString().slice(0, closer_inl.getString().length - delimitersUsed));
+            args.opener.numdelims = 0;
+            args.closer.numdelims = 0;
+            opener_inl.setString(opener_inl.getString().slice(0, opener_inl.getString().length));
+            closer_inl.setString(closer_inl.getString().slice(0, closer_inl.getString().length));
             // build contents for new element
-            var emph = new node_1.Node("superscript");
+            var emph = new node_1.Node("strikethrough");
             let tmp = opener_inl.next;
             while (tmp && tmp !== closer_inl) {
                 let next = tmp.next;
@@ -72,5 +71,5 @@ class SuperscriptParser extends DelimitedInlineParser_1.DelimitedInlineParser {
         return true;
     }
 }
-exports.SuperscriptParser = SuperscriptParser;
-//# sourceMappingURL=SuperscriptParser.js.map
+exports.StrikethroughParser = StrikethroughParser;
+//# sourceMappingURL=StrikethroughParser.js.map

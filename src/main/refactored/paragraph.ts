@@ -53,6 +53,9 @@ export class ParagraphParser extends BlockParser<ParagraphNode> {
         }
         node.string_content += str;
     }
+    public setString (node : ParagraphNode, str : string) : void {
+        node.string_content = str;
+    }
     public getString (node : ParagraphNode) : string {
         return node.string_content || "";
     }

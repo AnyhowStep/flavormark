@@ -19,7 +19,14 @@ export declare class HtmlRenderer extends Renderer {
     image(node: any, entering: boolean): void;
     emph(_node: Node, entering: boolean): void;
     superscript(_node: Node, entering: boolean): void;
+    strikethrough(_node: Node, entering: boolean): void;
     strong(_node: Node, entering: boolean): void;
+    table(_node: any, entering: boolean): void;
+    thead(_node: any, entering: boolean): void;
+    tbody(_node: any, entering: boolean): void;
+    tr(_node: any, entering: boolean): void;
+    th(node: any, entering: boolean): void;
+    td(node: any, entering: boolean): void;
     paragraph(node: any, entering: boolean): void;
     atx_heading(node: any, entering: boolean): void;
     setext_heading(node: any, entering: boolean): void;

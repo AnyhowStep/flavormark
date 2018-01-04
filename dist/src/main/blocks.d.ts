@@ -37,6 +37,9 @@ export declare class Parser {
     processInlines(block: Node): void;
     parse(input: string): Node;
     isParagraphNode(node: Node): boolean;
+    getParagraphString(node: Node): string;
+    setParagraphString(node: Node, str: string): void;
+    createParagraph(sourcepos: [[number, number], [number, number]]): Node;
     getBlockParser<NodeT extends Node>(key: NodeT): BlockParser<NodeT>;
     getBlockParser(key: string): BlockParser<Node>;
     getBlockParsers(): BlockParserCollection<Node, Node>;

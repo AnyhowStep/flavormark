@@ -24,12 +24,14 @@ export declare abstract class BlockParser<NodeT extends Node = Node> implements 
     reinit(): void;
     tryStart?: (parser: Parser, container: Node) => boolean;
     continue: (parser: Parser, block: NodeT) => boolean;
+    lazyContinue: (parser: Parser, block: NodeT) => void;
     finalize: (parser: Parser, block: NodeT) => void;
     ignoreLastLineBlank?: ((parser: Parser, container: NodeT) => boolean);
     finalizeAtLine?: (parser: Parser, container: NodeT) => boolean;
     appendString(_node: NodeT, _str: string): void;
     getString(_node: NodeT): string;
     unsetString(_node: NodeT): void;
+    setString(_node: NodeT, _str: string): void;
     canContain: (blockParser: BlockParserMeta) => boolean;
     acceptsLines: boolean;
     earlyExitOnEnd?: boolean;

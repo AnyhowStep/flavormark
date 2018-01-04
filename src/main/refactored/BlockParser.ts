@@ -39,6 +39,9 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
     continue: (parser : Parser, block : NodeT) => boolean = () => {
         throw new Error("Not implemented");
     }
+    lazyContinue: (parser : Parser, block : NodeT) => void = () => {
+
+    }
     finalize: (parser : Parser, block : NodeT) => void = () => {
         throw new Error("Not implemented");
     }
@@ -53,6 +56,9 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
     }
     // allow raw string to be garbage collected
     public unsetString (_node : NodeT) : void {}
+    public setString (_node : NodeT, _str : string) : void {
+
+    }
 
     canContain: (blockParser : BlockParserMeta) => boolean = () => {
         throw new Error("Not implemented");
@@ -60,7 +66,7 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
     acceptsLines: boolean = false;
     earlyExitOnEnd? : boolean;
     parseInlines? : boolean;
-    acceptLazyContinuation? : boolean; //This has no effect unless acceptsLines is true
+    acceptLazyContinuation? : boolean; //If acceptsLines is true, calls appendString, otherwise lazyContinue()
     isLeaf? : boolean;
     isParagraph? : boolean; //Has no effect unless acceptsLines is true
     isList? : boolean;

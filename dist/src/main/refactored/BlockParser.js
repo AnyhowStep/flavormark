@@ -5,6 +5,8 @@ class BlockParser {
         this.continue = () => {
             throw new Error("Not implemented");
         };
+        this.lazyContinue = () => {
+        };
         this.finalize = () => {
             throw new Error("Not implemented");
         };
@@ -30,6 +32,8 @@ class BlockParser {
     }
     // allow raw string to be garbage collected
     unsetString(_node) { }
+    setString(_node, _str) {
+    }
 }
 exports.BlockParser = BlockParser;
 ;

@@ -8,7 +8,7 @@ var C_NEWLINE = 10;
 
 import {InlineParser}  from "./inlines";
 
-var reMaybeSpecial = /^[#`~*+_=<>0-9-]/;
+//var reMaybeSpecial = /^[#`~*+_=<>0-9-]/;
 
 var reLineEnding = /\r\n|\n|\r/;
 
@@ -234,11 +234,11 @@ export class Parser {
             this.findNextNonspace();
 
             // this is a little performance optimization:
-            if (!this.indented &&
+            /*if (!this.indented &&
                 !reMaybeSpecial.test(ln.slice(this.nextNonspace))) {
                 this.advanceNextNonspace();
                 break;
-            }
+            }*/
 
             var i = 0;
             while (i < startsLen) {
@@ -278,10 +278,14 @@ export class Parser {
        // First check for a lazy paragraph continuation:
         if (!this.allClosed && !this.blank &&
             this.tip != null &&
-            this.blockParsers.get(this.tip).acceptLazyContinuation) {
-            // lazy paragraph continuation
-            this.addLine();
-
+            this.blockParsers.get(this.tip).acceptLazyContinuation
+        ) {
+            if (this.blockParsers.get(this.tip).acceptsLines) {
+                // lazy paragraph continuation
+                this.addLine();
+            } else {
+                this.blockParsers.get(this.tip).lazyContinue(this, this.tip);
+            }
         } else { // not a lazy continuation
             if (container == null) {
                 throw new Error("container  cannot be null")
@@ -355,7 +359,7 @@ export class Parser {
         var walker = block.walker();
         while ((event = walker.next())) {
             node = event.node;
-            if (!event.entering && node instanceof Node && this.blockParsers.get(node).parseInlines) {
+            if (!event.entering && node instanceof Node && this.blockParsers.has(node) && this.blockParsers.get(node).parseInlines) {
                 this.inlineParser.parse(this.getBlockParser(node), node);
             }
         }
@@ -398,6 +402,28 @@ export class Parser {
 
     public isParagraphNode (node : Node) {
         return this.blockParsers.isParagraphNode(node);
+    }
+    public getParagraphString (node : Node) {
+        if (this.isParagraphNode(node)) {
+            return this.blockParsers.getParagraphParser().getString(node);
+        } else {
+            throw new Error(`Node ${node.type} is not a paragraph`);
+        }
+    }
+    public setParagraphString (node : Node, str : string) {
+        if (this.isParagraphNode(node)) {
+            return this.blockParsers.getParagraphParser().setString(node, str);
+        } else {
+            throw new Error(`Node ${node.type} is not a paragraph`);
+        }
+    }
+    public createParagraph (sourcepos : [[number,number],[number,number]]) {
+        const ctor = this.blockParsers.getParagraphParser().getNodeCtor();
+        const result = new ctor(
+            this.blockParsers.getParagraphParser().getNodeType(),
+            sourcepos
+        );
+        return result;
     }
     public getBlockParser<NodeT extends Node> (key : NodeT) : BlockParser<NodeT>;
     public getBlockParser (key : string) : BlockParser<Node>;

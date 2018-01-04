@@ -132,6 +132,70 @@ export class HtmlRenderer extends Renderer {
      strong(_node:Node, entering:boolean) {
       this.tag(entering ? 'strong' : '/strong');
     }
+    table(_node:any, entering:boolean) {
+        if (entering) {
+            this.tag("table");
+            this.cr();
+        } else {
+            this.tag("/table");
+            this.cr();
+        }
+    }
+    thead (_node:any, entering:boolean) {
+        if (entering) {
+            this.tag("thead");
+            this.cr();
+        } else {
+            this.cr();
+            this.tag("/thead");
+        }
+    }
+    tbody(_node:any, entering:boolean) {
+        if (entering) {
+            this.cr();
+            this.tag("tbody");
+            this.cr();
+        } else {
+            this.tag("/tbody");
+        }
+    }
+    tr(_node:any, entering:boolean) {
+        if (entering) {
+            this.cr();
+            this.tag("tr");
+            this.cr();
+        } else {
+            this.tag("/tr");
+        }
+    }
+    th(node:any, entering:boolean) {
+        if (entering) {
+            if (node.alignment == "left") {
+                this.tag("th");
+            } else {
+                this.tag("th", [
+                    ["align", node.alignment]
+                ]);
+            }
+        } else {
+            this.tag("/th");
+            this.cr();
+        }
+    }
+    td(node:any, entering:boolean) {
+        if (entering) {
+            if (node.alignment == "left") {
+                this.tag("td");
+            } else {
+                this.tag("td", [
+                    ["align", node.alignment]
+                ]);
+            }
+        } else {
+            this.tag("/td");
+            this.cr();
+        }
+    }
 
      paragraph(node:any, entering:boolean) {
          if (node.parent == null) {

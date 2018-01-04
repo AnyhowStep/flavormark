@@ -42,6 +42,12 @@ export class BlockParserCollection<DocumentT extends Node=Node, ParagraphT exten
         this.arr.push(parser);
         return this;
     }
+    public has (key : string|Node) : boolean {
+        if (typeof key != "string") {
+            return this.has(key.type);
+        }
+        return this.dict[key] != null;
+    }
     public get<NodeT extends Node> (key : NodeT) : BlockParser<NodeT>;
     public get (key : string) : BlockParser<Node>;
     public get (key : string|Node) : BlockParser<Node> {

@@ -10,6 +10,7 @@ export declare class BlockParserCollection<DocumentT extends Node = Node, Paragr
     getParagraphParser(): BlockParser<ParagraphT>;
     hasName(name: string): boolean;
     add(parser: BlockParser): this;
+    has(key: string | Node): boolean;
     get<NodeT extends Node>(key: NodeT): BlockParser<NodeT>;
     get(key: string): BlockParser<Node>;
     length(): number;

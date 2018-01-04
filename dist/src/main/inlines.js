@@ -24,7 +24,7 @@ class InlineParser extends RegexStream_1.RegexStream {
     // On failure, return false.
     parseInline(block) {
         var c = this.peek();
-        //console.log("peek", c, String.fromCharCode(c));
+        //console.log("peek", this.pos, c, String.fromCharCode(c));
         if (c === -1) {
             return false;
         }

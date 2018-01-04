@@ -56,6 +56,7 @@ import {indentedCodeBlockParser} from "../main/refactored/indented-code-block";
 import {BlockParserCollection} from "../main/refactored/BlockParserCollection";
 //import {Node} from "../main/refactored/Node";
 import {ParagraphNode} from "../main/refactored/ParagraphNode";
+import {tableParser, ThParser, TdParser, TrParser, TheadParser, TbodyParser} from "../main/refactored/table";
 
 import {RefMap} from "../main/refactored-misc/RefMap";
 const refMap : RefMap = {};
@@ -72,6 +73,13 @@ const blockParserCollection = new BlockParserCollection(
     .add(thematicBreakParser)
     .add(itemParser)
     .add(indentedCodeBlockParser)
+
+    .add(tableParser)
+    .add(new ThParser())
+    .add(new TdParser())
+    .add(new TrParser())
+    .add(new TheadParser())
+    .add(new TbodyParser())
 
     .add(listParser);
 
@@ -293,6 +301,10 @@ process.exit();*/
     }
 )
 process.exit();*/
+specTests('src/test/table.txt', results, function(z : string) {
+    return writer.render(reader.parse(z));
+});
+//process.exit();
 specTests('src/test/strikethrough.txt', results, function(z : string) {
     return writer.render(reader.parse(z));
 });

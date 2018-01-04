@@ -33,6 +33,12 @@ class BlockParserCollection {
         this.arr.push(parser);
         return this;
     }
+    has(key) {
+        if (typeof key != "string") {
+            return this.has(key.type);
+        }
+        return this.dict[key] != null;
+    }
     get(key) {
         if (typeof key != "string") {
             return this.get(key.type);

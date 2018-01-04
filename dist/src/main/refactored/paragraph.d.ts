@@ -15,6 +15,7 @@ export declare class ParagraphParser extends BlockParser<ParagraphNode> {
     isLeaf: boolean;
     isParagraph: boolean;
     appendString(node: ParagraphNode, str: string): void;
+    setString(node: ParagraphNode, str: string): void;
     getString(node: ParagraphNode): string;
     unsetString(node: ParagraphNode): void;
 }
