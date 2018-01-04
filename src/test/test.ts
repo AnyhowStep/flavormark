@@ -109,6 +109,7 @@ import {SuperscriptParser} from "../main/custom/SuperscriptParser";
 import {SmartStringParser} from "../main/refactored-inline/SmartStringParser";
 import {StrikethroughParser} from "../main/custom/StrikethroughParser";
 import {CheckboxParser} from "../main/refactored-inline/CheckboxParser";
+import {ExtendedWwwAutolinkParser} from "../main/refactored-inline/ExtendedWwwAutolinkParser";
 
 const delimParser = new DelimiterParser(delimiters, [
     new EmphasisParser(),
@@ -131,6 +132,7 @@ const inParsers : InParser[] = [
     new LessThanLiteralParser(),
     new EntityParser(),
 
+    new ExtendedWwwAutolinkParser(),
 
     new StringParser(), //Should this be a default parser that cannot be removed?
 ];
@@ -306,6 +308,10 @@ process.exit();*/
     }
 )
 process.exit();*/
+specTests('src/test/extended-www-autolink.txt', results, function(z : string) {
+    return writer.render(reader.parse(z));
+});
+//process.exit();
 specTests('src/test/checkbox.txt', results, function(z : string) {
     return writer.render(reader.parse(z));
 });

@@ -1,0 +1,86 @@
+import {InParser} from "./InParser";
+import {InlineParser} from "../inlines";
+import {Node} from "../node";
+import {normalizeURI} from "../common";
+import {LinkNode} from "./LinkNode";
+import {escapeXml} from "../common";
+
+//Trailing punctuation (specifically, ?, !, ., ,, :, *, _, and ~) will not be
+//considered part of the autolink, though they may be included in the interior of the link:
+var reTrailingPunctuation = new RegExp(/([\?\!\.\,\:\*\_\~]+)$/);
+
+function countChar (str : string, char : string) {
+    let result = 0;
+    for (let c of str) {
+        if (c == char) {
+            ++result;
+        }
+    }
+    return result;
+}
+
+export class ExtendedWwwAutolinkParser extends InParser {
+    // Attempt to parse an autolink (URL or email in pointy brackets).
+    public parse (parser : InlineParser, block : Node) : boolean {
+        const startpos = parser.pos;
+        //There must be at least one period, and no underscores may be present in the last two segments of the domain.
+        const domain = parser.match(/^www\.[a-zA-Z0-9\_\-]+(\.[a-zA-Z0-9\_\-]+)+/);
+        if (domain == null) {
+            return false;
+        }
+        const domainSegments = domain.split(".");
+        domainSegments.shift();
+        if (domainSegments.length < 2) {
+            throw new Error(`Expected at least 2 domain segments, received ${domainSegments.length}`);
+        }
+        const lastTwoSegments = domainSegments.slice(domainSegments.length-2);
+        if (lastTwoSegments.some(s=>(s.indexOf("_")>=0))) {
+            parser.pos = startpos;
+            return false;
+        }
+
+        //After a valid domain, zero or more non-space non-< characters may follow:
+        let trailing = parser.match(/^[^\s\<]*/);
+        if (trailing == null) {
+            trailing = "";
+        } else {
+            const trailingPunctuation = reTrailingPunctuation.exec(trailing);
+            if (trailingPunctuation != null) {
+                trailing = trailing.substr(0, trailing.length-trailingPunctuation[1].length);
+                parser.pos -= trailingPunctuation[1].length;
+            }
+        }
+
+        /*
+            When an autolink ends in ), we scan the entire autolink for the total number of parentheses.
+            If there is a greater number of closing parentheses than opening ones, we don’t consider the last
+            character part of the autolink, in order to facilitate including an autolink inside a parenthesis:
+        */
+        if (trailing[trailing.length-1] == ")") {
+            const openCount  = countChar(trailing, "(");
+            const closeCount = countChar(trailing, ")");
+            if (closeCount > openCount) {
+                trailing = trailing.substr(0, trailing.length-1);
+                --parser.pos;
+            }
+        }
+
+        //If an autolink ends in a semicolon (;), we check to see if it appears
+        //to resemble an entity reference; if the preceding text is & followed
+        //by one or more alphanumeric characters. If so, it is excluded from the autolink:
+        if (trailing[trailing.length-1] == ";") {
+            const trailingEntity = /(\&[a-zA-Z0-9]+\;)$/.exec(trailing);
+            if (trailingEntity != null) {
+                trailing = trailing.substr(0, trailing.length-trailingEntity[1].length);
+                parser.pos -= trailingEntity[1].length;
+            }
+        }
+
+        const node = new LinkNode('link');
+        node.destination = normalizeURI(`http://${domain}${trailing}`);
+        //node.title = domain;
+        node.appendChild(parser.text(escapeXml(domain+trailing, true)));
+        block.appendChild(node);
+        return true;
+    }
+}
