@@ -10,9 +10,6 @@ var rePunctuation = new RegExp(/[!"#$%&'()*+,\-./:;<=>?@\[\]^_`{|}~\xA1\xA7\xAB\
 
 var reUnicodeWhitespaceChar = /^\s/;
 
-var C_SINGLEQUOTE = 39;
-var C_DOUBLEQUOTE = 34;
-
 export class DelimiterParser extends InParser {
     private delimiters : DelimiterCollection;
     private parsers    : DelimitedInlineParser[];
@@ -28,27 +25,23 @@ export class DelimiterParser extends InParser {
     public parse (parser : InlineParser, block : Node) : boolean {
         const cc = parser.peek();
         let dil = this.parsers.find((p) => {
+            //console.log(cc, String.fromCharCode(cc), p.getDelimiterCharacterCodes());
             return p.getDelimiterCharacterCodes().indexOf(cc) >= 0;
         });
         if (dil == null) {
             return false;
         }
+        //console.log("found", dil.getDelimiterCharacterCodes());
         var res = this.scanDelims(parser, dil, cc);
+        //console.log("res", res);
         if (!res) {
             return false;
         }
         var numdelims = res.numdelims;
         var startpos = parser.pos;
-        var contents;
 
         parser.pos += numdelims;
-        if (cc === C_SINGLEQUOTE) {
-            contents = "\u2019";
-        } else if (cc === C_DOUBLEQUOTE) {
-            contents = "\u201C";
-        } else {
-            contents = parser.subject.slice(startpos, parser.pos);
-        }
+        const contents = dil.getDelimiterContent(parser, startpos, cc);
         var node = parser.text(contents);
         block.appendChild(node);
 
@@ -77,7 +70,7 @@ export class DelimiterParser extends InParser {
 
         dil.advanceDelimiter(parser, cc);
         let numdelims = parser.pos - startpos;
-
+        //console.log("numdelims", numdelims);
         if (numdelims === 0) {
             return null;
         }
@@ -90,6 +83,7 @@ export class DelimiterParser extends InParser {
         } else {
             char_after = fromCodePoint(cc_after);
         }
+        //console.log("char_after", char_after);
 
         const after_is_whitespace = reUnicodeWhitespaceChar.test(char_after);
         const after_is_punctuation = rePunctuation.test(char_after);
@@ -106,8 +100,11 @@ export class DelimiterParser extends InParser {
             leftFlanking : left_flanking,
             rightFlanking : right_flanking
         };
+        //console.log("info", info);
         const can_open = dil.canOpen(info, cc);
+        //console.log("can_open", can_open);
         const can_close = dil.canClose(info, cc);
+        //console.log("can_close", can_close);
         parser.pos = startpos;
         return {
             numdelims: numdelims,

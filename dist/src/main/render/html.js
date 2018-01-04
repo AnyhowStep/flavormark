@@ -112,6 +112,9 @@ class HtmlRenderer extends renderer_1.Renderer {
     emph(_node, entering) {
         this.tag(entering ? 'em' : '/em');
     }
+    superscript(_node, entering) {
+        this.tag(entering ? 'sup' : '/sup');
+    }
     strong(_node, entering) {
         this.tag(entering ? 'strong' : '/strong');
     }

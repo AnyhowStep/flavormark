@@ -97,8 +97,12 @@ import {EntityParser} from "../main/refactored-inline/EntityParser";
 import {StringParser} from "../main/refactored-inline/StringParser";
 import {InlineParser} from "../main/inlines";
 
+import {SuperscriptParser} from "../main/custom/SuperscriptParser";
+import {SmartStringParser} from "../main/refactored-inline/SmartStringParser";
+
 const delimParser = new DelimiterParser(delimiters, [
-    new EmphasisParser()
+    new EmphasisParser(),
+    new SuperscriptParser(),
 ]);
 const inParsers : InParser[] = [
     new NewlineParser(),
@@ -136,7 +140,8 @@ const smartInParsers : InParser[] = [
     new LessThanLiteralParser(),
     new EntityParser(),
 
-    new StringParser(true), //Should this be a default parser that cannot be removed?
+    new SmartStringParser(),
+    new StringParser(), //Should this be a default parser that cannot be removed?
 ];
 var readerSmart = new commonmark.Parser(blockParserCollection, new InlineParser(smartInParsers));
 
@@ -286,6 +291,14 @@ process.exit();*/
     }
 )
 process.exit();*/
+specTests('src/test/smart.txt', results, function(z : string) {
+    return writer.render(readerSmart.parse(z));
+});
+//process.exit();
+specTests('src/test/superscript.txt', results, function(z : string) {
+    return writer.render(reader.parse(z));
+});
+//process.exit();
 specTests('src/test/spec.txt', results, function(z : string) {
         return writer.render(reader.parse(z));
     });
@@ -297,7 +310,6 @@ specTests('src/test/smart_punct.txt', results, function(z : string) {
 specTests('src/test/regression.txt', results, function(z : string) {
         return writer.render(reader.parse(z));
     });
-
 // pathological cases
 cursor.write('Pathological cases:\n');
 

@@ -122,6 +122,9 @@ export class HtmlRenderer extends Renderer {
      emph(_node:Node, entering:boolean) {
       this.tag(entering ? 'em' : '/em');
     }
+    superscript (_node:Node, entering : boolean) {
+        this.tag(entering ? 'sup' : '/sup');
+    }
 
      strong(_node:Node, entering:boolean) {
       this.tag(entering ? 'strong' : '/strong');

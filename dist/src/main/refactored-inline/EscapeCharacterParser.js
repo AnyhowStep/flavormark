@@ -25,6 +25,7 @@ class EscapeCharacterParser extends InParser_1.InParser {
             block.appendChild(node);
         }
         else if (reEscapable.test(subj.charAt(parser.pos))) {
+            //console.log("adding escape", parser.text(subj.charAt(parser.pos)));
             block.appendChild(parser.text(subj.charAt(parser.pos)));
             parser.pos += 1;
         }

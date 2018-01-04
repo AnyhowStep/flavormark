@@ -1,0 +1,57 @@
+# Superscript
+
+Basic emphasis
+
+```````````````````````````````` example
+*foo*
+.
+<p><em>foo</em></p>
+````````````````````````````````
+
+Basic superscript
+
+```````````````````````````````` example
+^foo^
+.
+<p><sup>foo</sup></p>
+````````````````````````````````
+
+Authors who want interpretation 3 can use backslash escapes:
+
+```````````````````````````````` example
+Foo
+bar
+\---
+baz
+.
+<p>Foo
+bar
+---
+baz</p>
+````````````````````````````````
+
+Final spaces are stripped before inline parsing, so a paragraph
+that ends with two or more spaces will not end with a [hard line
+break]:
+
+```````````````````````````````` example
+aaa    
+bbb
+.
+<p>aaa<br />
+bbb</p>
+````````````````````````````````
+
+
+Backslash-escaped `#` characters do not count as part
+of the closing sequence:
+
+```````````````````````````````` example
+### foo \###
+## foo #\##
+# foo \#
+.
+<h3>foo ###</h3>
+<h2>foo ###</h2>
+<h1>foo #</h1>
+````````````````````````````````

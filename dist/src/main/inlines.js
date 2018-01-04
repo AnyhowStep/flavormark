@@ -24,16 +24,19 @@ class InlineParser extends RegexStream_1.RegexStream {
     // On failure, return false.
     parseInline(block) {
         var c = this.peek();
+        //console.log("peek", c, String.fromCharCode(c));
         if (c === -1) {
             return false;
         }
         for (let p of this.inParsers) {
             if (p.parse(this, block)) {
+                //console.log("c", this.pos, c, fromCodePoint(c), this.inParsers.indexOf(p));
                 return true;
             }
         }
         this.pos += 1;
         block.appendChild(this.text(from_code_point_1.fromCodePoint(c)));
+        //console.log("adding text", c, fromCodePoint(c));
         return true;
     }
     ;

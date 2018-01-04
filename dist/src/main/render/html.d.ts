@@ -18,6 +18,7 @@ export declare class HtmlRenderer extends Renderer {
     link(node: any, entering: boolean): void;
     image(node: any, entering: boolean): void;
     emph(_node: Node, entering: boolean): void;
+    superscript(_node: Node, entering: boolean): void;
     strong(_node: Node, entering: boolean): void;
     paragraph(node: any, entering: boolean): void;
     atx_heading(node: any, entering: boolean): void;
