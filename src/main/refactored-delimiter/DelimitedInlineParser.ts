@@ -22,5 +22,5 @@ export abstract class DelimitedInlineParser {
     public abstract canClose (info : DelimiterInfo, delimiter : number) : boolean;
 
     public abstract getDelimiterContent (stream : RegexStream, delimiterStartPosition : number, delimiter : number) : string;
-    public abstract tryParse (args : ParseArgs, delimiter : number) : void;
+    public abstract tryParse (args : ParseArgs, delimiter : number) : boolean;
 }

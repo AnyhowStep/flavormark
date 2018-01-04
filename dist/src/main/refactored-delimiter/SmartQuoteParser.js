@@ -1,34 +1,33 @@
-import {DelimitedInlineParser, DelimiterInfo, ParseArgs} from "./DelimitedInlineParser";
-import {RegexStream} from "../refactored-misc/RegexStream";
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const DelimitedInlineParser_1 = require("./DelimitedInlineParser");
 var C_SINGLEQUOTE = 39;
 var C_DOUBLEQUOTE = 34;
-
-export class SmartQuoteParser extends DelimitedInlineParser {
-    public getDelimiterCharacterCodes () : number[] {
+class SmartQuoteParser extends DelimitedInlineParser_1.DelimitedInlineParser {
+    getDelimiterCharacterCodes() {
         return [
             C_SINGLEQUOTE,
             C_DOUBLEQUOTE
         ];
     }
-    public advanceDelimiter (stream : RegexStream) : void {
+    advanceDelimiter(stream) {
         ++stream.pos;
     }
-    public canOpen (info : DelimiterInfo) : boolean {
+    canOpen(info) {
         return info.leftFlanking && !info.rightFlanking;
     }
-    public canClose (info : DelimiterInfo) : boolean {
+    canClose(info) {
         return info.rightFlanking;
     }
-
-    public getDelimiterContent (_stream : RegexStream, _delimiterStartPosition : number, delimiter : number) : string {
+    getDelimiterContent(_stream, _delimiterStartPosition, delimiter) {
         if (delimiter == C_SINGLEQUOTE) {
             return "\u2019";
-        } else {
+        }
+        else {
             return "\u201C";
         }
     }
-    public tryParse (args : ParseArgs, delimiter : number) : boolean {
+    tryParse(args, delimiter) {
         if (args.closer == null) {
             throw new Error("closer cannot be null");
         }
@@ -41,7 +40,8 @@ export class SmartQuoteParser extends DelimitedInlineParser {
                 args.opener.node.setString("\u2018");
             }
             args.closer = args.closer.next;
-        } else {
+        }
+        else {
             args.closer.node.setString("\u201D");
             if (args.openerFound) {
                 if (args.opener == null) {
@@ -54,3 +54,5 @@ export class SmartQuoteParser extends DelimitedInlineParser {
         return true;
     }
 }
+exports.SmartQuoteParser = SmartQuoteParser;
+//# sourceMappingURL=SmartQuoteParser.js.map

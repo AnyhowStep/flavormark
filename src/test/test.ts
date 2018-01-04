@@ -84,7 +84,9 @@ import {InParser} from "../main/refactored-inline/InParser";
 import {NewlineParser} from "../main/refactored-inline/NewlineParser";
 import {EscapeCharacterParser} from "../main/refactored-inline/EscapeCharacterParser";
 import {InlineCodeParser} from "../main/refactored-inline/InlineCodeParser";
-import {DelimParser} from "../main/refactored-inline/DelimParser";
+import {DelimiterParser} from "../main/refactored-delimiter/DelimiterParser";
+import {EmphasisParser} from "../main/refactored-delimiter/EmphasisParser";
+import {SmartQuoteParser} from "../main/refactored-delimiter/SmartQuoteParser";
 import {OpenBracketParser} from "../main/refactored-inline/OpenBracketParser";
 import {BangParser} from "../main/refactored-inline/BangParser";
 import {CloseBracketParser} from "../main/refactored-inline/CloseBracketParser";
@@ -95,7 +97,9 @@ import {EntityParser} from "../main/refactored-inline/EntityParser";
 import {StringParser} from "../main/refactored-inline/StringParser";
 import {InlineParser} from "../main/inlines";
 
-const delimParser = new DelimParser(delimiters);
+const delimParser = new DelimiterParser(delimiters, [
+    new EmphasisParser()
+]);
 const inParsers : InParser[] = [
     new NewlineParser(),
     new EscapeCharacterParser(),
@@ -115,7 +119,10 @@ const inParsers : InParser[] = [
 
 var reader = new commonmark.Parser(blockParserCollection, new InlineParser(inParsers));
 
-const smartDelimParser = new DelimParser(delimiters, true);
+const smartDelimParser = new DelimiterParser(delimiters, [
+    new EmphasisParser(),
+    new SmartQuoteParser(),
+]);
 const smartInParsers : InParser[] = [
     new NewlineParser(),
     new EscapeCharacterParser(),
