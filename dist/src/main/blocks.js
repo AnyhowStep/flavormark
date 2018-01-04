@@ -318,7 +318,7 @@ class Parser {
         while ((event = walker.next())) {
             node = event.node;
             if (!event.entering && node instanceof node_1.Node && this.blockParsers.has(node) && this.blockParsers.get(node).parseInlines) {
-                this.inlineParser.parse(this.getBlockParser(node), node);
+                this.inlineParser.parse(this, this.getBlockParser(node), node);
             }
         }
     }

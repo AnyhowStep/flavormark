@@ -193,6 +193,16 @@ class HtmlRenderer extends renderer_1.Renderer {
             this.cr();
         }
     }
+    checkbox(node, entering) {
+        if (entering) {
+            this.lit(`<input `);
+            if (node.checked) {
+                this.lit(`checked="" `);
+            }
+            this.lit(`disabled="" `);
+            this.lit(`type="checkbox">`);
+        }
+    }
     paragraph(node, entering) {
         if (node.parent == null) {
             throw new Error("node.parent cannot be null");

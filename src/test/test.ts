@@ -108,6 +108,7 @@ import {InlineParser} from "../main/inlines";
 import {SuperscriptParser} from "../main/custom/SuperscriptParser";
 import {SmartStringParser} from "../main/refactored-inline/SmartStringParser";
 import {StrikethroughParser} from "../main/custom/StrikethroughParser";
+import {CheckboxParser} from "../main/refactored-inline/CheckboxParser";
 
 const delimParser = new DelimiterParser(delimiters, [
     new EmphasisParser(),
@@ -117,6 +118,9 @@ const delimParser = new DelimiterParser(delimiters, [
 const inParsers : InParser[] = [
     new NewlineParser(),
     new EscapeCharacterParser(),
+
+    new CheckboxParser(),
+
     new InlineCodeParser(),
     delimParser,
     new OpenBracketParser(brackets),
@@ -126,6 +130,7 @@ const inParsers : InParser[] = [
     new HtmlTagParser(),
     new LessThanLiteralParser(),
     new EntityParser(),
+
 
     new StringParser(), //Should this be a default parser that cannot be removed?
 ];
@@ -301,6 +306,10 @@ process.exit();*/
     }
 )
 process.exit();*/
+specTests('src/test/checkbox.txt', results, function(z : string) {
+    return writer.render(reader.parse(z));
+});
+//process.exit();
 specTests('src/test/table.txt', results, function(z : string) {
     return writer.render(reader.parse(z));
 });

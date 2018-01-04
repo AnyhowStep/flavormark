@@ -196,6 +196,16 @@ export class HtmlRenderer extends Renderer {
             this.cr();
         }
     }
+    checkbox(node:any, entering:boolean) {
+        if (entering) {
+            this.lit(`<input `);
+            if (node.checked) {
+                this.lit(`checked="" `);
+            }
+            this.lit(`disabled="" `);
+            this.lit(`type="checkbox">`);
+        }
+    }
 
      paragraph(node:any, entering:boolean) {
          if (node.parent == null) {

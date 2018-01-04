@@ -34,6 +34,9 @@ class BlockParser {
     unsetString(_node) { }
     setString(_node, _str) {
     }
+    isActuallyParagraph() {
+        return (this.acceptsLines == true && this.isParagraph == true);
+    }
 }
 exports.BlockParser = BlockParser;
 ;

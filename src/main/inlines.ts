@@ -4,6 +4,7 @@ import {BlockParser} from "./refactored/BlockParser";
 import {InParser} from "./refactored-inline/InParser";
 import {RegexStream} from "./refactored-misc/RegexStream";
 import {Node} from "./node";
+import {Parser} from "./blocks";
 
 // These are methods of an InlineParser object, defined below.
 // An InlineParser keeps track of a subject (a string to be
@@ -27,14 +28,14 @@ export class InlineParser extends RegexStream {
     // Parse the next inline element in subject, advancing subject position.
     // On success, add the result to block's children and return true.
     // On failure, return false.
-    public parseInline (block : Node) {
+    public parseInline (parser : Parser, blockParser : BlockParser, block : Node) {
         var c = this.peek();
         //console.log("peek", this.pos, c, String.fromCharCode(c));
         if (c === -1) {
             return false;
         }
         for (let p of this.inParsers) {
-            if (p.parse(this, block)) {
+            if (p.parse(this, block, blockParser, parser)) {
                 //console.log("c", this.pos, c, fromCodePoint(c), this.inParsers.indexOf(p));
                 return true;
             }
@@ -46,13 +47,13 @@ export class InlineParser extends RegexStream {
     };
 
     // Parse string content in block into inline children,
-    public parse (blockParser : BlockParser, block : Node) {
+    public parse (parser : Parser, blockParser : BlockParser, block : Node) {
         for (let i of this.inParsers) {
             i.reinit();
         }
         this.subject = (blockParser.getString(block)).trim();
         this.pos = 0;
-        while (this.parseInline(block)) {
+        while (this.parseInline(parser, blockParser, block)) {
         }
         blockParser.unsetString(block); // allow raw string to be garbage collected
         for (let i of this.inParsers) {

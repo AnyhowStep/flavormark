@@ -72,4 +72,8 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
     isList? : boolean;
     isListItem? : boolean;
     endsWithBlankLineIfLastChildEndsWithBlankLine? : boolean;
+
+    public isActuallyParagraph () {
+        return (this.acceptsLines == true && this.isParagraph == true);
+    }
 };

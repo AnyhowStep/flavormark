@@ -3,11 +3,12 @@ import { BlockParser } from "./refactored/BlockParser";
 import { InParser } from "./refactored-inline/InParser";
 import { RegexStream } from "./refactored-misc/RegexStream";
 import { Node } from "./node";
+import { Parser } from "./blocks";
 export declare class InlineParser extends RegexStream {
     private inParsers;
     constructor(inParsers: InParser[]);
     text(s: string): TextNode;
     isTextNode(node: Node): node is TextNode;
-    parseInline(block: Node): boolean;
-    parse(blockParser: BlockParser, block: Node): void;
+    parseInline(parser: Parser, blockParser: BlockParser, block: Node): boolean;
+    parse(parser: Parser, blockParser: BlockParser, block: Node): void;
 }
