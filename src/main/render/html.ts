@@ -125,6 +125,9 @@ export class HtmlRenderer extends Renderer {
     superscript (_node:Node, entering : boolean) {
         this.tag(entering ? 'sup' : '/sup');
     }
+    strikethrough (_node:Node, entering : boolean) {
+        this.tag(entering ? 'del' : '/del');
+    }
 
      strong(_node:Node, entering:boolean) {
       this.tag(entering ? 'strong' : '/strong');

@@ -29,7 +29,7 @@ export class InlineParser extends RegexStream {
     // On failure, return false.
     public parseInline (block : Node) {
         var c = this.peek();
-        //console.log("peek", c, String.fromCharCode(c));
+        //console.log("peek", this.pos, c, String.fromCharCode(c));
         if (c === -1) {
             return false;
         }

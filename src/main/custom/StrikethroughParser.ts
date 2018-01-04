@@ -3,14 +3,14 @@ import {RegexStream} from "../refactored-misc/RegexStream";
 import {Node} from "../node";
 import {removeDelimitersBetween} from "../refactored-misc/DelimiterCollection";
 
-var CARET_CHAR = "^";
-var C_CARET = CARET_CHAR.charCodeAt(0);
+var TILDE_CHAR = "~";
+var C_TILDE = TILDE_CHAR.charCodeAt(0);
 
 
-export class SuperscriptParser extends DelimitedInlineParser {
+export class StrikethroughParser extends DelimitedInlineParser {
     public getDelimiterCharacterCodes () : number[] {
         return [
-            C_CARET,
+            C_TILDE,
         ];
     }
     public advanceDelimiter (stream : RegexStream, delimiter : number) : void {
@@ -25,8 +25,8 @@ export class SuperscriptParser extends DelimitedInlineParser {
         return info.rightFlanking;
     }
 
-    public getDelimiterContent (_stream : RegexStream, _delimiterStartPosition : number, _delimiter : number) : string {
-        return CARET_CHAR;
+    public getDelimiterContent (stream : RegexStream, delimiterStartPosition : number, _delimiter : number) : string {
+        return stream.subject.slice(delimiterStartPosition, stream.pos);
     }
     public tryParse (args : ParseArgs, _delimiter : number) : boolean {
         if (args.closer == null) {
@@ -39,30 +39,29 @@ export class SuperscriptParser extends DelimitedInlineParser {
                 throw new Error("opener cannot be null");
             }
             // calculate actual number of delimiters used from closer
-            let delimitersUsed = 1;
 
             let opener_inl = args.opener.node;
             let closer_inl = args.closer.node;
 
             // remove used delimiters from stack
-            args.opener.numdelims -= delimitersUsed;
-            args.closer.numdelims -= delimitersUsed;
+            args.opener.numdelims = 0;
+            args.closer.numdelims = 0;
 
             opener_inl.setString(
                 opener_inl.getString().slice(
                     0,
-                    opener_inl.getString().length - delimitersUsed
+                    opener_inl.getString().length
                 )
             );
             closer_inl.setString(
                 closer_inl.getString().slice(
                     0,
-                    closer_inl.getString().length - delimitersUsed
+                    closer_inl.getString().length
                 )
             );
 
             // build contents for new element
-            var emph = new Node("superscript");
+            var emph = new Node("strikethrough");
 
             let tmp = opener_inl.next;
             while (tmp && tmp !== closer_inl) {

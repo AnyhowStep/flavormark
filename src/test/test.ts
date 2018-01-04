@@ -99,10 +99,12 @@ import {InlineParser} from "../main/inlines";
 
 import {SuperscriptParser} from "../main/custom/SuperscriptParser";
 import {SmartStringParser} from "../main/refactored-inline/SmartStringParser";
+import {StrikethroughParser} from "../main/custom/StrikethroughParser";
 
 const delimParser = new DelimiterParser(delimiters, [
     new EmphasisParser(),
     new SuperscriptParser(),
+    new StrikethroughParser(),
 ]);
 const inParsers : InParser[] = [
     new NewlineParser(),
@@ -291,6 +293,10 @@ process.exit();*/
     }
 )
 process.exit();*/
+specTests('src/test/strikethrough.txt', results, function(z : string) {
+    return writer.render(reader.parse(z));
+});
+//process.exit();
 specTests('src/test/smart.txt', results, function(z : string) {
     return writer.render(readerSmart.parse(z));
 });
