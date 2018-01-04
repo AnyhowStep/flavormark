@@ -3,16 +3,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const InParser_1 = require("./InParser");
 const normalize_reference_1 = require("../normalize-reference");
 const util_1 = require("../refactored-misc/util");
-const emphasis_1 = require("../refactored-misc/emphasis");
 const LinkNode_1 = require("./LinkNode");
 var C_CLOSE_BRACKET = 93;
 var C_OPEN_PAREN = 40;
 var C_CLOSE_PAREN = 41;
 var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
 class CloseBracketParser extends InParser_1.InParser {
-    constructor(delimiters, brackets, refMap) {
+    constructor(delimParser, brackets, refMap) {
         super();
-        this.delimiters = delimiters;
+        this.delimParser = delimParser;
         this.brackets = brackets;
         this.refMap = refMap;
     }
@@ -109,7 +108,7 @@ class CloseBracketParser extends InParser_1.InParser {
                 tmp = next;
             }
             block.appendChild(node);
-            emphasis_1.processEmphasis(this.delimiters, opener.previousDelimiter);
+            this.delimParser.processEmphasis(opener.previousDelimiter);
             this.brackets.pop();
             opener.node.unlink();
             // We remove this bracket and processEmphasis will remove later delimiters.

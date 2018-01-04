@@ -3,11 +3,10 @@ import {InlineParser} from "../inlines";
 import {Node} from "../node";
 import {normalizeReference} from "../normalize-reference";
 import {parseLinkTitle, parseLinkDestination, parseLinkLabel} from "../refactored-misc/util";
-import {processEmphasis} from "../refactored-misc/emphasis";
 import {RefMap} from "../refactored-misc/RefMap";
-import {DelimiterCollection} from "../refactored-misc/DelimiterCollection";
 import {BracketCollection} from "../refactored-misc/BracketCollection";
 import {LinkNode} from "./LinkNode";
+import {DelimParser} from "./DelimParser";
 
 var C_CLOSE_BRACKET = 93;
 var C_OPEN_PAREN = 40;
@@ -16,12 +15,12 @@ var C_CLOSE_PAREN = 41;
 var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
 
 export class CloseBracketParser extends InParser {
-    private delimiters : DelimiterCollection;
+    private delimParser : DelimParser;
     private brackets : BracketCollection;
     private refMap : RefMap;
-    public constructor (delimiters : DelimiterCollection, brackets : BracketCollection, refMap : RefMap) {
+    public constructor (delimParser : DelimParser, brackets : BracketCollection, refMap : RefMap) {
         super();
-        this.delimiters = delimiters;
+        this.delimParser = delimParser;
         this.brackets = brackets;
         this.refMap = refMap;
     }
@@ -129,7 +128,7 @@ export class CloseBracketParser extends InParser {
                 tmp = next;
             }
             block.appendChild(node);
-            processEmphasis(this.delimiters, opener.previousDelimiter);
+            this.delimParser.processEmphasis(opener.previousDelimiter);
             this.brackets.pop();
             opener.node.unlink();
 

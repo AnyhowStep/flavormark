@@ -95,14 +95,15 @@ import {EntityParser} from "../main/refactored-inline/EntityParser";
 import {StringParser} from "../main/refactored-inline/StringParser";
 import {InlineParser} from "../main/inlines";
 
+const delimParser = new DelimParser(delimiters);
 const inParsers : InParser[] = [
     new NewlineParser(),
     new EscapeCharacterParser(),
     new InlineCodeParser(),
-    new DelimParser(delimiters),
+    delimParser,
     new OpenBracketParser(brackets),
     new BangParser(brackets),
-    new CloseBracketParser(delimiters, brackets, refMap),
+    new CloseBracketParser(delimParser, brackets, refMap),
     new AutolinkParser(),
     new HtmlTagParser(),
     new LessThanLiteralParser(),
@@ -114,14 +115,15 @@ const inParsers : InParser[] = [
 
 var reader = new commonmark.Parser(blockParserCollection, new InlineParser(inParsers));
 
+const smartDelimParser = new DelimParser(delimiters, true);
 const smartInParsers : InParser[] = [
     new NewlineParser(),
     new EscapeCharacterParser(),
     new InlineCodeParser(),
-    new DelimParser(delimiters, true),
+    smartDelimParser,
     new OpenBracketParser(brackets),
     new BangParser(brackets),
-    new CloseBracketParser(delimiters, brackets, refMap),
+    new CloseBracketParser(smartDelimParser, brackets, refMap),
     new AutolinkParser(),
     new HtmlTagParser(),
     new LessThanLiteralParser(),

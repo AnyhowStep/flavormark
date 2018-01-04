@@ -3,7 +3,7 @@ import {InlineParser} from "../inlines";
 import {Node} from "../node";
 //import {Node} from "./Node";
 import {fromCodePoint} from "../from-code-point";
-import {DelimiterCollection} from "../refactored-misc/DelimiterCollection";
+import {Delimiter, DelimiterCollection} from "../refactored-misc/DelimiterCollection";
 import {processEmphasis} from "../refactored-misc/emphasis";
 
 var C_UNDERSCORE = 95;
@@ -18,68 +18,6 @@ var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;
 var C_SINGLEQUOTE = 39;
 var C_DOUBLEQUOTE = 34;
-
-// Scan a sequence of characters with code cc, and return information about
-// the number of delimiters and whether they are positioned such that
-// they can open and/or close emphasis or strong emphasis.  A utility
-// function for strong/emph parsing.
-function scanDelims(parser : InlineParser, cc : number) {
-    var numdelims = 0;
-    var char_before, char_after, cc_after;
-    var startpos = parser.pos;
-    var left_flanking, right_flanking, can_open, can_close;
-    var after_is_whitespace, after_is_punctuation, before_is_whitespace, before_is_punctuation;
-
-    if (cc === C_SINGLEQUOTE || cc === C_DOUBLEQUOTE) {
-        numdelims++;
-        parser.pos++;
-    } else {
-        while (parser.peek() === cc) {
-            numdelims++;
-            parser.pos++;
-        }
-    }
-
-    if (numdelims === 0) {
-        return null;
-    }
-
-    char_before = startpos === 0 ? '\n' : parser.subject.charAt(startpos - 1);
-
-    cc_after = parser.peek();
-    if (cc_after === -1) {
-        char_after = '\n';
-    } else {
-        char_after = fromCodePoint(cc_after);
-    }
-
-    after_is_whitespace = reUnicodeWhitespaceChar.test(char_after);
-    after_is_punctuation = rePunctuation.test(char_after);
-    before_is_whitespace = reUnicodeWhitespaceChar.test(char_before);
-    before_is_punctuation = rePunctuation.test(char_before);
-
-    left_flanking = !after_is_whitespace &&
-            (!after_is_punctuation || before_is_whitespace || before_is_punctuation);
-    right_flanking = !before_is_whitespace &&
-            (!before_is_punctuation || after_is_whitespace || after_is_punctuation);
-    if (cc === C_UNDERSCORE) {
-        can_open = left_flanking &&
-            (!right_flanking || before_is_punctuation);
-        can_close = right_flanking &&
-            (!left_flanking || after_is_punctuation);
-    } else if (cc === C_SINGLEQUOTE || cc === C_DOUBLEQUOTE) {
-        can_open = left_flanking && !right_flanking;
-        can_close = right_flanking;
-    } else {
-        can_open = left_flanking;
-        can_close = right_flanking;
-    }
-    parser.pos = startpos;
-    return { numdelims: numdelims,
-             can_open: can_open,
-             can_close: can_close };
-};
-
 
 export class DelimParser extends InParser {
     private delimiters : DelimiterCollection;
@@ -109,7 +47,7 @@ export class DelimParser extends InParser {
         if (!isEmphasis && !isSmartQuote) {
             return false;
         }
-        var res = scanDelims(parser, cc);
+        var res = this.scanDelims(parser, cc);
         if (!res) {
             return false;
         }
@@ -141,6 +79,69 @@ export class DelimParser extends InParser {
         return true;
     }
     public finalize () : void {
-        processEmphasis(this.delimiters, null);
+        this.processEmphasis(null);
     }
+    public processEmphasis (stack_bottom : Delimiter|null) {
+        processEmphasis(this.delimiters, stack_bottom);
+    }
+    // Scan a sequence of characters with code cc, and return information about
+    // the number of delimiters and whether they are positioned such that
+    // they can open and/or close emphasis or strong emphasis.  A utility
+    // function for strong/emph parsing.
+    scanDelims(parser : InlineParser, cc : number) {
+        var numdelims = 0;
+        var char_before, char_after, cc_after;
+        var startpos = parser.pos;
+        var left_flanking, right_flanking, can_open, can_close;
+        var after_is_whitespace, after_is_punctuation, before_is_whitespace, before_is_punctuation;
+
+        if (cc === C_SINGLEQUOTE || cc === C_DOUBLEQUOTE) {
+            numdelims++;
+            parser.pos++;
+        } else {
+            while (parser.peek() === cc) {
+                numdelims++;
+                parser.pos++;
+            }
+        }
+
+        if (numdelims === 0) {
+            return null;
+        }
+
+        char_before = startpos === 0 ? '\n' : parser.subject.charAt(startpos - 1);
+
+        cc_after = parser.peek();
+        if (cc_after === -1) {
+            char_after = '\n';
+        } else {
+            char_after = fromCodePoint(cc_after);
+        }
+
+        after_is_whitespace = reUnicodeWhitespaceChar.test(char_after);
+        after_is_punctuation = rePunctuation.test(char_after);
+        before_is_whitespace = reUnicodeWhitespaceChar.test(char_before);
+        before_is_punctuation = rePunctuation.test(char_before);
+
+        left_flanking = !after_is_whitespace &&
+                (!after_is_punctuation || before_is_whitespace || before_is_punctuation);
+        right_flanking = !before_is_whitespace &&
+                (!before_is_punctuation || after_is_whitespace || after_is_punctuation);
+        if (cc === C_UNDERSCORE) {
+            can_open = left_flanking &&
+                (!right_flanking || before_is_punctuation);
+            can_close = right_flanking &&
+                (!left_flanking || after_is_punctuation);
+        } else if (cc === C_SINGLEQUOTE || cc === C_DOUBLEQUOTE) {
+            can_open = left_flanking && !right_flanking;
+            can_close = right_flanking;
+        } else {
+            can_open = left_flanking;
+            can_close = right_flanking;
+        }
+        parser.pos = startpos;
+        return { numdelims: numdelims,
+                 can_open: can_open,
+                 can_close: can_close };
+    };
 }
