@@ -33,6 +33,7 @@ class ListParser extends BlockParser_1.BlockParser {
         this.canContain = (blockParser) => { return blockParser.isListItem == true; };
         this.acceptsLines = false;
         this.isList = true;
+        this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;
     }
 }
 exports.ListParser = ListParser;

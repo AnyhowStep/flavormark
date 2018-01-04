@@ -138,6 +138,7 @@ class ItemParser extends BlockParser_1.BlockParser {
                 container.sourcepos[0][0] === parser.lineNumber);
         };
         this.isListItem = true;
+        this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;
         this.listParser = listParser;
     }
 }

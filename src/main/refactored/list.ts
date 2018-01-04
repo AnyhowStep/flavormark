@@ -33,6 +33,7 @@ export class ListParser extends BlockParser<ListNode> {
     canContain= (blockParser : BlockParserMeta) =>{ return blockParser.isListItem == true; };
     acceptsLines= false;
     isList = true;
+    endsWithBlankLineIfLastChildEndsWithBlankLine = true;
 }
 
 export const listParser = new ListParser("list", ListNode);

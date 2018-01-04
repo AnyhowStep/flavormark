@@ -16,6 +16,7 @@ export interface BlockParserMeta {
     isParagraph? : boolean; //Has no effect unless acceptsLines is true
     isList? : boolean;
     isListItem? : boolean;
+    endsWithBlankLineIfLastChildEndsWithBlankLine? : boolean;
 }
 
 export abstract class BlockParser<NodeT extends Node=Node> implements BlockParserMeta {
@@ -64,4 +65,5 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
     isParagraph? : boolean; //Has no effect unless acceptsLines is true
     isList? : boolean;
     isListItem? : boolean;
+    endsWithBlankLineIfLastChildEndsWithBlankLine? : boolean;
 };

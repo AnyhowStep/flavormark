@@ -188,6 +188,7 @@ export class ItemParser extends BlockParser<ItemNode> {
         );
     };
     isListItem = true;
+    endsWithBlankLineIfLastChildEndsWithBlankLine = true;
 }
 
 import {listParser} from "./list";

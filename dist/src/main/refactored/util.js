@@ -26,7 +26,7 @@ exports.endsWithBlankLine = function (blockParsers, block) {
             return true;
         }
         const p = blockParsers.get(block);
-        if (p.isList || p.isListItem) {
+        if (p.endsWithBlankLineIfLastChildEndsWithBlankLine) {
             block = block.lastChild;
         }
         else {

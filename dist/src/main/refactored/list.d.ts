@@ -7,5 +7,6 @@ export declare class ListParser extends BlockParser<ListNode> {
     canContain: (blockParser: BlockParserMeta) => boolean;
     acceptsLines: boolean;
     isList: boolean;
+    endsWithBlankLineIfLastChildEndsWithBlankLine: boolean;
 }
 export declare const listParser: ListParser;
