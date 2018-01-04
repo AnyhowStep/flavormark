@@ -82,8 +82,8 @@ const brackets = new BracketCollection(delimiters);
 
 import {InParser} from "../main/refactored-inline/InParser";
 import {NewlineParser} from "../main/refactored-inline/NewlineParser";
-import {BackslashParser} from "../main/refactored-inline/BackslashParser";
-import {BacktickParser} from "../main/refactored-inline/BacktickParser";
+import {EscapeCharacterParser} from "../main/refactored-inline/EscapeCharacterParser";
+import {InlineCodeParser} from "../main/refactored-inline/InlineCodeParser";
 import {DelimParser} from "../main/refactored-inline/DelimParser";
 import {OpenBracketParser} from "../main/refactored-inline/OpenBracketParser";
 import {BangParser} from "../main/refactored-inline/BangParser";
@@ -98,8 +98,8 @@ import {InlineParser} from "../main/inlines";
 
 const inParsers : InParser[] = [
     new NewlineParser(),
-    new BackslashParser(),
-    new BacktickParser(),
+    new EscapeCharacterParser(),
+    new InlineCodeParser(),
     new DelimParser(delimiters),
     new OpenBracketParser(brackets),
     new BangParser(brackets),
@@ -118,8 +118,8 @@ var reader = new commonmark.Parser(blockParserCollection, new InlineParser(inPar
 
 const smartInParsers : InParser[] = [
     new NewlineParser(),
-    new BackslashParser(),
-    new BacktickParser(),
+    new EscapeCharacterParser(),
+    new InlineCodeParser(),
     new DelimParser(delimiters, true),
     new OpenBracketParser(brackets),
     new BangParser(brackets),

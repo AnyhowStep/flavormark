@@ -10,7 +10,7 @@ var C_BACKSLASH = 92;
 var reEscapable = new RegExp('^' + ESCAPABLE);
 
 
-export class BackslashParser extends InParser {
+export class EscapeCharacterParser extends InParser {
     // Parse a backslash-escaped special character, adding either the escaped
     // character, a hard line break (if the backslash is followed by a newline),
     // or a literal backslash to the block's children.  Assumes current character

@@ -1,19 +1,25 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("./InParser");
+import {InParser} from "./InParser";
+import {InlineParser} from "../inlines";
+import {Node} from "../node";
 //import {Node} from "./Node";
-const CodeNode_1 = require("./CodeNode");
+import {CodeNode} from "./CodeNode";
+
 var C_BACKTICK = 96;
 var reTicks = /`+/;
+
 var reTicksHere = /^`+/;
+
 var reWhitespace = /[ \t\n\x0b\x0c\x0d]+/g;
-class BacktickParser extends InParser_1.InParser {
+
+
+export class InlineCodeParser extends InParser {
     // All of the parsers below try to match something at the current position
     // in the subject.  If they succeed in matching anything, they
     // return the inline matched, advancing the subject.
+
     // Attempt to parse backticks, adding either a backtick code span or a
     // literal sequence of backticks.
-    parse(parser, block) {
+    public parse (parser : InlineParser, block : Node) : boolean {
         const c = parser.peek();
         if (c != C_BACKTICK) {
             return false;
@@ -27,9 +33,10 @@ class BacktickParser extends InParser_1.InParser {
         var node;
         while ((matched = parser.match(reTicks)) !== null) {
             if (matched === ticks) {
-                node = new CodeNode_1.CodeNode('code');
-                node.literal = parser.subject.slice(afterOpenTicks, parser.pos - ticks.length)
-                    .trim().replace(reWhitespace, ' ');
+                node = new CodeNode('code');
+                node.literal = parser.subject.slice(afterOpenTicks,
+                                            parser.pos - ticks.length)
+                              .trim().replace(reWhitespace, ' ');
                 block.appendChild(node);
                 return true;
             }
@@ -40,5 +47,3 @@ class BacktickParser extends InParser_1.InParser {
         return true;
     }
 }
-exports.BacktickParser = BacktickParser;
-//# sourceMappingURL=BacktickParser.js.map
