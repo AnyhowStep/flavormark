@@ -1,6 +1,6 @@
 import {BlockParser} from "./BlockParser";
 import {Parser} from "../Parser";
-import {Node} from "../node";
+import {Node} from "../Node";
 
 var reThematicBreak = /^(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:-[ \t]*){3,})[ \t]*$/;
 

@@ -1,6 +1,6 @@
 import {DelimitedInlineParser, DelimiterInfo, ParseArgs} from "./DelimitedInlineParser";
 import {RegexStream} from "../refactored-misc/RegexStream";
-import {Node} from "../node";
+import {Node} from "../Node";
 import {removeDelimitersBetween} from "../refactored-misc/DelimiterCollection";
 var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;

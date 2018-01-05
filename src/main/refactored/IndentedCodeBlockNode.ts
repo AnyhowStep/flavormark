@@ -1,4 +1,4 @@
-import {Node} from "../node";
+import {Node} from "../Node";
 
 export class IndentedCodeBlockNode extends Node {
     public string_content : string|null = null;

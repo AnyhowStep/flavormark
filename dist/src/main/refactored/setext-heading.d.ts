@@ -1,6 +1,6 @@
 import { BlockParser } from "./BlockParser";
 import { Parser } from "../Parser";
-import { Node } from "../node";
+import { Node } from "../Node";
 import { HeadingNode } from "./HeadingNode";
 export declare class SetextHeadingParser extends BlockParser<HeadingNode> {
     tryStart: (parser: Parser, container: Node) => boolean;

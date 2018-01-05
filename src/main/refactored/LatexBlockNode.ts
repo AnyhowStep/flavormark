@@ -1,4 +1,4 @@
-import {Node} from "../node";
+import {Node} from "../Node";
 
 export class LatexBlockNode extends Node {
     public fenceLength : number = -1;

@@ -1,6 +1,6 @@
 import { BlockParser } from "./BlockParser";
 import { Parser } from "../Parser";
-import { Node } from "../node";
+import { Node } from "../Node";
 import { HtmlBlockNode } from "./HtmlBlockNode";
 export declare class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
     tryStart: (parser: Parser, container: Node) => boolean;

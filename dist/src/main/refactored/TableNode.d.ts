@@ -1,4 +1,4 @@
-import { Node } from "../node";
+import { Node } from "../Node";
 export declare class TableNode extends Node {
     headers: string[];
     alignments: string[];

@@ -1,6 +1,6 @@
 import { BlockParser } from "./BlockParser";
 import { Parser } from "../Parser";
-import { Node } from "../node";
+import { Node } from "../Node";
 import { LatexBlockNode } from "./LatexBlockNode";
 export declare class LatexBlockParser extends BlockParser<LatexBlockNode> {
     tryStart: (parser: Parser) => boolean;

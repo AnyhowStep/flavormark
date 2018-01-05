@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const DelimitedInlineParser_1 = require("../refactored-delimiter/DelimitedInlineParser");
-const node_1 = require("../node");
+const Node_1 = require("../Node");
 const DelimiterCollection_1 = require("../refactored-misc/DelimiterCollection");
 var TILDE_CHAR = "~";
 var C_TILDE = TILDE_CHAR.charCodeAt(0);
@@ -45,7 +45,7 @@ class StrikethroughParser extends DelimitedInlineParser_1.DelimitedInlineParser 
             opener_inl.setString(opener_inl.getString().slice(0, opener_inl.getString().length));
             closer_inl.setString(closer_inl.getString().slice(0, closer_inl.getString().length));
             // build contents for new element
-            var emph = new node_1.Node("strikethrough");
+            var emph = new Node_1.Node("strikethrough");
             let tmp = opener_inl.next;
             while (tmp && tmp !== closer_inl) {
                 let next = tmp.next;

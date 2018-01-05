@@ -1,6 +1,6 @@
 import {BlockParser} from "./BlockParser";
 import {Parser} from "../Parser";
-import {Node} from "../node";
+import {Node} from "../Node";
 import {peek, isSpaceOrTab} from "./util";
 //import {unescapeString} from "../common";
 //

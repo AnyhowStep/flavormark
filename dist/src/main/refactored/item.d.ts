@@ -1,6 +1,6 @@
 import { BlockParser, BlockParserMeta } from "./BlockParser";
 import { Parser } from "../Parser";
-import { Node } from "../node";
+import { Node } from "../Node";
 import { BlockNodeCtor } from "./BlockParser";
 import { ListNode } from "./ListNode";
 import { ItemNode } from "./ItemNode";

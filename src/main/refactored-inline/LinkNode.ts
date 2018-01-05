@@ -1,4 +1,4 @@
-import {Node} from "../node";
+import {Node} from "../Node";
 
 export class LinkNode extends Node {
     destination : string|null|undefined = null;

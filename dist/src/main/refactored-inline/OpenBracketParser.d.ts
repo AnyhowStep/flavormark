@@ -1,6 +1,6 @@
 import { InParser } from "./InParser";
 import { InlineParser } from "../InlineParser";
-import { Node } from "../node";
+import { Node } from "../Node";
 import { BracketCollection } from "../refactored-misc/BracketCollection";
 export declare class OpenBracketParser extends InParser {
     private brackets;

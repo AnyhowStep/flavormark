@@ -1,4 +1,4 @@
-import {Node} from "../node";
+import {Node} from "../Node";
 
 export class TableNode extends Node {
     public headers : string[] = [];

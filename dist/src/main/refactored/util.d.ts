@@ -1,4 +1,4 @@
-import { Node } from "../node";
+import { Node } from "../Node";
 import { BlockParserCollection } from "./BlockParserCollection";
 export declare var CODE_INDENT: number;
 export declare var isSpaceOrTab: (c: number) => boolean;

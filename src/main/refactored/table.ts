@@ -1,7 +1,7 @@
 import {Parser} from "../Parser";
 import {BlockParser} from "./BlockParser";
 import {TableNode, Tr, Th, Td, Thead, Tbody} from "./TableNode";
-import {Node} from "../node";
+import {Node} from "../Node";
 
 const VALID_CHARACTERS = "[\\-\\|\\:\\s]";
 //Must have at least one - and one |

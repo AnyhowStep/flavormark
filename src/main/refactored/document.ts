@@ -1,5 +1,5 @@
 import {BlockParser, BlockParserMeta} from "./BlockParser";
-import {Node} from "../node";
+import {Node} from "../Node";
 
 export class DocumentParser extends BlockParser {
     continue= () => { return true; };

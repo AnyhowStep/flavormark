@@ -1,6 +1,6 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../InlineParser";
-import {Node} from "../node";
+import {Node} from "../Node";
 //import {Node} from "./Node";
 
 export class SmartStringParser extends InParser {

@@ -1,6 +1,6 @@
 import {InParser} from "../refactored-inline/InParser";
 import {InlineParser} from "../InlineParser";
-import {Node} from "../node";
+import {Node} from "../Node";
 //import {Node} from "./Node";
 import {fromCodePoint} from "../from-code-point";
 import {Delimiter, DelimiterCollection} from "../refactored-misc/DelimiterCollection";

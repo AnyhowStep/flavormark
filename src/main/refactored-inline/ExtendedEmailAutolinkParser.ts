@@ -1,6 +1,6 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../InlineParser";
-import {Node} from "../node";
+import {Node} from "../Node";
 import {normalizeURI} from "../common";
 import {LinkNode} from "./LinkNode";
 import {escapeXml} from "../common";

@@ -1,4 +1,4 @@
-import {Node} from "../node";
+import {Node} from "../Node";
 
 export class FencedCodeBlockNode extends Node {
     public fenceLength : number = -1;

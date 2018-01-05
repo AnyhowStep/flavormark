@@ -21,7 +21,7 @@
         "strictNullChecks": true,
 
         "module": "commonjs",
-        "moduleResolution": "node",
+        "moduleResolution": "Node",
         "target": "ES6",
         "jsx": "react",
         "jsxFactory": "h"

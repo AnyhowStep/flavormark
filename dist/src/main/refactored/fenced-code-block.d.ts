@@ -1,6 +1,6 @@
 import { BlockParser } from "./BlockParser";
 import { Parser } from "../Parser";
-import { Node } from "../node";
+import { Node } from "../Node";
 import { FencedCodeBlockNode } from "./FencedCodeBlockNode";
 export declare class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
     tryStart: (parser: Parser) => boolean;

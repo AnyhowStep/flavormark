@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const DelimitedInlineParser_1 = require("./DelimitedInlineParser");
-const node_1 = require("../node");
+const Node_1 = require("../Node");
 const DelimiterCollection_1 = require("../refactored-misc/DelimiterCollection");
 var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;
@@ -62,7 +62,7 @@ class EmphasisParser extends DelimitedInlineParser_1.DelimitedInlineParser {
             opener_inl.setString(opener_inl.getString().slice(0, opener_inl.getString().length - delimitersUsed));
             closer_inl.setString(closer_inl.getString().slice(0, closer_inl.getString().length - delimitersUsed));
             // build contents for new emph element
-            var emph = new node_1.Node(delimitersUsed === 1 ? 'emph' : 'strong');
+            var emph = new Node_1.Node(delimitersUsed === 1 ? 'emph' : 'strong');
             let tmp = opener_inl.next;
             while (tmp && tmp !== closer_inl) {
                 let next = tmp.next;

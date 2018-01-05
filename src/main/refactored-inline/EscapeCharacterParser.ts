@@ -1,6 +1,6 @@
 import {InParser} from "./InParser";
 import {InlineParser} from "../InlineParser";
-import {Node} from "../node";
+import {Node} from "../Node";
 import {ESCAPABLE} from "../common";
 import {HardbreakNode} from "./HardbreakNode";
 

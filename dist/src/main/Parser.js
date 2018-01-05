@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const node_1 = require("./node");
+const Node_1 = require("./Node");
 var CODE_INDENT = 4;
 var C_NEWLINE = 10;
 //var reMaybeSpecial = /^[#`~*+_=<>0-9-]/;
@@ -317,7 +317,7 @@ class Parser {
         var walker = block.walker();
         while ((event = walker.next())) {
             node = event.node;
-            if (!event.entering && node instanceof node_1.Node && this.blockParsers.has(node) && this.blockParsers.get(node).parseInlines) {
+            if (!event.entering && node instanceof Node_1.Node && this.blockParsers.has(node) && this.blockParsers.get(node).parseInlines) {
                 this.inlineParser.parse(this, this.getBlockParser(node), node);
             }
         }

@@ -1,4 +1,4 @@
-import {Node} from "../node";
+import {Node} from "../Node";
 
 export class HtmlBlockNode extends Node {
     htmlBlockType : number = -1;

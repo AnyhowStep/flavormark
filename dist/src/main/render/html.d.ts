@@ -1,5 +1,5 @@
 import { Renderer } from "./renderer";
-import { Node } from "../node";
+import { Node } from "../Node";
 export interface Options {
     softbreak?: string;
     safe?: boolean;

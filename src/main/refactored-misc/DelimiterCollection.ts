@@ -1,4 +1,4 @@
-//import {Node} from "../node";
+//import {Node} from "../Node";
 import {TextNode} from "../refactored-inline/TextNode";
 
 export interface Delimiter {

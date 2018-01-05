@@ -1,4 +1,4 @@
-import {Node} from "../node";
+import {Node} from "../Node";
 import {InlineParser} from "../InlineParser";
 import {BlockParser} from "../refactored/BlockParser";
 import {Parser} from "../Parser";

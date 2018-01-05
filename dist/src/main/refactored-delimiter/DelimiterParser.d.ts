@@ -1,6 +1,6 @@
 import { InParser } from "../refactored-inline/InParser";
 import { InlineParser } from "../InlineParser";
-import { Node } from "../node";
+import { Node } from "../Node";
 import { Delimiter, DelimiterCollection } from "../refactored-misc/DelimiterCollection";
 import { DelimitedInlineParser } from "./DelimitedInlineParser";
 export declare class DelimiterParser extends InParser {

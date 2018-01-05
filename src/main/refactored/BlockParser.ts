@@ -1,6 +1,6 @@
 import {Parser} from "../Parser";
-//import {Node} from "../node";
-import {Node} from "../node";
+//import {Node} from "../Node";
+import {Node} from "../Node";
 
 export type BlockNodeCtor<NodeT extends Node> = {
     new (nodeType : string, sourcepos : [[number, number], [number, number]]) : NodeT

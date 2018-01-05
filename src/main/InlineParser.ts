@@ -3,7 +3,7 @@ import {fromCodePoint} from "./from-code-point";
 import {BlockParser} from "./refactored/BlockParser";
 import {InParser} from "./refactored-inline/InParser";
 import {RegexStream} from "./refactored-misc/RegexStream";
-import {Node} from "./node";
+import {Node} from "./Node";
 import {Parser} from "./Parser";
 
 // These are methods of an InlineParser object, defined below.

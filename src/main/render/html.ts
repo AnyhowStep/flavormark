@@ -1,6 +1,6 @@
 import {Renderer} from "./renderer";
 import {escapeXml} from "../common";
-import {Node} from "../node";
+import {Node} from "../Node";
 var reUnsafeProtocol = /^javascript:|vbscript:|file:|data:/i;
 var reSafeDataProtocol = /^data:image\/(?:png|gif|jpeg|webp)/i;
 

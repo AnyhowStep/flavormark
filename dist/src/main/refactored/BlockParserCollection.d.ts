@@ -1,5 +1,5 @@
 import { BlockParser } from "./BlockParser";
-import { Node } from "../node";
+import { Node } from "../Node";
 export declare class BlockParserCollection<DocumentT extends Node = Node, ParagraphT extends Node = Node> {
     private documentParser;
     private paragraphParser;

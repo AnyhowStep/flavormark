@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./BlockParser");
-//import {Node} from "../node";
+//import {Node} from "../Node";
 const util_1 = require("./util");
 const IndentedCodeBlockNode_1 = require("./IndentedCodeBlockNode");
 class IndentedCodeBlockParser extends BlockParser_1.BlockParser {

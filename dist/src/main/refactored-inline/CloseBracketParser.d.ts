@@ -1,6 +1,6 @@
 import { InParser } from "./InParser";
 import { InlineParser } from "../InlineParser";
-import { Node } from "../node";
+import { Node } from "../Node";
 import { RefMap } from "../refactored-misc/RefMap";
 import { BracketCollection } from "../refactored-misc/BracketCollection";
 import { DelimiterParser } from "../refactored-delimiter/DelimiterParser";

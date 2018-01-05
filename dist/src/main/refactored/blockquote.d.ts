@@ -1,6 +1,6 @@
 import { BlockParser, BlockParserMeta } from "./BlockParser";
 import { Parser } from "../Parser";
-import { Node } from "../node";
+import { Node } from "../Node";
 export declare class BlockquoteParser extends BlockParser {
     tryStart: (parser: Parser) => boolean;
     continue: (parser: Parser) => boolean;

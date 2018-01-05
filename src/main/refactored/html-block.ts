@@ -1,6 +1,6 @@
 import {BlockParser} from "./BlockParser";
 import {Parser} from "../Parser";
-import {Node} from "../node";
+import {Node} from "../Node";
 import {peek} from "./util";
 import {OPENTAG, CLOSETAG} from "../common";
 import {HtmlBlockNode} from "./HtmlBlockNode";

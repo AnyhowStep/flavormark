@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./BlockParser");
-const node_1 = require("../node");
+const Node_1 = require("../Node");
 class DocumentParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
@@ -12,5 +12,5 @@ class DocumentParser extends BlockParser_1.BlockParser {
     }
 }
 exports.DocumentParser = DocumentParser;
-exports.documentParser = new DocumentParser("document", node_1.Node);
+exports.documentParser = new DocumentParser("document", Node_1.Node);
 //# sourceMappingURL=document.js.map
