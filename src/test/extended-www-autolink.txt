@@ -70,15 +70,30 @@ www.commonmark.org/he<lp
 <p><a href="http://www.commonmark.org/he">www.commonmark.org/he</a>&lt;lp</p>
 ````````````````````````````````
 
-
-Final spaces are stripped before inline parsing, so a paragraph
-that ends with two or more spaces will not end with a [hard line
-break]:
+An extended url autolink will be recognised when one of the schemes http://, https://, or ftp://, followed by a valid domain, then zero or more non-space non-< characters according to extended autolink path validation:
 
 ```````````````````````````````` example
-aaa     
-bbb
+http://commonmark.org
+
+(Visit https://encrypted.google.com/search?q=Markup+(business))
+
+Anonymous FTP is available at ftp://foo.bar.baz.
 .
-<p>aaa<br />
-bbb</p>
+<p><a href="http://commonmark.org">http://commonmark.org</a></p>
+<p>(Visit <a href="https://encrypted.google.com/search?q=Markup+(business)">https://encrypted.google.com/search?q=Markup+(business)</a>)</p>
+<p>Anonymous FTP is available at <a href="ftp://foo.bar.baz">ftp://foo.bar.baz</a>.</p>
+````````````````````````````````
+
+These break CommonMark auto link rules
+
+```````````````````````````````` example
+<http://foo.bar/baz bim>
+
+< http://foo.bar >
+
+http://example.com
+.
+<p>&lt;<a href="http://foo.bar/baz">http://foo.bar/baz</a> bim&gt;</p>
+<p>&lt; <a href="http://foo.bar">http://foo.bar</a> &gt;</p>
+<p><a href="http://example.com">http://example.com</a></p>
 ````````````````````````````````

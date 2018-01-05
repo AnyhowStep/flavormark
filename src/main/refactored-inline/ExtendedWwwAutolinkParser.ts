@@ -24,12 +24,14 @@ export class ExtendedWwwAutolinkParser extends InParser {
     public parse (parser : InlineParser, block : Node) : boolean {
         const startpos = parser.pos;
         //There must be at least one period, and no underscores may be present in the last two segments of the domain.
-        const domain = parser.match(/^www\.[a-zA-Z0-9\_\-]+(\.[a-zA-Z0-9\_\-]+)+/);
+        let domain = parser.match(/^(www\.|(https?|ftp)\:\/\/)[a-zA-Z0-9\_\-]+(\.[a-zA-Z0-9\_\-]+)+/);
         if (domain == null) {
             return false;
         }
         const domainSegments = domain.split(".");
-        domainSegments.shift();
+        if (/^www\./.test(domain)) {
+            domainSegments.shift();
+        }
         if (domainSegments.length < 2) {
             throw new Error(`Expected at least 2 domain segments, received ${domainSegments.length}`);
         }
@@ -76,8 +78,13 @@ export class ExtendedWwwAutolinkParser extends InParser {
             }
         }
 
+        let destinationDomain = domain;
+        if (/^www\./.test(destinationDomain)) {
+            destinationDomain = "http://" + destinationDomain;
+        }
+
         const node = new LinkNode('link');
-        node.destination = normalizeURI(`http://${domain}${trailing}`);
+        node.destination = normalizeURI(`${destinationDomain}${trailing}`);
         //node.title = domain;
         node.appendChild(parser.text(escapeXml(domain+trailing, true)));
         block.appendChild(node);

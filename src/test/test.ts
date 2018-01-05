@@ -132,13 +132,41 @@ const inParsers : InParser[] = [
     new LessThanLiteralParser(),
     new EntityParser(),
 
+    new StringParser(), //Should this be a default parser that cannot be removed?
+];
+
+
+let reader = new commonmark.Parser(blockParserCollection, new InlineParser(inParsers));
+
+const flavorDelimParser = new DelimiterParser(delimiters, [
+    new EmphasisParser(),
+    new SuperscriptParser(),
+    new StrikethroughParser(),
+]);
+const flavorInParsers : InParser[] = [
+    new NewlineParser(),
+    new EscapeCharacterParser(),
+
+    new CheckboxParser(),
+
+    new InlineCodeParser(),
+    flavorDelimParser,
+    new OpenBracketParser(brackets),
+    new BangParser(brackets),
+    new CloseBracketParser(flavorDelimParser, brackets, refMap),
+    new AutolinkParser(),
+    new HtmlTagParser(),
+    new LessThanLiteralParser(),
+    new EntityParser(),
+
     new ExtendedWwwAutolinkParser(),
 
     new StringParser(), //Should this be a default parser that cannot be removed?
 ];
 
 
-var reader = new commonmark.Parser(blockParserCollection, new InlineParser(inParsers));
+let flavorReader = new commonmark.Parser(blockParserCollection, new InlineParser(flavorInParsers));
+
 
 const smartDelimParser = new DelimiterParser(delimiters, [
     new EmphasisParser(),
@@ -160,7 +188,7 @@ const smartInParsers : InParser[] = [
     new SmartStringParser(),
     new StringParser(), //Should this be a default parser that cannot be removed?
 ];
-var readerSmart = new commonmark.Parser(blockParserCollection, new InlineParser(smartInParsers));
+let readerSmart = new commonmark.Parser(blockParserCollection, new InlineParser(smartInParsers));
 
 var results : { passed : number, failed : number } = {
     passed: 0,
@@ -309,7 +337,7 @@ process.exit();*/
 )
 process.exit();*/
 specTests('src/test/extended-www-autolink.txt', results, function(z : string) {
-    return writer.render(reader.parse(z));
+    return writer.render(flavorReader.parse(z));
 });
 //process.exit();
 specTests('src/test/checkbox.txt', results, function(z : string) {
