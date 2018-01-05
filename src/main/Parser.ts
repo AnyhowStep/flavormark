@@ -5,7 +5,7 @@ import {Node} from "./Node";
 var CODE_INDENT = 4;
 var C_NEWLINE = 10;
 
-import {InlineParser}  from "./InlineParser";
+import {InlineContentParser}  from "./InlineContentParser";
 
 //var reMaybeSpecial = /^[#`~*+_=<>0-9-]/;
 
@@ -33,10 +33,10 @@ export class Parser {
     allClosed = true;
     lastMatchedContainer : Node;
     lastLineLength = 0;
-    inlineParser : InlineParser;
+    inlineParser : InlineContentParser;
     options : Options;
     blockParsers : BlockParserCollection;
-    constructor (blockParsers : BlockParserCollection, inlineParser : InlineParser, options? : Options|undefined) {
+    constructor (blockParsers : BlockParserCollection, inlineParser : InlineContentParser, options? : Options|undefined) {
         this.inlineParser = inlineParser;
         this.options = options || {};
         this.blockParsers = blockParsers;

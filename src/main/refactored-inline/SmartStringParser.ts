@@ -1,12 +1,12 @@
 import {InParser} from "./InParser";
-import {InlineParser} from "../InlineParser";
+import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 //import {Node} from "./Node";
 
 export class SmartStringParser extends InParser {
     // Parse a run of ordinary characters, or a single character with
     // a special meaning in markdown, as a plain string.
-    public parse (parser : InlineParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, block : Node) : boolean {
         var m;
         if ((m = parser.match(/^\.\.\./))) {
             block.appendChild(parser.text("\u2026"));

@@ -4,7 +4,7 @@ import { InParser } from "./refactored-inline/InParser";
 import { RegexStream } from "./refactored-misc/RegexStream";
 import { Node } from "./Node";
 import { Parser } from "./Parser";
-export declare class InlineParser extends RegexStream {
+export declare class InlineContentParser extends RegexStream {
     private inParsers;
     constructor(inParsers: InParser[]);
     text(s: string): TextNode;

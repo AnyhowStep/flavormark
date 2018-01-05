@@ -1,5 +1,5 @@
 import { InParser } from "./InParser";
-import { InlineParser } from "../InlineParser";
+import { InlineContentParser } from "../InlineContentParser";
 import { Node } from "../Node";
 import { RefMap } from "../refactored-misc/RefMap";
 import { BracketCollection } from "../refactored-misc/BracketCollection";
@@ -9,5 +9,5 @@ export declare class CloseBracketParser extends InParser {
     private brackets;
     private refMap;
     constructor(delimParser: DelimiterParser, brackets: BracketCollection, refMap: RefMap);
-    parse(parser: InlineParser, block: Node): boolean;
+    parse(parser: InlineContentParser, block: Node): boolean;
 }

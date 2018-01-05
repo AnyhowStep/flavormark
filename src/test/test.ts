@@ -107,7 +107,7 @@ import {HtmlTagParser} from "../main/refactored-inline/HtmlTagParser";
 import {LessThanLiteralParser} from "../main/refactored-inline/LessThanLiteralParser";
 import {EntityParser} from "../main/refactored-inline/EntityParser";
 import {StringParser} from "../main/refactored-inline/StringParser";
-import {InlineParser} from "../main/InlineParser";
+import {InlineContentParser} from "../main/InlineContentParser";
 
 import {SuperscriptParser} from "../main/custom/SuperscriptParser";
 import {SmartStringParser} from "../main/refactored-inline/SmartStringParser";
@@ -143,7 +143,7 @@ const inParsers : InParser[] = [
 ];
 
 
-let reader = new commonmark.Parser(blockParserCollection, new InlineParser(inParsers));
+let reader = new commonmark.Parser(blockParserCollection, new InlineContentParser(inParsers));
 
 const flavorDelimParser = new DelimiterParser(delimiters, [
     new EmphasisParser(),
@@ -173,7 +173,7 @@ const flavorInParsers : InParser[] = [
 ];
 
 
-let flavorReader = new commonmark.Parser(blockParserCollection, new InlineParser(flavorInParsers));
+let flavorReader = new commonmark.Parser(blockParserCollection, new InlineContentParser(flavorInParsers));
 
 
 const smartDelimParser = new DelimiterParser(delimiters, [
@@ -196,7 +196,7 @@ const smartInParsers : InParser[] = [
     new SmartStringParser(),
     new StringParser(), //Should this be a default parser that cannot be removed?
 ];
-let readerSmart = new commonmark.Parser(blockParserCollection, new InlineParser(smartInParsers));
+let readerSmart = new commonmark.Parser(blockParserCollection, new InlineContentParser(smartInParsers));
 
 var results : { passed : number, failed : number } = {
     passed: 0,

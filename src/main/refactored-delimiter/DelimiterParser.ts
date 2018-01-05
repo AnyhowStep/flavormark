@@ -1,5 +1,5 @@
 import {InParser} from "../refactored-inline/InParser";
-import {InlineParser} from "../InlineParser";
+import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 //import {Node} from "./Node";
 import {fromCodePoint} from "../from-code-point";
@@ -22,7 +22,7 @@ export class DelimiterParser extends InParser {
         this.delimiters.clear();
     }
     // Handle a delimiter marker for emphasis or a quote.
-    public parse (parser : InlineParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, block : Node) : boolean {
         const cc = parser.peek();
         let dil = this.parsers.find((p) => {
             //console.log(cc, String.fromCharCode(cc), p.getDelimiterCharacterCodes());
@@ -64,7 +64,7 @@ export class DelimiterParser extends InParser {
     // the number of delimiters and whether they are positioned such that
     // they can open and/or close emphasis or strong emphasis.  A utility
     // function for strong/emph parsing.
-    scanDelims(parser : InlineParser, dil : DelimitedInlineParser, cc : number) {
+    scanDelims(parser : InlineContentParser, dil : DelimitedInlineParser, cc : number) {
         var char_before, char_after, cc_after;
         var startpos = parser.pos;
 

@@ -1,5 +1,5 @@
 import {InParser} from "./InParser";
-import {InlineParser} from "../InlineParser";
+import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 //import {Node} from "./Node";
 import {BracketCollection} from "../refactored-misc/BracketCollection";
@@ -15,7 +15,7 @@ export class BangParser extends InParser {
     }
     // IF next character is [, and ! delimiter to delimiter stack and
     // add a text node to block's children.  Otherwise just add a text node.
-    public parse (parser : InlineParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, block : Node) : boolean {
         const c = parser.peek();
         if (c != C_BANG) {
             return false;

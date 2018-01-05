@@ -1,5 +1,5 @@
 import {InParser} from "./InParser";
-import {InlineParser} from "../InlineParser";
+import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 import {ESCAPABLE} from "../common";
 import {HardbreakNode} from "./HardbreakNode";
@@ -15,7 +15,7 @@ export class EscapeCharacterParser extends InParser {
     // character, a hard line break (if the backslash is followed by a newline),
     // or a literal backslash to the block's children.  Assumes current character
     // is a backslash.
-    public parse (parser : InlineParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, block : Node) : boolean {
         const c = parser.peek();
         if (c != C_BACKSLASH) {
             return false;

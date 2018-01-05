@@ -1,5 +1,5 @@
 import {InParser} from "./InParser";
-import {InlineParser} from "../InlineParser";
+import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 //import {Node} from "./Node";
 //import {CodeNode} from "./CodeNode";
@@ -19,7 +19,7 @@ export class InlineLatexParser extends InParser {
 
     // Attempt to parse backticks, adding either a backtick code span or a
     // literal sequence of backticks.
-    public parse (parser : InlineParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, block : Node) : boolean {
         const c = parser.peek();
         if (c != C_DOLLAR) {
             return false;

@@ -1,5 +1,5 @@
 import {InParser} from "./InParser";
-import {InlineParser} from "../InlineParser";
+import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 import {normalizeURI} from "../common";
 import {LinkNode} from "./LinkNode";
@@ -20,7 +20,7 @@ function countChar (str : string, char : string) {
 }
 
 export class ExtendedWwwAutolinkParser extends InParser {
-    public parse (parser : InlineParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, block : Node) : boolean {
         const startpos = parser.pos;
         //There must be at least one period, and no underscores may be present in the last two segments of the domain.
         let domain = parser.match(/^(www\.|(https?|ftp)\:\/\/)[a-zA-Z0-9\_\-]+(\.[a-zA-Z0-9\_\-]+)+/);

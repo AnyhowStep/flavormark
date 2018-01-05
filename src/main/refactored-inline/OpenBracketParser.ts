@@ -1,5 +1,5 @@
 import {InParser} from "./InParser";
-import {InlineParser} from "../InlineParser";
+import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 //import {Node} from "./Node";
 import {BracketCollection} from "../refactored-misc/BracketCollection";
@@ -16,7 +16,7 @@ export class OpenBracketParser extends InParser {
         this.brackets.clear();
     }
     // Add open bracket to delimiter stack and add a text node to block's children.
-    public parse (parser : InlineParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, block : Node) : boolean {
         const c = parser.peek();
         if (c != C_OPEN_BRACKET) {
             return false;

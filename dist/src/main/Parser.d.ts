@@ -1,7 +1,7 @@
 import { BlockParser } from "./BlockParser";
 import { BlockParserCollection } from "./BlockParserCollection";
 import { Node } from "./Node";
-import { InlineParser } from "./InlineParser";
+import { InlineContentParser } from "./InlineContentParser";
 export interface Options {
     time?: boolean;
 }
@@ -22,10 +22,10 @@ export declare class Parser {
     allClosed: boolean;
     lastMatchedContainer: Node;
     lastLineLength: number;
-    inlineParser: InlineParser;
+    inlineParser: InlineContentParser;
     options: Options;
     blockParsers: BlockParserCollection;
-    constructor(blockParsers: BlockParserCollection, inlineParser: InlineParser, options?: Options | undefined);
+    constructor(blockParsers: BlockParserCollection, inlineParser: InlineContentParser, options?: Options | undefined);
     addLine(): void;
     addChild<NodeT extends Node>(blockParser: BlockParser<NodeT>, offset: number): NodeT;
     closeUnmatchedBlocks(): void;

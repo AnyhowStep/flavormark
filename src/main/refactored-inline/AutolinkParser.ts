@@ -1,5 +1,5 @@
 import {InParser} from "./InParser";
-import {InlineParser} from "../InlineParser";
+import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 import {normalizeURI} from "../common";
 import {LinkNode} from "./LinkNode";
@@ -13,7 +13,7 @@ var reAutolink = /^<[A-Za-z][A-Za-z0-9.+-]{1,31}:[^<>\x00-\x20]*>/i;
 
 export class AutolinkParser extends InParser {
     // Attempt to parse an autolink (URL or email in pointy brackets).
-    public parse (parser : InlineParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, block : Node) : boolean {
         const c = parser.peek();
         if (c != C_LESSTHAN) {
             return false;

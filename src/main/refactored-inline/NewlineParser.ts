@@ -1,5 +1,5 @@
 import {InParser} from "./InParser";
-import {InlineParser} from "../InlineParser";
+import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 import {HardbreakNode} from "./HardbreakNode";
 import {SoftbreakNode} from "./SoftbreakNode";
@@ -12,7 +12,7 @@ var reInitialSpace = /^ */;
 export class NewlineParser extends InParser {
     // Parse a newline.  If it was preceded by two spaces, return a hard
     // line break; otherwise a soft line break.
-    public parse (parser : InlineParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, block : Node) : boolean {
         const c = parser.peek();
         if (c != C_NEWLINE) {
             return false;
