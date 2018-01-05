@@ -1,5 +1,5 @@
 import {Parser} from "../Parser";
-import {BlockParser} from "./BlockParser";
+import {BlockParser} from "../BlockParser";
 import {HeadingNode} from "./HeadingNode";
 
 var reATXHeadingMarker = /^#{1,6}(?:[ \t]+|$)/;

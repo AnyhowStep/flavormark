@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const BlockParser_1 = require("./BlockParser");
+const BlockParser_1 = require("../BlockParser");
 const util_1 = require("./util");
 const common_1 = require("../common");
 //

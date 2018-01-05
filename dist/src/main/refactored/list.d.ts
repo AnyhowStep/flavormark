@@ -1,4 +1,4 @@
-import { BlockParser, BlockParserMeta } from "./BlockParser";
+import { BlockParser, BlockParserMeta } from "../BlockParser";
 import { Parser } from "../Parser";
 import { ListNode } from "./ListNode";
 export declare class ListParser extends BlockParser<ListNode> {

@@ -1,5 +1,5 @@
 import {Node} from "../Node";
-import {BlockParserCollection} from "./BlockParserCollection";
+import {BlockParserCollection} from "../BlockParserCollection";
 
 var reNonSpace = /[^ \t\f\v\r\n]/;
 

@@ -1,6 +1,5 @@
-//import {Node} from "./refactored/Node";
-import {BlockParser} from "./refactored/BlockParser";
-import {BlockParserCollection} from "./refactored/BlockParserCollection";
+import {BlockParser} from "./BlockParser";
+import {BlockParserCollection} from "./BlockParserCollection";
 import {Node} from "./Node";
 
 var CODE_INDENT = 4;

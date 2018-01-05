@@ -1,9 +1,8 @@
-import {BlockParser, BlockParserMeta} from "./BlockParser";
+import {BlockParser, BlockParserMeta, BlockNodeCtor} from "../BlockParser";
 import {Parser} from "../Parser";
 import {Node} from "../Node";
 import {peek, isSpaceOrTab, isBlank} from "./util";
 
-import {BlockNodeCtor} from "./BlockParser";
 import {ListNode} from "./ListNode";
 import {ItemNode} from "./ItemNode";
 

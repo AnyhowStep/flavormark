@@ -1,5 +1,5 @@
-import { BlockParser } from "./refactored/BlockParser";
-import { BlockParserCollection } from "./refactored/BlockParserCollection";
+import { BlockParser } from "./BlockParser";
+import { BlockParserCollection } from "./BlockParserCollection";
 import { Node } from "./Node";
 import { InlineParser } from "./InlineParser";
 export interface Options {

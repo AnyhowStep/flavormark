@@ -1,4 +1,4 @@
-import {BlockParser, BlockParserMeta} from "./BlockParser";
+import {BlockParser, BlockParserMeta} from "../BlockParser";
 import {Node} from "../Node";
 
 export class DocumentParser extends BlockParser {

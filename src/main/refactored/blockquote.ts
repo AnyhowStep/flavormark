@@ -1,4 +1,4 @@
-import {BlockParser, BlockParserMeta} from "./BlockParser";
+import {BlockParser, BlockParserMeta} from "../BlockParser";
 import {Parser} from "../Parser";
 import {Node} from "../Node";
 import {peek, isSpaceOrTab} from "./util";

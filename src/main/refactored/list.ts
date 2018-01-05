@@ -1,5 +1,5 @@
 
-import {BlockParser, BlockParserMeta} from "./BlockParser";
+import {BlockParser, BlockParserMeta} from "../BlockParser";
 import {Parser} from "../Parser";
 import {endsWithBlankLine} from "./util";
 //

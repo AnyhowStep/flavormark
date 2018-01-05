@@ -1,8 +1,8 @@
 import {BlockParser} from "./BlockParser";
-import {Node} from "../Node";
+import {Node} from "./Node";
 
 export class BlockParserCollection<DocumentT extends Node=Node, ParagraphT extends Node=Node> {
-    private documentParser : BlockParser<DocumentT>;
+    private documentParser  : BlockParser<DocumentT>;
     private paragraphParser : BlockParser<ParagraphT>;
 
     private dict : {

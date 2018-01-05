@@ -1,4 +1,4 @@
-import { BlockParser, BlockNodeCtor } from "./BlockParser";
+import { BlockParser, BlockNodeCtor } from "../BlockParser";
 import { Parser } from "../Parser";
 import { RefMap } from "../refactored-misc/RefMap";
 import { ParagraphNode } from "./ParagraphNode";

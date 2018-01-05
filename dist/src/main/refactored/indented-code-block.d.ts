@@ -1,4 +1,4 @@
-import { BlockParser } from "./BlockParser";
+import { BlockParser } from "../BlockParser";
 import { Parser } from "../Parser";
 import { IndentedCodeBlockNode } from "./IndentedCodeBlockNode";
 export declare class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> {

@@ -2,7 +2,7 @@ import {InParser} from "./InParser";
 import {InlineParser} from "../InlineParser";
 import {Node} from "../Node";
 //import {Node} from "./Node";
-import {BlockParser} from "../refactored/BlockParser";
+import {BlockParser} from "../BlockParser";
 import {CheckboxNode} from "./CheckboxNode";
 import {Parser} from "../Parser";
 

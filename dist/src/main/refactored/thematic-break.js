@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const BlockParser_1 = require("./BlockParser");
+const BlockParser_1 = require("../BlockParser");
 const Node_1 = require("../Node");
 var reThematicBreak = /^(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:-[ \t]*){3,})[ \t]*$/;
 class ThematicBreakParser extends BlockParser_1.BlockParser {

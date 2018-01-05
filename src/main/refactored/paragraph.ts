@@ -1,4 +1,4 @@
-import {BlockParser, BlockNodeCtor} from "./BlockParser";
+import {BlockParser, BlockNodeCtor} from "../BlockParser";
 import {Parser} from "../Parser";
 //import {Node} from "../Node";
 import {peek, isBlank} from "./util";

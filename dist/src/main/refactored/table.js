@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const BlockParser_1 = require("./BlockParser");
+const BlockParser_1 = require("../BlockParser");
 const TableNode_1 = require("./TableNode");
 const VALID_CHARACTERS = "[\\-\\|\\:\\s]";
 //Must have at least one - and one |

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const BlockParser_1 = require("./BlockParser");
+const BlockParser_1 = require("../BlockParser");
 const Node_1 = require("../Node");
 const util_1 = require("./util");
 var C_GREATERTHAN = 62;
