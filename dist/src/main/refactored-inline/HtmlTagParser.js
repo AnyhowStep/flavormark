@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("../InParser");
+const InlineParser_1 = require("../InlineParser");
 //import {Node} from "./Node";
 const common_1 = require("../common");
 const HtmlNode_1 = require("./HtmlNode");
 var C_LESSTHAN = 60;
-class HtmlTagParser extends InParser_1.InParser {
+class HtmlTagParser extends InlineParser_1.InlineParser {
     // Attempt to parse a raw HTML tag.
     parse(parser, block) {
         const c = parser.peek();

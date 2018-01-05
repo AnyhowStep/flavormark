@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("../InParser");
+const InlineParser_1 = require("../InlineParser");
 //import {Node} from "./Node";
 const CodeNode_1 = require("./CodeNode");
 var C_BACKTICK = 96;
 var reTicks = /`+/;
 var reTicksHere = /^`+/;
 var reWhitespace = /[ \t\n\x0b\x0c\x0d]+/g;
-class InlineCodeParser extends InParser_1.InParser {
+class InlineCodeParser extends InlineParser_1.InlineParser {
     // All of the parsers below try to match something at the current position
     // in the subject.  If they succeed in matching anything, they
     // return the inline matched, advancing the subject.

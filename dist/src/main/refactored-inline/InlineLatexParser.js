@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("../InParser");
+const InlineParser_1 = require("../InlineParser");
 //import {Node} from "./Node";
 //import {CodeNode} from "./CodeNode";
 const LatexNode_1 = require("./LatexNode");
@@ -8,7 +8,7 @@ var C_DOLLAR = 36;
 var reDollar = /.\$/;
 //Consider not replacing \n in inline latex block
 var reWhitespace = /[ \t\n\x0b\x0c\x0d]+/g;
-class InlineLatexParser extends InParser_1.InParser {
+class InlineLatexParser extends InlineParser_1.InlineParser {
     // All of the parsers below try to match something at the current position
     // in the subject.  If they succeed in matching anything, they
     // return the inline matched, advancing the subject.

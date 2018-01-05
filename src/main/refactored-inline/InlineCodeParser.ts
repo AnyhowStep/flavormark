@@ -1,4 +1,4 @@
-import {InParser} from "../InParser";
+import {InlineParser} from "../InlineParser";
 import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 //import {Node} from "./Node";
@@ -12,7 +12,7 @@ var reTicksHere = /^`+/;
 var reWhitespace = /[ \t\n\x0b\x0c\x0d]+/g;
 
 
-export class InlineCodeParser extends InParser {
+export class InlineCodeParser extends InlineParser {
     // All of the parsers below try to match something at the current position
     // in the subject.  If they succeed in matching anything, they
     // return the inline matched, advancing the subject.

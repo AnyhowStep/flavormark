@@ -1,4 +1,4 @@
-import {InParser} from "../InParser";
+import {InlineParser} from "../InlineParser";
 import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 import {normalizeURI} from "../common";
@@ -19,7 +19,7 @@ function countChar (str : string, char : string) {
     return result;
 }
 
-export class ExtendedWwwAutolinkParser extends InParser {
+export class ExtendedWwwAutolinkParser extends InlineParser {
     public parse (parser : InlineContentParser, block : Node) : boolean {
         const startpos = parser.pos;
         //There must be at least one period, and no underscores may be present in the last two segments of the domain.

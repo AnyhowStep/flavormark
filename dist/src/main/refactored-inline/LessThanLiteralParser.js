@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("../InParser");
+const InlineParser_1 = require("../InlineParser");
 //import {Node} from "./Node";
 const from_code_point_1 = require("../from-code-point");
 var C_LESSTHAN = 60;
-class LessThanLiteralParser extends InParser_1.InParser {
+class LessThanLiteralParser extends InlineParser_1.InlineParser {
     // Needed so we don't parse this character in StringParser
     parse(parser, block) {
         const c = parser.peek();

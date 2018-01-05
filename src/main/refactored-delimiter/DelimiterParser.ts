@@ -1,4 +1,4 @@
-import {InParser} from "../InParser";
+import {InlineParser} from "../InlineParser";
 import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 //import {Node} from "./Node";
@@ -10,7 +10,7 @@ var rePunctuation = new RegExp(/[!"#$%&'()*+,\-./:;<=>?@\[\]^_`{|}~\xA1\xA7\xAB\
 
 var reUnicodeWhitespaceChar = /^\s/;
 
-export class DelimiterParser extends InParser {
+export class DelimiterParser extends InlineParser {
     private delimiters : DelimiterCollection;
     private parsers    : DelimitedInlineParser[];
     public constructor (delimiters : DelimiterCollection, parsers : DelimitedInlineParser[]) {

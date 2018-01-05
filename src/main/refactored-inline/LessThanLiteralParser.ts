@@ -1,4 +1,4 @@
-import {InParser} from "../InParser";
+import {InlineParser} from "../InlineParser";
 import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 //import {Node} from "./Node";
@@ -7,7 +7,7 @@ import {fromCodePoint} from "../from-code-point";
 var C_LESSTHAN = 60;
 
 
-export class LessThanLiteralParser extends InParser {
+export class LessThanLiteralParser extends InlineParser {
     // Needed so we don't parse this character in StringParser
     public parse (parser : InlineContentParser, block : Node) : boolean {
         const c = parser.peek();

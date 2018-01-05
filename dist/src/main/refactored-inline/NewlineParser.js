@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("../InParser");
+const InlineParser_1 = require("../InlineParser");
 const HardbreakNode_1 = require("./HardbreakNode");
 const SoftbreakNode_1 = require("./SoftbreakNode");
 var C_NEWLINE = 10;
 var reFinalSpace = / *$/;
 var reInitialSpace = /^ */;
-class NewlineParser extends InParser_1.InParser {
+class NewlineParser extends InlineParser_1.InlineParser {
     // Parse a newline.  If it was preceded by two spaces, return a hard
     // line break; otherwise a soft line break.
     parse(parser, block) {

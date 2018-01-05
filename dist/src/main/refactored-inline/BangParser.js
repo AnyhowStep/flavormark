@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("../InParser");
+const InlineParser_1 = require("../InlineParser");
 var C_BANG = 33;
 var C_OPEN_BRACKET = 91;
-class BangParser extends InParser_1.InParser {
+class BangParser extends InlineParser_1.InlineParser {
     constructor(brackets) {
         super();
         this.brackets = brackets;

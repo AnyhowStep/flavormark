@@ -1,4 +1,4 @@
-import {InParser} from "../InParser";
+import {InlineParser} from "../InlineParser";
 import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 //import {Node} from "./Node";
@@ -10,7 +10,7 @@ var C_AMPERSAND = 38;
 
 var reEntityHere = new RegExp('^' + ENTITY, 'i');
 
-export class EntityParser extends InParser {
+export class EntityParser extends InlineParser {
     // Attempt to parse an entity.
     public parse (parser : InlineContentParser, block : Node) : boolean {
         const c = parser.peek();

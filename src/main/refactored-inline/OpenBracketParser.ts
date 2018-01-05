@@ -1,4 +1,4 @@
-import {InParser} from "../InParser";
+import {InlineParser} from "../InlineParser";
 import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 //import {Node} from "./Node";
@@ -6,7 +6,7 @@ import {BracketCollection} from "../refactored-misc/BracketCollection";
 
 var C_OPEN_BRACKET = 91;
 
-export class OpenBracketParser extends InParser {
+export class OpenBracketParser extends InlineParser {
     private brackets : BracketCollection;
     public constructor (brackets : BracketCollection) {
         super();

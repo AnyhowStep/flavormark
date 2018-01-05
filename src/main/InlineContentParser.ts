@@ -1,7 +1,7 @@
 import {TextNode} from "./refactored-inline/TextNode";
 import {fromCodePoint} from "./from-code-point";
 import {BlockParser} from "./BlockParser";
-import {InParser} from "./InParser";
+import {InlineParser} from "./InlineParser";
 import {RegexStream} from "./refactored-misc/RegexStream";
 import {Node} from "./Node";
 import {Parser} from "./Parser";
@@ -12,8 +12,8 @@ import {Parser} from "./Parser";
 //TODO consider having InlineContentParser CONTAIN RegexStream, rather than extending.
 //     It makes more sense since the role of the parser isn't really to be a regex stream
 export class InlineContentParser extends RegexStream {
-    private inParsers : InParser[];
-    public constructor (inParsers : InParser[]) {
+    private inParsers : InlineParser[];
+    public constructor (inParsers : InlineParser[]) {
         super("");
         this.inParsers = inParsers;
     }

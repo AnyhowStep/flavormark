@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("../InParser");
+const InlineParser_1 = require("../InlineParser");
 const common_1 = require("../common");
 const HardbreakNode_1 = require("./HardbreakNode");
 var C_NEWLINE = 10;
 var C_BACKSLASH = 92;
 var reEscapable = new RegExp('^' + common_1.ESCAPABLE);
-class EscapeCharacterParser extends InParser_1.InParser {
+class EscapeCharacterParser extends InlineParser_1.InlineParser {
     // Parse a backslash-escaped special character, adding either the escaped
     // character, a hard line break (if the backslash is followed by a newline),
     // or a literal backslash to the block's children.  Assumes current character

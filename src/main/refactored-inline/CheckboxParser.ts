@@ -1,4 +1,4 @@
-import {InParser} from "../InParser";
+import {InlineParser} from "../InlineParser";
 import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 //import {Node} from "./Node";
@@ -6,7 +6,7 @@ import {BlockParser} from "../BlockParser";
 import {CheckboxNode} from "./CheckboxNode";
 import {Parser} from "../Parser";
 
-export class CheckboxParser extends InParser {
+export class CheckboxParser extends InlineParser {
     public parse (parser : InlineContentParser, block : Node, blockParser : BlockParser, mainParserThing : Parser) : boolean {
         //console.log(block.type, blockParser.isListItem, parser.pos);
 

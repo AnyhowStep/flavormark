@@ -1,6 +1,6 @@
-import { InParser } from "../InParser";
+import { InlineParser } from "../InlineParser";
 import { InlineContentParser } from "../InlineContentParser";
 import { Node } from "../Node";
-export declare class InlineLatexParser extends InParser {
+export declare class InlineLatexParser extends InlineParser {
     parse(parser: InlineContentParser, block: Node): boolean;
 }

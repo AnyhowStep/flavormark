@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("../InParser");
+const InlineParser_1 = require("../InlineParser");
 const common_1 = require("../common");
 const LinkNode_1 = require("./LinkNode");
 const common_2 = require("../common");
-class ExtendedEmailAutolinkParser extends InParser_1.InParser {
+class ExtendedEmailAutolinkParser extends InlineParser_1.InlineParser {
     parse(parser, block) {
         const startpos = parser.pos;
         //There must be at least one period, and no underscores may be present in the last two segments of the domain.

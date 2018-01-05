@@ -1,4 +1,4 @@
-import {InParser} from "../InParser";
+import {InlineParser} from "../InlineParser";
 import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 import {HardbreakNode} from "./HardbreakNode";
@@ -9,7 +9,7 @@ var reFinalSpace = / *$/;
 
 var reInitialSpace = /^ */;
 
-export class NewlineParser extends InParser {
+export class NewlineParser extends InlineParser {
     // Parse a newline.  If it was preceded by two spaces, return a hard
     // line break; otherwise a soft line break.
     public parse (parser : InlineContentParser, block : Node) : boolean {

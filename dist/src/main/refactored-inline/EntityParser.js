@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("../InParser");
+const InlineParser_1 = require("../InlineParser");
 //import {Node} from "./Node";
 const common_1 = require("../common");
 const entities_1 = require("entities");
 var C_AMPERSAND = 38;
 var reEntityHere = new RegExp('^' + common_1.ENTITY, 'i');
-class EntityParser extends InParser_1.InParser {
+class EntityParser extends InlineParser_1.InlineParser {
     // Attempt to parse an entity.
     parse(parser, block) {
         const c = parser.peek();

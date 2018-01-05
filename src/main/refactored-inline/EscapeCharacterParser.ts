@@ -1,4 +1,4 @@
-import {InParser} from "../InParser";
+import {InlineParser} from "../InlineParser";
 import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 import {ESCAPABLE} from "../common";
@@ -10,7 +10,7 @@ var C_BACKSLASH = 92;
 var reEscapable = new RegExp('^' + ESCAPABLE);
 
 
-export class EscapeCharacterParser extends InParser {
+export class EscapeCharacterParser extends InlineParser {
     // Parse a backslash-escaped special character, adding either the escaped
     // character, a hard line break (if the backslash is followed by a newline),
     // or a literal backslash to the block's children.  Assumes current character

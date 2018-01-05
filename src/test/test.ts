@@ -92,7 +92,7 @@ import {BracketCollection} from "../main/refactored-misc/BracketCollection";
 const delimiters = new DelimiterCollection();
 const brackets = new BracketCollection(delimiters);
 
-import {InParser} from "../main/InParser";
+import {InlineParser} from "../main/InlineParser";
 import {NewlineParser} from "../main/refactored-inline/NewlineParser";
 import {EscapeCharacterParser} from "../main/refactored-inline/EscapeCharacterParser";
 import {InlineCodeParser} from "../main/refactored-inline/InlineCodeParser";
@@ -122,7 +122,7 @@ const delimParser = new DelimiterParser(delimiters, [
     new SuperscriptParser(),
     new StrikethroughParser(),
 ]);
-const inParsers : InParser[] = [
+const inParsers : InlineParser[] = [
     new NewlineParser(),
     new EscapeCharacterParser(),
 
@@ -150,7 +150,7 @@ const flavorDelimParser = new DelimiterParser(delimiters, [
     new SuperscriptParser(),
     new StrikethroughParser(),
 ]);
-const flavorInParsers : InParser[] = [
+const flavorInlineParsers : InlineParser[] = [
     new NewlineParser(),
     new EscapeCharacterParser(),
 
@@ -173,14 +173,14 @@ const flavorInParsers : InParser[] = [
 ];
 
 
-let flavorReader = new commonmark.Parser(blockParserCollection, new InlineContentParser(flavorInParsers));
+let flavorReader = new commonmark.Parser(blockParserCollection, new InlineContentParser(flavorInlineParsers));
 
 
 const smartDelimParser = new DelimiterParser(delimiters, [
     new EmphasisParser(),
     new SmartQuoteParser(),
 ]);
-const smartInParsers : InParser[] = [
+const smartInlineParsers : InlineParser[] = [
     new NewlineParser(),
     new EscapeCharacterParser(),
     new InlineCodeParser(),
@@ -196,7 +196,7 @@ const smartInParsers : InParser[] = [
     new SmartStringParser(),
     new StringParser(), //Should this be a default parser that cannot be removed?
 ];
-let readerSmart = new commonmark.Parser(blockParserCollection, new InlineContentParser(smartInParsers));
+let readerSmart = new commonmark.Parser(blockParserCollection, new InlineContentParser(smartInlineParsers));
 
 var results : { passed : number, failed : number } = {
     passed: 0,

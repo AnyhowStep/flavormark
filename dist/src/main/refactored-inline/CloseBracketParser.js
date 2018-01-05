@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("../InParser");
+const InlineParser_1 = require("../InlineParser");
 const normalize_reference_1 = require("../normalize-reference");
 const util_1 = require("../refactored-misc/util");
 const LinkNode_1 = require("./LinkNode");
@@ -8,7 +8,7 @@ var C_CLOSE_BRACKET = 93;
 var C_OPEN_PAREN = 40;
 var C_CLOSE_PAREN = 41;
 var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
-class CloseBracketParser extends InParser_1.InParser {
+class CloseBracketParser extends InlineParser_1.InlineParser {
     constructor(delimParser, brackets, refMap) {
         super();
         this.delimParser = delimParser;

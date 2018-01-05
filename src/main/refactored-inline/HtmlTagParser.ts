@@ -1,4 +1,4 @@
-import {InParser} from "../InParser";
+import {InlineParser} from "../InlineParser";
 import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 //import {Node} from "./Node";
@@ -7,7 +7,7 @@ import {HtmlNode} from "./HtmlNode";
 var C_LESSTHAN = 60;
 
 
-export class HtmlTagParser extends InParser {
+export class HtmlTagParser extends InlineParser {
     // Attempt to parse a raw HTML tag.
     public parse (parser : InlineContentParser, block : Node) : boolean {
         const c = parser.peek();

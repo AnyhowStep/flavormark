@@ -1,4 +1,4 @@
-import {InParser} from "../InParser";
+import {InlineParser} from "../InlineParser";
 import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 import {normalizeReference} from "../normalize-reference";
@@ -14,7 +14,7 @@ var C_CLOSE_PAREN = 41;
 
 var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
 
-export class CloseBracketParser extends InParser {
+export class CloseBracketParser extends InlineParser {
     private delimParser : DelimiterParser;
     private brackets : BracketCollection;
     private refMap : RefMap;

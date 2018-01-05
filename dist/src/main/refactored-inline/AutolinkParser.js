@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("../InParser");
+const InlineParser_1 = require("../InlineParser");
 const common_1 = require("../common");
 const LinkNode_1 = require("./LinkNode");
 var C_LESSTHAN = 60;
 var reEmailAutolink = /^<([a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)>/;
 var reAutolink = /^<[A-Za-z][A-Za-z0-9.+-]{1,31}:[^<>\x00-\x20]*>/i;
-class AutolinkParser extends InParser_1.InParser {
+class AutolinkParser extends InlineParser_1.InlineParser {
     // Attempt to parse an autolink (URL or email in pointy brackets).
     parse(parser, block) {
         const c = parser.peek();
