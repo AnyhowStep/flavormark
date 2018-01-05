@@ -7,7 +7,7 @@ class DocumentParser extends BlockParser_1.BlockParser {
         super(...arguments);
         this.continue = () => { return true; };
         this.finalize = () => { return; };
-        this.canContain = (blockParser) => { return blockParser.isListItem != true; };
+        this.canContain = () => { return true; };
         this.acceptsLines = false;
     }
 }

@@ -40,7 +40,7 @@ class BlockquoteParser extends BlockParser_1.BlockParser {
             return true;
         };
         this.finalize = () => { return; };
-        this.canContain = (blockParser) => { return blockParser.isListItem != true; };
+        this.canContain = () => { return true; };
         this.acceptsLines = false;
         this.ignoreLastLineBlank = (_parser, _container) => { return true; };
     }

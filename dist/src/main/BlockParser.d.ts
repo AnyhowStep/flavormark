@@ -12,8 +12,6 @@ export interface BlockParserMeta {
     acceptLazyContinuation?: boolean;
     isLeaf?: boolean;
     isParagraph?: boolean;
-    isList?: boolean;
-    isListItem?: boolean;
     endsWithBlankLineIfLastChildEndsWithBlankLine?: boolean;
 }
 export declare abstract class BlockParser<NodeT extends Node = Node> implements BlockParserMeta {
@@ -41,8 +39,6 @@ export declare abstract class BlockParser<NodeT extends Node = Node> implements 
     acceptLazyContinuation?: boolean;
     isLeaf?: boolean;
     isParagraph?: boolean;
-    isList?: boolean;
-    isListItem?: boolean;
     endsWithBlankLineIfLastChildEndsWithBlankLine?: boolean;
     isActuallyParagraph(): boolean;
 }

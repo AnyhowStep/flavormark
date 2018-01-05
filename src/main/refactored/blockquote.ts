@@ -1,4 +1,4 @@
-import {BlockParser, BlockParserMeta} from "../BlockParser";
+import {BlockParser} from "../BlockParser";
 import {Parser} from "../Parser";
 import {Node} from "../Node";
 import {peek, isSpaceOrTab} from "./util";
@@ -38,7 +38,7 @@ export class BlockquoteParser extends BlockParser {
         return true;
     };
     finalize= ()=> { return; };
-    canContain= (blockParser : BlockParserMeta) =>{ return blockParser.isListItem != true; };
+    canContain= () =>{ return true; };
     acceptsLines = false;
     ignoreLastLineBlank = (_parser : Parser, _container : Node) => { return true; };
 }

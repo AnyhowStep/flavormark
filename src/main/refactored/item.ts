@@ -129,7 +129,7 @@ export class ItemParser extends BlockParser<ItemNode> {
     tryStart= (parser : Parser, container : Node) => {
         var data;
 
-        if ((!parser.indented || parser.getBlockParser(container).isList)
+        if ((!parser.indented || parser.getBlockParser(container) == (this.listParser as any))
                 && (data = parseListMarker(parser, container))) {
             parser.closeUnmatchedBlocks();
 
@@ -139,7 +139,7 @@ export class ItemParser extends BlockParser<ItemNode> {
 
             // add the list if needed
             if (
-                !parser.getBlockParser(parser.tip).isList ||
+                parser.getBlockParser(parser.tip) != (this.listParser  as any) ||
                 !(container instanceof ListNode) ||
                 !listsMatch(container.listData, data)
             ) {
@@ -191,7 +191,6 @@ export class ItemParser extends BlockParser<ItemNode> {
             container.sourcepos[0][0] === parser.lineNumber
         );
     };
-    isListItem = true;
     endsWithBlankLineIfLastChildEndsWithBlankLine = true;
 }
 

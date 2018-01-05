@@ -15,8 +15,6 @@ export interface BlockParserMeta {
     acceptLazyContinuation? : boolean; //This has no effect unless acceptsLines is true
     isLeaf? : boolean;
     isParagraph? : boolean; //Has no effect unless acceptsLines is true
-    isList? : boolean;
-    isListItem? : boolean;
     endsWithBlankLineIfLastChildEndsWithBlankLine? : boolean;
 }
 
@@ -73,8 +71,6 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
     acceptLazyContinuation? : boolean; //If acceptsLines is true, calls appendString, otherwise lazyContinue()
     isLeaf? : boolean;
     isParagraph? : boolean; //Has no effect unless acceptsLines is true
-    isList? : boolean;
-    isListItem? : boolean;
     endsWithBlankLineIfLastChildEndsWithBlankLine? : boolean;
 
     public isActuallyParagraph () {

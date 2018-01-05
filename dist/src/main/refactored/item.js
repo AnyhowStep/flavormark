@@ -83,14 +83,14 @@ class ItemParser extends BlockParser_1.BlockParser {
         super(nodeType, nodeCtor);
         this.tryStart = (parser, container) => {
             var data;
-            if ((!parser.indented || parser.getBlockParser(container).isList)
+            if ((!parser.indented || parser.getBlockParser(container) == this.listParser)
                 && (data = parseListMarker(parser, container))) {
                 parser.closeUnmatchedBlocks();
                 if (parser.tip == null) {
                     throw new Error("parser.tip cannot be null");
                 }
                 // add the list if needed
-                if (!parser.getBlockParser(parser.tip).isList ||
+                if (parser.getBlockParser(parser.tip) != this.listParser ||
                     !(container instanceof ListNode_1.ListNode) ||
                     !listsMatch(container.listData, data)) {
                     const listNode = parser.addChild(this.listParser, parser.nextNonspace);
@@ -141,7 +141,6 @@ class ItemParser extends BlockParser_1.BlockParser {
                 container.sourcepos != null &&
                 container.sourcepos[0][0] === parser.lineNumber);
         };
-        this.isListItem = true;
         this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;
         this.listParser = listParser;
     }

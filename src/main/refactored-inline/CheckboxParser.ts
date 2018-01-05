@@ -5,11 +5,10 @@ import {Node} from "../Node";
 import {BlockParser} from "../BlockParser";
 import {CheckboxNode} from "./CheckboxNode";
 import {Parser} from "../Parser";
+import {ItemParser} from "../refactored/item";
 
 export class CheckboxParser extends InlineParser {
     public parse (parser : InlineContentParser, block : Node, blockParser : BlockParser, mainParserThing : Parser) : boolean {
-        //console.log(block.type, blockParser.isListItem, parser.pos);
-
         if (mainParserThing.isParagraphNode(block)) {
             if (block.parent == null) {
                 return false;
@@ -18,7 +17,7 @@ export class CheckboxParser extends InlineParser {
             blockParser = mainParserThing.getBlockParser(block);
         }
 
-        if (blockParser.isListItem != true) {
+        if (!(blockParser instanceof ItemParser)) {
             return false;
         }
         if (parser.pos != 0) {
