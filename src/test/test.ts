@@ -111,6 +111,7 @@ import {StrikethroughParser} from "../main/custom/StrikethroughParser";
 import {CheckboxParser} from "../main/refactored-inline/CheckboxParser";
 import {ExtendedWwwAutolinkParser} from "../main/refactored-inline/ExtendedWwwAutolinkParser";
 import {ExtendedEmailAutolinkParser} from "../main/refactored-inline/ExtendedEmailAutolinkParser";
+import {InlineLatexParser} from "../main/refactored-inline/InlineLatexParser";
 
 const delimParser = new DelimiterParser(delimiters, [
     new EmphasisParser(),
@@ -124,6 +125,7 @@ const inParsers : InParser[] = [
     new CheckboxParser(),
 
     new InlineCodeParser(),
+    new InlineLatexParser(),
     delimParser,
     new OpenBracketParser(brackets),
     new BangParser(brackets),
@@ -338,6 +340,10 @@ process.exit();*/
     }
 )
 process.exit();*/
+specTests('src/test/inline-latex.txt', results, function(z : string) {
+    return writer.render(reader.parse(z));
+});
+//process.exit();
 specTests('src/test/extended-email-autolink.txt', results, function(z : string) {
     return writer.render(flavorReader.parse(z));
 });
