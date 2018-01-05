@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const TextNode_1 = require("./refactored-inline/TextNode");
+const TextNode_1 = require("./TextNode");
 const from_code_point_1 = require("./from-code-point");
 const RegexStream_1 = require("./refactored-misc/RegexStream");
 // These are methods of an InlineContentParser object, defined below.

@@ -1,4 +1,4 @@
-import { Node } from "../Node";
+import { Node } from "./Node";
 export declare class TextNode extends Node {
     literal: string | null;
     constructor(str: string);

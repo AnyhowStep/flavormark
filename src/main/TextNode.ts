@@ -1,4 +1,4 @@
-import {Node} from "../Node";
+import {Node} from "./Node";
 
 export class TextNode extends Node {
     public literal : string|null = null;

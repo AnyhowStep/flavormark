@@ -1,4 +1,4 @@
-import { TextNode } from "./refactored-inline/TextNode";
+import { TextNode } from "./TextNode";
 import { BlockParser } from "./BlockParser";
 import { InlineParser } from "./InlineParser";
 import { RegexStream } from "./refactored-misc/RegexStream";

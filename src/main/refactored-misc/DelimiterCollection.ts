@@ -1,5 +1,5 @@
 //import {Node} from "../Node";
-import {TextNode} from "../refactored-inline/TextNode";
+import {TextNode} from "../TextNode";
 
 export interface Delimiter {
     cc: number,
