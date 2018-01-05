@@ -14,7 +14,7 @@ This example also illustrates stripping of leading and trailing spaces:
 ```````````````````````````````` example
 $$ foo $ bar  $$
 .
-<p><latex></latex> foo <latex>bar</latex>$</p>
+<latex_block> foo \$ bar</latex_block>
 ````````````````````````````````
 
 
@@ -35,9 +35,9 @@ $$
 foo
 $$
 .
-<p><latex></latex>
+<latex_block>
 foo
-<latex></latex></p>
+</latex_block>
 ````````````````````````````````
 
 
@@ -160,7 +160,8 @@ we just have literal backticks:
 ```````````````````````````````` example
 $$$foo$$
 .
-<p><latex></latex><latex>foo</latex>$</p>
+<latex_block>foo\$\$
+</latex_block>
 ````````````````````````````````
 
 
@@ -177,4 +178,51 @@ closing backtick strings to be equal in length:
 $foo$$bar$$
 .
 <p><latex>foo</latex><latex>bar</latex>$</p>
+````````````````````````````````
+
+When a backtick string is not closed by a matching backtick string,
+we just have literal backticks:
+
+```````````````````````````````` example
+$$
+$$$ unescaped
+foo
+\$\$\$ escaped
+$\$$ mixed
+\$$\$ mixed
+\$\$$ mixed
+$\$\$ mixed
+$$
+.
+<latex_block>
+\$\$\$ unescaped
+foo
+\$\$\$ escaped
+\$\$\$ mixed
+\$\$\$ mixed
+\$\$\$ mixed
+\$\$\$ mixed
+</latex_block>
+````````````````````````````````
+
+Test
+
+```````````````````````````````` example
+$$ $$$ unescaped
+foo
+\$\$\$ escaped
+$\$$ mixed
+\$$\$ mixed
+\$\$$ mixed
+$\$\$ mixed
+$$
+.
+<latex_block> \$\$\$ unescaped
+foo
+\$\$\$ escaped
+\$\$\$ mixed
+\$\$\$ mixed
+\$\$\$ mixed
+\$\$\$ mixed
+</latex_block>
 ````````````````````````````````

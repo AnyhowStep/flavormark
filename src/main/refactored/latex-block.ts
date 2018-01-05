@@ -33,7 +33,7 @@ export class LatexBlockParser extends BlockParser<LatexBlockNode> {
                         parser.offset,
                         sameLineEndMatch.index
                     );
-                    parser.advanceOffset(container.string_content.length + sameLineEndMatch[0].length, false);
+                    parser.advanceOffset(parser.currentLine.length-parser.offset, false);
                     parser.finalize(container, parser.lineNumber);
                 }
             }
@@ -69,10 +69,15 @@ export class LatexBlockParser extends BlockParser<LatexBlockNode> {
         return true;
     };
     finalize= (_parser : Parser, block : LatexBlockNode)=>  {
-        var content = block.string_content;
+        let content = block.string_content;
         if (content == null) {
             throw new Error("content cannot be null");
         }
+        content = content.replace(/^\$/, "\\$");
+        while (/[^\\]\$/.test(content)) {
+            content = content.replace(/([^\\])\$/, "$1\\$");
+        }
+
         block.literal = content;
         block.string_content = null; // allow GC
     };

@@ -70,7 +70,7 @@ const blockParserCollection = new BlockParserCollection(
     .add(atxHeadingParser)
     .add(fencedCodeBlockParser)
 
-    //.add(latexBlockParser)
+    .add(latexBlockParser)
 
     .add(htmlBlockParser)
     .add(setextHeadingParser)
@@ -344,7 +344,7 @@ process.exit();*/
     }
 )
 process.exit();*/
-specTests('src/test/inline-latex.txt', results, function(z : string) {
+specTests('src/test/latex.txt', results, function(z : string) {
     return writer.render(reader.parse(z));
 });
 //process.exit();

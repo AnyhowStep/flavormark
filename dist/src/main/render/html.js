@@ -261,6 +261,15 @@ class HtmlRenderer extends renderer_1.Renderer {
         this.out(node.literal);
         this.tag('/latex');
     }
+    latex_block(node, entering) {
+        if (!entering) {
+            return;
+        }
+        this.tag('latex_block');
+        this.out(node.literal);
+        this.tag('/latex_block');
+        this.cr();
+    }
     indented_code_block(node, entering) {
         if (!entering) {
             return;

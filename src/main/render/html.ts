@@ -268,6 +268,7 @@ export class HtmlRenderer extends Renderer {
     this.tag('latex_block');
     this.out(node.literal);
     this.tag('/latex_block');
+    this.cr();
   }
 
      indented_code_block(node:any, entering:boolean) {

@@ -4,9 +4,9 @@ const InParser_1 = require("./InParser");
 //import {Node} from "./Node";
 //import {CodeNode} from "./CodeNode";
 const LatexNode_1 = require("./LatexNode");
-var C_BACKTICK = 36;
-var reTicks = /\$+/;
-var reTicksHere = /^\$+/;
+var C_DOLLAR = 36;
+var reDollar = /.\$/;
+//Consider not replacing \n in inline latex block
 var reWhitespace = /[ \t\n\x0b\x0c\x0d]+/g;
 class InlineLatexParser extends InParser_1.InParser {
     // All of the parsers below try to match something at the current position
@@ -16,28 +16,35 @@ class InlineLatexParser extends InParser_1.InParser {
     // literal sequence of backticks.
     parse(parser, block) {
         const c = parser.peek();
-        if (c != C_BACKTICK) {
+        if (c != C_DOLLAR) {
             return false;
         }
-        var ticks = parser.match(reTicksHere);
-        if (ticks === null) {
-            return false;
+        var startpos = parser.pos;
+        ++parser.pos;
+        if (parser.peek() == C_DOLLAR) {
+            //Empty inline latex
+            let node = new LatexNode_1.LatexNode('latex');
+            node.literal = "";
+            block.appendChild(node);
+            ++parser.pos;
+            return true;
         }
-        var afterOpenTicks = parser.pos;
+        else {
+            --parser.pos;
+        }
         var matched;
         var node;
-        while ((matched = parser.match(reTicks)) !== null) {
-            if (matched === ticks) {
+        while ((matched = parser.match(reDollar)) !== null) {
+            if (/[^\\]\$/.test(matched)) {
                 node = new LatexNode_1.LatexNode('latex');
-                node.literal = parser.subject.slice(afterOpenTicks, parser.pos - ticks.length)
-                    .trim().replace(reWhitespace, ' ');
+                node.literal = parser.subject.slice(startpos + 1, parser.pos - 1).trim().replace(reWhitespace, ' ');
                 block.appendChild(node);
                 return true;
             }
         }
-        // If we got here, we didn't match a closing backtick sequence.
-        parser.pos = afterOpenTicks;
-        block.appendChild(parser.text(ticks));
+        // If we got here, we didn't match a closing sequence.
+        parser.pos = startpos + 1;
+        block.appendChild(parser.text("$"));
         return true;
     }
 }
