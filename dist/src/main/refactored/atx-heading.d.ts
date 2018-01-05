@@ -1,4 +1,4 @@
-import { Parser } from "../blocks";
+import { Parser } from "../Parser";
 import { BlockParser } from "./BlockParser";
 import { HeadingNode } from "./HeadingNode";
 export declare class AtxHeadingParser extends BlockParser<HeadingNode> {

@@ -1,5 +1,5 @@
 import { InParser } from "../refactored-inline/InParser";
-import { InlineParser } from "../inlines";
+import { InlineParser } from "../InlineParser";
 import { Node } from "../node";
 import { Delimiter, DelimiterCollection } from "../refactored-misc/DelimiterCollection";
 import { DelimitedInlineParser } from "./DelimitedInlineParser";

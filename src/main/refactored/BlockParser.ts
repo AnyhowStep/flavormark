@@ -1,4 +1,4 @@
-import {Parser} from "../blocks";
+import {Parser} from "../Parser";
 //import {Node} from "../node";
 import {Node} from "../node";
 

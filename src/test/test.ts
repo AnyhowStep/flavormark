@@ -107,7 +107,7 @@ import {HtmlTagParser} from "../main/refactored-inline/HtmlTagParser";
 import {LessThanLiteralParser} from "../main/refactored-inline/LessThanLiteralParser";
 import {EntityParser} from "../main/refactored-inline/EntityParser";
 import {StringParser} from "../main/refactored-inline/StringParser";
-import {InlineParser} from "../main/inlines";
+import {InlineParser} from "../main/InlineParser";
 
 import {SuperscriptParser} from "../main/custom/SuperscriptParser";
 import {SmartStringParser} from "../main/refactored-inline/SmartStringParser";

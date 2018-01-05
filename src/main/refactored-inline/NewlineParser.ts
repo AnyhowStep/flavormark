@@ -1,5 +1,5 @@
 import {InParser} from "./InParser";
-import {InlineParser} from "../inlines";
+import {InlineParser} from "../InlineParser";
 import {Node} from "../node";
 import {HardbreakNode} from "./HardbreakNode";
 import {SoftbreakNode} from "./SoftbreakNode";

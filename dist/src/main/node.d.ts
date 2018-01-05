@@ -9,9 +9,8 @@ export declare class NodeWalker {
         node: Node;
     } | null;
 }
-export declare type NodeType = string;
 export declare class Node {
-    type: NodeType;
+    type: string;
     parent: Node | null;
     firstChild: Node | null;
     lastChild: Node | null;
@@ -20,7 +19,7 @@ export declare class Node {
     sourcepos?: [[number, number], [number, number]];
     lastLineBlank: boolean;
     open: boolean;
-    constructor(nodeType: NodeType, sourcepos?: [[number, number], [number, number]]);
+    constructor(nodeType: string, sourcepos?: [[number, number], [number, number]]);
     unlink(): void;
     appendChild(child: Node): void;
     prependChild(child: Node): void;

@@ -1,5 +1,5 @@
 import { BlockParser, BlockNodeCtor } from "./BlockParser";
-import { Parser } from "../blocks";
+import { Parser } from "../Parser";
 import { RefMap } from "../refactored-misc/RefMap";
 import { ParagraphNode } from "./ParagraphNode";
 export declare class ParagraphParser extends BlockParser<ParagraphNode> {

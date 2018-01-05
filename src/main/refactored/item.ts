@@ -1,5 +1,5 @@
 import {BlockParser, BlockParserMeta} from "./BlockParser";
-import {Parser} from "../blocks";
+import {Parser} from "../Parser";
 import {Node} from "../node";
 import {peek, isSpaceOrTab, isBlank} from "./util";
 

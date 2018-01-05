@@ -44,8 +44,6 @@ class NodeWalker {
 }
 exports.NodeWalker = NodeWalker;
 class Node {
-    //onEnter = null;
-    //onExit = null;
     constructor(nodeType, sourcepos) {
         this.parent = null;
         this.firstChild = null;
@@ -56,27 +54,7 @@ class Node {
         this.open = true;
         this.type = nodeType;
         this.sourcepos = sourcepos;
-    } /*
-    isContainer() {
-        switch (this.type) {
-            case 'document':
-            case 'block_quote':
-            case 'list':
-            case 'item':
-            case 'paragraph':
-            case 'atx_heading':
-            case 'setext_heading':
-            case 'emph':
-            case 'strong':
-            case 'link':
-            case 'image':
-            case 'custom_inline':
-            case 'custom_block':
-                return true;
-            default:
-                return false;
-        }
-    }*/
+    }
     unlink() {
         if (this.prev) {
             this.prev.next = this.next;

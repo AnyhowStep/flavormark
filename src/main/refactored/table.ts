@@ -1,4 +1,4 @@
-import {Parser} from "../blocks";
+import {Parser} from "../Parser";
 import {BlockParser} from "./BlockParser";
 import {TableNode, Tr, Th, Td, Thead, Tbody} from "./TableNode";
 import {Node} from "../node";

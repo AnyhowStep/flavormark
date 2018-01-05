@@ -1,7 +1,7 @@
 import { Node } from "../node";
-import { InlineParser } from "../inlines";
+import { InlineParser } from "../InlineParser";
 import { BlockParser } from "../refactored/BlockParser";
-import { Parser } from "../blocks";
+import { Parser } from "../Parser";
 export declare abstract class InParser {
     reinit(): void;
     abstract parse(parser: InlineParser, block: Node, blockParser: BlockParser, mainParserThing: Parser): boolean;

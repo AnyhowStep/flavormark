@@ -1,28 +1,34 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const TextNode_1 = require("./refactored-inline/TextNode");
-const from_code_point_1 = require("./from-code-point");
-const RegexStream_1 = require("./refactored-misc/RegexStream");
+import {TextNode} from "./refactored-inline/TextNode";
+import {fromCodePoint} from "./from-code-point";
+import {BlockParser} from "./refactored/BlockParser";
+import {InParser} from "./refactored-inline/InParser";
+import {RegexStream} from "./refactored-misc/RegexStream";
+import {Node} from "./node";
+import {Parser} from "./Parser";
+
 // These are methods of an InlineParser object, defined below.
 // An InlineParser keeps track of a subject (a string to be
 // parsed) and a position in that subject.
 //TODO consider having InlineParser CONTAIN RegexStream, rather than extending.
 //     It makes more sense since the role of the parser isn't really to be a regex stream
-class InlineParser extends RegexStream_1.RegexStream {
-    constructor(inParsers) {
+export class InlineParser extends RegexStream {
+    private inParsers : InParser[];
+    public constructor (inParsers : InParser[]) {
         super("");
         this.inParsers = inParsers;
     }
-    text(s) {
-        return new TextNode_1.TextNode(s);
+
+    public text (s : string) : TextNode {
+        return new TextNode(s);
     }
-    isTextNode(node) {
-        return node instanceof TextNode_1.TextNode;
+    public isTextNode (node : Node) : node is TextNode {
+        return node instanceof TextNode;
     }
+
     // Parse the next inline element in subject, advancing subject position.
     // On success, add the result to block's children and return true.
     // On failure, return false.
-    parseInline(parser, blockParser, block) {
+    public parseInline (parser : Parser, blockParser : BlockParser, block : Node) {
         var c = this.peek();
         //console.log("peek", this.pos, c, String.fromCharCode(c));
         if (c === -1) {
@@ -35,13 +41,13 @@ class InlineParser extends RegexStream_1.RegexStream {
             }
         }
         this.pos += 1;
-        block.appendChild(this.text(from_code_point_1.fromCodePoint(c)));
+        block.appendChild(this.text(fromCodePoint(c)));
         //console.log("adding text", c, fromCodePoint(c));
         return true;
-    }
-    ;
+    };
+
     // Parse string content in block into inline children,
-    parse(parser, blockParser, block) {
+    public parse (parser : Parser, blockParser : BlockParser, block : Node) {
         for (let i of this.inParsers) {
             i.reinit();
         }
@@ -55,5 +61,3 @@ class InlineParser extends RegexStream_1.RegexStream {
         }
     }
 }
-exports.InlineParser = InlineParser;
-//# sourceMappingURL=inlines.js.map

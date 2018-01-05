@@ -1,5 +1,5 @@
 import { BlockParser, BlockParserMeta } from "./BlockParser";
-import { Parser } from "../blocks";
+import { Parser } from "../Parser";
 import { ListNode } from "./ListNode";
 export declare class ListParser extends BlockParser<ListNode> {
     continue: () => boolean;

@@ -1,10 +1,10 @@
 import {InParser} from "./InParser";
-import {InlineParser} from "../inlines";
+import {InlineParser} from "../InlineParser";
 import {Node} from "../node";
 //import {Node} from "./Node";
 import {BlockParser} from "../refactored/BlockParser";
 import {CheckboxNode} from "./CheckboxNode";
-import {Parser} from "../blocks";
+import {Parser} from "../Parser";
 
 export class CheckboxParser extends InParser {
     public parse (parser : InlineParser, block : Node, blockParser : BlockParser, mainParserThing : Parser) : boolean {

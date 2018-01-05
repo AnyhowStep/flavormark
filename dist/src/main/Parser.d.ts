@@ -1,7 +1,7 @@
 import { BlockParser } from "./refactored/BlockParser";
 import { BlockParserCollection } from "./refactored/BlockParserCollection";
 import { Node } from "./node";
-import { InlineParser } from "./inlines";
+import { InlineParser } from "./InlineParser";
 export interface Options {
     time?: boolean;
 }

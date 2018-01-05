@@ -1,5 +1,5 @@
 import { BlockParser } from "./BlockParser";
-import { Parser } from "../blocks";
+import { Parser } from "../Parser";
 import { Node } from "../node";
 import { HtmlBlockNode } from "./HtmlBlockNode";
 export declare class HtmlBlockParser extends BlockParser<HtmlBlockNode> {

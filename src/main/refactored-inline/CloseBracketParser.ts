@@ -1,5 +1,5 @@
 import {InParser} from "./InParser";
-import {InlineParser} from "../inlines";
+import {InlineParser} from "../InlineParser";
 import {Node} from "../node";
 import {normalizeReference} from "../normalize-reference";
 import {parseLinkTitle, parseLinkDestination, parseLinkLabel} from "../refactored-misc/util";

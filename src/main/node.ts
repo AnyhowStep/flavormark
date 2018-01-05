@@ -44,33 +44,8 @@ export class NodeWalker {
     };
 }
 
-export type NodeType = string;/*(
-    "document"|
-    "block_quote"|
-    "list"|
-    "item"|
-    "paragraph"|
-    "atx_heading"|
-    "setext_heading"|
-    "emph"|
-    "link"|
-    "image"|
-    "strong"|
-    "custom_inline"|
-    "custom_block"|
-    "text"|
-    "code"|
-    "linebreak"|
-    "softbreak"|
-    "html_inline"|
-    "indented_code_block"|
-    "fenced_code_block"|
-    "thematic_break"|
-    "html_block"
-);*/
-
 export class Node {
-    type : NodeType;
+    type : string;
     parent : Node|null = null;
     firstChild : Node|null = null;
     lastChild : Node|null = null;
@@ -80,35 +55,11 @@ export class Node {
     lastLineBlank = false;
     open = true;
 
-    //onEnter = null;
-    //onExit = null;
-
-    public constructor (nodeType : NodeType, sourcepos? : [[number, number], [number, number]]) {
+    public constructor (nodeType : string, sourcepos? : [[number, number], [number, number]]) {
         this.type = nodeType;
         this.sourcepos = sourcepos;
-    }/*
-    isContainer() {
-        switch (this.type) {
-            case 'document':
-            case 'block_quote':
-            case 'list':
-            case 'item':
-            case 'paragraph':
-            case 'atx_heading':
-            case 'setext_heading':
-            case 'emph':
-            case 'strong':
-            case 'link':
-            case 'image':
-            case 'custom_inline':
-            case 'custom_block':
-                return true;
-            default:
-                return false;
-        }
-    }*/
-
-    unlink () {
+    }
+    public unlink () {
         if (this.prev) {
             this.prev.next = this.next;
         } else if (this.parent) {
@@ -123,7 +74,7 @@ export class Node {
         this.next = null;
         this.prev = null;
     };
-    appendChild  (child : Node) {
+    public appendChild  (child : Node) {
         child.unlink();
         child.parent = this;
         if (this.lastChild) {
@@ -135,7 +86,7 @@ export class Node {
             this.lastChild = child;
         }
     };
-    prependChild (child : Node) {
+    public prependChild (child : Node) {
         child.unlink();
         child.parent = this;
         if (this.firstChild) {
@@ -147,7 +98,7 @@ export class Node {
             this.lastChild = child;
         }
     };
-    insertAfter (sibling : Node) {
+    public insertAfter (sibling : Node) {
         sibling.unlink();
         sibling.next = this.next;
         if (sibling.next) {
@@ -160,7 +111,7 @@ export class Node {
             sibling.parent.lastChild = sibling;
         }
     };
-    insertBefore (sibling : Node) {
+    public insertBefore (sibling : Node) {
         sibling.unlink();
         sibling.prev = this.prev;
         if (sibling.prev) {
@@ -173,7 +124,7 @@ export class Node {
             sibling.parent.firstChild = sibling;
         }
     };
-    walker () {
+    public walker () {
         var walker = new NodeWalker(this);
         return walker;
     };

@@ -1,6 +1,6 @@
 
 import {BlockParser, BlockParserMeta} from "./BlockParser";
-import {Parser} from "../blocks";
+import {Parser} from "../Parser";
 import {endsWithBlankLine} from "./util";
 //
 import {ListNode} from "./ListNode";
