@@ -1,4 +1,4 @@
-
+import {ItemParser} from "./item";
 import {BlockParser, BlockParserMeta} from "../BlockParser";
 import {Parser} from "../Parser";
 import {endsWithBlankLine} from "./util";
@@ -30,7 +30,7 @@ export class ListParser extends BlockParser<ListNode> {
         }
     };
 
-    canContain= (blockParser : BlockParserMeta) =>{ return blockParser.isListItem == true; };
+    canContain= (blockParser : BlockParserMeta) =>{ return blockParser instanceof ItemParser; };
     acceptsLines= false;
     isList = true;
     endsWithBlankLineIfLastChildEndsWithBlankLine = true;

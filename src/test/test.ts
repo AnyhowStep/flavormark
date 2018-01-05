@@ -44,8 +44,9 @@ var writer = new commonmark.HtmlRenderer();
 
 import {documentParser} from "../main/refactored/document";
 import {listParser} from "../main/refactored/list";
+import {ItemNode} from "../main/refactored/ItemNode";
 import {blockquoteParser} from "../main/refactored/blockquote";
-import {itemParser} from "../main/refactored/item";
+import {ItemParser} from "../main/refactored/item";
 import {thematicBreakParser} from "../main/refactored/thematic-break";
 import {htmlBlockParser} from "../main/refactored/html-block";
 import {ParagraphParser} from "../main/refactored/paragraph";
@@ -75,7 +76,7 @@ const blockParserCollection = new BlockParserCollection(
     .add(htmlBlockParser)
     .add(setextHeadingParser)
     .add(thematicBreakParser)
-    .add(itemParser)
+    .add(new ItemParser("item", ItemNode, listParser))
     .add(indentedCodeBlockParser)
 
     .add(tableParser)

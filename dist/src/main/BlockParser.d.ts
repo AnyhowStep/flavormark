@@ -4,7 +4,8 @@ export declare type BlockNodeCtor<NodeT extends Node> = {
     new (nodeType: string, sourcepos: [[number, number], [number, number]]): NodeT;
 };
 export interface BlockParserMeta {
-    canContain: (blockParser: BlockParserMeta) => boolean;
+    canContain: (blockParser: BlockParserMeta, node: Node) => boolean;
+    canBeContainedBy: (blockParser: BlockParserMeta, node: Node) => boolean;
     acceptsLines: boolean;
     earlyExitOnEnd?: boolean;
     parseInlines?: boolean;
@@ -32,7 +33,8 @@ export declare abstract class BlockParser<NodeT extends Node = Node> implements 
     getString(_node: NodeT): string;
     unsetString(_node: NodeT): void;
     setString(_node: NodeT, _str: string): void;
-    canContain: (blockParser: BlockParserMeta) => boolean;
+    canContain: (blockParser: BlockParserMeta, node: Node) => boolean;
+    canBeContainedBy: (blockParser: BlockParserMeta, node: Node) => boolean;
     acceptsLines: boolean;
     earlyExitOnEnd?: boolean;
     parseInlines?: boolean;

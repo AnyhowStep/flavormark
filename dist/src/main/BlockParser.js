@@ -13,6 +13,9 @@ class BlockParser {
         this.canContain = () => {
             throw new Error("Not implemented");
         };
+        this.canBeContainedBy = () => {
+            return true;
+        };
         this.acceptsLines = false;
         this.nodeType = nodeType;
         this.nodeCtor = nodeCtor;

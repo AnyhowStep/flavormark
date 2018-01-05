@@ -77,15 +77,20 @@ export class Parser {
         if (this.tip == null) {
             throw new Error("this.tip cannot be null");
         }
-        while (!this.blockParsers.get(this.tip).canContain(blockParser)) {
-            this.finalize(this.tip, this.lineNumber - 1);
-        }
 
         const ctor = blockParser.getNodeCtor();
 
         var column_number = offset + 1; // offset 0 = column 1
         const tag = blockParser.getNodeType();
         var newBlock = new ctor(tag, [[this.lineNumber, column_number], [0, 0]]);
+
+        while (
+            !this.blockParsers.get(this.tip).canContain(blockParser, newBlock) ||
+            !blockParser.canBeContainedBy(this.blockParsers.get(this.tip), this.tip)
+        ) {
+            this.finalize(this.tip, this.lineNumber - 1);
+        }
+
         this.tip.appendChild(newBlock);
         this.tip = newBlock;
         return newBlock;

@@ -11,14 +11,14 @@ export declare class NodeWalker {
 }
 export declare class Node {
     type: string;
+    sourcepos?: [[number, number], [number, number]];
+    lastLineBlank: boolean;
+    open: boolean;
     parent: Node | null;
     firstChild: Node | null;
     lastChild: Node | null;
     prev: Node | null;
     next: Node | null;
-    sourcepos?: [[number, number], [number, number]];
-    lastLineBlank: boolean;
-    open: boolean;
     constructor(nodeType: string, sourcepos?: [[number, number], [number, number]]);
     unlink(): void;
     appendChild(child: Node): void;

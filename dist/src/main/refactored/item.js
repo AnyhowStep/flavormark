@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
 const util_1 = require("./util");
 const ListNode_1 = require("./ListNode");
-const ItemNode_1 = require("./ItemNode");
 var reBulletListMarker = /^[*+-]/;
 var reOrderedListMarker = /^(\d{1,9})([.)])/;
 // Parse a list marker and return data on the marker (type,
@@ -130,7 +129,12 @@ class ItemParser extends BlockParser_1.BlockParser {
             return true;
         };
         this.finalize = () => { return; };
-        this.canContain = (blockParser) => { return blockParser.isListItem != true; };
+        this.canContain = (blockParser) => {
+            return blockParser != this;
+        };
+        this.canBeContainedBy = (blockParser) => {
+            return blockParser == this.listParser;
+        };
         this.acceptsLines = false;
         this.ignoreLastLineBlank = (parser, container) => {
             return (container.firstChild == null &&
@@ -143,6 +147,6 @@ class ItemParser extends BlockParser_1.BlockParser {
     }
 }
 exports.ItemParser = ItemParser;
-const list_1 = require("./list");
-exports.itemParser = new ItemParser("item", ItemNode_1.ItemNode, list_1.listParser);
+//import {listParser} from "./list";
+//export const itemParser = new ItemParser("item", ItemNode, listParser);
 //# sourceMappingURL=item.js.map

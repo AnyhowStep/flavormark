@@ -46,14 +46,16 @@ export class NodeWalker {
 
 export class Node {
     type : string;
+    sourcepos? : [[number, number], [number, number]];
+    lastLineBlank = false;
+    open = true;
+
     parent : Node|null = null;
     firstChild : Node|null = null;
     lastChild : Node|null = null;
     prev : Node|null = null;
     next : Node|null = null;
-    sourcepos? : [[number, number], [number, number]];
-    lastLineBlank = false;
-    open = true;
+
 
     public constructor (nodeType : string, sourcepos? : [[number, number], [number, number]]) {
         this.type = nodeType;

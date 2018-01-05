@@ -45,13 +45,13 @@ class NodeWalker {
 exports.NodeWalker = NodeWalker;
 class Node {
     constructor(nodeType, sourcepos) {
+        this.lastLineBlank = false;
+        this.open = true;
         this.parent = null;
         this.firstChild = null;
         this.lastChild = null;
         this.prev = null;
         this.next = null;
-        this.lastLineBlank = false;
-        this.open = true;
         this.type = nodeType;
         this.sourcepos = sourcepos;
     }

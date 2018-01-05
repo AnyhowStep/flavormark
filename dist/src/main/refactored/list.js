@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const item_1 = require("./item");
 const BlockParser_1 = require("../BlockParser");
 const util_1 = require("./util");
 //
@@ -30,7 +31,7 @@ class ListParser extends BlockParser_1.BlockParser {
                 item = item.next;
             }
         };
-        this.canContain = (blockParser) => { return blockParser.isListItem == true; };
+        this.canContain = (blockParser) => { return blockParser instanceof item_1.ItemParser; };
         this.acceptsLines = false;
         this.isList = true;
         this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;

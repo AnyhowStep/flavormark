@@ -177,7 +177,12 @@ export class ItemParser extends BlockParser<ItemNode> {
         return true;
     };
     finalize= () => { return; };
-    canContain= (blockParser : BlockParserMeta) =>{ return blockParser.isListItem != true; };
+    canContain= (blockParser : BlockParserMeta) : boolean => {
+        return blockParser != this;
+    };
+    canBeContainedBy = (blockParser : BlockParserMeta) => {
+        return blockParser == this.listParser;
+    }
     acceptsLines = false;
     ignoreLastLineBlank= (parser : Parser, container : Node) => {
         return (
@@ -190,5 +195,5 @@ export class ItemParser extends BlockParser<ItemNode> {
     endsWithBlankLineIfLastChildEndsWithBlankLine = true;
 }
 
-import {listParser} from "./list";
-export const itemParser = new ItemParser("item", ItemNode, listParser);
+//import {listParser} from "./list";
+//export const itemParser = new ItemParser("item", ItemNode, listParser);
