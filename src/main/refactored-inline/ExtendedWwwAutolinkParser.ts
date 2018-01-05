@@ -20,7 +20,6 @@ function countChar (str : string, char : string) {
 }
 
 export class ExtendedWwwAutolinkParser extends InParser {
-    // Attempt to parse an autolink (URL or email in pointy brackets).
     public parse (parser : InlineParser, block : Node) : boolean {
         const startpos = parser.pos;
         //There must be at least one period, and no underscores may be present in the last two segments of the domain.

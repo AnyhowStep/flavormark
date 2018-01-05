@@ -110,6 +110,7 @@ import {SmartStringParser} from "../main/refactored-inline/SmartStringParser";
 import {StrikethroughParser} from "../main/custom/StrikethroughParser";
 import {CheckboxParser} from "../main/refactored-inline/CheckboxParser";
 import {ExtendedWwwAutolinkParser} from "../main/refactored-inline/ExtendedWwwAutolinkParser";
+import {ExtendedEmailAutolinkParser} from "../main/refactored-inline/ExtendedEmailAutolinkParser";
 
 const delimParser = new DelimiterParser(delimiters, [
     new EmphasisParser(),
@@ -160,6 +161,7 @@ const flavorInParsers : InParser[] = [
     new EntityParser(),
 
     new ExtendedWwwAutolinkParser(),
+    new ExtendedEmailAutolinkParser(),
 
     new StringParser(), //Should this be a default parser that cannot be removed?
 ];
@@ -336,6 +338,10 @@ process.exit();*/
     }
 )
 process.exit();*/
+specTests('src/test/extended-email-autolink.txt', results, function(z : string) {
+    return writer.render(flavorReader.parse(z));
+});
+//process.exit();
 specTests('src/test/extended-www-autolink.txt', results, function(z : string) {
     return writer.render(flavorReader.parse(z));
 });
