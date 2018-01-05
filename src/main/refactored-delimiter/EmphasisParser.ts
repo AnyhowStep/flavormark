@@ -1,5 +1,5 @@
 import {DelimitedInlineParser, DelimiterInfo, ParseArgs} from "./DelimitedInlineParser";
-import {RegexStream} from "../refactored-misc/RegexStream";
+import {RegexStream} from "../RegexStream";
 import {Node} from "../Node";
 import {removeDelimitersBetween} from "../refactored-misc/DelimiterCollection";
 var C_ASTERISK = 42;

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("../common");
 const from_code_point_1 = require("../from-code-point");
 const normalize_reference_1 = require("../normalize-reference");
-const RegexStream_1 = require("./RegexStream");
+const RegexStream_1 = require("../RegexStream");
 var C_BACKSLASH = 92;
 var C_OPEN_PAREN = 40;
 var C_CLOSE_PAREN = 41;

@@ -2,7 +2,7 @@ import {TextNode} from "./TextNode";
 import {fromCodePoint} from "./from-code-point";
 import {BlockParser} from "./BlockParser";
 import {InlineParser} from "./InlineParser";
-import {RegexStream} from "./refactored-misc/RegexStream";
+import {RegexStream} from "./RegexStream";
 import {Node} from "./Node";
 import {Parser} from "./Parser";
 

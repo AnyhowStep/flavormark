@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const TextNode_1 = require("./TextNode");
 const from_code_point_1 = require("./from-code-point");
-const RegexStream_1 = require("./refactored-misc/RegexStream");
+const RegexStream_1 = require("./RegexStream");
 // These are methods of an InlineContentParser object, defined below.
 // An InlineContentParser keeps track of a subject (a string to be
 // parsed) and a position in that subject.

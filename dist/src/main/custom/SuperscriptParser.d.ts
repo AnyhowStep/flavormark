@@ -1,5 +1,5 @@
 import { DelimitedInlineParser, DelimiterInfo, ParseArgs } from "../refactored-delimiter/DelimitedInlineParser";
-import { RegexStream } from "../refactored-misc/RegexStream";
+import { RegexStream } from "../RegexStream";
 export declare class SuperscriptParser extends DelimitedInlineParser {
     getDelimiterCharacterCodes(): number[];
     advanceDelimiter(stream: RegexStream, delimiter: number): void;

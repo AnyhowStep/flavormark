@@ -1,7 +1,7 @@
 import {normalizeURI, unescapeString, ESCAPABLE} from "../common";
 import {fromCodePoint} from "../from-code-point";
 import {normalizeReference} from "../normalize-reference";
-import {RegexStream} from "./RegexStream";
+import {RegexStream} from "../RegexStream";
 
 var C_BACKSLASH = 92;
 var C_OPEN_PAREN = 40;

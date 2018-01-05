@@ -1,5 +1,5 @@
 import { DelimitedInlineParser, DelimiterInfo, ParseArgs } from "./DelimitedInlineParser";
-import { RegexStream } from "../refactored-misc/RegexStream";
+import { RegexStream } from "../RegexStream";
 export declare class SmartQuoteParser extends DelimitedInlineParser {
     getDelimiterCharacterCodes(): number[];
     advanceDelimiter(stream: RegexStream): void;

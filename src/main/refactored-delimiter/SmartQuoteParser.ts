@@ -1,5 +1,5 @@
 import {DelimitedInlineParser, DelimiterInfo, ParseArgs} from "./DelimitedInlineParser";
-import {RegexStream} from "../refactored-misc/RegexStream";
+import {RegexStream} from "../RegexStream";
 
 var C_SINGLEQUOTE = 39;
 var C_DOUBLEQUOTE = 34;

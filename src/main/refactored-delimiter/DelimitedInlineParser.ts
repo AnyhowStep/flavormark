@@ -1,4 +1,4 @@
-import {RegexStream} from "../refactored-misc/RegexStream";
+import {RegexStream} from "../RegexStream";
 import {Delimiter, DelimiterCollection} from "../refactored-misc/DelimiterCollection";
 
 export interface DelimiterInfo {
