@@ -2,33 +2,33 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const encode = require("mdurl/encode");
 const decode = require("mdurl/decode");
-var C_BACKSLASH = 92;
-var decodeHTML = require('entities').decodeHTML;
+const C_BACKSLASH = 92;
+const decodeHTML = require('entities').decodeHTML;
 exports.ENTITY = "&(?:#x[a-f0-9]{1,8}|#[0-9]{1,8}|[a-z][a-z0-9]{1,31});";
-var TAGNAME = '[A-Za-z][A-Za-z0-9-]*';
-var ATTRIBUTENAME = '[a-zA-Z_:][a-zA-Z0-9:._-]*';
-var UNQUOTEDVALUE = "[^\"'=<>`\\x00-\\x20]+";
-var SINGLEQUOTEDVALUE = "'[^']*'";
-var DOUBLEQUOTEDVALUE = '"[^"]*"';
-var ATTRIBUTEVALUE = "(?:" + UNQUOTEDVALUE + "|" + SINGLEQUOTEDVALUE + "|" + DOUBLEQUOTEDVALUE + ")";
-var ATTRIBUTEVALUESPEC = "(?:" + "\\s*=" + "\\s*" + ATTRIBUTEVALUE + ")";
-var ATTRIBUTE = "(?:" + "\\s+" + ATTRIBUTENAME + ATTRIBUTEVALUESPEC + "?)";
+const TAGNAME = '[A-Za-z][A-Za-z0-9-]*';
+const ATTRIBUTENAME = '[a-zA-Z_:][a-zA-Z0-9:._-]*';
+const UNQUOTEDVALUE = "[^\"'=<>`\\x00-\\x20]+";
+const SINGLEQUOTEDVALUE = "'[^']*'";
+const DOUBLEQUOTEDVALUE = '"[^"]*"';
+const ATTRIBUTEVALUE = "(?:" + UNQUOTEDVALUE + "|" + SINGLEQUOTEDVALUE + "|" + DOUBLEQUOTEDVALUE + ")";
+const ATTRIBUTEVALUESPEC = "(?:" + "\\s*=" + "\\s*" + ATTRIBUTEVALUE + ")";
+const ATTRIBUTE = "(?:" + "\\s+" + ATTRIBUTENAME + ATTRIBUTEVALUESPEC + "?)";
 exports.OPENTAG = "<" + TAGNAME + ATTRIBUTE + "*" + "\\s*/?>";
 exports.CLOSETAG = "</" + TAGNAME + "\\s*[>]";
-var HTMLCOMMENT = "<!---->|<!--(?:-?[^>-])(?:-?[^-])*-->";
-var PROCESSINGINSTRUCTION = "[<][?].*?[?][>]";
-var DECLARATION = "<![A-Z]+" + "\\s+[^>]*>";
-var CDATA = "<!\\[CDATA\\[[\\s\\S]*?\\]\\]>";
-var HTMLTAG = "(?:" + exports.OPENTAG + "|" + exports.CLOSETAG + "|" + HTMLCOMMENT + "|" +
+const HTMLCOMMENT = "<!---->|<!--(?:-?[^>-])(?:-?[^-])*-->";
+const PROCESSINGINSTRUCTION = "[<][?].*?[?][>]";
+const DECLARATION = "<![A-Z]+" + "\\s+[^>]*>";
+const CDATA = "<!\\[CDATA\\[[\\s\\S]*?\\]\\]>";
+const HTMLTAG = "(?:" + exports.OPENTAG + "|" + exports.CLOSETAG + "|" + HTMLCOMMENT + "|" +
     PROCESSINGINSTRUCTION + "|" + DECLARATION + "|" + CDATA + ")";
 exports.reHtmlTag = new RegExp('^' + HTMLTAG, 'i');
-var reBackslashOrAmp = /[\\&]/;
+const reBackslashOrAmp = /[\\&]/;
 exports.ESCAPABLE = '[!"#$%&\'()*+,./:;<=>?@[\\\\\\]^_`{|}~-]';
-var reEntityOrEscapedChar = new RegExp('\\\\' + exports.ESCAPABLE + '|' + exports.ENTITY, 'gi');
-var XMLSPECIAL = '[&<>"]';
-var reXmlSpecial = new RegExp(XMLSPECIAL, 'g');
-var reXmlSpecialOrEntity = new RegExp(exports.ENTITY + '|' + XMLSPECIAL, 'gi');
-var unescapeChar = function (s) {
+const reEntityOrEscapedChar = new RegExp('\\\\' + exports.ESCAPABLE + '|' + exports.ENTITY, 'gi');
+const XMLSPECIAL = '[&<>"]';
+const reXmlSpecial = new RegExp(XMLSPECIAL, 'g');
+const reXmlSpecialOrEntity = new RegExp(exports.ENTITY + '|' + XMLSPECIAL, 'gi');
+const unescapeChar = function (s) {
     if (s.charCodeAt(0) === C_BACKSLASH) {
         return s.charAt(1);
     }
@@ -53,7 +53,7 @@ exports.normalizeURI = function (uri) {
         return uri;
     }
 };
-var replaceUnsafeChar = function (s) {
+const replaceUnsafeChar = function (s) {
     switch (s) {
         case '&':
             return '&amp;';

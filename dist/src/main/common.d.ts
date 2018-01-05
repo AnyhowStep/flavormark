@@ -1,8 +1,8 @@
-export declare var ENTITY: string;
-export declare var OPENTAG: string;
-export declare var CLOSETAG: string;
-export declare var reHtmlTag: RegExp;
-export declare var ESCAPABLE: string;
-export declare var unescapeString: (s: string) => string;
-export declare var normalizeURI: (uri: string) => string;
-export declare var escapeXml: (s: string, preserve_entities?: boolean | undefined) => string;
+export declare const ENTITY = "&(?:#x[a-f0-9]{1,8}|#[0-9]{1,8}|[a-z][a-z0-9]{1,31});";
+export declare const OPENTAG: string;
+export declare const CLOSETAG: string;
+export declare const reHtmlTag: RegExp;
+export declare const ESCAPABLE = "[!\"#$%&'()*+,./:;<=>?@[\\\\\\]^_`{|}~-]";
+export declare const unescapeString: (s: string) => string;
+export declare const normalizeURI: (uri: string) => string;
+export declare const escapeXml: (s: string, preserve_entities?: boolean | undefined) => string;
