@@ -32,6 +32,7 @@ export declare class HtmlRenderer extends Renderer {
     atx_heading(node: any, entering: boolean): void;
     setext_heading(node: any, entering: boolean): void;
     code(node: any, entering: boolean): void;
+    latex(node: any, entering: boolean): void;
     indented_code_block(node: any, entering: boolean): void;
     fenced_code_block(node: any, entering: boolean): void;
     thematic_break(node: any, entering: boolean): void;
