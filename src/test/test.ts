@@ -52,6 +52,7 @@ import {ParagraphParser} from "../main/refactored/paragraph";
 import {atxHeadingParser} from "../main/refactored/atx-heading";
 import {setextHeadingParser} from "../main/refactored/setext-heading";
 import {fencedCodeBlockParser} from "../main/refactored/fenced-code-block";
+import {latexBlockParser} from "../main/refactored/latex-block";
 import {indentedCodeBlockParser} from "../main/refactored/indented-code-block";
 import {BlockParserCollection} from "../main/refactored/BlockParserCollection";
 //import {Node} from "../main/refactored/Node";
@@ -68,6 +69,9 @@ const blockParserCollection = new BlockParserCollection(
     .add(blockquoteParser)
     .add(atxHeadingParser)
     .add(fencedCodeBlockParser)
+
+    //.add(latexBlockParser)
+
     .add(htmlBlockParser)
     .add(setextHeadingParser)
     .add(thematicBreakParser)

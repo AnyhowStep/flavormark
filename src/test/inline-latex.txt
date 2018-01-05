@@ -14,7 +14,7 @@ This example also illustrates stripping of leading and trailing spaces:
 ```````````````````````````````` example
 $$ foo $ bar  $$
 .
-<p><latex>foo $ bar</latex></p>
+<p><latex></latex> foo <latex>bar</latex>$</p>
 ````````````````````````````````
 
 
@@ -24,7 +24,7 @@ spaces:
 ```````````````````````````````` example
 $ $$ $
 .
-<p><latex>$$</latex></p>
+<p><latex></latex><latex></latex></p>
 ````````````````````````````````
 
 
@@ -35,7 +35,9 @@ $$
 foo
 $$
 .
-<p><latex>foo</latex></p>
+<p><latex></latex>
+foo
+<latex></latex></p>
 ````````````````````````````````
 
 
@@ -76,7 +78,7 @@ targeted.)
 ```````````````````````````````` example
 $foo $$ bar$
 .
-<p><latex>foo $$ bar</latex></p>
+<p><latex>foo</latex><latex>bar</latex></p>
 ````````````````````````````````
 
 
@@ -86,7 +88,7 @@ are treated literally:
 ```````````````````````````````` example
 $foo\$bar$
 .
-<p><latex>foo\</latex>bar$</p>
+<p><latex>foo\$bar</latex></p>
 ````````````````````````````````
 
 
@@ -158,7 +160,7 @@ we just have literal backticks:
 ```````````````````````````````` example
 $$$foo$$
 .
-<p>$$$foo$$</p>
+<p><latex></latex><latex>foo</latex>$</p>
 ````````````````````````````````
 
 
@@ -174,5 +176,5 @@ closing backtick strings to be equal in length:
 ```````````````````````````````` example
 $foo$$bar$$
 .
-<p>$foo<latex>bar</latex></p>
+<p><latex>foo</latex><latex>bar</latex>$</p>
 ````````````````````````````````
