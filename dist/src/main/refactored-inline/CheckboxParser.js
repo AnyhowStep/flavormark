@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("./InParser");
+const InParser_1 = require("../InParser");
 const CheckboxNode_1 = require("./CheckboxNode");
 class CheckboxParser extends InParser_1.InParser {
     parse(parser, block, blockParser, mainParserThing) {

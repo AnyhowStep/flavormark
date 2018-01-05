@@ -1,4 +1,4 @@
-import { InParser } from "../refactored-inline/InParser";
+import { InParser } from "../InParser";
 import { InlineContentParser } from "../InlineContentParser";
 import { Node } from "../Node";
 import { Delimiter, DelimiterCollection } from "../refactored-misc/DelimiterCollection";

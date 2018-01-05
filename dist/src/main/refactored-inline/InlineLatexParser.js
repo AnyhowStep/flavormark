@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("./InParser");
+const InParser_1 = require("../InParser");
 //import {Node} from "./Node";
 //import {CodeNode} from "./CodeNode";
 const LatexNode_1 = require("./LatexNode");

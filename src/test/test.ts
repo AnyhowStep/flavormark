@@ -92,7 +92,7 @@ import {BracketCollection} from "../main/refactored-misc/BracketCollection";
 const delimiters = new DelimiterCollection();
 const brackets = new BracketCollection(delimiters);
 
-import {InParser} from "../main/refactored-inline/InParser";
+import {InParser} from "../main/InParser";
 import {NewlineParser} from "../main/refactored-inline/NewlineParser";
 import {EscapeCharacterParser} from "../main/refactored-inline/EscapeCharacterParser";
 import {InlineCodeParser} from "../main/refactored-inline/InlineCodeParser";

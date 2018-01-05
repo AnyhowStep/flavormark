@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("./InParser");
+const InParser_1 = require("../InParser");
 //import {Node} from "./Node";
 // Matches a string of non-special characters.
 //var reMain = /^[^\n`\[\]\\!<&*_'"]+/m;

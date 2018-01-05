@@ -1,7 +1,7 @@
-import {Node} from "../Node";
-import {InlineContentParser} from "../InlineContentParser";
-import {BlockParser} from "../BlockParser";
-import {Parser} from "../Parser";
+import {Node} from "./Node";
+import {InlineContentParser} from "./InlineContentParser";
+import {BlockParser} from "./BlockParser";
+import {Parser} from "./Parser";
 
 //TODO rename to InlineContentParser or something
 export abstract class InParser {

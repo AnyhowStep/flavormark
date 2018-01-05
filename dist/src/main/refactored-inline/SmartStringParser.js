@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("./InParser");
+const InParser_1 = require("../InParser");
 //import {Node} from "./Node";
 class SmartStringParser extends InParser_1.InParser {
     // Parse a run of ordinary characters, or a single character with

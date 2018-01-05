@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("./InParser");
+const InParser_1 = require("../InParser");
 const common_1 = require("../common");
 const LinkNode_1 = require("./LinkNode");
 var C_LESSTHAN = 60;

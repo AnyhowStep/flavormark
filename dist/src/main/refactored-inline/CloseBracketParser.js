@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InParser_1 = require("./InParser");
+const InParser_1 = require("../InParser");
 const normalize_reference_1 = require("../normalize-reference");
 const util_1 = require("../refactored-misc/util");
 const LinkNode_1 = require("./LinkNode");
