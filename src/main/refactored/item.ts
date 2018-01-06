@@ -157,7 +157,7 @@ export class ItemParser extends BlockParser<ItemNode> {
     };
     continue (parser : Parser, container : ItemNode) {
         if (parser.blank) {
-            if (container.firstChild == null) {
+            if (container.getFirstChild() == null) {
                 // Blank line after empty list item
                 return false;
             } else {
@@ -186,7 +186,7 @@ export class ItemParser extends BlockParser<ItemNode> {
     acceptsLines = false;
     public ignoreLastLineBlank (parser : Parser, container : Node) {
         return (
-            container.firstChild == null &&
+            container.getFirstChild() == null &&
             container.sourcepos != null &&
             container.sourcepos[0][0] === parser.lineNumber
         );

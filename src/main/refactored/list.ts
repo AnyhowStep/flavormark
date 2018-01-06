@@ -8,25 +8,25 @@ import {ListNode} from "./ListNode";
 export class ListParser extends BlockParser<ListNode> {
     continue () { return true; }
     finalize (parser : Parser, block : ListNode) {
-        var item = block.firstChild;
+        var item = block.getFirstChild();
         while (item) {
             // check for non-final list item ending with blank line:
-            if (endsWithBlankLine(parser.getBlockParsers(), item) && item.next) {
+            if (endsWithBlankLine(parser.getBlockParsers(), item) && item.getNext()) {
                 block.listData.tight = false;
                 break;
             }
             // recurse into children of list item, to see if there are
             // spaces between any of them:
-            var subitem = item.firstChild;
+            var subitem = item.getFirstChild();
             while (subitem) {
                 if (endsWithBlankLine(parser.getBlockParsers(), subitem) &&
-                    (item.next || subitem.next)) {
+                    (item.getNext() || subitem.getNext())) {
                     block.listData.tight = false;
                     break;
                 }
-                subitem = subitem.next;
+                subitem = subitem.getNext();
             }
-            item = item.next;
+            item = item.getNext();
         }
     };
 

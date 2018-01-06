@@ -75,7 +75,7 @@ class Parser {
                 if (this.oldtip == null) {
                     throw new Error("this.oldtip cannot be null");
                 }
-                var parent = this.oldtip.parent;
+                var parent = this.oldtip.getParent();
                 this.finalize(this.oldtip, this.lineNumber - 1);
                 if (parent == null) {
                     throw new Error("parent cannot be null");
@@ -168,7 +168,7 @@ class Parser {
         // Bail out on failure: container will point to the last matching block.
         // Set all_matched to false if not all containers match.
         var lastChild;
-        while ((lastChild = container.lastChild) && lastChild.open) {
+        while ((lastChild = container.getLastChild()) && lastChild.open) {
             container = lastChild;
             this.findNextNonspace();
             const continued = (this.blockParsers.get(container).continue(this, container));
@@ -184,7 +184,7 @@ class Parser {
                 }
             }
             if (!all_matched) {
-                container = container.parent; // back up to last matching block
+                container = container.getParent(); // back up to last matching block
                 break;
             }
         }
@@ -253,8 +253,11 @@ class Parser {
             }
             // finalize any blocks not matched
             this.closeUnmatchedBlocks();
-            if (this.blank && container.lastChild) {
-                container.lastChild.lastLineBlank = true;
+            if (this.blank) {
+                const lastChild = container.getLastChild();
+                if (lastChild != null) {
+                    lastChild.lastLineBlank = true;
+                }
             }
             // Block quote lines are never blank as they start with >
             // and we don't count blanks in fenced code for purposes of tight/loose
@@ -266,7 +269,7 @@ class Parser {
             var cont = container;
             while (cont) {
                 cont.lastLineBlank = lastLineBlank;
-                cont = cont.parent;
+                cont = cont.getParent();
             }
             if (this.blockParsers.get(container).acceptsLines) {
                 this.addLine();
@@ -291,7 +294,7 @@ class Parser {
     // of paragraphs for reference definitions.  Reset the tip to the
     // parent of the closed block.
     finalize(block, lineNumber) {
-        var above = block.parent;
+        var above = block.getParent();
         block.open = false;
         if (block.sourcepos == null) {
             throw new Error("block.sourcepos cannot be null");

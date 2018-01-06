@@ -10,10 +10,11 @@ import {ItemParser} from "../refactored/item";
 export class CheckboxParser extends InlineParser {
     public parse (parser : InlineContentParser, block : Node, blockParser : BlockParser, mainParserThing : Parser) : boolean {
         if (mainParserThing.isParagraphNode(block)) {
-            if (block.parent == null) {
+            const parent = block.getParent();
+            if (parent == null) {
                 return false;
             }
-            block = block.parent;
+            block = parent;
             blockParser = mainParserThing.getBlockParser(block);
         }
 

@@ -13,25 +13,25 @@ class ListParser extends BlockParser_1.BlockParser {
     }
     continue() { return true; }
     finalize(parser, block) {
-        var item = block.firstChild;
+        var item = block.getFirstChild();
         while (item) {
             // check for non-final list item ending with blank line:
-            if (util_1.endsWithBlankLine(parser.getBlockParsers(), item) && item.next) {
+            if (util_1.endsWithBlankLine(parser.getBlockParsers(), item) && item.getNext()) {
                 block.listData.tight = false;
                 break;
             }
             // recurse into children of list item, to see if there are
             // spaces between any of them:
-            var subitem = item.firstChild;
+            var subitem = item.getFirstChild();
             while (subitem) {
                 if (util_1.endsWithBlankLine(parser.getBlockParsers(), subitem) &&
-                    (item.next || subitem.next)) {
+                    (item.getNext() || subitem.getNext())) {
                     block.listData.tight = false;
                     break;
                 }
-                subitem = subitem.next;
+                subitem = subitem.getNext();
             }
-            item = item.next;
+            item = item.getNext();
         }
     }
     ;

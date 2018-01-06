@@ -16,7 +16,7 @@ class NewlineParser extends InlineParser_1.InlineParser {
         }
         ++parser.pos;
         // check previous node for trailing spaces
-        var lastc = block.lastChild;
+        var lastc = block.getLastChild();
         if (lastc != null && parser.isTextNode(lastc) && lastc.getString()[lastc.getString().length - 1] === ' ') {
             var hardbreak = lastc.getString()[lastc.getString().length - 2] === ' ';
             lastc.setString(lastc.getString().replace(reFinalSpace, ''));

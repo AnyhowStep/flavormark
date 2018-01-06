@@ -18,8 +18,8 @@ class NodeWalker {
             return null;
         }
         if (entering) {
-            if (cur.firstChild) {
-                this.current = cur.firstChild;
+            if (cur.getFirstChild()) {
+                this.current = cur.getFirstChild();
                 this.entering = true;
             }
             else {
@@ -30,12 +30,12 @@ class NodeWalker {
         else if (cur === this.root) {
             this.current = null;
         }
-        else if (cur.next === null) {
-            this.current = cur.parent;
+        else if (cur.getNext() === null) {
+            this.current = cur.getParent();
             this.entering = false;
         }
         else {
-            this.current = cur.next;
+            this.current = cur.getNext();
             this.entering = true;
         }
         return { entering: entering, node: cur };
@@ -54,6 +54,21 @@ class Node {
         this.next = null;
         this.type = nodeType;
         this.sourcepos = sourcepos;
+    }
+    getParent() {
+        return this.parent;
+    }
+    getFirstChild() {
+        return this.firstChild;
+    }
+    getLastChild() {
+        return this.lastChild;
+    }
+    getPrev() {
+        return this.prev;
+    }
+    getNext() {
+        return this.next;
     }
     unlink() {
         if (this.prev) {

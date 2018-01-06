@@ -32,7 +32,7 @@ export var endsWithBlankLine = function(blockParsers : BlockParserCollection, bl
         }
         const p = blockParsers.get(block);
         if (p.endsWithBlankLineIfLastChildEndsWithBlankLine) {
-            block = block.lastChild;
+            block = block.getLastChild();
         } else {
             break;
         }

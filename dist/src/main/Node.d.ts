@@ -10,15 +10,20 @@ export declare class NodeWalker {
     } | null;
 }
 export declare class Node {
-    type: string;
-    sourcepos?: [[number, number], [number, number]];
+    readonly type: string;
+    readonly sourcepos?: [[number, number], [number, number]];
     lastLineBlank: boolean;
     open: boolean;
-    parent: Node | null;
-    firstChild: Node | null;
-    lastChild: Node | null;
-    prev: Node | null;
-    next: Node | null;
+    private parent;
+    private firstChild;
+    private lastChild;
+    private prev;
+    private next;
+    getParent(): Node | null;
+    getFirstChild(): Node | null;
+    getLastChild(): Node | null;
+    getPrev(): Node | null;
+    getNext(): Node | null;
     constructor(nodeType: string, sourcepos?: [[number, number], [number, number]]);
     unlink(): void;
     appendChild(child: Node): void;

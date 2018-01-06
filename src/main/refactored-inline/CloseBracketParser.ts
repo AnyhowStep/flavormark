@@ -120,9 +120,9 @@ export class CloseBracketParser extends InlineParser {
             node.title = title || '';
 
             var tmp, next;
-            tmp = opener.node.next;
+            tmp = opener.node.getNext();
             while (tmp) {
-                next = tmp.next;
+                next = tmp.getNext();
                 tmp.unlink();
                 node.appendChild(tmp);
                 tmp = next;

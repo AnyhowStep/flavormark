@@ -6,10 +6,11 @@ const item_1 = require("../refactored/item");
 class CheckboxParser extends InlineParser_1.InlineParser {
     parse(parser, block, blockParser, mainParserThing) {
         if (mainParserThing.isParagraphNode(block)) {
-            if (block.parent == null) {
+            const parent = block.getParent();
+            if (parent == null) {
                 return false;
             }
-            block = block.parent;
+            block = parent;
             blockParser = mainParserThing.getBlockParser(block);
         }
         if (!(blockParser instanceof item_1.ItemParser)) {

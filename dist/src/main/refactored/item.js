@@ -112,7 +112,7 @@ class ItemParser extends BlockParser_1.BlockParser {
     ;
     continue(parser, container) {
         if (parser.blank) {
-            if (container.firstChild == null) {
+            if (container.getFirstChild() == null) {
                 // Blank line after empty list item
                 return false;
             }
@@ -143,7 +143,7 @@ class ItemParser extends BlockParser_1.BlockParser {
         return blockParser == this.listParser;
     }
     ignoreLastLineBlank(parser, container) {
-        return (container.firstChild == null &&
+        return (container.getFirstChild() == null &&
             container.sourcepos != null &&
             container.sourcepos[0][0] === parser.lineNumber);
     }

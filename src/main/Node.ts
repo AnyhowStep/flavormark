@@ -20,8 +20,8 @@ export class NodeWalker {
         }
 
         if (entering) {
-            if (cur.firstChild) {
-                this.current = cur.firstChild;
+            if (cur.getFirstChild()) {
+                this.current = cur.getFirstChild();
                 this.entering = true;
             } else {
                 // stay on node but exit
@@ -31,12 +31,12 @@ export class NodeWalker {
         } else if (cur === this.root) {
             this.current = null;
 
-        } else if (cur.next === null) {
-            this.current = cur.parent;
+        } else if (cur.getNext() === null) {
+            this.current = cur.getParent();
             this.entering = false;
 
         } else {
-            this.current = cur.next;
+            this.current = cur.getNext();
             this.entering = true;
         }
 
@@ -45,16 +45,32 @@ export class NodeWalker {
 }
 
 export class Node {
-    type : string;
-    sourcepos? : [[number, number], [number, number]];
+    readonly type : string;
+    readonly sourcepos? : [[number, number], [number, number]];
     lastLineBlank = false;
     open = true;
 
-    parent : Node|null = null;
-    firstChild : Node|null = null;
-    lastChild : Node|null = null;
-    prev : Node|null = null;
-    next : Node|null = null;
+    private parent : Node|null = null;
+    private firstChild : Node|null = null;
+    private lastChild : Node|null = null;
+    private prev : Node|null = null;
+    private next : Node|null = null;
+
+    public getParent () {
+        return this.parent;
+    }
+    public getFirstChild () {
+        return this.firstChild;
+    }
+    public getLastChild () {
+        return this.lastChild;
+    }
+    public getPrev () {
+        return this.prev;
+    }
+    public getNext () {
+        return this.next;
+    }
 
 
     public constructor (nodeType : string, sourcepos? : [[number, number], [number, number]]) {
