@@ -276,8 +276,7 @@ class Parser {
             }
             if (this.blockParsers.get(container).acceptsLines) {
                 this.addLine();
-                const finalizeAtLine = this.blockParsers.get(container).finalizeAtLine;
-                if (finalizeAtLine != null && finalizeAtLine(this, container)) {
+                if (this.blockParsers.get(container).finalizeAtLine(this, container)) {
                     this.finalize(container, this.lineNumber);
                 }
             }

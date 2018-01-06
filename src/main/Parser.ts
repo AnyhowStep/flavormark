@@ -320,11 +320,9 @@ export class Parser {
 
             if (this.blockParsers.get(container).acceptsLines) {
                 this.addLine();
-                const finalizeAtLine = this.blockParsers.get(container).finalizeAtLine;
-                if (finalizeAtLine != null && finalizeAtLine(this, container)) {
+                if (this.blockParsers.get(container).finalizeAtLine(this, container)) {
                     this.finalize(container, this.lineNumber);
                 }
-
             } else if (this.offset < ln.length && !this.blank) {
                 // create paragraph container for line
                 //const b = this.blockParsers.getParagraphParser();

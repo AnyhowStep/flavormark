@@ -81,7 +81,9 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
     public lazyContinue (_parser : Parser, _block : NodeT) : void {
 
     }
-    finalizeAtLine? : (parser : Parser, container : NodeT) => boolean;
+    public finalizeAtLine  (_parser : Parser, _container : NodeT) : boolean {
+        return false;
+    }
     public abstract finalize (parser : Parser, block : NodeT) : void;
     ignoreLastLineBlank? : (parser : Parser, container : NodeT) => boolean;
 };

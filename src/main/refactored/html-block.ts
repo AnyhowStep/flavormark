@@ -72,14 +72,14 @@ export class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
     };
     canContain= () => { return false; };
     acceptsLines= true;
-    finalizeAtLine=(parser : Parser, container : HtmlBlockNode) => {
+    public finalizeAtLine (parser : Parser, container : HtmlBlockNode) {
         return (
             container.htmlBlockType != null &&
             container.htmlBlockType >= 1 &&
             container.htmlBlockType <= 5 &&
             reHtmlBlockClose[container.htmlBlockType].test(parser.currentLine.slice(parser.offset))
         );
-    };
+    }
     isLeaf = true;
     public appendString (node : HtmlBlockNode, str : string) : void {
         if (node.string_content == null) {

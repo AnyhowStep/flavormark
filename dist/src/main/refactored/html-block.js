@@ -48,12 +48,6 @@ class HtmlBlockParser extends BlockParser_1.BlockParser {
         };
         this.canContain = () => { return false; };
         this.acceptsLines = true;
-        this.finalizeAtLine = (parser, container) => {
-            return (container.htmlBlockType != null &&
-                container.htmlBlockType >= 1 &&
-                container.htmlBlockType <= 5 &&
-                reHtmlBlockClose[container.htmlBlockType].test(parser.currentLine.slice(parser.offset)));
-        };
         this.isLeaf = true;
     }
     continue(parser, container) {
@@ -70,6 +64,12 @@ class HtmlBlockParser extends BlockParser_1.BlockParser {
         block.string_content = null; // allow GC
     }
     ;
+    finalizeAtLine(parser, container) {
+        return (container.htmlBlockType != null &&
+            container.htmlBlockType >= 1 &&
+            container.htmlBlockType <= 5 &&
+            reHtmlBlockClose[container.htmlBlockType].test(parser.currentLine.slice(parser.offset)));
+    }
     appendString(node, str) {
         if (node.string_content == null) {
             node.string_content = "";

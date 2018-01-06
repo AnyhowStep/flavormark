@@ -8,7 +8,7 @@ export declare class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
     finalize(_parser: Parser, block: HtmlBlockNode): void;
     canContain: () => boolean;
     acceptsLines: boolean;
-    finalizeAtLine: (parser: Parser, container: HtmlBlockNode) => boolean;
+    finalizeAtLine(parser: Parser, container: HtmlBlockNode): boolean;
     isLeaf: boolean;
     appendString(node: HtmlBlockNode, str: string): void;
     getString(node: HtmlBlockNode): string;

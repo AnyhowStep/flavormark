@@ -35,6 +35,9 @@ class BlockParser {
     reinit() { }
     lazyContinue(_parser, _block) {
     }
+    finalizeAtLine(_parser, _container) {
+        return false;
+    }
 }
 exports.BlockParser = BlockParser;
 ;

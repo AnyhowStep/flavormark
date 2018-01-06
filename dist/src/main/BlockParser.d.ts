@@ -37,7 +37,7 @@ export declare abstract class BlockParser<NodeT extends Node = Node> implements 
     tryStart?: (parser: Parser, container: Node) => boolean;
     abstract continue(_parser: Parser, _block: NodeT): boolean;
     lazyContinue(_parser: Parser, _block: NodeT): void;
-    finalizeAtLine?: (parser: Parser, container: NodeT) => boolean;
+    finalizeAtLine(_parser: Parser, _container: NodeT): boolean;
     abstract finalize(parser: Parser, block: NodeT): void;
     ignoreLastLineBlank?: (parser: Parser, container: NodeT) => boolean;
 }
