@@ -13,7 +13,7 @@ class HtmlTagParser extends InlineParser_1.InlineParser {
             return false;
         }
         var m = parser.match(common_1.reHtmlTag);
-        if (m === null) {
+        if (m == null) {
             return false;
         }
         else {

@@ -1,7 +1,7 @@
 "use strict";
 //TODO Think of a better name for this, lol
 Object.defineProperty(exports, "__esModule", { value: true });
-var reSpnl = /^ *(?:\n *)?/;
+const reSpnl = /^ *(?:\n *)?/;
 class RegexStream {
     constructor(subject) {
         this.subject = subject;

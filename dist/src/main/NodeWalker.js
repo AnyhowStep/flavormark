@@ -14,7 +14,7 @@ class NodeWalker {
     next() {
         var cur = this.current;
         var entering = this.entering;
-        if (cur === null) {
+        if (cur == null) {
             return null;
         }
         if (entering) {
@@ -30,7 +30,7 @@ class NodeWalker {
         else if (cur === this.root) {
             this.current = null;
         }
-        else if (cur.getNext() === null) {
+        else if (cur.getNext() == null) {
             this.current = cur.getParent();
             this.entering = false;
         }

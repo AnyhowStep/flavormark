@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
 //import {Node} from "../Node";
-const util_1 = require("./util");
+const Constants_1 = require("../Constants");
 const IndentedCodeBlockNode_1 = require("./IndentedCodeBlockNode");
 class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
     constructor() {
@@ -16,7 +16,7 @@ class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
             !parser.isParagraphNode(parser.tip) &&
             !parser.blank) {
             // indented code
-            parser.advanceOffset(util_1.CODE_INDENT, true);
+            parser.advanceOffset(Constants_1.INDENT_LENGTH, true);
             parser.closeUnmatchedBlocks();
             parser.addChild(this, parser.offset);
             return true;
@@ -28,8 +28,8 @@ class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
     ;
     continue(parser) {
         var indent = parser.indent;
-        if (indent >= util_1.CODE_INDENT) {
-            parser.advanceOffset(util_1.CODE_INDENT, true);
+        if (indent >= Constants_1.INDENT_LENGTH) {
+            parser.advanceOffset(Constants_1.INDENT_LENGTH, true);
         }
         else if (parser.blank) {
             parser.advanceNextNonspace();

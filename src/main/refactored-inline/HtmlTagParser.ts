@@ -15,7 +15,7 @@ export class HtmlTagParser extends InlineParser {
             return false;
         }
         var m = parser.match(reHtmlTag);
-        if (m === null) {
+        if (m == null) {
             return false;
         } else {
             var node = new HtmlNode('html_inline');

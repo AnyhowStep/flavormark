@@ -31,7 +31,7 @@ const reLinkLabel = new RegExp('^\\[(?:[^\\\\\\[\\]]|' + ESCAPED_CHAR +
 // or null if no match.
 export function parseLinkTitle (parser : RegexStream) {
     const title = parser.match(reLinkTitle);
-    if (title === null) {
+    if (title == null) {
         return null;
     } else {
         // chop off quotes from title and unescape:
@@ -43,7 +43,7 @@ export function parseLinkTitle (parser : RegexStream) {
 // null if no match.
 export function parseLinkDestination(parser : RegexStream) {
     let res = parser.match(reLinkDestinationBraces);
-    if (res === null) {
+    if (res == null) {
         // TODO handrolled parser; res should be null or the string
         const savepos = parser.pos;
         let openparens = 0;
@@ -83,7 +83,7 @@ export function parseLinkLabel(parser : RegexStream) {
     const m = parser.match(reLinkLabel);
     // Note:  our regex will allow something of form [..\];
     // we disallow it here rather than using lookahead in the regex:
-    if (m === null || m.length > 1001 || /[^\\]\\\]$/.exec(m)) {
+    if (m == null || m.length > 1001 || /[^\\]\\\]$/.exec(m)) {
         return 0;
     } else {
         return m.length;
@@ -118,7 +118,7 @@ export function parseReference(s : string|null, refmap : RefMap) {
     parser.spnl();
 
     const dest = parseLinkDestination(parser);
-    if (dest === null || dest.length === 0) {
+    if (dest == null || dest.length === 0) {
         parser.pos = startpos;
         return 0;
     }
@@ -126,7 +126,7 @@ export function parseReference(s : string|null, refmap : RefMap) {
     const beforetitle = parser.pos;
     parser.spnl();
     let title = parseLinkTitle(parser);
-    if (title === null) {
+    if (title == null) {
         title = '';
         // rewind before spaces
         parser.pos = beforetitle;
@@ -134,7 +134,7 @@ export function parseReference(s : string|null, refmap : RefMap) {
 
     // make sure we're at line end:
     let atLineEnd = true;
-    if (parser.match(reSpaceAtEndOfLine) === null) {
+    if (parser.match(reSpaceAtEndOfLine) == null) {
         if (title === '') {
             atLineEnd = false;
         } else {

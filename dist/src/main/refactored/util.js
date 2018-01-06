@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var reNonSpace = /[^ \t\f\v\r\n]/;
 var C_TAB = 9;
 var C_SPACE = 32;
-exports.CODE_INDENT = 4;
 exports.isSpaceOrTab = function (c) {
     return c === C_SPACE || c === C_TAB;
 };

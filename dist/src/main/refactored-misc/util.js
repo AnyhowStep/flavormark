@@ -22,7 +22,7 @@ const reLinkLabel = new RegExp('^\\[(?:[^\\\\\\[\\]]|' + ESCAPED_CHAR +
 // or null if no match.
 function parseLinkTitle(parser) {
     const title = parser.match(reLinkTitle);
-    if (title === null) {
+    if (title == null) {
         return null;
     }
     else {
@@ -35,7 +35,7 @@ exports.parseLinkTitle = parseLinkTitle;
 // null if no match.
 function parseLinkDestination(parser) {
     let res = parser.match(reLinkDestinationBraces);
-    if (res === null) {
+    if (res == null) {
         // TODO handrolled parser; res should be null or the string
         const savepos = parser.pos;
         let openparens = 0;
@@ -81,7 +81,7 @@ function parseLinkLabel(parser) {
     const m = parser.match(reLinkLabel);
     // Note:  our regex will allow something of form [..\];
     // we disallow it here rather than using lookahead in the regex:
-    if (m === null || m.length > 1001 || /[^\\]\\\]$/.exec(m)) {
+    if (m == null || m.length > 1001 || /[^\\]\\\]$/.exec(m)) {
         return 0;
     }
     else {
@@ -114,21 +114,21 @@ function parseReference(s, refmap) {
     //  link url
     parser.spnl();
     const dest = parseLinkDestination(parser);
-    if (dest === null || dest.length === 0) {
+    if (dest == null || dest.length === 0) {
         parser.pos = startpos;
         return 0;
     }
     const beforetitle = parser.pos;
     parser.spnl();
     let title = parseLinkTitle(parser);
-    if (title === null) {
+    if (title == null) {
         title = '';
         // rewind before spaces
         parser.pos = beforetitle;
     }
     // make sure we're at line end:
     let atLineEnd = true;
-    if (parser.match(reSpaceAtEndOfLine) === null) {
+    if (parser.match(reSpaceAtEndOfLine) == null) {
         if (title === '') {
             atLineEnd = false;
         }

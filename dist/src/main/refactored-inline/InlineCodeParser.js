@@ -19,7 +19,7 @@ class InlineCodeParser extends InlineParser_1.InlineParser {
             return false;
         }
         var ticks = parser.match(reTicksHere);
-        if (ticks === null) {
+        if (ticks == null) {
             return false;
         }
         var afterOpenTicks = parser.pos;

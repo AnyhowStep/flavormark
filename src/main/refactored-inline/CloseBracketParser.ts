@@ -47,7 +47,7 @@ export class CloseBracketParser extends InlineParser {
         // get last [ or ![
         opener = this.brackets.peek();
 
-        if (opener === null) {
+        if (opener == null) {
             // no matched opener, just return a literal
             block.appendChild(parser.text(']'));
             return true;

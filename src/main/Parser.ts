@@ -1,16 +1,8 @@
 import {BlockParser} from "./BlockParser";
 import {BlockParserCollection} from "./BlockParserCollection";
 import {Node, Range} from "./Node";
-
-var CODE_INDENT = 4;
-var C_NEWLINE = 10;
-
+import {INDENT_LENGTH} from "./Constants";
 import {InlineContentParser}  from "./InlineContentParser";
-
-//var reMaybeSpecial = /^[#`~*+_=<>0-9-]/;
-
-var reLineEnding = /\r\n|\n|\r/;
-
 
 export interface Options {
     time? : boolean
@@ -71,7 +63,7 @@ export class Parser {
         if (this.partiallyConsumedTab) {
           this.offset += 1; // skip over tab
           // add space characters:
-          var charsToTab = 4 - (this.column % 4);
+          var charsToTab = INDENT_LENGTH - (this.column % INDENT_LENGTH);
           p.appendString(this.tip, ' '.repeat(charsToTab));
         }
         p.appendString(this.tip, this.currentLine.slice(this.offset) + '\n');
@@ -136,7 +128,7 @@ export class Parser {
         var c;
         while (count > 0 && (c = currentLine[this.offset])) {
             if (c === '\t') {
-                charsToTab = 4 - (this.column % 4);
+                charsToTab = INDENT_LENGTH - (this.column % INDENT_LENGTH);
                 if (columns) {
                     this.partiallyConsumedTab = charsToTab > count;
                     charsToAdvance = charsToTab > count ? count : charsToTab;
@@ -176,7 +168,7 @@ export class Parser {
                 cols++;
             } else if (c === '\t') {
                 i++;
-                cols += (4 - (cols % 4));
+                cols += (INDENT_LENGTH - (cols % INDENT_LENGTH));
             } else {
                 break;
             }
@@ -185,7 +177,7 @@ export class Parser {
         this.nextNonspace = i;
         this.nextNonspaceColumn = cols;
         this.indent = this.nextNonspaceColumn - this.column;
-        this.indented = this.indent >= CODE_INDENT;
+        this.indented = this.indent >= INDENT_LENGTH;
     };
 
     // Analyze a line of text and update the document appropriately.
@@ -403,11 +395,11 @@ export class Parser {
         this.lastMatchedContainer = this.doc;
         this.currentLine = "";
         if (this.options.time) { console.time("preparing input"); }
-        var lines = input.split(reLineEnding);
+        var lines = input.split(/\n|\r\n?/);
         var len = lines.length;
-        if (input.charCodeAt(input.length - 1) === C_NEWLINE) {
+        if (/(\n|\r\n?)$/.test(input)) {
             // ignore last blank line created by final newline
-            len -= 1;
+            --len;
         }
         if (this.options.time) { console.timeEnd("preparing input"); }
         if (this.options.time) { console.time("block parsing"); }

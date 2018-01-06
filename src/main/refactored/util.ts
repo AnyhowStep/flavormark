@@ -6,7 +6,6 @@ var reNonSpace = /[^ \t\f\v\r\n]/;
 
 var C_TAB = 9;
 var C_SPACE = 32;
-export var CODE_INDENT = 4;
 
 export var isSpaceOrTab = function(c : number) {
     return c === C_SPACE || c === C_TAB;

@@ -1,10 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const Node_1 = require("./Node");
-var CODE_INDENT = 4;
-var C_NEWLINE = 10;
-//var reMaybeSpecial = /^[#`~*+_=<>0-9-]/;
-var reLineEnding = /\r\n|\n|\r/;
+const Constants_1 = require("./Constants");
 class Parser {
     constructor(blockParsers, inlineParser, options) {
         this.currentLine = "";
@@ -50,7 +47,7 @@ class Parser {
         if (this.partiallyConsumedTab) {
             this.offset += 1; // skip over tab
             // add space characters:
-            var charsToTab = 4 - (this.column % 4);
+            var charsToTab = Constants_1.INDENT_LENGTH - (this.column % Constants_1.INDENT_LENGTH);
             p.appendString(this.tip, ' '.repeat(charsToTab));
         }
         p.appendString(this.tip, this.currentLine.slice(this.offset) + '\n');
@@ -110,7 +107,7 @@ class Parser {
         var c;
         while (count > 0 && (c = currentLine[this.offset])) {
             if (c === '\t') {
-                charsToTab = 4 - (this.column % 4);
+                charsToTab = Constants_1.INDENT_LENGTH - (this.column % Constants_1.INDENT_LENGTH);
                 if (columns) {
                     this.partiallyConsumedTab = charsToTab > count;
                     charsToAdvance = charsToTab > count ? count : charsToTab;
@@ -152,7 +149,7 @@ class Parser {
             }
             else if (c === '\t') {
                 i++;
-                cols += (4 - (cols % 4));
+                cols += (Constants_1.INDENT_LENGTH - (cols % Constants_1.INDENT_LENGTH));
             }
             else {
                 break;
@@ -162,7 +159,7 @@ class Parser {
         this.nextNonspace = i;
         this.nextNonspaceColumn = cols;
         this.indent = this.nextNonspaceColumn - this.column;
-        this.indented = this.indent >= CODE_INDENT;
+        this.indented = this.indent >= Constants_1.INDENT_LENGTH;
     }
     ;
     // Analyze a line of text and update the document appropriately.
@@ -364,11 +361,11 @@ class Parser {
         if (this.options.time) {
             console.time("preparing input");
         }
-        var lines = input.split(reLineEnding);
+        var lines = input.split(/\n|\r\n?/);
         var len = lines.length;
-        if (input.charCodeAt(input.length - 1) === C_NEWLINE) {
+        if (/(\n|\r\n?)$/.test(input)) {
             // ignore last blank line created by final newline
-            len -= 1;
+            --len;
         }
         if (this.options.time) {
             console.timeEnd("preparing input");

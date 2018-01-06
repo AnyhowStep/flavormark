@@ -1,7 +1,7 @@
 import {BlockParser} from "../BlockParser";
 import {Parser} from "../Parser";
 //import {Node} from "../Node";
-import {CODE_INDENT} from "./util";
+import {INDENT_LENGTH} from "../Constants";
 import {IndentedCodeBlockNode} from "./IndentedCodeBlockNode";
 
 export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> {
@@ -11,7 +11,7 @@ export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> 
             !parser.isParagraphNode(parser.tip) &&
             !parser.blank) {
             // indented code
-            parser.advanceOffset(CODE_INDENT, true);
+            parser.advanceOffset(INDENT_LENGTH, true);
             parser.closeUnmatchedBlocks();
             parser.addChild(this, parser.offset);
             return true;
@@ -21,8 +21,8 @@ export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> 
     };
     continue (parser : Parser) {
         var indent = parser.indent;
-        if (indent >= CODE_INDENT) {
-            parser.advanceOffset(CODE_INDENT, true);
+        if (indent >= INDENT_LENGTH) {
+            parser.advanceOffset(INDENT_LENGTH, true);
         } else if (parser.blank) {
             parser.advanceNextNonspace();
         } else {

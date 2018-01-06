@@ -14,7 +14,7 @@ class DelimiterCollection {
         if (delim.previous !== null) {
             delim.previous.next = delim.next;
         }
-        if (delim.next === null) {
+        if (delim.next == null) {
             // top of stack
             this.top = delim.previous;
         }

@@ -1,6 +1,6 @@
 //TODO Think of a better name for this, lol
 
-var reSpnl = /^ *(?:\n *)?/;
+const reSpnl = /^ *(?:\n *)?/;
 
 export class RegexStream {
     public subject : string;
