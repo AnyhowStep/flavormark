@@ -7,7 +7,7 @@ import {HeadingNode} from "./HeadingNode";
 var reSetextHeadingLine = /^(?:=+|-+)[ \t]*$/;
 
 export class SetextHeadingParser extends BlockParser<HeadingNode> {
-    tryStart= (parser : Parser, container : Node) => {
+    tryStart (parser : Parser, container : Node) {
         var match;
         if (
             !parser.indented &&

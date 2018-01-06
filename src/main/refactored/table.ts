@@ -44,7 +44,7 @@ function toColumns (str : string) {
 }
 
 export class TableParser extends BlockParser<TableNode> {
-    tryStart=(parser : Parser, container : Node) => {
+    tryStart (parser : Parser, container : Node) {
         if (
             parser.isParagraphNode(container) &&
             reTableDelimiter.test(parser.currentLine)

@@ -11,39 +11,40 @@ var reClosingCodeFence = /^(?:\${2,})(?= *$)/;
 class LatexBlockParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.tryStart = (parser) => {
-            var match;
-            if (!parser.indented &&
-                (match = parser.currentLine.slice(parser.nextNonspace).match(reCodeFence))) {
-                var fenceLength = match[0].length;
-                parser.closeUnmatchedBlocks();
-                var container = parser.addChild(this, parser.nextNonspace);
-                container.fenceLength = fenceLength;
-                container.fenceChar = match[0][0];
-                container.fenceOffset = parser.indent;
-                parser.advanceNextNonspace();
-                parser.advanceOffset(fenceLength, false);
-                const sameLineEndMatch = parser.currentLine.slice(parser.offset).match(/(\${2,})\s*$/);
-                if (sameLineEndMatch != null) {
-                    if (sameLineEndMatch[1].length == fenceLength) {
-                        //End now
-                        container.oneLine = true;
-                        container.string_content = parser.currentLine.slice(parser.offset, sameLineEndMatch.index);
-                        parser.advanceOffset(parser.currentLine.length - parser.offset, false);
-                        parser.finalize(container, parser.lineNumber);
-                    }
-                }
-                return true;
-            }
-            else {
-                return false;
-            }
-        };
         this.canContain = () => { return false; };
         this.acceptsLines = true;
         this.earlyExitOnEnd = true;
         this.isLeaf = true;
     }
+    tryStart(parser) {
+        var match;
+        if (!parser.indented &&
+            (match = parser.currentLine.slice(parser.nextNonspace).match(reCodeFence))) {
+            var fenceLength = match[0].length;
+            parser.closeUnmatchedBlocks();
+            var container = parser.addChild(this, parser.nextNonspace);
+            container.fenceLength = fenceLength;
+            container.fenceChar = match[0][0];
+            container.fenceOffset = parser.indent;
+            parser.advanceNextNonspace();
+            parser.advanceOffset(fenceLength, false);
+            const sameLineEndMatch = parser.currentLine.slice(parser.offset).match(/(\${2,})\s*$/);
+            if (sameLineEndMatch != null) {
+                if (sameLineEndMatch[1].length == fenceLength) {
+                    //End now
+                    container.oneLine = true;
+                    container.string_content = parser.currentLine.slice(parser.offset, sameLineEndMatch.index);
+                    parser.advanceOffset(parser.currentLine.length - parser.offset, false);
+                    parser.finalize(container, parser.lineNumber);
+                }
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    ;
     continue(parser, container) {
         if (container.oneLine) {
             return false;

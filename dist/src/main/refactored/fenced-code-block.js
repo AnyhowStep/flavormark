@@ -11,29 +11,30 @@ var reClosingCodeFence = /^(?:`{3,}|~{3,})(?= *$)/;
 class FencedCodeBlockParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.tryStart = (parser) => {
-            var match;
-            if (!parser.indented &&
-                (match = parser.currentLine.slice(parser.nextNonspace).match(reCodeFence))) {
-                var fenceLength = match[0].length;
-                parser.closeUnmatchedBlocks();
-                var container = parser.addChild(this, parser.nextNonspace);
-                container.fenceLength = fenceLength;
-                container.fenceChar = match[0][0];
-                container.fenceOffset = parser.indent;
-                parser.advanceNextNonspace();
-                parser.advanceOffset(fenceLength, false);
-                return true;
-            }
-            else {
-                return false;
-            }
-        };
         this.canContain = () => { return false; };
         this.acceptsLines = true;
         this.earlyExitOnEnd = true;
         this.isLeaf = true;
     }
+    tryStart(parser) {
+        var match;
+        if (!parser.indented &&
+            (match = parser.currentLine.slice(parser.nextNonspace).match(reCodeFence))) {
+            var fenceLength = match[0].length;
+            parser.closeUnmatchedBlocks();
+            var container = parser.addChild(this, parser.nextNonspace);
+            container.fenceLength = fenceLength;
+            container.fenceChar = match[0][0];
+            container.fenceOffset = parser.indent;
+            parser.advanceNextNonspace();
+            parser.advanceOffset(fenceLength, false);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    ;
     continue(parser, container) {
         var ln = parser.currentLine;
         var indent = parser.indent;

@@ -7,25 +7,26 @@ const IndentedCodeBlockNode_1 = require("./IndentedCodeBlockNode");
 class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.tryStart = (parser) => {
-            if (parser.indented &&
-                parser.tip != null &&
-                !parser.isParagraphNode(parser.tip) &&
-                !parser.blank) {
-                // indented code
-                parser.advanceOffset(util_1.CODE_INDENT, true);
-                parser.closeUnmatchedBlocks();
-                parser.addChild(this, parser.offset);
-                return true;
-            }
-            else {
-                return false;
-            }
-        };
         this.canContain = () => { return false; };
         this.acceptsLines = true;
         this.isLeaf = true;
     }
+    tryStart(parser) {
+        if (parser.indented &&
+            parser.tip != null &&
+            !parser.isParagraphNode(parser.tip) &&
+            !parser.blank) {
+            // indented code
+            parser.advanceOffset(util_1.CODE_INDENT, true);
+            parser.closeUnmatchedBlocks();
+            parser.addChild(this, parser.offset);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    ;
     continue(parser) {
         var indent = parser.indent;
         if (indent >= util_1.CODE_INDENT) {

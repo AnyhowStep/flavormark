@@ -11,7 +11,7 @@ var reCodeFence = /^`{3,}(?!.*`)|^~{3,}(?!.*~)/;
 var reClosingCodeFence = /^(?:`{3,}|~{3,})(?= *$)/;
 
 export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
-    tryStart= (parser : Parser) => {
+    tryStart (parser : Parser) {
         var match;
         if (!parser.indented &&
             (match = parser.currentLine.slice(parser.nextNonspace).match(reCodeFence))) {

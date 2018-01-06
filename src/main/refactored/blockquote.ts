@@ -7,7 +7,7 @@ import {peek, isSpaceOrTab} from "./util";
 var C_GREATERTHAN = 62;
 
 export class BlockquoteParser extends BlockParser {
-    tryStart= (parser : Parser) => {
+    tryStart (parser : Parser) {
         if (!parser.indented &&
             peek(parser.currentLine, parser.nextNonspace) === C_GREATERTHAN) {
             parser.advanceNextNonspace();

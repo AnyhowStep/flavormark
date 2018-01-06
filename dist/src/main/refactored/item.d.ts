@@ -6,7 +6,7 @@ import { ItemNode } from "./ItemNode";
 export declare class ItemParser extends BlockParser<ItemNode> {
     private listParser;
     constructor(nodeType: string, nodeCtor: BlockNodeCtor<ItemNode>, listParser: BlockParser<ListNode>);
-    tryStart: (parser: Parser, container: Node) => boolean;
+    tryStart(parser: Parser, container: Node): boolean;
     continue(parser: Parser, container: ItemNode): boolean;
     finalize(): void;
     canContain: (blockParser: BlockParserMeta) => boolean;

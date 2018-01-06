@@ -29,7 +29,7 @@ var reHtmlBlockOpen = [
 ];
 
 export class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
-    tryStart= (parser : Parser, container : Node) => {
+    tryStart (parser : Parser, container : Node) {
         if (!parser.indented &&
             peek(parser.currentLine, parser.nextNonspace) === C_LESSTHAN) {
             var s = parser.currentLine.slice(parser.nextNonspace);

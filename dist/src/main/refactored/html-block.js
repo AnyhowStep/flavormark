@@ -26,30 +26,31 @@ var reHtmlBlockOpen = [
 class HtmlBlockParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.tryStart = (parser, container) => {
-            if (!parser.indented &&
-                util_1.peek(parser.currentLine, parser.nextNonspace) === C_LESSTHAN) {
-                var s = parser.currentLine.slice(parser.nextNonspace);
-                var blockType;
-                for (blockType = 1; blockType <= 7; blockType++) {
-                    if (reHtmlBlockOpen[blockType].test(s) &&
-                        (blockType < 7 ||
-                            !parser.isParagraphNode(container))) {
-                        parser.closeUnmatchedBlocks();
-                        // We don't adjust parser.offset;
-                        // spaces are part of the HTML block:
-                        var b = parser.addChild(this, parser.offset);
-                        b.htmlBlockType = blockType;
-                        return true;
-                    }
-                }
-            }
-            return false;
-        };
         this.canContain = () => { return false; };
         this.acceptsLines = true;
         this.isLeaf = true;
     }
+    tryStart(parser, container) {
+        if (!parser.indented &&
+            util_1.peek(parser.currentLine, parser.nextNonspace) === C_LESSTHAN) {
+            var s = parser.currentLine.slice(parser.nextNonspace);
+            var blockType;
+            for (blockType = 1; blockType <= 7; blockType++) {
+                if (reHtmlBlockOpen[blockType].test(s) &&
+                    (blockType < 7 ||
+                        !parser.isParagraphNode(container))) {
+                    parser.closeUnmatchedBlocks();
+                    // We don't adjust parser.offset;
+                    // spaces are part of the HTML block:
+                    var b = parser.addChild(this, parser.offset);
+                    b.htmlBlockType = blockType;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    ;
     continue(parser, container) {
         return ((parser.blank &&
             (container.htmlBlockType === 6 ||

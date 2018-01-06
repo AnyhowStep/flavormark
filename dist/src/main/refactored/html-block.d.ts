@@ -3,7 +3,7 @@ import { Parser } from "../Parser";
 import { Node } from "../Node";
 import { HtmlBlockNode } from "./HtmlBlockNode";
 export declare class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
-    tryStart: (parser: Parser, container: Node) => boolean;
+    tryStart(parser: Parser, container: Node): boolean;
     continue(parser: Parser, container: HtmlBlockNode): boolean;
     finalize(_parser: Parser, block: HtmlBlockNode): void;
     canContain: () => boolean;

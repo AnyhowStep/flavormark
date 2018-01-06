@@ -11,7 +11,7 @@ var reCodeFence = /^\${2,}(?!.*`)/;
 var reClosingCodeFence = /^(?:\${2,})(?= *$)/;
 
 export class LatexBlockParser extends BlockParser<LatexBlockNode> {
-    tryStart= (parser : Parser) => {
+    tryStart (parser : Parser) {
         var match;
         if (!parser.indented &&
             (match = parser.currentLine.slice(parser.nextNonspace).match(reCodeFence))) {

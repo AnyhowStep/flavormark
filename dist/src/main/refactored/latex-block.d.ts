@@ -2,7 +2,7 @@ import { BlockParser } from "../BlockParser";
 import { Parser } from "../Parser";
 import { LatexBlockNode } from "./LatexBlockNode";
 export declare class LatexBlockParser extends BlockParser<LatexBlockNode> {
-    tryStart: (parser: Parser) => boolean;
+    tryStart(parser: Parser): boolean;
     continue(parser: Parser, container: LatexBlockNode): boolean;
     finalize(_parser: Parser, block: LatexBlockNode): void;
     canContain: () => boolean;

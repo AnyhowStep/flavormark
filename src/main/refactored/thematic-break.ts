@@ -5,7 +5,7 @@ import {Node} from "../Node";
 var reThematicBreak = /^(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:-[ \t]*){3,})[ \t]*$/;
 
 export class ThematicBreakParser extends BlockParser {
-    tryStart= (parser : Parser) => {
+    tryStart (parser : Parser) {
         if (!parser.indented &&
             reThematicBreak.test(parser.currentLine.slice(parser.nextNonspace))) {
             parser.closeUnmatchedBlocks();

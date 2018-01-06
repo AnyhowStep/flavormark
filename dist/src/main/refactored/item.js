@@ -81,30 +81,6 @@ var listsMatch = function (list_data, item_data) {
 class ItemParser extends BlockParser_1.BlockParser {
     constructor(nodeType, nodeCtor, listParser) {
         super(nodeType, nodeCtor);
-        this.tryStart = (parser, container) => {
-            var data;
-            if ((!parser.indented || parser.getBlockParser(container) == this.listParser)
-                && (data = parseListMarker(parser, container))) {
-                parser.closeUnmatchedBlocks();
-                if (parser.tip == null) {
-                    throw new Error("parser.tip cannot be null");
-                }
-                // add the list if needed
-                if (parser.getBlockParser(parser.tip) != this.listParser ||
-                    !(container instanceof ListNode_1.ListNode) ||
-                    !listsMatch(container.listData, data)) {
-                    const listNode = parser.addChild(this.listParser, parser.nextNonspace);
-                    listNode.listData = data;
-                }
-                // add the list item
-                const itemNode = parser.addChild(this, parser.nextNonspace);
-                itemNode.listData = data;
-                return true;
-            }
-            else {
-                return false;
-            }
-        };
         this.canContain = (blockParser) => {
             return blockParser != this;
         };
@@ -115,6 +91,31 @@ class ItemParser extends BlockParser_1.BlockParser {
         this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;
         this.listParser = listParser;
     }
+    tryStart(parser, container) {
+        var data;
+        if ((!parser.indented || parser.getBlockParser(container) == this.listParser)
+            && (data = parseListMarker(parser, container))) {
+            parser.closeUnmatchedBlocks();
+            if (parser.tip == null) {
+                throw new Error("parser.tip cannot be null");
+            }
+            // add the list if needed
+            if (parser.getBlockParser(parser.tip) != this.listParser ||
+                !(container instanceof ListNode_1.ListNode) ||
+                !listsMatch(container.listData, data)) {
+                const listNode = parser.addChild(this.listParser, parser.nextNonspace);
+                listNode.listData = data;
+            }
+            // add the list item
+            const itemNode = parser.addChild(this, parser.nextNonspace);
+            itemNode.listData = data;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    ;
     continue(parser, container) {
         if (parser.blank) {
             if (container.firstChild == null) {

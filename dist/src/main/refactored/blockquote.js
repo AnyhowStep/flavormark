@@ -7,26 +7,27 @@ var C_GREATERTHAN = 62;
 class BlockquoteParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.tryStart = (parser) => {
-            if (!parser.indented &&
-                util_1.peek(parser.currentLine, parser.nextNonspace) === C_GREATERTHAN) {
-                parser.advanceNextNonspace();
-                parser.advanceOffset(1, false);
-                // optional following space
-                if (util_1.isSpaceOrTab(util_1.peek(parser.currentLine, parser.offset))) {
-                    parser.advanceOffset(1, true);
-                }
-                parser.closeUnmatchedBlocks();
-                parser.addChild(this, parser.nextNonspace);
-                return true;
-            }
-            else {
-                return false;
-            }
-        };
         this.canContain = () => { return true; };
         this.acceptsLines = false;
     }
+    tryStart(parser) {
+        if (!parser.indented &&
+            util_1.peek(parser.currentLine, parser.nextNonspace) === C_GREATERTHAN) {
+            parser.advanceNextNonspace();
+            parser.advanceOffset(1, false);
+            // optional following space
+            if (util_1.isSpaceOrTab(util_1.peek(parser.currentLine, parser.offset))) {
+                parser.advanceOffset(1, true);
+            }
+            parser.closeUnmatchedBlocks();
+            parser.addChild(this, parser.nextNonspace);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    ;
     continue(parser) {
         var ln = parser.currentLine;
         if (!parser.indented &&

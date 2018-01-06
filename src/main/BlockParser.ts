@@ -76,7 +76,9 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
 
     //Called before the parser starts parsing content
     public reinit () {}
-    tryStart? : (parser : Parser, container : Node) => boolean;
+    public tryStart (_parser : Parser, _container : Node) : boolean {
+        return false;
+    }
     public abstract continue (_parser : Parser, _block : NodeT) : boolean;
     public lazyContinue (_parser : Parser, _block : NodeT) : void {
 

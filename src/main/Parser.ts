@@ -250,10 +250,6 @@ export class Parser {
                     throw new Error("container cannot be null")
                 }
                 const blockParser = this.blockParsers.at(i);
-                if (blockParser.tryStart == null) {
-                    ++i;
-                    continue;
-                }
                 var res = blockParser.tryStart(this, container);
 
                 if (res) {

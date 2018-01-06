@@ -5,7 +5,7 @@ import {CODE_INDENT} from "./util";
 import {IndentedCodeBlockNode} from "./IndentedCodeBlockNode";
 
 export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> {
-    tryStart= (parser : Parser) => {
+    tryStart (parser : Parser) {
         if (parser.indented &&
             parser.tip != null &&
             !parser.isParagraphNode(parser.tip) &&

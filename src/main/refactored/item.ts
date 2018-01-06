@@ -126,7 +126,7 @@ export class ItemParser extends BlockParser<ItemNode> {
         super(nodeType, nodeCtor);
         this.listParser = listParser;
     }
-    tryStart= (parser : Parser, container : Node) => {
+    tryStart (parser : Parser, container : Node) {
         var data;
 
         if ((!parser.indented || parser.getBlockParser(container) == (this.listParser as any))

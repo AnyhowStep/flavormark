@@ -3,7 +3,7 @@ import { Parser } from "../Parser";
 import { Node } from "../Node";
 import { HeadingNode } from "./HeadingNode";
 export declare class SetextHeadingParser extends BlockParser<HeadingNode> {
-    tryStart: (parser: Parser, container: Node) => boolean;
+    tryStart(parser: Parser, container: Node): boolean;
     continue(): boolean;
     finalize(): void;
     canContain: () => boolean;

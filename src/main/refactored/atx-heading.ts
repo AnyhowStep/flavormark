@@ -5,7 +5,7 @@ import {HeadingNode} from "./HeadingNode";
 var reATXHeadingMarker = /^#{1,6}(?:[ \t]+|$)/;
 
 export class AtxHeadingParser extends BlockParser<HeadingNode> {
-    tryStart=(parser : Parser) => {
+    tryStart (parser : Parser) {
         var match;
         if (!parser.indented &&
             (match = parser.currentLine.slice(parser.nextNonspace).match(reATXHeadingMarker))) {
