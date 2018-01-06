@@ -6,7 +6,7 @@ import {parseLinkTitle, parseLinkDestination, parseLinkLabel} from "../refactore
 import {RefMap} from "../refactored-misc/RefMap";
 import {BracketCollection} from "../refactored-misc/BracketCollection";
 import {LinkNode} from "./LinkNode";
-import {DelimiterParser} from "../refactored-delimiter/DelimiterParser";
+import {DelimitedInlineParser} from "../DelimitedInlineParser";
 
 var C_CLOSE_BRACKET = 93;
 var C_OPEN_PAREN = 40;
@@ -15,10 +15,10 @@ var C_CLOSE_PAREN = 41;
 var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
 
 export class CloseBracketParser extends InlineParser {
-    private delimParser : DelimiterParser;
+    private delimParser : DelimitedInlineParser;
     private brackets : BracketCollection;
     private refMap : RefMap;
-    public constructor (delimParser : DelimiterParser, brackets : BracketCollection, refMap : RefMap) {
+    public constructor (delimParser : DelimitedInlineParser, brackets : BracketCollection, refMap : RefMap) {
         super();
         this.delimParser = delimParser;
         this.brackets = brackets;

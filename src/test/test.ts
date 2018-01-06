@@ -97,7 +97,7 @@ import {InlineParser} from "../main/InlineParser";
 import {NewlineParser} from "../main/refactored-inline/NewlineParser";
 import {EscapeCharacterParser} from "../main/refactored-inline/EscapeCharacterParser";
 import {InlineCodeParser} from "../main/refactored-inline/InlineCodeParser";
-import {DelimiterParser} from "../main/refactored-delimiter/DelimiterParser";
+import {DelimitedInlineParser} from "../main/DelimitedInlineParser";
 import {EmphasisParser} from "../main/refactored-delimiter/EmphasisParser";
 import {SmartQuoteParser} from "../main/refactored-delimiter/SmartQuoteParser";
 import {OpenBracketParser} from "../main/refactored-inline/OpenBracketParser";
@@ -118,7 +118,7 @@ import {ExtendedWwwAutolinkParser} from "../main/refactored-inline/ExtendedWwwAu
 import {ExtendedEmailAutolinkParser} from "../main/refactored-inline/ExtendedEmailAutolinkParser";
 import {InlineLatexParser} from "../main/refactored-inline/InlineLatexParser";
 
-const delimParser = new DelimiterParser(delimiters, [
+const delimParser = new DelimitedInlineParser(delimiters, [
     new EmphasisParser(),
     new SuperscriptParser(),
     new StrikethroughParser(),
@@ -146,7 +146,7 @@ const inParsers : InlineParser[] = [
 
 let reader = new commonmark.Parser(blockParserCollection, new InlineContentParser(inParsers));
 
-const flavorDelimParser = new DelimiterParser(delimiters, [
+const flavorDelimParser = new DelimitedInlineParser(delimiters, [
     new EmphasisParser(),
     new SuperscriptParser(),
     new StrikethroughParser(),
@@ -177,7 +177,7 @@ const flavorInlineParsers : InlineParser[] = [
 let flavorReader = new commonmark.Parser(blockParserCollection, new InlineContentParser(flavorInlineParsers));
 
 
-const smartDelimParser = new DelimiterParser(delimiters, [
+const smartDelimParser = new DelimitedInlineParser(delimiters, [
     new EmphasisParser(),
     new SmartQuoteParser(),
 ]);

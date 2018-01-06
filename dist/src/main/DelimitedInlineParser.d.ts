@@ -1,9 +1,9 @@
-import { InlineParser } from "../InlineParser";
-import { InlineContentParser } from "../InlineContentParser";
-import { Node } from "../Node";
-import { Delimiter, DelimiterCollection } from "../refactored-misc/DelimiterCollection";
-import { DelimitedInlineSubParser } from "../DelimitedInlineSubParser";
-export declare class DelimiterParser extends InlineParser {
+import { InlineParser } from "./InlineParser";
+import { InlineContentParser } from "./InlineContentParser";
+import { Node } from "./Node";
+import { Delimiter, DelimiterCollection } from "./refactored-misc/DelimiterCollection";
+import { DelimitedInlineSubParser } from "./DelimitedInlineSubParser";
+export declare class DelimitedInlineParser extends InlineParser {
     private delimiters;
     private parsers;
     constructor(delimiters: DelimiterCollection, parsers: DelimitedInlineSubParser[]);
