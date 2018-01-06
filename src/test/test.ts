@@ -101,7 +101,7 @@ import {DelimitedInlineParser} from "../main/DelimitedInlineParser";
 import {EmphasisParser} from "../main/refactored-delimiter/EmphasisParser";
 import {SmartQuoteParser} from "../main/refactored-delimiter/SmartQuoteParser";
 import {OpenBracketParser} from "../main/refactored-inline/OpenBracketParser";
-import {BangParser} from "../main/refactored-inline/BangParser";
+import {BangParser} from "../main/commonmark/inline/BangParser";
 import {CloseBracketParser} from "../main/refactored-inline/CloseBracketParser";
 import {EmailAutolinkParser} from "../main/commonmark/inline/EmailAutolinkParser";
 import {UriAutolinkParser} from "../main/commonmark/inline/UriAutolinkParser";
