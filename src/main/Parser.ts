@@ -241,15 +241,7 @@ export class Parser {
         // Unless last matched container is a code block, try new container starts,
         // adding children to the last matched container:
         while (!matchedLeaf) {
-
             this.findNextNonspace();
-
-            // this is a little performance optimization:
-            /*if (!this.indented &&
-                !reMaybeSpecial.test(ln.slice(this.nextNonspace))) {
-                this.advanceNextNonspace();
-                break;
-            }*/
 
             var i = 0;
             while (i < startsLen) {

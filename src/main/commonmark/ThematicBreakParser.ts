@@ -13,17 +13,16 @@ export class ThematicBreakParser extends BlockParser {
     }
 
     public tryStart (parser : Parser) {
-        if (
-            !parser.indented &&
-            reThematicBreak.test(parser.currentLine.slice(parser.nextNonspace))
-        ) {
-            parser.closeUnmatchedBlocks();
-            parser.addChild(this, parser.nextNonspace);
-            parser.advanceOffset(parser.currentLine.length - parser.offset, false);
-            return true;
-        } else {
+        if (parser.indented) {
             return false;
         }
+        if (!reThematicBreak.test(parser.currentLine.slice(parser.nextNonspace))) {
+            return false;
+        }
+        parser.closeUnmatchedBlocks();
+        parser.addChild(this, parser.nextNonspace);
+        parser.advanceOffset(parser.currentLine.length - parser.offset, false);
+        return true;
     }
     public continue () : boolean {
         // a thematic break can never container > 1 line, so fail to match:

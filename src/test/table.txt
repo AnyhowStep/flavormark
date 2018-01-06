@@ -216,3 +216,69 @@ Tables end with a blank line
 </tr>
 </thead></table>
 ````````````````````````````````
+
+A table in a blockquote
+
+```````````````````````````````` example
+> | abc | def |
+> | --- | --- |
+
+| abc | def |
+| --- | --- |
+.
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead></table>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead></table>
+````````````````````````````````
+
+A table in a blockquote
+
+```````````````````````````````` example
+> | abc | def |
+> | --- | --- |
+> | ghi | jkl |
+
+| abc | def |
+| --- | --- |
+| ghi | jkl |
+.
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ghi</td>
+<td>jkl</td>
+</tr></tbody></table>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ghi</td>
+<td>jkl</td>
+</tr></tbody></table>
+````````````````````````````````

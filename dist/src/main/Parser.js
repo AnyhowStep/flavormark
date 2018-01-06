@@ -215,12 +215,6 @@ class Parser {
         // adding children to the last matched container:
         while (!matchedLeaf) {
             this.findNextNonspace();
-            // this is a little performance optimization:
-            /*if (!this.indented &&
-                !reMaybeSpecial.test(ln.slice(this.nextNonspace))) {
-                this.advanceNextNonspace();
-                break;
-            }*/
             var i = 0;
             while (i < startsLen) {
                 if (container == undefined) {

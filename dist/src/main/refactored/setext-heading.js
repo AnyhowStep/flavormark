@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
-const HeadingNode_1 = require("./HeadingNode");
+const HeadingNode_1 = require("../commonmark/HeadingNode");
 var reSetextHeadingLine = /^(?:=+|-+)[ \t]*$/;
 class SetextHeadingParser extends BlockParser_1.BlockParser {
     constructor() {
@@ -18,7 +18,7 @@ class SetextHeadingParser extends BlockParser_1.BlockParser {
             parser.closeUnmatchedBlocks();
             var heading = new HeadingNode_1.HeadingNode(this.getNodeType(), container.sourceRange);
             heading.level = match[0][0] === '=' ? 1 : 2;
-            heading.string_content = parser.getBlockParsers().getParagraphParser().getString(container);
+            heading.stringContent = parser.getBlockParsers().getParagraphParser().getString(container);
             container.insertAfter(heading);
             container.unlink();
             parser.tip = heading;
@@ -38,11 +38,7 @@ class SetextHeadingParser extends BlockParser_1.BlockParser {
     finalize() { }
     canContain() { return false; }
     getString(node) {
-        return node.string_content || "";
-    }
-    // allow raw string to be garbage collected
-    unsetString(node) {
-        node.string_content = undefined;
+        return node.stringContent || "";
     }
 }
 exports.SetextHeadingParser = SetextHeadingParser;

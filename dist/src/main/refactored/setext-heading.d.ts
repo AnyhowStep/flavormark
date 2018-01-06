@@ -1,7 +1,7 @@
 import { BlockParser } from "../BlockParser";
 import { Parser } from "../Parser";
 import { Node } from "../Node";
-import { HeadingNode } from "./HeadingNode";
+import { HeadingNode } from "../commonmark/HeadingNode";
 export declare class SetextHeadingParser extends BlockParser<HeadingNode> {
     tryStart(parser: Parser, container: Node): boolean;
     continue(): boolean;
@@ -11,6 +11,5 @@ export declare class SetextHeadingParser extends BlockParser<HeadingNode> {
     parseInlines: boolean;
     isLeaf: boolean;
     getString(node: HeadingNode): string;
-    unsetString(node: HeadingNode): void;
 }
 export declare const setextHeadingParser: SetextHeadingParser;

@@ -47,7 +47,7 @@ There are a lot of classes with the word `Parser` in them.
 
 `Node.type` is set by the `BlockParser` or `InlineParser` that instantiates the `Node`.
 
-Nodes instantiated by a `BlockParser` should have `type` set equal to
+`Node`s instantiated by a `BlockParser` should have `type` set equal to
 `BlockParser.nodeType`.
 
 Each `BlockParser.nodeType` must be unique per `BlockParser` added to

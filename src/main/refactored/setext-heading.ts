@@ -2,7 +2,7 @@ import {BlockParser} from "../BlockParser";
 import {Parser} from "../Parser";
 import {Node} from "../Node";
 
-import {HeadingNode} from "./HeadingNode";
+import {HeadingNode} from "../commonmark/HeadingNode";
 
 var reSetextHeadingLine = /^(?:=+|-+)[ \t]*$/;
 
@@ -17,7 +17,7 @@ export class SetextHeadingParser extends BlockParser<HeadingNode> {
             parser.closeUnmatchedBlocks();
             var heading = new HeadingNode(this.getNodeType(), container.sourceRange);
             heading.level = match[0][0] === '=' ? 1 : 2;
-            heading.string_content = parser.getBlockParsers().getParagraphParser().getString(container);
+            heading.stringContent = parser.getBlockParsers().getParagraphParser().getString(container);
             container.insertAfter(heading);
             container.unlink();
             parser.tip = heading;
@@ -37,11 +37,7 @@ export class SetextHeadingParser extends BlockParser<HeadingNode> {
     parseInlines = true;
     isLeaf = true;
     public getString (node : HeadingNode) : string {
-        return node.string_content || "";
-    }
-    // allow raw string to be garbage collected
-    public unsetString (node : HeadingNode) : void {
-        node.string_content = undefined;
+        return node.stringContent || "";
     }
 }
 
