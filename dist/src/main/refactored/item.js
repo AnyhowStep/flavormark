@@ -145,7 +145,7 @@ class ItemParser extends BlockParser_1.BlockParser {
     ignoreLastLineBlank(parser, container) {
         return (container.getFirstChild() == null &&
             container.sourcepos != null &&
-            container.sourcepos[0][0] === parser.lineNumber);
+            container.sourcepos.start.row === parser.lineNumber);
     }
 }
 exports.ItemParser = ItemParser;

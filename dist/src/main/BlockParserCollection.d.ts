@@ -1,5 +1,5 @@
 import { BlockParser } from "./BlockParser";
-import { Node } from "./Node";
+import { Node, Range } from "./Node";
 export declare class BlockParserCollection<DocumentT extends Node = Node, ParagraphT extends Node = Node> {
     private documentParser;
     private paragraphParser;
@@ -16,6 +16,6 @@ export declare class BlockParserCollection<DocumentT extends Node = Node, Paragr
     length(): number;
     at(index: number): BlockParser<Node>;
     isParagraphNode(node: Node): node is ParagraphT;
-    instantiateDocument(sourcepos: [[number, number], [number, number]]): DocumentT;
+    instantiateDocument(sourcepos: Range): DocumentT;
     reinit(): void;
 }

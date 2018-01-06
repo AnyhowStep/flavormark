@@ -1,8 +1,16 @@
 import { NodeWalker } from "./NodeWalker";
+export interface Position {
+    row: number;
+    column: number;
+}
+export interface Range {
+    start: Position;
+    end: Position;
+}
 export declare class Node {
     readonly type: string;
-    readonly sourcepos?: [[number, number], [number, number]];
-    constructor(nodeType: string, sourcepos?: [[number, number], [number, number]]);
+    readonly sourcepos?: Range;
+    constructor(nodeType: string, sourcepos?: Range);
     private lastLineBlank;
     private open;
     private parent;

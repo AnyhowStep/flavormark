@@ -404,9 +404,14 @@ export class HtmlRenderer extends Renderer {
       if (this.options.sourcepos) {
         var pos = node.sourcepos;
         if (pos) {
-          att.push(['data-sourcepos', String(pos[0][0]) + ':' +
-            String(pos[0][1]) + '-' + String(pos[1][0]) + ':' +
-            String(pos[1][1])]);
+            const start = pos.start;
+            const end   = pos.end;
+          att.push([
+              'data-sourcepos',
+              String(start.row) + ':' + String(start.column) +
+              '-' +
+              String(end.row) + ':' + String(end.column)
+          ]);
         }
       }
       return att;

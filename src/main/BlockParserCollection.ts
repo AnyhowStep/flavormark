@@ -1,5 +1,5 @@
 import {BlockParser} from "./BlockParser";
-import {Node} from "./Node";
+import {Node, Range} from "./Node";
 
 export class BlockParserCollection<DocumentT extends Node=Node, ParagraphT extends Node=Node> {
     private documentParser  : BlockParser<DocumentT>;
@@ -72,7 +72,7 @@ export class BlockParserCollection<DocumentT extends Node=Node, ParagraphT exten
             node instanceof this.getParagraphParser().getNodeCtor()
         );
     }
-    public instantiateDocument (sourcepos : [[number, number], [number, number]]) : DocumentT {
+    public instantiateDocument (sourcepos : Range) : DocumentT {
         const ctor = this.getDocumentParser().getNodeCtor();
         return new ctor(this.getDocumentParser().getNodeType(), sourcepos);
     }

@@ -188,7 +188,7 @@ export class ItemParser extends BlockParser<ItemNode> {
         return (
             container.getFirstChild() == null &&
             container.sourcepos != null &&
-            container.sourcepos[0][0] === parser.lineNumber
+            container.sourcepos.start.row === parser.lineNumber
         );
     }
     endsWithBlankLineIfLastChildEndsWithBlankLine = true;

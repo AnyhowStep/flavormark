@@ -1,10 +1,19 @@
 import {NodeWalker} from "./NodeWalker";
 
+export interface Position {
+    row    : number;
+    column : number;
+}
+export interface Range {
+    start : Position,
+    end   : Position,
+}
+
 export class Node {
     readonly type : string;
-    readonly sourcepos? : [[number, number], [number, number]];
+    readonly sourcepos? : Range;
 
-    public constructor (nodeType : string, sourcepos? : [[number, number], [number, number]]) {
+    public constructor (nodeType : string, sourcepos? : Range) {
         this.type = nodeType;
         this.sourcepos = sourcepos;
     }

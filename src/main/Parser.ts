@@ -1,6 +1,6 @@
 import {BlockParser} from "./BlockParser";
 import {BlockParserCollection} from "./BlockParserCollection";
-import {Node} from "./Node";
+import {Node, Range} from "./Node";
 
 var CODE_INDENT = 4;
 var C_NEWLINE = 10;
@@ -42,9 +42,16 @@ export class Parser {
         this.blockParsers = blockParsers;
 
         //TODO, delete this safely?
-        this.doc = blockParsers.instantiateDocument(
-            [[1, 1], [0, 0]]
-        );
+        this.doc = blockParsers.instantiateDocument({
+            start : {
+                row : 1,
+                column : 1,
+            },
+            end : {
+                row : 0,
+                column : 0,
+            },
+        });
         this.tip = this.doc;
         this.oldtip = this.doc;
         this.lastMatchedContainer = this.doc;
@@ -82,8 +89,16 @@ export class Parser {
 
         var column_number = offset + 1; // offset 0 = column 1
         const tag = blockParser.getNodeType();
-        var newBlock = new ctor(tag, [[this.lineNumber, column_number], [0, 0]]);
-
+        var newBlock = new ctor(tag, {
+            start : {
+                row : this.lineNumber,
+                column : column_number,
+            },
+            end : {
+                row : 0,
+                column : 0,
+            },
+        });
         while (
             !this.blockParsers.get(this.tip).canContain(blockParser, newBlock) ||
             !blockParser.canBeContainedBy(this.blockParsers.get(this.tip), this.tip)
@@ -342,7 +357,10 @@ export class Parser {
         if (block.sourcepos == null) {
             throw new Error("block.sourcepos cannot be null")
         }
-        block.sourcepos[1] = [lineNumber, this.lastLineLength];
+        block.sourcepos.end = {
+            row : lineNumber,
+            column : this.lastLineLength,
+        };
         this.blockParsers.get(block).finalize(this, block);
 
         /*if (above == null) {
@@ -367,9 +385,16 @@ export class Parser {
     // The main parsing function.  Returns a parsed document AST.
     parse(input : string) {
         this.blockParsers.reinit();
-        this.doc = this.blockParsers.instantiateDocument(
-            [[1, 1], [0, 0]]
-        );
+        this.doc = this.blockParsers.instantiateDocument({
+            start : {
+                row : 1,
+                column : 1,
+            },
+            end : {
+                row : 0,
+                column : 0,
+            },
+        });
         this.tip = this.doc;
         this.lineNumber = 0;
         this.lastLineLength = 0;
@@ -416,7 +441,7 @@ export class Parser {
             throw new Error(`Node ${node.type} is not a paragraph`);
         }
     }
-    public createParagraph (sourcepos : [[number,number],[number,number]]) {
+    public createParagraph (sourcepos : Range) {
         const ctor = this.blockParsers.getParagraphParser().getNodeCtor();
         const result = new ctor(
             this.blockParsers.getParagraphParser().getNodeType(),

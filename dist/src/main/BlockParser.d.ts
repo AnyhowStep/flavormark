@@ -1,7 +1,7 @@
 import { Parser } from "./Parser";
-import { Node } from "./Node";
+import { Node, Range } from "./Node";
 export declare type BlockNodeCtor<NodeT extends Node> = {
-    new (nodeType: string, sourcepos: [[number, number], [number, number]]): NodeT;
+    new (nodeType: string, sourcepos: Range): NodeT;
 };
 export interface BlockParserMeta {
     canContain(blockParser: BlockParserMeta, node: Node): boolean;

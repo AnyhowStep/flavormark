@@ -116,20 +116,9 @@ class Node {
     }
     ;
     walker() {
-        var walker = new NodeWalker_1.NodeWalker(this);
-        return walker;
+        return new NodeWalker_1.NodeWalker(this);
     }
     ;
 }
 exports.Node = Node;
-/* Example of use of walker:
-
- var walker = w.walker();
- var event;
-
- while (event = walker.next()) {
- console.log(event.entering, event.node.type);
- }
-
- */
 //# sourceMappingURL=Node.js.map
