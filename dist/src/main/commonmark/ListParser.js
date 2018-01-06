@@ -1,20 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const item_1 = require("./item");
 const BlockParser_1 = require("../BlockParser");
-const util_1 = require("./util");
-//
+const util_1 = require("../refactored/util");
+const ItemNode_1 = require("./ItemNode");
 const ListNode_1 = require("./ListNode");
 class ListParser extends BlockParser_1.BlockParser {
-    constructor() {
-        super(...arguments);
+    constructor(nodeType = "list", nodeCtor = ListNode_1.ListNode) {
+        super(nodeType, nodeCtor);
         this.acceptsLines = false;
         this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;
     }
     continue() { return true; }
     finalize(parser, block) {
-        var item = block.getFirstChild();
-        while (item) {
+        let item = block.getFirstChild();
+        while (item != null) {
             // check for non-final list item ending with blank line:
             if (util_1.endsWithBlankLine(parser.getBlockParsers(), item) && item.getNext()) {
                 block.listData.tight = false;
@@ -22,10 +21,11 @@ class ListParser extends BlockParser_1.BlockParser {
             }
             // recurse into children of list item, to see if there are
             // spaces between any of them:
-            var subitem = item.getFirstChild();
-            while (subitem) {
+            let subitem = item.getFirstChild();
+            while (subitem != null) {
                 if (util_1.endsWithBlankLine(parser.getBlockParsers(), subitem) &&
-                    (item.getNext() || subitem.getNext())) {
+                    (item.getNext() ||
+                        subitem.getNext())) {
                     block.listData.tight = false;
                     break;
                 }
@@ -52,10 +52,9 @@ class ListParser extends BlockParser_1.BlockParser {
             }
         }
     }
-    ;
-    canContain(blockParser) { return blockParser instanceof item_1.ItemParser; }
-    ;
+    canContain(_blockParser, node) {
+        return node instanceof ItemNode_1.ItemNode;
+    }
 }
 exports.ListParser = ListParser;
-exports.listParser = new ListParser("list", ListNode_1.ListNode);
-//# sourceMappingURL=list.js.map
+//# sourceMappingURL=ListParser.js.map

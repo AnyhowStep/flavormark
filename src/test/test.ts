@@ -42,11 +42,10 @@ var cursor = {
 var writer = new commonmark.HtmlRenderer();
 
 
-import {documentParser} from "../main/refactored/document";
-import {listParser} from "../main/refactored/list";
-import {ItemNode} from "../main/refactored/ItemNode";
+import {DocumentParser} from "../main/commonmark/DocumentParser";
+import {ListParser} from "../main/commonmark/ListParser";
 import {BlockquoteParser} from "../main/commonmark/BlockquoteParser";
-import {ItemParser} from "../main/refactored/item";
+import {ItemParser} from "../main/commonmark/ItemParser";
 import {ThematicBreakParser} from "../main/commonmark/ThematicBreakParser";
 import {HtmlBlockParser} from "../main/commonmark/HtmlBlockParser";
 import {ParagraphParser} from "../main/commonmark/ParagraphParser";
@@ -62,8 +61,10 @@ import {tableParser, ThParser, TdParser, TrParser, TheadParser, TbodyParser} fro
 import {RefMap} from "../main/refactored-misc/RefMap";
 const refMap : RefMap = {};
 
+const listParser = new ListParser();
+
 const blockParserCollection = new BlockParserCollection(
-    documentParser,
+    new DocumentParser(),
     new ParagraphParser(refMap)
 )
     .add(new BlockquoteParser())
@@ -75,7 +76,7 @@ const blockParserCollection = new BlockParserCollection(
     .add(new HtmlBlockParser())
     .add(new SetextHeadingParser())
     .add(new ThematicBreakParser())
-    .add(new ItemParser("item", ItemNode, listParser))
+    .add(new ItemParser(listParser))
     .add(new IndentedCodeBlockParser())
 
     .add(tableParser)

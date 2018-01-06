@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
-const Node_1 = require("../Node");
+const DocumentNode_1 = require("./DocumentNode");
 class DocumentParser extends BlockParser_1.BlockParser {
-    constructor() {
-        super(...arguments);
+    constructor(nodeType = "document", nodeCtor = DocumentNode_1.DocumentNode) {
+        super(nodeType, nodeCtor);
         this.acceptsLines = false;
     }
     continue() { return true; }
@@ -12,5 +12,4 @@ class DocumentParser extends BlockParser_1.BlockParser {
     canContain() { return true; }
 }
 exports.DocumentParser = DocumentParser;
-exports.documentParser = new DocumentParser("document", Node_1.Node);
-//# sourceMappingURL=document.js.map
+//# sourceMappingURL=DocumentParser.js.map

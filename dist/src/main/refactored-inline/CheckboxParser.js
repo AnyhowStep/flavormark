@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("../InlineParser");
 const CheckboxNode_1 = require("./CheckboxNode");
-const item_1 = require("../refactored/item");
+const ItemParser_1 = require("../commonmark/ItemParser");
 class CheckboxParser extends InlineParser_1.InlineParser {
     parse(parser, block, blockParser, mainParserThing) {
         if (mainParserThing.isParagraphNode(block)) {
@@ -13,7 +13,7 @@ class CheckboxParser extends InlineParser_1.InlineParser {
             block = parent;
             blockParser = mainParserThing.getBlockParser(block);
         }
-        if (!(blockParser instanceof item_1.ItemParser)) {
+        if (!(blockParser instanceof ItemParser_1.ItemParser)) {
             return false;
         }
         if (parser.pos != 0) {

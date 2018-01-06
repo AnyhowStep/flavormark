@@ -1,15 +1,22 @@
-import {ItemParser} from "./item";
-import {BlockParser, BlockParserMeta} from "../BlockParser";
+import {BlockParser, BlockParserMeta, BlockNodeCtor} from "../BlockParser";
 import {Parser} from "../Parser";
-import {endsWithBlankLine} from "./util";
-//
+import {endsWithBlankLine} from "../refactored/util";
+import {ItemNode} from "./ItemNode";
 import {ListNode} from "./ListNode";
+import {Node} from "../Node";
 
 export class ListParser extends BlockParser<ListNode> {
-    continue () { return true; }
-    finalize (parser : Parser, block : ListNode) {
-        var item = block.getFirstChild();
-        while (item) {
+    public acceptsLines = false;
+    public endsWithBlankLineIfLastChildEndsWithBlankLine = true;
+
+    public constructor (nodeType : string = "list", nodeCtor : BlockNodeCtor<ListNode> = ListNode) {
+        super(nodeType, nodeCtor);
+    }
+
+    public continue () { return true; }
+    public finalize (parser : Parser, block : ListNode) {
+        let item = block.getFirstChild();
+        while (item != null) {
             // check for non-final list item ending with blank line:
             if (endsWithBlankLine(parser.getBlockParsers(), item) && item.getNext()) {
                 block.listData.tight = false;
@@ -17,10 +24,15 @@ export class ListParser extends BlockParser<ListNode> {
             }
             // recurse into children of list item, to see if there are
             // spaces between any of them:
-            var subitem = item.getFirstChild();
-            while (subitem) {
-                if (endsWithBlankLine(parser.getBlockParsers(), subitem) &&
-                    (item.getNext() || subitem.getNext())) {
+            let subitem = item.getFirstChild();
+            while (subitem != null) {
+                if (
+                    endsWithBlankLine(parser.getBlockParsers(), subitem) &&
+                    (
+                        item.getNext() ||
+                        subitem.getNext()
+                    )
+                ) {
                     block.listData.tight = false;
                     break;
                 }
@@ -48,11 +60,8 @@ export class ListParser extends BlockParser<ListNode> {
                 }
             }
         }
-    };
-
-    canContain (blockParser : BlockParserMeta) { return blockParser instanceof ItemParser; };
-    acceptsLines= false;
-    endsWithBlankLineIfLastChildEndsWithBlankLine = true;
+    }
+    public canContain (_blockParser : BlockParserMeta, node : Node) {
+        return node instanceof ItemNode;
+    }
 }
-
-export const listParser = new ListParser("list", ListNode);
