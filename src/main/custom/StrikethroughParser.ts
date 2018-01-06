@@ -1,4 +1,4 @@
-import {DelimitedInlineParser, DelimiterInfo, ParseArgs} from "../refactored-delimiter/DelimitedInlineParser";
+import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs} from "../DelimitedInlineSubParser";
 import {RegexStream} from "../RegexStream";
 import {Node} from "../Node";
 import {removeDelimitersBetween} from "../refactored-misc/DelimiterCollection";
@@ -7,7 +7,7 @@ var TILDE_CHAR = "~";
 var C_TILDE = TILDE_CHAR.charCodeAt(0);
 
 
-export class StrikethroughParser extends DelimitedInlineParser {
+export class StrikethroughParser extends DelimitedInlineSubParser {
     public getDelimiterCharacterCodes () : number[] {
         return [
             C_TILDE,

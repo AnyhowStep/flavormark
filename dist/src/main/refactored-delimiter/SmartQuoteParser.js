@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const DelimitedInlineParser_1 = require("./DelimitedInlineParser");
+const DelimitedInlineSubParser_1 = require("../DelimitedInlineSubParser");
 var C_SINGLEQUOTE = 39;
 var C_DOUBLEQUOTE = 34;
-class SmartQuoteParser extends DelimitedInlineParser_1.DelimitedInlineParser {
+class SmartQuoteParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser {
     getDelimiterCharacterCodes() {
         return [
             C_SINGLEQUOTE,

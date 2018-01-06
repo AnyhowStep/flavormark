@@ -1,5 +1,5 @@
-import {RegexStream} from "../RegexStream";
-import {Delimiter, DelimiterCollection} from "../refactored-misc/DelimiterCollection";
+import {RegexStream} from "./RegexStream";
+import {Delimiter, DelimiterCollection} from "./refactored-misc/DelimiterCollection";
 
 export interface DelimiterInfo {
     beforeIsPunctuation : boolean,
@@ -15,7 +15,7 @@ export interface ParseArgs {
     closer : Delimiter|null;
 }
 
-export abstract class DelimitedInlineParser {
+export abstract class DelimitedInlineSubParser {
     public abstract getDelimiterCharacterCodes () : number[];
     public abstract advanceDelimiter (stream : RegexStream, delimiter : number) : void;
     public abstract canOpen (info : DelimiterInfo, delimiter : number) : boolean;

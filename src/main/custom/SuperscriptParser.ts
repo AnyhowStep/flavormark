@@ -1,4 +1,4 @@
-import {DelimitedInlineParser, DelimiterInfo, ParseArgs} from "../refactored-delimiter/DelimitedInlineParser";
+import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs} from "../DelimitedInlineSubParser";
 import {RegexStream} from "../RegexStream";
 import {Node} from "../Node";
 import {removeDelimitersBetween} from "../refactored-misc/DelimiterCollection";
@@ -7,7 +7,7 @@ var CARET_CHAR = "^";
 var C_CARET = CARET_CHAR.charCodeAt(0);
 
 
-export class SuperscriptParser extends DelimitedInlineParser {
+export class SuperscriptParser extends DelimitedInlineSubParser {
     public getDelimiterCharacterCodes () : number[] {
         return [
             C_CARET,

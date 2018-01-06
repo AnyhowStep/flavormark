@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const DelimitedInlineParser_1 = require("./DelimitedInlineParser");
+const DelimitedInlineSubParser_1 = require("../DelimitedInlineSubParser");
 const Node_1 = require("../Node");
 const DelimiterCollection_1 = require("../refactored-misc/DelimiterCollection");
 var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;
-class EmphasisParser extends DelimitedInlineParser_1.DelimitedInlineParser {
+class EmphasisParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser {
     getDelimiterCharacterCodes() {
         return [
             C_ASTERISK,

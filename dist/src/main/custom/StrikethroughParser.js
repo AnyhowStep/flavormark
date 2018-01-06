@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const DelimitedInlineParser_1 = require("../refactored-delimiter/DelimitedInlineParser");
+const DelimitedInlineSubParser_1 = require("../DelimitedInlineSubParser");
 const Node_1 = require("../Node");
 const DelimiterCollection_1 = require("../refactored-misc/DelimiterCollection");
 var TILDE_CHAR = "~";
 var C_TILDE = TILDE_CHAR.charCodeAt(0);
-class StrikethroughParser extends DelimitedInlineParser_1.DelimitedInlineParser {
+class StrikethroughParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser {
     getDelimiterCharacterCodes() {
         return [
             C_TILDE,

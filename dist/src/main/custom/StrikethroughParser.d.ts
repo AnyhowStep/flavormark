@@ -1,6 +1,6 @@
-import { DelimitedInlineParser, DelimiterInfo, ParseArgs } from "../refactored-delimiter/DelimitedInlineParser";
+import { DelimitedInlineSubParser, DelimiterInfo, ParseArgs } from "../DelimitedInlineSubParser";
 import { RegexStream } from "../RegexStream";
-export declare class StrikethroughParser extends DelimitedInlineParser {
+export declare class StrikethroughParser extends DelimitedInlineSubParser {
     getDelimiterCharacterCodes(): number[];
     advanceDelimiter(stream: RegexStream, delimiter: number): void;
     canOpen(info: DelimiterInfo): boolean;

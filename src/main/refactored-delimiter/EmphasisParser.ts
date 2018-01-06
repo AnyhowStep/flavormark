@@ -1,11 +1,11 @@
-import {DelimitedInlineParser, DelimiterInfo, ParseArgs} from "./DelimitedInlineParser";
+import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs} from "../DelimitedInlineSubParser";
 import {RegexStream} from "../RegexStream";
 import {Node} from "../Node";
 import {removeDelimitersBetween} from "../refactored-misc/DelimiterCollection";
 var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;
 
-export class EmphasisParser extends DelimitedInlineParser {
+export class EmphasisParser extends DelimitedInlineSubParser {
     public getDelimiterCharacterCodes () : number[] {
         return [
             C_ASTERISK,

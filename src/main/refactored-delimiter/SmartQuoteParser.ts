@@ -1,10 +1,10 @@
-import {DelimitedInlineParser, DelimiterInfo, ParseArgs} from "./DelimitedInlineParser";
+import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs} from "../DelimitedInlineSubParser";
 import {RegexStream} from "../RegexStream";
 
 var C_SINGLEQUOTE = 39;
 var C_DOUBLEQUOTE = 34;
 
-export class SmartQuoteParser extends DelimitedInlineParser {
+export class SmartQuoteParser extends DelimitedInlineSubParser {
     public getDelimiterCharacterCodes () : number[] {
         return [
             C_SINGLEQUOTE,
