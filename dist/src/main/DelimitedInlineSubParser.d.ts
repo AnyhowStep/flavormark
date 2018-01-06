@@ -1,5 +1,5 @@
 import { RegexStream } from "./RegexStream";
-import { Delimiter, DelimiterCollection } from "./refactored-misc/DelimiterCollection";
+import { Delimiter, DelimiterCollection } from "./DelimiterCollection";
 export interface DelimiterInfo {
     beforeIsPunctuation: boolean;
     afterIsPunctuation: boolean;

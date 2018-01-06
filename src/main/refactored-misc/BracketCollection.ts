@@ -1,5 +1,5 @@
 import {Node} from "../Node";
-import {DelimiterCollection, Delimiter} from "./DelimiterCollection";
+import {DelimiterCollection, Delimiter} from "../DelimiterCollection";
 
 export interface Bracket {
     node: Node,

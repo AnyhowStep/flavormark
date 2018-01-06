@@ -88,7 +88,7 @@ const blockParserCollection = new BlockParserCollection(
 
     .add(listParser);
 
-import {DelimiterCollection} from "../main/refactored-misc/DelimiterCollection";
+import {DelimiterCollection} from "../main/DelimiterCollection";
 import {BracketCollection} from "../main/refactored-misc/BracketCollection";
 const delimiters = new DelimiterCollection();
 const brackets = new BracketCollection(delimiters);

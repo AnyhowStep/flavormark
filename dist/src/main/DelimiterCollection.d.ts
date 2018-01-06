@@ -1,4 +1,4 @@
-import { TextNode } from "../TextNode";
+import { TextNode } from "./TextNode";
 export interface Delimiter {
     cc: number;
     numdelims: number;

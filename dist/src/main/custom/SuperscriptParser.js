@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const DelimitedInlineSubParser_1 = require("../DelimitedInlineSubParser");
 const Node_1 = require("../Node");
-const DelimiterCollection_1 = require("../refactored-misc/DelimiterCollection");
+const DelimiterCollection_1 = require("../DelimiterCollection");
 var CARET_CHAR = "^";
 var C_CARET = CARET_CHAR.charCodeAt(0);
 class SuperscriptParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser {

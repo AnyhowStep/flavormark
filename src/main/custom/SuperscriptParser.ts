@@ -1,7 +1,7 @@
 import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs} from "../DelimitedInlineSubParser";
 import {RegexStream} from "../RegexStream";
 import {Node} from "../Node";
-import {removeDelimitersBetween} from "../refactored-misc/DelimiterCollection";
+import {removeDelimitersBetween} from "../DelimiterCollection";
 
 var CARET_CHAR = "^";
 var C_CARET = CARET_CHAR.charCodeAt(0);

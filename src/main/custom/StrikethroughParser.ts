@@ -1,7 +1,7 @@
 import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs} from "../DelimitedInlineSubParser";
 import {RegexStream} from "../RegexStream";
 import {Node} from "../Node";
-import {removeDelimitersBetween} from "../refactored-misc/DelimiterCollection";
+import {removeDelimitersBetween} from "../DelimiterCollection";
 
 var TILDE_CHAR = "~";
 var C_TILDE = TILDE_CHAR.charCodeAt(0);
