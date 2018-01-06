@@ -41,7 +41,7 @@ export class ParagraphParser extends BlockParser<ParagraphNode> {
             block.unlink();
         }
     };
-    canContain= () =>{ return false; };
+    canContain () { return false; }
     acceptsLines= true;
     parseInlines = true;
     acceptLazyContinuation = true;

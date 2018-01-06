@@ -81,7 +81,7 @@ export class LatexBlockParser extends BlockParser<LatexBlockNode> {
         block.literal = content;
         block.string_content = null; // allow GC
     };
-    canContain= () => { return false; };
+    canContain () { return false; }
     acceptsLines = true;
     earlyExitOnEnd = true;
     ignoreLastLineBlank () {

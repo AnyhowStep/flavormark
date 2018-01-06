@@ -177,10 +177,10 @@ export class ItemParser extends BlockParser<ItemNode> {
         return true;
     };
     finalize () {}
-    canContain= (blockParser : BlockParserMeta) : boolean => {
+    canContain (blockParser : BlockParserMeta) : boolean {
         return blockParser != this;
     };
-    canBeContainedBy = (blockParser : BlockParserMeta) => {
+    canBeContainedBy (blockParser : BlockParserMeta) {
         return blockParser == this.listParser;
     }
     acceptsLines = false;

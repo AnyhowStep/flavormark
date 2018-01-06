@@ -40,7 +40,6 @@ function toColumns(str) {
 class TableParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.canContain = () => { return false; };
         this.acceptsLines = false;
         this.parseInlines = false;
         this.isLeaf = true;
@@ -166,6 +165,7 @@ class TableParser extends BlockParser_1.BlockParser {
     finalize(_parser, _node) {
     }
     ;
+    canContain() { return false; }
 }
 exports.TableParser = TableParser;
 exports.tableParser = new TableParser("table", TableNode_1.TableNode);
@@ -181,6 +181,7 @@ class ThParser extends BlockParser_1.BlockParser {
         return false;
     }
     finalize() { }
+    canContain() { return false; }
 }
 exports.ThParser = ThParser;
 class TdParser extends BlockParser_1.BlockParser {
@@ -195,6 +196,7 @@ class TdParser extends BlockParser_1.BlockParser {
         return false;
     }
     finalize() { }
+    canContain() { return false; }
 }
 exports.TdParser = TdParser;
 class TrParser extends BlockParser_1.BlockParser {
@@ -205,6 +207,7 @@ class TrParser extends BlockParser_1.BlockParser {
         return false;
     }
     finalize() { }
+    canContain() { return false; }
 }
 exports.TrParser = TrParser;
 class TheadParser extends BlockParser_1.BlockParser {
@@ -215,6 +218,7 @@ class TheadParser extends BlockParser_1.BlockParser {
         return false;
     }
     finalize() { }
+    canContain() { return false; }
 }
 exports.TheadParser = TheadParser;
 class TbodyParser extends BlockParser_1.BlockParser {
@@ -225,6 +229,7 @@ class TbodyParser extends BlockParser_1.BlockParser {
         return false;
     }
     finalize() { }
+    canContain() { return false; }
 }
 exports.TbodyParser = TbodyParser;
 //# sourceMappingURL=table.js.map

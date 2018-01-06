@@ -38,7 +38,7 @@ export class BlockquoteParser extends BlockParser {
         return true;
     };
     finalize () {}
-    canContain= () =>{ return true; };
+    canContain () { return true; }
     acceptsLines = false;
     ignoreLastLineBlank () {
         return true;

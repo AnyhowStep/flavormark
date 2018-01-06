@@ -26,7 +26,6 @@ var reHtmlBlockOpen = [
 class HtmlBlockParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.canContain = () => { return false; };
         this.acceptsLines = true;
         this.isLeaf = true;
     }
@@ -65,6 +64,7 @@ class HtmlBlockParser extends BlockParser_1.BlockParser {
         block.string_content = null; // allow GC
     }
     ;
+    canContain() { return false; }
     finalizeAtLine(parser, container) {
         return (container.htmlBlockType != null &&
             container.htmlBlockType >= 1 &&

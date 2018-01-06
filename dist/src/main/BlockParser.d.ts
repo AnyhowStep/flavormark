@@ -4,8 +4,8 @@ export declare type BlockNodeCtor<NodeT extends Node> = {
     new (nodeType: string, sourcepos: [[number, number], [number, number]]): NodeT;
 };
 export interface BlockParserMeta {
-    canContain: (blockParser: BlockParserMeta, node: Node) => boolean;
-    canBeContainedBy: (blockParser: BlockParserMeta, node: Node) => boolean;
+    canContain(blockParser: BlockParserMeta, node: Node): boolean;
+    canBeContainedBy(blockParser: BlockParserMeta, node: Node): boolean;
     acceptsLines: boolean;
     isParagraph?: boolean;
     acceptLazyContinuation?: boolean;
@@ -15,8 +15,8 @@ export interface BlockParserMeta {
     endsWithBlankLineIfLastChildEndsWithBlankLine?: boolean;
 }
 export declare abstract class BlockParser<NodeT extends Node = Node> implements BlockParserMeta {
-    canContain: (blockParser: BlockParserMeta, node: Node) => boolean;
-    canBeContainedBy: (blockParser: BlockParserMeta, node: Node) => boolean;
+    abstract canContain(blockParser: BlockParserMeta, node: Node): boolean;
+    canBeContainedBy(_blockParser: BlockParserMeta, _node: Node): boolean;
     acceptsLines: boolean;
     isParagraph?: boolean;
     acceptLazyContinuation?: boolean;

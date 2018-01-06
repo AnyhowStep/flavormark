@@ -2,16 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class BlockParser {
     constructor(nodeType, nodeCtor) {
-        //BEGIN META
-        this.canContain = () => {
-            throw new Error("Not implemented");
-        };
-        this.canBeContainedBy = () => {
-            return true;
-        };
         this.acceptsLines = false;
         this.nodeType = nodeType;
         this.nodeCtor = nodeCtor;
+    }
+    canBeContainedBy(_blockParser, _node) {
+        return true;
     }
     getNodeType() {
         return this.nodeType;

@@ -5,7 +5,7 @@ export declare class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlo
     tryStart(parser: Parser): boolean;
     continue(parser: Parser): boolean;
     finalize(_parser: Parser, block: IndentedCodeBlockNode): void;
-    canContain: () => boolean;
+    canContain(): boolean;
     acceptsLines: boolean;
     isLeaf: boolean;
     appendString(node: IndentedCodeBlockNode, str: string): void;

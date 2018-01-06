@@ -21,7 +21,7 @@ export class ThematicBreakParser extends BlockParser {
         return false;
     };
     finalize () {}
-    canContain= () => { return false; };
+    canContain () { return false; }
     acceptsLines= false;
     isLeaf = true;
 }

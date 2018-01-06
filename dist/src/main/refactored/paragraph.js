@@ -9,7 +9,6 @@ var C_OPEN_BRACKET = 91;
 class ParagraphParser extends BlockParser_1.BlockParser {
     constructor(nodeType, nodeCtor, refMap) {
         super(nodeType, nodeCtor);
-        this.canContain = () => { return false; };
         this.acceptsLines = true;
         this.parseInlines = true;
         this.acceptLazyContinuation = true;
@@ -43,6 +42,7 @@ class ParagraphParser extends BlockParser_1.BlockParser {
         }
     }
     ;
+    canContain() { return false; }
     appendString(node, str) {
         if (node.string_content == null) {
             node.string_content = "";

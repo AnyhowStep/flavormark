@@ -37,7 +37,7 @@ export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> 
         block.literal = block.string_content.replace(/(\n *)+$/, '\n');
         block.string_content = null; // allow GC
     };
-    canContain= () => { return false; };
+    canContain () { return false; }
     acceptsLines= true;
     isLeaf = true;
     public appendString (node : IndentedCodeBlockNode, str : string) : void {

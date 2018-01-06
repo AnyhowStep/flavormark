@@ -70,7 +70,7 @@ export class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
         block.literal = block.string_content.replace(/(\n *)+$/, '');
         block.string_content = null; // allow GC
     };
-    canContain= () => { return false; };
+    canContain () { return false; }
     acceptsLines= true;
     public finalizeAtLine (parser : Parser, container : HtmlBlockNode) {
         return (

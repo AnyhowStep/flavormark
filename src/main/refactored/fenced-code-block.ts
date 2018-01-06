@@ -64,7 +64,7 @@ export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
         block.literal = rest;
         block.string_content = null; // allow GC
     };
-    canContain= () => { return false; };
+    canContain () { return false; }
     acceptsLines = true;
     earlyExitOnEnd = true;
     ignoreLastLineBlank () {

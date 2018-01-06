@@ -81,12 +81,6 @@ var listsMatch = function (list_data, item_data) {
 class ItemParser extends BlockParser_1.BlockParser {
     constructor(nodeType, nodeCtor, listParser) {
         super(nodeType, nodeCtor);
-        this.canContain = (blockParser) => {
-            return blockParser != this;
-        };
-        this.canBeContainedBy = (blockParser) => {
-            return blockParser == this.listParser;
-        };
         this.acceptsLines = false;
         this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;
         this.listParser = listParser;
@@ -141,6 +135,13 @@ class ItemParser extends BlockParser_1.BlockParser {
     }
     ;
     finalize() { }
+    canContain(blockParser) {
+        return blockParser != this;
+    }
+    ;
+    canBeContainedBy(blockParser) {
+        return blockParser == this.listParser;
+    }
     ignoreLastLineBlank(parser, container) {
         return (container.firstChild == null &&
             container.sourcepos != null &&

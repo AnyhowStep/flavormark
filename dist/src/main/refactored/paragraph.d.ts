@@ -8,7 +8,7 @@ export declare class ParagraphParser extends BlockParser<ParagraphNode> {
     reinit(): void;
     continue(parser: Parser): boolean;
     finalize(_parser: Parser, block: ParagraphNode): void;
-    canContain: () => boolean;
+    canContain(): boolean;
     acceptsLines: boolean;
     parseInlines: boolean;
     acceptLazyContinuation: boolean;

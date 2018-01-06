@@ -6,7 +6,6 @@ var reSetextHeadingLine = /^(?:=+|-+)[ \t]*$/;
 class SetextHeadingParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.canContain = () => { return false; };
         this.acceptsLines = false;
         this.parseInlines = true;
         this.isLeaf = true;
@@ -37,6 +36,7 @@ class SetextHeadingParser extends BlockParser_1.BlockParser {
     }
     ;
     finalize() { }
+    canContain() { return false; }
     getString(node) {
         return node.string_content || "";
     }

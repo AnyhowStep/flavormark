@@ -7,7 +7,6 @@ const IndentedCodeBlockNode_1 = require("./IndentedCodeBlockNode");
 class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.canContain = () => { return false; };
         this.acceptsLines = true;
         this.isLeaf = true;
     }
@@ -48,6 +47,7 @@ class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
         block.string_content = null; // allow GC
     }
     ;
+    canContain() { return false; }
     appendString(node, str) {
         if (node.string_content == null) {
             node.string_content = "";

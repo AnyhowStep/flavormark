@@ -30,7 +30,7 @@ export class ListParser extends BlockParser<ListNode> {
         }
     };
 
-    canContain= (blockParser : BlockParserMeta) =>{ return blockParser instanceof ItemParser; };
+    canContain (blockParser : BlockParserMeta) { return blockParser instanceof ItemParser; };
     acceptsLines= false;
     endsWithBlankLineIfLastChildEndsWithBlankLine = true;
 }

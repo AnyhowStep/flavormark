@@ -6,8 +6,8 @@ export type BlockNodeCtor<NodeT extends Node> = {
 };
 
 export interface BlockParserMeta {
-    canContain       : (blockParser : BlockParserMeta, node : Node) => boolean;
-    canBeContainedBy : (blockParser : BlockParserMeta, node : Node) => boolean;
+    canContain       (blockParser : BlockParserMeta, node : Node) : boolean;
+    canBeContainedBy (blockParser : BlockParserMeta, node : Node) : boolean;
 
     acceptsLines : boolean;
     //Has no effect unless acceptsLines is true
@@ -24,10 +24,8 @@ export interface BlockParserMeta {
 
 export abstract class BlockParser<NodeT extends Node=Node> implements BlockParserMeta {
     //BEGIN META
-    canContain: (blockParser : BlockParserMeta, node : Node) => boolean = () => {
-        throw new Error("Not implemented");
-    }
-    canBeContainedBy: (blockParser : BlockParserMeta, node : Node) => boolean = () => {
+    abstract canContain (blockParser : BlockParserMeta, node : Node) : boolean;
+    canBeContainedBy (_blockParser : BlockParserMeta, _node : Node) : boolean {
         return true;
     }
 

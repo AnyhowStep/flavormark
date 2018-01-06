@@ -7,7 +7,7 @@ export declare class TableParser extends BlockParser<TableNode> {
     continue(_parser: Parser, _node: TableNode): boolean;
     lazyContinue(parser: Parser, node: TableNode): void;
     finalize(_parser: Parser, _node: TableNode): void;
-    canContain: () => boolean;
+    canContain(): boolean;
     acceptsLines: boolean;
     parseInlines: boolean;
     isLeaf: boolean;
@@ -19,6 +19,7 @@ export declare class ThParser extends BlockParser<Th> {
     getString(node: Th): string;
     continue(_parser: Parser, _node: Tbody): boolean;
     finalize(): void;
+    canContain(): boolean;
     parseInlines: boolean;
 }
 export declare class TdParser extends BlockParser<Td> {
@@ -26,20 +27,24 @@ export declare class TdParser extends BlockParser<Td> {
     getString(node: Td): string;
     continue(_parser: Parser, _node: Tbody): boolean;
     finalize(): void;
+    canContain(): boolean;
     parseInlines: boolean;
 }
 export declare class TrParser extends BlockParser<Tr> {
     constructor();
     continue(_parser: Parser, _node: Tbody): boolean;
     finalize(): void;
+    canContain(): boolean;
 }
 export declare class TheadParser extends BlockParser<Thead> {
     constructor();
     continue(_parser: Parser, _node: Tbody): boolean;
     finalize(): void;
+    canContain(): boolean;
 }
 export declare class TbodyParser extends BlockParser<Tbody> {
     constructor();
     continue(_parser: Parser, _node: Tbody): boolean;
     finalize(): void;
+    canContain(): boolean;
 }

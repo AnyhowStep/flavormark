@@ -177,7 +177,7 @@ export class TableParser extends BlockParser<TableNode> {
     finalize (_parser : Parser, _node : TableNode) {
 
     };
-    canContain= () =>{ return false; };
+    canContain () { return false; }
     acceptsLines= false;
     parseInlines = false;
     isLeaf = true;
@@ -197,6 +197,7 @@ export class ThParser extends BlockParser<Th> {
         return false;
     }
     finalize () {}
+    canContain () { return false; }
     parseInlines = true;
 }
 
@@ -211,6 +212,7 @@ export class TdParser extends BlockParser<Td> {
         return false;
     }
     finalize () {}
+    canContain () { return false; }
     parseInlines = true;
 }
 
@@ -222,6 +224,7 @@ export class TrParser extends BlockParser<Tr> {
         return false;
     }
     finalize () {}
+    canContain () { return false; }
 }
 export class TheadParser extends BlockParser<Thead> {
     public constructor () {
@@ -231,6 +234,7 @@ export class TheadParser extends BlockParser<Thead> {
         return false;
     }
     finalize () {}
+    canContain () { return false; }
 }
 export class TbodyParser extends BlockParser<Tbody> {
     public constructor () {
@@ -240,4 +244,5 @@ export class TbodyParser extends BlockParser<Tbody> {
         return false;
     }
     finalize () {}
+    canContain () { return false; }
 }

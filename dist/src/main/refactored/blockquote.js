@@ -7,7 +7,6 @@ var C_GREATERTHAN = 62;
 class BlockquoteParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.canContain = () => { return true; };
         this.acceptsLines = false;
     }
     tryStart(parser) {
@@ -45,6 +44,7 @@ class BlockquoteParser extends BlockParser_1.BlockParser {
     }
     ;
     finalize() { }
+    canContain() { return true; }
     ignoreLastLineBlank() {
         return true;
     }

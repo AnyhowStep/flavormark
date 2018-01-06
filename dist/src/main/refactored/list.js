@@ -8,7 +8,6 @@ const ListNode_1 = require("./ListNode");
 class ListParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.canContain = (blockParser) => { return blockParser instanceof item_1.ItemParser; };
         this.acceptsLines = false;
         this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;
     }
@@ -35,6 +34,8 @@ class ListParser extends BlockParser_1.BlockParser {
             item = item.next;
         }
     }
+    ;
+    canContain(blockParser) { return blockParser instanceof item_1.ItemParser; }
     ;
 }
 exports.ListParser = ListParser;

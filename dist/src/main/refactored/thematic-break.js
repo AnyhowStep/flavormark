@@ -6,7 +6,6 @@ var reThematicBreak = /^(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:-[ \t]*){3,})[ \t
 class ThematicBreakParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.canContain = () => { return false; };
         this.acceptsLines = false;
         this.isLeaf = true;
     }
@@ -29,6 +28,7 @@ class ThematicBreakParser extends BlockParser_1.BlockParser {
     }
     ;
     finalize() { }
+    canContain() { return false; }
 }
 exports.ThematicBreakParser = ThematicBreakParser;
 exports.thematicBreakParser = new ThematicBreakParser("thematic_break", Node_1.Node);

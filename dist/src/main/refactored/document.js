@@ -5,11 +5,11 @@ const Node_1 = require("../Node");
 class DocumentParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.canContain = () => { return true; };
         this.acceptsLines = false;
     }
     continue() { return true; }
     finalize() { }
+    canContain() { return true; }
 }
 exports.DocumentParser = DocumentParser;
 exports.documentParser = new DocumentParser("document", Node_1.Node);

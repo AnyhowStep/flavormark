@@ -32,7 +32,7 @@ export class SetextHeadingParser extends BlockParser<HeadingNode> {
         return false;
     };
     finalize () {}
-    canContain= () => { return false; };
+    canContain () { return false; }
     acceptsLines= false;
     parseInlines = true;
     isLeaf = true;
