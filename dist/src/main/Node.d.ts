@@ -1,14 +1,4 @@
-export declare class NodeWalker {
-    current: Node | null;
-    root: Node;
-    entering: boolean;
-    constructor(root: Node);
-    resumeAt(node: Node, entering: boolean): void;
-    next(): {
-        entering: boolean;
-        node: Node;
-    } | null;
-}
+import { NodeWalker } from "./NodeWalker";
 export declare class Node {
     readonly type: string;
     readonly sourcepos?: [[number, number], [number, number]];

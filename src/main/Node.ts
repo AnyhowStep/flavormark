@@ -1,48 +1,4 @@
-export class NodeWalker {
-    current: Node|null;
-    root : Node;
-    entering : boolean;
-    public constructor (root : Node) {
-        this.current = root;
-        this.root = root;
-        this.entering = true;
-    }
-    resumeAt (node : Node, entering : boolean) {
-        this.current = node;
-        this.entering = (entering === true);
-    };
-    next () {
-        var cur = this.current;
-        var entering = this.entering;
-
-        if (cur === null) {
-            return null;
-        }
-
-        if (entering) {
-            if (cur.getFirstChild()) {
-                this.current = cur.getFirstChild();
-                this.entering = true;
-            } else {
-                // stay on node but exit
-                this.entering = false;
-            }
-
-        } else if (cur === this.root) {
-            this.current = null;
-
-        } else if (cur.getNext() === null) {
-            this.current = cur.getParent();
-            this.entering = false;
-
-        } else {
-            this.current = cur.getNext();
-            this.entering = true;
-        }
-
-        return {entering: entering, node: cur};
-    };
-}
+import {NodeWalker} from "./NodeWalker";
 
 export class Node {
     readonly type : string;
@@ -159,18 +115,6 @@ export class Node {
         }
     };
     public walker () {
-        var walker = new NodeWalker(this);
-        return walker;
+        return new NodeWalker(this);
     };
 }
-
-/* Example of use of walker:
-
- var walker = w.walker();
- var event;
-
- while (event = walker.next()) {
- console.log(event.entering, event.node.type);
- }
-
- */
