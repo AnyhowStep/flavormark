@@ -12,6 +12,6 @@ export declare class ItemParser extends BlockParser<ItemNode> {
     canContain: (blockParser: BlockParserMeta) => boolean;
     canBeContainedBy: (blockParser: BlockParserMeta) => boolean;
     acceptsLines: boolean;
-    ignoreLastLineBlank: (parser: Parser, container: Node) => boolean;
+    ignoreLastLineBlank(parser: Parser, container: Node): boolean;
     endsWithBlankLineIfLastChildEndsWithBlankLine: boolean;
 }

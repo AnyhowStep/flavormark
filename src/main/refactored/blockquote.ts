@@ -40,7 +40,9 @@ export class BlockquoteParser extends BlockParser {
     finalize () {}
     canContain= () =>{ return true; };
     acceptsLines = false;
-    ignoreLastLineBlank = (_parser : Parser, _container : Node) => { return true; };
+    ignoreLastLineBlank () {
+        return true;
+    }
 }
 
 export const blockquoteParser = new BlockquoteParser("block_quote", Node);

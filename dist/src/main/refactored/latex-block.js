@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
+//import {Node} from "../Node";
 const util_1 = require("./util");
 //import {unescapeString} from "../common";
 //
@@ -41,7 +42,6 @@ class LatexBlockParser extends BlockParser_1.BlockParser {
         this.canContain = () => { return false; };
         this.acceptsLines = true;
         this.earlyExitOnEnd = true;
-        this.ignoreLastLineBlank = (_parser, _container) => { return true; };
         this.isLeaf = true;
     }
     continue(parser, container) {
@@ -85,6 +85,9 @@ class LatexBlockParser extends BlockParser_1.BlockParser {
         block.string_content = null; // allow GC
     }
     ;
+    ignoreLastLineBlank() {
+        return true;
+    }
     appendString(node, str) {
         if (node.string_content == null) {
             node.string_content = "";

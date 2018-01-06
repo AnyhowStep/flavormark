@@ -184,13 +184,13 @@ export class ItemParser extends BlockParser<ItemNode> {
         return blockParser == this.listParser;
     }
     acceptsLines = false;
-    ignoreLastLineBlank= (parser : Parser, container : Node) => {
+    public ignoreLastLineBlank (parser : Parser, container : Node) {
         return (
             container.firstChild == null &&
             container.sourcepos != null &&
             container.sourcepos[0][0] === parser.lineNumber
         );
-    };
+    }
     endsWithBlankLineIfLastChildEndsWithBlankLine = true;
 }
 

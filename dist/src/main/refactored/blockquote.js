@@ -26,7 +26,6 @@ class BlockquoteParser extends BlockParser_1.BlockParser {
         };
         this.canContain = () => { return true; };
         this.acceptsLines = false;
-        this.ignoreLastLineBlank = (_parser, _container) => { return true; };
     }
     continue(parser) {
         var ln = parser.currentLine;
@@ -45,6 +44,9 @@ class BlockquoteParser extends BlockParser_1.BlockParser {
     }
     ;
     finalize() { }
+    ignoreLastLineBlank() {
+        return true;
+    }
 }
 exports.BlockquoteParser = BlockquoteParser;
 exports.blockquoteParser = new BlockquoteParser("block_quote", Node_1.Node);

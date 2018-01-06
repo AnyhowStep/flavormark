@@ -112,11 +112,6 @@ class ItemParser extends BlockParser_1.BlockParser {
             return blockParser == this.listParser;
         };
         this.acceptsLines = false;
-        this.ignoreLastLineBlank = (parser, container) => {
-            return (container.firstChild == null &&
-                container.sourcepos != null &&
-                container.sourcepos[0][0] === parser.lineNumber);
-        };
         this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;
         this.listParser = listParser;
     }
@@ -145,6 +140,11 @@ class ItemParser extends BlockParser_1.BlockParser {
     }
     ;
     finalize() { }
+    ignoreLastLineBlank(parser, container) {
+        return (container.firstChild == null &&
+            container.sourcepos != null &&
+            container.sourcepos[0][0] === parser.lineNumber);
+    }
 }
 exports.ItemParser = ItemParser;
 //import {listParser} from "./list";

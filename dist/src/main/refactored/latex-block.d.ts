@@ -1,6 +1,5 @@
 import { BlockParser } from "../BlockParser";
 import { Parser } from "../Parser";
-import { Node } from "../Node";
 import { LatexBlockNode } from "./LatexBlockNode";
 export declare class LatexBlockParser extends BlockParser<LatexBlockNode> {
     tryStart: (parser: Parser) => boolean;
@@ -9,7 +8,7 @@ export declare class LatexBlockParser extends BlockParser<LatexBlockNode> {
     canContain: () => boolean;
     acceptsLines: boolean;
     earlyExitOnEnd: boolean;
-    ignoreLastLineBlank: (_parser: Parser, _container: Node) => boolean;
+    ignoreLastLineBlank(): boolean;
     isLeaf: boolean;
     appendString(node: LatexBlockNode, str: string): void;
     getString(node: LatexBlockNode): string;

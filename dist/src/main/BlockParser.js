@@ -38,6 +38,9 @@ class BlockParser {
     finalizeAtLine(_parser, _container) {
         return false;
     }
+    ignoreLastLineBlank(_parser, _container) {
+        return false;
+    }
 }
 exports.BlockParser = BlockParser;
 ;

@@ -260,14 +260,12 @@ class Parser {
             if (this.blank && container.lastChild) {
                 container.lastChild.lastLineBlank = true;
             }
-            const ignoreLastLineBlankPredicate = this.blockParsers.get(container).ignoreLastLineBlank;
             // Block quote lines are never blank as they start with >
             // and we don't count blanks in fenced code for purposes of tight/loose
             // lists or breaking out of lists.  We also don't set _lastLineBlank
             // on an empty list item, or if we just closed a fenced block.
-            var lastLineBlank = this.blank &&
-                (ignoreLastLineBlankPredicate == null ||
-                    !ignoreLastLineBlankPredicate(this, container));
+            var lastLineBlank = (this.blank &&
+                !this.blockParsers.get(container).ignoreLastLineBlank(this, container));
             // propagate lastLineBlank up through parents:
             var cont = container;
             while (cont) {

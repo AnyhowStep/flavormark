@@ -85,5 +85,7 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
         return false;
     }
     public abstract finalize (parser : Parser, block : NodeT) : void;
-    ignoreLastLineBlank? : (parser : Parser, container : NodeT) => boolean;
+    public ignoreLastLineBlank (_parser : Parser, _container : NodeT) : boolean {
+        return false;
+    }
 };

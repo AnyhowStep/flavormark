@@ -1,6 +1,6 @@
 import {BlockParser} from "../BlockParser";
 import {Parser} from "../Parser";
-import {Node} from "../Node";
+//import {Node} from "../Node";
 import {peek, isSpaceOrTab} from "./util";
 import {unescapeString} from "../common";
 //
@@ -67,7 +67,9 @@ export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
     canContain= () => { return false; };
     acceptsLines = true;
     earlyExitOnEnd = true;
-    ignoreLastLineBlank = (_parser : Parser, _container : Node) => { return true; };
+    ignoreLastLineBlank () {
+        return true;
+    }
     isLeaf = true;
     public appendString (node : FencedCodeBlockNode, str : string) : void {
         if (node.string_content == null) {

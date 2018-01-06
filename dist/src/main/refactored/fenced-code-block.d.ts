@@ -1,6 +1,5 @@
 import { BlockParser } from "../BlockParser";
 import { Parser } from "../Parser";
-import { Node } from "../Node";
 import { FencedCodeBlockNode } from "./FencedCodeBlockNode";
 export declare class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
     tryStart: (parser: Parser) => boolean;
@@ -9,7 +8,7 @@ export declare class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNo
     canContain: () => boolean;
     acceptsLines: boolean;
     earlyExitOnEnd: boolean;
-    ignoreLastLineBlank: (_parser: Parser, _container: Node) => boolean;
+    ignoreLastLineBlank(): boolean;
     isLeaf: boolean;
     appendString(node: FencedCodeBlockNode, str: string): void;
     getString(node: FencedCodeBlockNode): string;
