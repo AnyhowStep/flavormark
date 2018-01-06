@@ -1,5 +1,5 @@
 import { Node } from "../Node";
 export declare class IndentedCodeBlockNode extends Node {
-    string_content: string | undefined;
-    literal: string | undefined;
+    stringContent: string;
+    literal: string;
 }

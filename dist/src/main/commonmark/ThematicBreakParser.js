@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
-const Node_1 = require("../Node");
+const ThematicBreakNode_1 = require("./ThematicBreakNode");
 const reThematicBreak = /^(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:-[ \t]*){3,})[ \t]*$/;
 class ThematicBreakParser extends BlockParser_1.BlockParser {
-    constructor(nodeType = "thematic_break", nodeCtor = Node_1.Node) {
+    constructor(nodeType = "thematic_break", nodeCtor = ThematicBreakNode_1.ThematicBreakNode) {
         super(nodeType, nodeCtor);
         this.acceptsLines = false;
         this.isLeaf = true;

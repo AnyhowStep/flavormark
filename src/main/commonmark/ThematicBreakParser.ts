@@ -1,14 +1,14 @@
 import {BlockParser, BlockNodeCtor} from "../BlockParser";
 import {Parser} from "../Parser";
-import {Node} from "../Node";
+import {ThematicBreakNode} from "./ThematicBreakNode";
 
 const reThematicBreak = /^(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:-[ \t]*){3,})[ \t]*$/;
 
-export class ThematicBreakParser extends BlockParser {
+export class ThematicBreakParser extends BlockParser<ThematicBreakNode> {
     public acceptsLines = false;
     public isLeaf = true;
 
-    public constructor (nodeType : string = "thematic_break", nodeCtor : BlockNodeCtor<Node> = Node) {
+    public constructor (nodeType : string = "thematic_break", nodeCtor : BlockNodeCtor<ThematicBreakNode> = ThematicBreakNode) {
         super(nodeType, nodeCtor);
     }
 

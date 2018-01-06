@@ -54,7 +54,7 @@ import {AtxHeadingParser} from "../main/commonmark/AtxHeadingParser";
 import {SetextHeadingParser} from "../main/commonmark/SetextHeadingParser";
 import {fencedCodeBlockParser} from "../main/refactored/fenced-code-block";
 import {latexBlockParser} from "../main/refactored/latex-block";
-import {indentedCodeBlockParser} from "../main/refactored/indented-code-block";
+import {indentedCodeBlockParser} from "../main/commonmark/IndentedCodeBlockParser";
 import {BlockParserCollection} from "../main/BlockParserCollection";
 //import {Node} from "../main/refactored/Node";
 import {ParagraphNode} from "../main/refactored/ParagraphNode";
