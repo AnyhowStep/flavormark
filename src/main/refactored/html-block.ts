@@ -52,7 +52,7 @@ export class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
         return false;
 
     };
-    continue= (parser : Parser, container : HtmlBlockNode) => {
+    continue (parser : Parser, container : HtmlBlockNode) {
         return (
             (
                 parser.blank &&

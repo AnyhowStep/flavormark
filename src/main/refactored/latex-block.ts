@@ -42,7 +42,7 @@ export class LatexBlockParser extends BlockParser<LatexBlockNode> {
             return false;
         }
     };
-    continue= (parser : Parser, container : LatexBlockNode)=>  {
+    continue (parser : Parser, container : LatexBlockNode) {
         if (container.oneLine) {
             return false;
         }

@@ -16,7 +16,7 @@ export class ThematicBreakParser extends BlockParser {
             return false;
         }
     };
-    continue= () : boolean => {
+    continue () : boolean {
         // a thematic break can never container > 1 line, so fail to match:
         return false;
     };

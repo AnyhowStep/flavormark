@@ -28,7 +28,7 @@ export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
             return false;
         }
     };
-    continue= (parser : Parser, container : FencedCodeBlockNode)=>  {
+    continue (parser : Parser, container : FencedCodeBlockNode) {
         var ln = parser.currentLine;
         var indent = parser.indent;
         var match = (indent <= 3 &&

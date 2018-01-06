@@ -118,43 +118,6 @@ class TableParser extends BlockParser_1.BlockParser {
                 return false;
             }
         };
-        this.continue = (_parser, _node) => {
-            return false;
-        };
-        this.lazyContinue = (parser, node) => {
-            const lastLine = parser.currentLine;
-            if (parser.blank) {
-                return false;
-            }
-            /*if (!/(^\|)|([^\\]\|)/.test(lastLine)) {
-                return false;
-            }*/
-            //parser.advanceOffset(parser.currentLine.length);
-            const row = toColumns(lastLine);
-            while (row.length < node.alignments.length) {
-                row.push("");
-            }
-            while (row.length > node.alignments.length) {
-                row.pop();
-            }
-            node.rows.push(row);
-            if (node.tbody == null) {
-                node.tbody = new TableNode_1.Tbody("tbody");
-                node.appendChild(node.tbody);
-            }
-            const tr = new TableNode_1.Tr("tr");
-            node.tbody.appendChild(tr);
-            for (let j = 0; j < row.length; ++j) {
-                const a = node.alignments[j];
-                const c = row[j];
-                const td = new TableNode_1.Td("td");
-                td.alignment = a;
-                td.string_content = c;
-                //parser.processInlines(td);
-                tr.appendChild(td);
-            }
-            return true;
-        };
         this.finalize = (_parser, _node) => {
         };
         this.canContain = () => { return false; };
@@ -163,6 +126,44 @@ class TableParser extends BlockParser_1.BlockParser {
         this.isLeaf = true;
         this.acceptLazyContinuation = true;
     }
+    continue(_parser, _node) {
+        return false;
+    }
+    lazyContinue(parser, node) {
+        const lastLine = parser.currentLine;
+        if (parser.blank) {
+            parser.finalize(node, parser.lineNumber);
+            return;
+        }
+        /*if (!/(^\|)|([^\\]\|)/.test(lastLine)) {
+            return false;
+        }*/
+        //parser.advanceOffset(parser.currentLine.length);
+        const row = toColumns(lastLine);
+        while (row.length < node.alignments.length) {
+            row.push("");
+        }
+        while (row.length > node.alignments.length) {
+            row.pop();
+        }
+        node.rows.push(row);
+        if (node.tbody == null) {
+            node.tbody = new TableNode_1.Tbody("tbody");
+            node.appendChild(node.tbody);
+        }
+        const tr = new TableNode_1.Tr("tr");
+        node.tbody.appendChild(tr);
+        for (let j = 0; j < row.length; ++j) {
+            const a = node.alignments[j];
+            const c = row[j];
+            const td = new TableNode_1.Td("td");
+            td.alignment = a;
+            td.string_content = c;
+            //parser.processInlines(td);
+            tr.appendChild(td);
+        }
+    }
+    ;
 }
 exports.TableParser = TableParser;
 exports.tableParser = new TableParser("table", TableNode_1.TableNode);
@@ -201,9 +202,9 @@ exports.TheadParser = TheadParser;
 class TbodyParser extends BlockParser_1.BlockParser {
     constructor() {
         super("tbody", TableNode_1.Thead);
-        this.continue = (_parser, _node) => {
-            return false;
-        };
+    }
+    continue(_parser, _node) {
+        return false;
     }
 }
 exports.TbodyParser = TbodyParser;

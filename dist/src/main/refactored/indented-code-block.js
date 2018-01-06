@@ -22,19 +22,6 @@ class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
                 return false;
             }
         };
-        this.continue = (parser) => {
-            var indent = parser.indent;
-            if (indent >= util_1.CODE_INDENT) {
-                parser.advanceOffset(util_1.CODE_INDENT, true);
-            }
-            else if (parser.blank) {
-                parser.advanceNextNonspace();
-            }
-            else {
-                return false;
-            }
-            return true;
-        };
         this.finalize = (_parser, block) => {
             if (block.string_content == null) {
                 throw new Error("block.string_content cannot be null");
@@ -45,6 +32,19 @@ class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
         this.canContain = () => { return false; };
         this.acceptsLines = true;
         this.isLeaf = true;
+    }
+    continue(parser) {
+        var indent = parser.indent;
+        if (indent >= util_1.CODE_INDENT) {
+            parser.advanceOffset(util_1.CODE_INDENT, true);
+        }
+        else if (parser.blank) {
+            parser.advanceNextNonspace();
+        }
+        else {
+            return false;
+        }
+        return true;
     }
     appendString(node, str) {
         if (node.string_content == null) {

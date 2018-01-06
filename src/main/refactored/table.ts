@@ -134,13 +134,14 @@ export class TableParser extends BlockParser<TableNode> {
             return false;
         }
     };
-    continue=(_parser : Parser, _node : TableNode) : boolean => {
+    continue (_parser : Parser, _node : TableNode) : boolean {
         return false;
-    };
-    lazyContinue = (parser : Parser, node : TableNode) => {
+    }
+    lazyContinue (parser : Parser, node : TableNode) : void {
         const lastLine = parser.currentLine;
         if (parser.blank) {
-            return false;
+            parser.finalize(node, parser.lineNumber);
+            return;
         }
         /*if (!/(^\|)|([^\\]\|)/.test(lastLine)) {
             return false;
@@ -172,7 +173,6 @@ export class TableParser extends BlockParser<TableNode> {
             //parser.processInlines(td);
             tr.appendChild(td);
         }
-        return true;
     };
     finalize = (_parser : Parser, _node : TableNode)=> {
 
@@ -220,7 +220,7 @@ export class TbodyParser extends BlockParser<Tbody> {
     public constructor () {
         super("tbody", Thead);
     }
-    continue=(_parser : Parser, _node : Tbody) : boolean => {
+    continue (_parser : Parser, _node : Tbody) : boolean {
         return false;
     }
 }

@@ -155,7 +155,7 @@ export class ItemParser extends BlockParser<ItemNode> {
             return false;
         }
     };
-    continue= (parser : Parser, container : ItemNode) => {
+    continue (parser : Parser, container : ItemNode) {
         if (parser.blank) {
             if (container.firstChild == null) {
                 // Blank line after empty list item

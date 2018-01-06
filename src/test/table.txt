@@ -173,3 +173,46 @@ If there are no rows in the body, no <tbody> is generated in HTML output:
 </tr>
 </thead></table>
 ````````````````````````````````
+
+Tables end with a blank line
+
+```````````````````````````````` example
+| abc | def |
+| --- | --- |
+
+Hi
+.
+<table>
+<thead>
+<tr>
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead></table>
+<p>Hi</p>
+````````````````````````````````
+
+Tables end with a blank line
+
+```````````````````````````````` example
+| abc | def |
+| --- | --- |
+
+| abc | def |
+| --- | --- |
+.
+<table>
+<thead>
+<tr>
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead></table>
+<table>
+<thead>
+<tr>
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead></table>
+````````````````````````````````

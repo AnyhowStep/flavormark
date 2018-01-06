@@ -6,7 +6,7 @@ import {endsWithBlankLine} from "./util";
 import {ListNode} from "./ListNode";
 
 export class ListParser extends BlockParser<ListNode> {
-    continue= () =>{ return true; };
+    continue () { return true; }
     finalize= (parser : Parser, block : ListNode) =>{
         var item = block.firstChild;
         while (item) {

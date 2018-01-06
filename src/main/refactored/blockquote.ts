@@ -23,7 +23,7 @@ export class BlockquoteParser extends BlockParser {
             return false;
         }
     };
-    continue= (parser : Parser) =>{
+    continue (parser : Parser) {
         var ln = parser.currentLine;
         if (!parser.indented &&
             peek(ln, parser.nextNonspace) === C_GREATERTHAN) {

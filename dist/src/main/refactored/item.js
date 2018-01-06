@@ -105,29 +105,6 @@ class ItemParser extends BlockParser_1.BlockParser {
                 return false;
             }
         };
-        this.continue = (parser, container) => {
-            if (parser.blank) {
-                if (container.firstChild == null) {
-                    // Blank line after empty list item
-                    return false;
-                }
-                else {
-                    parser.advanceNextNonspace();
-                }
-            }
-            else if (container.listData.markerOffset != null &&
-                container.listData.padding != null &&
-                parser.indent >=
-                    container.listData.markerOffset +
-                        container.listData.padding) {
-                parser.advanceOffset(container.listData.markerOffset +
-                    container.listData.padding, true);
-            }
-            else {
-                return false;
-            }
-            return true;
-        };
         this.finalize = () => { return; };
         this.canContain = (blockParser) => {
             return blockParser != this;
@@ -144,6 +121,30 @@ class ItemParser extends BlockParser_1.BlockParser {
         this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;
         this.listParser = listParser;
     }
+    continue(parser, container) {
+        if (parser.blank) {
+            if (container.firstChild == null) {
+                // Blank line after empty list item
+                return false;
+            }
+            else {
+                parser.advanceNextNonspace();
+            }
+        }
+        else if (container.listData.markerOffset != null &&
+            container.listData.padding != null &&
+            parser.indent >=
+                container.listData.markerOffset +
+                    container.listData.padding) {
+            parser.advanceOffset(container.listData.markerOffset +
+                container.listData.padding, true);
+        }
+        else {
+            return false;
+        }
+        return true;
+    }
+    ;
 }
 exports.ItemParser = ItemParser;
 //import {listParser} from "./list";

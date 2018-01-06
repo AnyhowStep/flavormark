@@ -3,7 +3,7 @@ import { Parser } from "../Parser";
 import { Node } from "../Node";
 export declare class BlockquoteParser extends BlockParser {
     tryStart: (parser: Parser) => boolean;
-    continue: (parser: Parser) => boolean;
+    continue(parser: Parser): boolean;
     finalize: () => void;
     canContain: () => boolean;
     acceptsLines: boolean;

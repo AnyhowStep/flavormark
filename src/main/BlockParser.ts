@@ -6,19 +6,44 @@ export type BlockNodeCtor<NodeT extends Node> = {
 };
 
 export interface BlockParserMeta {
-    canContain: (blockParser : BlockParserMeta, node : Node) => boolean;
-    canBeContainedBy: (blockParser : BlockParserMeta, node : Node) => boolean;
+    canContain       : (blockParser : BlockParserMeta, node : Node) => boolean;
+    canBeContainedBy : (blockParser : BlockParserMeta, node : Node) => boolean;
 
-    acceptsLines: boolean;
+    acceptsLines : boolean;
+    //Has no effect unless acceptsLines is true
+    isParagraph? : boolean;
+
+    //If acceptsLines is true, calls appendString, otherwise lazyContinue()
+    acceptLazyContinuation? : boolean;
+
     earlyExitOnEnd? : boolean;
-    parseInlines? : boolean;
-    acceptLazyContinuation? : boolean; //This has no effect unless acceptsLines is true
-    isLeaf? : boolean;
-    isParagraph? : boolean; //Has no effect unless acceptsLines is true
+    parseInlines?   : boolean;
+    isLeaf?         : boolean;
     endsWithBlankLineIfLastChildEndsWithBlankLine? : boolean;
 }
 
 export abstract class BlockParser<NodeT extends Node=Node> implements BlockParserMeta {
+    //BEGIN META
+    canContain: (blockParser : BlockParserMeta, node : Node) => boolean = () => {
+        throw new Error("Not implemented");
+    }
+    canBeContainedBy: (blockParser : BlockParserMeta, node : Node) => boolean = () => {
+        return true;
+    }
+
+    acceptsLines : boolean = false;
+    //Has no effect unless acceptsLines is true
+    isParagraph? : boolean;
+
+    //If acceptsLines is true, calls appendString, otherwise lazyContinue()
+    acceptLazyContinuation? : boolean;
+
+    earlyExitOnEnd? : boolean;
+    parseInlines?   : boolean;
+    isLeaf?         : boolean;
+    endsWithBlankLineIfLastChildEndsWithBlankLine? : boolean;
+    //END META
+
     private readonly nodeType : string;
     private readonly nodeCtor : BlockNodeCtor<NodeT>;
     public constructor (nodeType : string, nodeCtor : BlockNodeCtor<NodeT>) {
@@ -32,48 +57,33 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
     public getNodeCtor () : BlockNodeCtor<NodeT> {
         return this.nodeCtor;
     }
+    //Called before the parser starts parsing content
     public reinit () {}
 
-    tryStart?: (parser : Parser, container : Node) => boolean;
-    continue: (parser : Parser, block : NodeT) => boolean = () => {
-        throw new Error("Not implemented");
-    }
-    lazyContinue: (parser : Parser, block : NodeT) => void = () => {
-
-    }
-    finalize: (parser : Parser, block : NodeT) => void = () => {
-        throw new Error("Not implemented");
-    }
-    ignoreLastLineBlank? : ((parser : Parser, container : NodeT) => boolean);
-    finalizeAtLine? : (parser : Parser, container : NodeT) => boolean;
-
+    //Only called if acceptsLines is true
     public appendString (_node : NodeT, _str : string) : void {
         throw new Error(`appendString() not implemented for ${this.getNodeType()}`);
-    } //Only called if acceptsLines is true
+    }
+
     public getString (_node : NodeT) : string {
         return "";
     }
-    // allow raw string to be garbage collected
-    public unsetString (_node : NodeT) : void {}
     public setString (_node : NodeT, _str : string) : void {
 
     }
 
-    canContain: (blockParser : BlockParserMeta, node : Node) => boolean = () => {
-        throw new Error("Not implemented");
-    }
-    canBeContainedBy: (blockParser : BlockParserMeta, node : Node) => boolean = () => {
-        return true;
-    }
-    acceptsLines: boolean = false;
-    earlyExitOnEnd? : boolean;
-    parseInlines? : boolean;
-    acceptLazyContinuation? : boolean; //If acceptsLines is true, calls appendString, otherwise lazyContinue()
-    isLeaf? : boolean;
-    isParagraph? : boolean; //Has no effect unless acceptsLines is true
-    endsWithBlankLineIfLastChildEndsWithBlankLine? : boolean;
-
     public isActuallyParagraph () {
         return (this.acceptsLines == true && this.isParagraph == true);
     }
+
+    tryStart? : (parser : Parser, container : Node) => boolean;
+    continue (_parser : Parser, _block : NodeT) : boolean {
+        throw new Error("Not implemented");
+    }
+    lazyContinue (_parser : Parser, _block : NodeT) : void {}
+    finalizeAtLine? : (parser : Parser, container : NodeT) => boolean;
+    finalize        : (parser : Parser, block : NodeT) => void = () => {
+        throw new Error("Not implemented");
+    }
+    ignoreLastLineBlank? : (parser : Parser, container : NodeT) => boolean;
 };

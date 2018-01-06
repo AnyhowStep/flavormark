@@ -11,7 +11,7 @@ export class BlockParserCollection<DocumentT extends Node=Node, ParagraphT exten
     private arr : BlockParser[] = [];
 
     public constructor (documentParser : BlockParser<DocumentT>, paragraphParser : BlockParser<ParagraphT>) {
-        if (!paragraphParser.acceptsLines || !paragraphParser.isParagraph) {
+        if (!paragraphParser.isActuallyParagraph()) {
             throw new Error(`Paragraph parser must accept lines and be a paragraph`);
         }
         if (documentParser.getNodeType() == paragraphParser.getNodeType()) {

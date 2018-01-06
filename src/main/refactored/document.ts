@@ -2,7 +2,7 @@ import {BlockParser} from "../BlockParser";
 import {Node} from "../Node";
 
 export class DocumentParser extends BlockParser {
-    continue= () => { return true; };
+    continue () { return true; }
     finalize= () => { return; };
     canContain= () =>{ return true };
     acceptsLines = false;

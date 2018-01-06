@@ -3,7 +3,7 @@ import { BlockParser } from "../BlockParser";
 import { HeadingNode } from "./HeadingNode";
 export declare class AtxHeadingParser extends BlockParser<HeadingNode> {
     tryStart: (parser: Parser) => boolean;
-    continue: () => boolean;
+    continue(): boolean;
     finalize: () => void;
     canContain: () => boolean;
     acceptsLines: boolean;

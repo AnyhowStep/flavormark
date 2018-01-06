@@ -24,26 +24,27 @@ class BlockquoteParser extends BlockParser_1.BlockParser {
                 return false;
             }
         };
-        this.continue = (parser) => {
-            var ln = parser.currentLine;
-            if (!parser.indented &&
-                util_1.peek(ln, parser.nextNonspace) === C_GREATERTHAN) {
-                parser.advanceNextNonspace();
-                parser.advanceOffset(1, false);
-                if (util_1.isSpaceOrTab(util_1.peek(ln, parser.offset))) {
-                    parser.advanceOffset(1, true);
-                }
-            }
-            else {
-                return false;
-            }
-            return true;
-        };
         this.finalize = () => { return; };
         this.canContain = () => { return true; };
         this.acceptsLines = false;
         this.ignoreLastLineBlank = (_parser, _container) => { return true; };
     }
+    continue(parser) {
+        var ln = parser.currentLine;
+        if (!parser.indented &&
+            util_1.peek(ln, parser.nextNonspace) === C_GREATERTHAN) {
+            parser.advanceNextNonspace();
+            parser.advanceOffset(1, false);
+            if (util_1.isSpaceOrTab(util_1.peek(ln, parser.offset))) {
+                parser.advanceOffset(1, true);
+            }
+        }
+        else {
+            return false;
+        }
+        return true;
+    }
+    ;
 }
 exports.BlockquoteParser = BlockquoteParser;
 exports.blockquoteParser = new BlockquoteParser("block_quote", Node_1.Node);

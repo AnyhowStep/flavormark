@@ -20,9 +20,9 @@ export class ParagraphParser extends BlockParser<ParagraphNode> {
             delete this.refMap[k];
         }
     }
-    continue= (parser : Parser) =>{
+    continue (parser : Parser) {
         return (parser.blank ? false : true);
-    };
+    }
     finalize= (_parser : Parser, block : ParagraphNode) =>{
         var pos;
         var hasReferenceDefs = false;

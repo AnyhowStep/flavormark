@@ -25,16 +25,17 @@ class SetextHeadingParser extends BlockParser_1.BlockParser {
                 return false;
             }
         };
-        this.continue = () => {
-            // a heading can never container > 1 line, so fail to match:
-            return false;
-        };
         this.finalize = () => { return; };
         this.canContain = () => { return false; };
         this.acceptsLines = false;
         this.parseInlines = true;
         this.isLeaf = true;
     }
+    continue() {
+        // a heading can never container > 1 line, so fail to match:
+        return false;
+    }
+    ;
     getString(node) {
         return node.string_content || "";
     }

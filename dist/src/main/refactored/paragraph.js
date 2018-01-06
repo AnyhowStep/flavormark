@@ -9,9 +9,6 @@ var C_OPEN_BRACKET = 91;
 class ParagraphParser extends BlockParser_1.BlockParser {
     constructor(nodeType, nodeCtor, refMap) {
         super(nodeType, nodeCtor);
-        this.continue = (parser) => {
-            return (parser.blank ? false : true);
-        };
         this.finalize = (_parser, block) => {
             var pos;
             var hasReferenceDefs = false;
@@ -41,6 +38,9 @@ class ParagraphParser extends BlockParser_1.BlockParser {
         for (let k of Object.keys(this.refMap)) {
             delete this.refMap[k];
         }
+    }
+    continue(parser) {
+        return (parser.blank ? false : true);
     }
     appendString(node, str) {
         if (node.string_content == null) {

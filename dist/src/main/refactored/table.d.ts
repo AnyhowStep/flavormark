@@ -4,8 +4,8 @@ import { TableNode, Tr, Th, Td, Thead, Tbody } from "./TableNode";
 import { Node } from "../Node";
 export declare class TableParser extends BlockParser<TableNode> {
     tryStart: (parser: Parser, container: Node) => boolean;
-    continue: (_parser: Parser, _node: TableNode) => boolean;
-    lazyContinue: (parser: Parser, node: TableNode) => boolean;
+    continue(_parser: Parser, _node: TableNode): boolean;
+    lazyContinue(parser: Parser, node: TableNode): void;
     finalize: (_parser: Parser, _node: TableNode) => void;
     canContain: () => boolean;
     acceptsLines: boolean;
@@ -32,5 +32,5 @@ export declare class TheadParser extends BlockParser<Thead> {
 }
 export declare class TbodyParser extends BlockParser<Tbody> {
     constructor();
-    continue: (_parser: Parser, _node: Tbody) => boolean;
+    continue(_parser: Parser, _node: Tbody): boolean;
 }

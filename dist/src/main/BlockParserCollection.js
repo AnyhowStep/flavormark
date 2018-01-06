@@ -4,7 +4,7 @@ class BlockParserCollection {
     constructor(documentParser, paragraphParser) {
         this.dict = {};
         this.arr = [];
-        if (!paragraphParser.acceptsLines || !paragraphParser.isParagraph) {
+        if (!paragraphParser.isActuallyParagraph()) {
             throw new Error(`Paragraph parser must accept lines and be a paragraph`);
         }
         if (documentParser.getNodeType() == paragraphParser.getNodeType()) {

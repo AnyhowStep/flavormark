@@ -18,15 +18,16 @@ class ThematicBreakParser extends BlockParser_1.BlockParser {
                 return false;
             }
         };
-        this.continue = () => {
-            // a thematic break can never container > 1 line, so fail to match:
-            return false;
-        };
         this.finalize = () => { return; };
         this.canContain = () => { return false; };
         this.acceptsLines = false;
         this.isLeaf = true;
     }
+    continue() {
+        // a thematic break can never container > 1 line, so fail to match:
+        return false;
+    }
+    ;
 }
 exports.ThematicBreakParser = ThematicBreakParser;
 exports.thematicBreakParser = new ThematicBreakParser("thematic_break", Node_1.Node);

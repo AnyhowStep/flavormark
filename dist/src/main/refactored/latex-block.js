@@ -38,33 +38,6 @@ class LatexBlockParser extends BlockParser_1.BlockParser {
                 return false;
             }
         };
-        this.continue = (parser, container) => {
-            if (container.oneLine) {
-                return false;
-            }
-            var ln = parser.currentLine;
-            var indent = parser.indent;
-            var match = (indent <= 3 &&
-                ln.charAt(parser.nextNonspace) === container.fenceChar &&
-                ln.slice(parser.nextNonspace).match(reClosingCodeFence));
-            if (match && match[0].length >= container.fenceLength) {
-                // closing fence - we're at end of line, so we can return
-                parser.finalize(container, parser.lineNumber);
-                return false;
-            }
-            else {
-                // skip optional spaces of fence offset
-                var i = container.fenceOffset;
-                if (i == null) {
-                    throw new Error("i cannot be null");
-                }
-                while (i > 0 && util_1.isSpaceOrTab(util_1.peek(ln, parser.offset))) {
-                    parser.advanceOffset(1, true);
-                    i--;
-                }
-            }
-            return true;
-        };
         this.finalize = (_parser, block) => {
             let content = block.string_content;
             if (content == null) {
@@ -83,6 +56,34 @@ class LatexBlockParser extends BlockParser_1.BlockParser {
         this.ignoreLastLineBlank = (_parser, _container) => { return true; };
         this.isLeaf = true;
     }
+    continue(parser, container) {
+        if (container.oneLine) {
+            return false;
+        }
+        var ln = parser.currentLine;
+        var indent = parser.indent;
+        var match = (indent <= 3 &&
+            ln.charAt(parser.nextNonspace) === container.fenceChar &&
+            ln.slice(parser.nextNonspace).match(reClosingCodeFence));
+        if (match && match[0].length >= container.fenceLength) {
+            // closing fence - we're at end of line, so we can return
+            parser.finalize(container, parser.lineNumber);
+            return false;
+        }
+        else {
+            // skip optional spaces of fence offset
+            var i = container.fenceOffset;
+            if (i == null) {
+                throw new Error("i cannot be null");
+            }
+            while (i > 0 && util_1.isSpaceOrTab(util_1.peek(ln, parser.offset))) {
+                parser.advanceOffset(1, true);
+                i--;
+            }
+        }
+        return true;
+    }
+    ;
     appendString(node, str) {
         if (node.string_content == null) {
             node.string_content = "";

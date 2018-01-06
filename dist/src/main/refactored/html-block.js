@@ -46,11 +46,6 @@ class HtmlBlockParser extends BlockParser_1.BlockParser {
             }
             return false;
         };
-        this.continue = (parser, container) => {
-            return ((parser.blank &&
-                (container.htmlBlockType === 6 ||
-                    container.htmlBlockType === 7)) ? false : true);
-        };
         this.finalize = (_parser, block) => {
             if (block.string_content == null) {
                 throw new Error("block.string_content cannot be null");
@@ -68,6 +63,12 @@ class HtmlBlockParser extends BlockParser_1.BlockParser {
         };
         this.isLeaf = true;
     }
+    continue(parser, container) {
+        return ((parser.blank &&
+            (container.htmlBlockType === 6 ||
+                container.htmlBlockType === 7)) ? false : true);
+    }
+    ;
     appendString(node, str) {
         if (node.string_content == null) {
             node.string_content = "";

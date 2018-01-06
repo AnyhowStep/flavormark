@@ -27,7 +27,7 @@ export class SetextHeadingParser extends BlockParser<HeadingNode> {
             return false;
         }
     };
-    continue= () => {
+    continue () {
         // a heading can never container > 1 line, so fail to match:
         return false;
     };

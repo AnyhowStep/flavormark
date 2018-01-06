@@ -49,7 +49,6 @@ class InlineContentParser extends RegexStream_1.RegexStream {
         this.pos = 0;
         while (this.parseInline(parser, blockParser, block)) {
         }
-        blockParser.unsetString(block); // allow raw string to be garbage collected
         for (let i of this.inParsers) {
             i.finalize();
         }

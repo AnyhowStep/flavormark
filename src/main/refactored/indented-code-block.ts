@@ -19,7 +19,7 @@ export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> 
             return false;
         }
     };
-    continue= (parser : Parser) => {
+    continue (parser : Parser) {
         var indent = parser.indent;
         if (indent >= CODE_INDENT) {
             parser.advanceOffset(CODE_INDENT, true);
@@ -29,7 +29,7 @@ export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> 
             return false;
         }
         return true;
-    };
+    }
     finalize= (_parser : Parser, block : IndentedCodeBlockNode) => {
         if (block.string_content == null) {
             throw new Error("block.string_content cannot be null")

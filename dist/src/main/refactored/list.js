@@ -8,7 +8,6 @@ const ListNode_1 = require("./ListNode");
 class ListParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.continue = () => { return true; };
         this.finalize = (parser, block) => {
             var item = block.firstChild;
             while (item) {
@@ -35,6 +34,7 @@ class ListParser extends BlockParser_1.BlockParser {
         this.acceptsLines = false;
         this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;
     }
+    continue() { return true; }
 }
 exports.ListParser = ListParser;
 exports.listParser = new ListParser("list", ListNode_1.ListNode);
