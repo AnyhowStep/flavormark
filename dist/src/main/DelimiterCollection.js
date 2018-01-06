@@ -11,7 +11,7 @@ class DelimiterCollection {
         if (!delim) {
             return;
         }
-        if (delim.previous !== null) {
+        if (delim.previous != null) {
             delim.previous.next = delim.next;
         }
         if (delim.next == null) {
@@ -28,7 +28,7 @@ class DelimiterCollection {
     }
     push(args) {
         this.top = Object.assign({}, args, { previous: this.top, next: null });
-        if (this.top.previous !== null) {
+        if (this.top.previous != null) {
             this.top.previous.next = this.top;
         }
         return this.top;

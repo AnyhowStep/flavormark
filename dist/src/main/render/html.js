@@ -208,7 +208,7 @@ class HtmlRenderer extends renderer_1.Renderer {
             throw new Error("node.parent cannot be null");
         }
         var grandparent = node.parent.parent, attrs = this.attrs(node);
-        if (grandparent !== null &&
+        if (grandparent != null &&
             grandparent.type === 'list') {
             if (grandparent.listData.tight) {
                 return;

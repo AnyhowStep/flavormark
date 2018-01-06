@@ -34,7 +34,7 @@ class InlineLatexParser extends InlineParser_1.InlineParser {
         }
         var matched;
         var node;
-        while ((matched = parser.match(reDollar)) !== null) {
+        while ((matched = parser.match(reDollar)) != null) {
             if (/[^\\]\$/.test(matched)) {
                 node = new LatexNode_1.LatexNode('latex');
                 node.literal = parser.subject.slice(startpos + 1, parser.pos - 1).trim().replace(reWhitespace, ' ');

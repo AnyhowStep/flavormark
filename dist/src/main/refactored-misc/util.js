@@ -60,7 +60,7 @@ function parseLinkDestination(parser) {
                     openparens -= 1;
                 }
             }
-            else if (reWhitespaceChar.exec(String.fromCharCode(c)) !== null) {
+            else if (reWhitespaceChar.exec(String.fromCharCode(c)) != null) {
                 break;
             }
             else {
@@ -140,7 +140,7 @@ function parseReference(s, refmap) {
             // rewind before spaces
             parser.pos = beforetitle;
             // and instead check if the link URL is at the line end
-            atLineEnd = parser.match(reSpaceAtEndOfLine) !== null;
+            atLineEnd = parser.match(reSpaceAtEndOfLine) != null;
         }
     }
     if (!atLineEnd) {

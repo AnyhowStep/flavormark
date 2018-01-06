@@ -124,11 +124,11 @@ export class DelimitedInlineParser extends InlineParser {
 
         // find first closer above stack_bottom:
         let closer = this.delimiters.peek();
-        while (closer !== null && closer.previous !== stack_bottom) {
+        while (closer != null && closer.previous !== stack_bottom) {
             closer = closer.previous;
         }
         // move forward, looking for closers, and handling each
-        while (closer !== null) {
+        while (closer != null) {
             var closercc = closer.cc;
             if (!closer.can_close) {
                 closer = closer.next;
@@ -139,7 +139,7 @@ export class DelimitedInlineParser extends InlineParser {
 
                 let odd_match : boolean = false;
 
-                while (opener !== null && opener !== stack_bottom &&
+                while (opener != null && opener !== stack_bottom &&
                        opener !== openers_bottom[closercc]) {
                     odd_match = (closer.can_open || opener.can_close) &&
                         (opener.origdelims + closer.origdelims) % 3 === 0;
@@ -198,7 +198,7 @@ export class DelimitedInlineParser extends InlineParser {
         }
 
         // remove all delimiters
-        while (this.delimiters.peek() !== null && this.delimiters.peek() !== stack_bottom) {
+        while (this.delimiters.peek() != null && this.delimiters.peek() !== stack_bottom) {
             this.delimiters.remove(this.delimiters.peek());
         }
     };

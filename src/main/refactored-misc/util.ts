@@ -64,7 +64,7 @@ export function parseLinkDestination(parser : RegexStream) {
                     parser.pos += 1;
                     openparens -= 1;
                 }
-            } else if (reWhitespaceChar.exec(String.fromCharCode(c)) !== null) {
+            } else if (reWhitespaceChar.exec(String.fromCharCode(c)) != null) {
                 break;
             } else {
                 parser.pos += 1;
@@ -145,7 +145,7 @@ export function parseReference(s : string|null, refmap : RefMap) {
             // rewind before spaces
             parser.pos = beforetitle;
             // and instead check if the link URL is at the line end
-            atLineEnd = parser.match(reSpaceAtEndOfLine) !== null;
+            atLineEnd = parser.match(reSpaceAtEndOfLine) != null;
         }
     }
 

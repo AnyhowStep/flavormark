@@ -39,7 +39,7 @@ export class InlineLatexParser extends InlineParser {
 
         var matched;
         var node;
-        while ((matched = parser.match(reDollar)) !== null) {
+        while ((matched = parser.match(reDollar)) != null) {
             if (/[^\\]\$/.test(matched)) {
                 node = new LatexNode('latex');
                 node.literal = parser.subject.slice(

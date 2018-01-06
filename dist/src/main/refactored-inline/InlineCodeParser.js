@@ -25,7 +25,7 @@ class InlineCodeParser extends InlineParser_1.InlineParser {
         var afterOpenTicks = parser.pos;
         var matched;
         var node;
-        while ((matched = parser.match(reTicks)) !== null) {
+        while ((matched = parser.match(reTicks)) != null) {
             if (matched === ticks) {
                 node = new CodeNode_1.CodeNode('code');
                 node.literal = parser.subject.slice(afterOpenTicks, parser.pos - ticks.length)

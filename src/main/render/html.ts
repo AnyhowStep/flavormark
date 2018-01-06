@@ -213,7 +213,7 @@ export class HtmlRenderer extends Renderer {
          }
       var grandparent = node.parent.parent
         , attrs = this.attrs(node);
-      if (grandparent !== null &&
+      if (grandparent != null &&
         grandparent.type === 'list') {
         if (grandparent.listData.tight) {
           return;
