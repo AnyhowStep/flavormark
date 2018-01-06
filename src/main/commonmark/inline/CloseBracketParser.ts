@@ -1,16 +1,17 @@
-import {InlineParser} from "../InlineParser";
-import {InlineContentParser} from "../InlineContentParser";
-import {Node} from "../Node";
-import {normalizeReference} from "../normalize-reference";
-import {parseLinkTitle, parseLinkDestination, parseLinkLabel} from "../refactored-misc/util";
-import {RefMap} from "../refactored-misc/RefMap";
-import {BracketCollection} from "../refactored-misc/BracketCollection";
-import {LinkNode} from "../commonmark/inline/LinkNode";
-import {DelimitedInlineParser} from "../DelimitedInlineParser";
+import {InlineParser} from "../../InlineParser";
+import {InlineContentParser} from "../../InlineContentParser";
+import {Node} from "../../Node";
+import {normalizeReference} from "../../normalize-reference";
+import {parseLinkTitle, parseLinkDestination, parseLinkLabel} from "../../refactored-misc/util";
+import {RefMap} from "../../refactored-misc/RefMap";
+import {BracketCollection} from "../../refactored-misc/BracketCollection";
+import {LinkNode} from "./LinkNode";
+import {ImageNode} from "./ImageNode";
+import {DelimitedInlineParser} from "../../DelimitedInlineParser";
 
-var C_CLOSE_BRACKET = 93;
-var C_OPEN_PAREN = 40;
-var C_CLOSE_PAREN = 41;
+const C_CLOSE_BRACKET = 93;
+const C_OPEN_PAREN = 40;
+const C_CLOSE_PAREN = 41;
 
 var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
 
@@ -115,7 +116,9 @@ export class CloseBracketParser extends InlineParser {
         }
 
         if (matched) {
-            var node = new LinkNode(is_image ? 'image' : 'link');
+            var node = is_image ?
+                new ImageNode("image") :
+                new LinkNode("link");
             node.destination = dest || "";
             node.title = title || '';
 

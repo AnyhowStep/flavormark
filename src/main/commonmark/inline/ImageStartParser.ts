@@ -6,7 +6,7 @@ import {BracketCollection} from "../../refactored-misc/BracketCollection";
 var C_BANG = 33;
 var C_OPEN_BRACKET = 91;
 
-export class BangParser extends InlineParser {
+export class ImageStartParser extends InlineParser {
     private brackets : BracketCollection;
     public constructor (brackets : BracketCollection) {
         super();

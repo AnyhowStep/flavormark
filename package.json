@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test2": "test2.js",
     "test": "ts-node ./src/test/test.ts",
     "build": "(rm -r ./dist || true) && tsc -d"
   },
