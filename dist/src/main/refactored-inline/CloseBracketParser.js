@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("../InlineParser");
 const normalize_reference_1 = require("../normalize-reference");
 const util_1 = require("../refactored-misc/util");
-const LinkNode_1 = require("./LinkNode");
+const LinkNode_1 = require("../commonmark/inline/LinkNode");
 var C_CLOSE_BRACKET = 93;
 var C_OPEN_PAREN = 40;
 var C_CLOSE_PAREN = 41;
@@ -97,7 +97,7 @@ class CloseBracketParser extends InlineParser_1.InlineParser {
         }
         if (matched) {
             var node = new LinkNode_1.LinkNode(is_image ? 'image' : 'link');
-            node.destination = dest;
+            node.destination = dest || "";
             node.title = title || '';
             var tmp, next;
             tmp = opener.node.getNext();

@@ -103,7 +103,8 @@ import {SmartQuoteParser} from "../main/refactored-delimiter/SmartQuoteParser";
 import {OpenBracketParser} from "../main/refactored-inline/OpenBracketParser";
 import {BangParser} from "../main/refactored-inline/BangParser";
 import {CloseBracketParser} from "../main/refactored-inline/CloseBracketParser";
-import {AutolinkParser} from "../main/refactored-inline/AutolinkParser";
+import {EmailAutolinkParser} from "../main/commonmark/inline/EmailAutolinkParser";
+import {UriAutolinkParser} from "../main/commonmark/inline/UriAutolinkParser";
 import {HtmlTagParser} from "../main/refactored-inline/HtmlTagParser";
 import {EntityParser} from "../main/refactored-inline/EntityParser";
 import {StringParser} from "../main/refactored-inline/StringParser";
@@ -134,7 +135,8 @@ const inParsers : InlineParser[] = [
     new OpenBracketParser(brackets),
     new BangParser(brackets),
     new CloseBracketParser(delimParser, brackets, refMap),
-    new AutolinkParser(),
+    new EmailAutolinkParser(),
+    new UriAutolinkParser(),
     new HtmlTagParser(),
     new EntityParser(),
 
@@ -160,7 +162,8 @@ const flavorInlineParsers : InlineParser[] = [
     new OpenBracketParser(brackets),
     new BangParser(brackets),
     new CloseBracketParser(flavorDelimParser, brackets, refMap),
-    new AutolinkParser(),
+    new EmailAutolinkParser(),
+    new UriAutolinkParser(),
     new HtmlTagParser(),
     new EntityParser(),
 
@@ -186,7 +189,8 @@ const smartInlineParsers : InlineParser[] = [
     new OpenBracketParser(brackets),
     new BangParser(brackets),
     new CloseBracketParser(smartDelimParser, brackets, refMap),
-    new AutolinkParser(),
+    new EmailAutolinkParser(),
+    new UriAutolinkParser(),
     new HtmlTagParser(),
     new EntityParser(),
 

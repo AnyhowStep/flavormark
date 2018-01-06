@@ -2,7 +2,7 @@ import {InlineParser} from "../InlineParser";
 import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
 import {normalizeURI} from "../common";
-import {LinkNode} from "./LinkNode";
+import {LinkNode} from "../commonmark/inline/LinkNode";
 import {escapeXml} from "../common";
 
 //Trailing punctuation (specifically, ?, !, ., ,, :, *, _, and ~) will not be

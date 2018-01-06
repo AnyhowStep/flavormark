@@ -5,7 +5,7 @@ import {normalizeReference} from "../normalize-reference";
 import {parseLinkTitle, parseLinkDestination, parseLinkLabel} from "../refactored-misc/util";
 import {RefMap} from "../refactored-misc/RefMap";
 import {BracketCollection} from "../refactored-misc/BracketCollection";
-import {LinkNode} from "./LinkNode";
+import {LinkNode} from "../commonmark/inline/LinkNode";
 import {DelimitedInlineParser} from "../DelimitedInlineParser";
 
 var C_CLOSE_BRACKET = 93;
@@ -116,7 +116,7 @@ export class CloseBracketParser extends InlineParser {
 
         if (matched) {
             var node = new LinkNode(is_image ? 'image' : 'link');
-            node.destination = dest;
+            node.destination = dest || "";
             node.title = title || '';
 
             var tmp, next;
