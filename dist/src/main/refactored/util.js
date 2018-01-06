@@ -22,7 +22,7 @@ exports.peek = function (ln, pos) {
 // into lists and sublists.
 exports.endsWithBlankLine = function (blockParsers, block) {
     while (block) {
-        if (block.lastLineBlank) {
+        if (block.isLastLineBlank()) {
             return true;
         }
         const p = blockParsers.get(block);

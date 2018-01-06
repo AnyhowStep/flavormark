@@ -198,7 +198,7 @@ export class Parser {
         // Bail out on failure: container will point to the last matching block.
         // Set all_matched to false if not all containers match.
         var lastChild;
-        while ((lastChild = container.getLastChild()) && lastChild.open) {
+        while ((lastChild = container.getLastChild()) && lastChild.isOpen()) {
             container = lastChild;
 
             this.findNextNonspace();
@@ -295,7 +295,7 @@ export class Parser {
             if (this.blank) {
                 const lastChild = container.getLastChild();
                 if (lastChild != null) {
-                    lastChild.lastLineBlank = true;
+                    lastChild.setLastLineBlank(true);
                 }
             }
 
@@ -311,7 +311,7 @@ export class Parser {
             // propagate lastLineBlank up through parents:
             var cont : Node|null = container;
             while (cont) {
-                cont.lastLineBlank = lastLineBlank;
+                cont.setLastLineBlank(lastLineBlank);
                 cont = cont.getParent();
             }
 
@@ -338,7 +338,7 @@ export class Parser {
     // parent of the closed block.
     finalize(block : Node, lineNumber : number) {
         var above = block.getParent();
-        block.open = false;
+        block.close();
         if (block.sourcepos == null) {
             throw new Error("block.sourcepos cannot be null")
         }

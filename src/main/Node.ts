@@ -47,14 +47,35 @@ export class NodeWalker {
 export class Node {
     readonly type : string;
     readonly sourcepos? : [[number, number], [number, number]];
-    lastLineBlank = false;
-    open = true;
+
+    public constructor (nodeType : string, sourcepos? : [[number, number], [number, number]]) {
+        this.type = nodeType;
+        this.sourcepos = sourcepos;
+    }
+
+    //Should only really be modified by Parser
+    private lastLineBlank = false;
+    private open = true;
 
     private parent : Node|null = null;
     private firstChild : Node|null = null;
     private lastChild : Node|null = null;
     private prev : Node|null = null;
     private next : Node|null = null;
+
+    public isLastLineBlank () {
+        return this.lastLineBlank;
+    }
+    public isOpen () {
+        return this.open;
+    }
+
+    public setLastLineBlank (lastLineBlank : boolean) {
+        this.lastLineBlank = lastLineBlank;
+    }
+    public close () {
+        this.open = false;
+    }
 
     public getParent () {
         return this.parent;
@@ -72,11 +93,6 @@ export class Node {
         return this.next;
     }
 
-
-    public constructor (nodeType : string, sourcepos? : [[number, number], [number, number]]) {
-        this.type = nodeType;
-        this.sourcepos = sourcepos;
-    }
     public unlink () {
         if (this.prev) {
             this.prev.next = this.next;

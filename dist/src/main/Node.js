@@ -45,6 +45,7 @@ class NodeWalker {
 exports.NodeWalker = NodeWalker;
 class Node {
     constructor(nodeType, sourcepos) {
+        //Should only really be modified by Parser
         this.lastLineBlank = false;
         this.open = true;
         this.parent = null;
@@ -54,6 +55,18 @@ class Node {
         this.next = null;
         this.type = nodeType;
         this.sourcepos = sourcepos;
+    }
+    isLastLineBlank() {
+        return this.lastLineBlank;
+    }
+    isOpen() {
+        return this.open;
+    }
+    setLastLineBlank(lastLineBlank) {
+        this.lastLineBlank = lastLineBlank;
+    }
+    close() {
+        this.open = false;
     }
     getParent() {
         return this.parent;

@@ -27,7 +27,7 @@ export var peek = function(ln : string|null, pos : number) {
 // into lists and sublists.
 export var endsWithBlankLine = function(blockParsers : BlockParserCollection, block : Node|null) {
     while (block) {
-        if (block.lastLineBlank) {
+        if (block.isLastLineBlank()) {
             return true;
         }
         const p = blockParsers.get(block);
