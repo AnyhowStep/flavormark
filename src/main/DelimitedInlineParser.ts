@@ -1,8 +1,6 @@
 import {InlineParser} from "./InlineParser";
 import {InlineContentParser} from "./InlineContentParser";
 import {Node} from "./Node";
-//import {Node} from "./Node";
-import {fromCodePoint} from "./from-code-point";
 import {Delimiter, DelimiterCollection} from "./DelimiterCollection";
 import {DelimitedInlineSubParser, ParseArgs} from "./DelimitedInlineSubParser";
 
@@ -81,7 +79,7 @@ export class DelimitedInlineParser extends InlineParser {
         if (cc_after === -1) {
             char_after = '\n';
         } else {
-            char_after = fromCodePoint(cc_after);
+            char_after = String.fromCharCode(cc_after);
         }
         //console.log("char_after", char_after);
 

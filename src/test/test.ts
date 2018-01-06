@@ -105,7 +105,6 @@ import {BangParser} from "../main/refactored-inline/BangParser";
 import {CloseBracketParser} from "../main/refactored-inline/CloseBracketParser";
 import {AutolinkParser} from "../main/refactored-inline/AutolinkParser";
 import {HtmlTagParser} from "../main/refactored-inline/HtmlTagParser";
-import {LessThanLiteralParser} from "../main/refactored-inline/LessThanLiteralParser";
 import {EntityParser} from "../main/refactored-inline/EntityParser";
 import {StringParser} from "../main/refactored-inline/StringParser";
 import {InlineContentParser} from "../main/InlineContentParser";
@@ -137,7 +136,6 @@ const inParsers : InlineParser[] = [
     new CloseBracketParser(delimParser, brackets, refMap),
     new AutolinkParser(),
     new HtmlTagParser(),
-    new LessThanLiteralParser(),
     new EntityParser(),
 
     new StringParser(), //Should this be a default parser that cannot be removed?
@@ -164,7 +162,6 @@ const flavorInlineParsers : InlineParser[] = [
     new CloseBracketParser(flavorDelimParser, brackets, refMap),
     new AutolinkParser(),
     new HtmlTagParser(),
-    new LessThanLiteralParser(),
     new EntityParser(),
 
     new ExtendedWwwAutolinkParser(),
@@ -191,7 +188,6 @@ const smartInlineParsers : InlineParser[] = [
     new CloseBracketParser(smartDelimParser, brackets, refMap),
     new AutolinkParser(),
     new HtmlTagParser(),
-    new LessThanLiteralParser(),
     new EntityParser(),
 
     new SmartStringParser(),

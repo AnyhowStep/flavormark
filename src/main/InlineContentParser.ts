@@ -1,5 +1,4 @@
 import {TextNode} from "./TextNode";
-import {fromCodePoint} from "./from-code-point";
 import {BlockParser} from "./BlockParser";
 import {InlineParser} from "./InlineParser";
 import {RegexStream} from "./RegexStream";
@@ -41,7 +40,7 @@ export class InlineContentParser extends RegexStream {
             }
         }
         this.pos += 1;
-        block.appendChild(this.text(fromCodePoint(c)));
+        block.appendChild(this.text(String.fromCharCode(c)));
         //console.log("adding text", c, fromCodePoint(c));
         return true;
     };

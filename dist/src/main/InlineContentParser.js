@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const TextNode_1 = require("./TextNode");
-const from_code_point_1 = require("./from-code-point");
 const RegexStream_1 = require("./RegexStream");
 // These are methods of an InlineContentParser object, defined below.
 // An InlineContentParser keeps track of a subject (a string to be
@@ -35,7 +34,7 @@ class InlineContentParser extends RegexStream_1.RegexStream {
             }
         }
         this.pos += 1;
-        block.appendChild(this.text(from_code_point_1.fromCodePoint(c)));
+        block.appendChild(this.text(String.fromCharCode(c)));
         //console.log("adding text", c, fromCodePoint(c));
         return true;
     }

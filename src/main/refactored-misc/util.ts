@@ -1,18 +1,17 @@
 import {normalizeURI, unescapeString, ESCAPABLE} from "../common";
-import {fromCodePoint} from "../from-code-point";
 import {normalizeReference} from "../normalize-reference";
 import {RegexStream} from "../RegexStream";
 
-var C_BACKSLASH = 92;
-var C_OPEN_PAREN = 40;
-var C_CLOSE_PAREN = 41;
-var ESCAPED_CHAR = '\\\\' + ESCAPABLE;
+const C_BACKSLASH = 92;
+const C_OPEN_PAREN = 40;
+const C_CLOSE_PAREN = 41;
+const ESCAPED_CHAR = '\\\\' + ESCAPABLE;
 
-var C_COLON = 58;
+const C_COLON = 58;
 
-var reSpaceAtEndOfLine = /^ *(?:\n|$)/;
+const reSpaceAtEndOfLine = /^ *(?:\n|$)/;
 
-var reLinkTitle = new RegExp(
+const reLinkTitle = new RegExp(
     '^(?:"(' + ESCAPED_CHAR + '|[^"\\x00])*"' +
         '|' +
         '\'(' + ESCAPED_CHAR + '|[^\'\\x00])*\'' +
@@ -21,17 +20,17 @@ var reLinkTitle = new RegExp(
 
 
 
-        var reLinkDestinationBraces = new RegExp(
-            '^(?:[<](?:[^ <>\\t\\n\\\\\\x00]' + '|' + ESCAPED_CHAR + '|' + '\\\\)*[>])');
+const reLinkDestinationBraces = new RegExp(
+    '^(?:[<](?:[^ <>\\t\\n\\\\\\x00]' + '|' + ESCAPED_CHAR + '|' + '\\\\)*[>])');
 
-            var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
-            var reLinkLabel = new RegExp('^\\[(?:[^\\\\\\[\\]]|' + ESCAPED_CHAR +
-              '|\\\\){0,1000}\\]');
+const reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
+const reLinkLabel = new RegExp('^\\[(?:[^\\\\\\[\\]]|' + ESCAPED_CHAR +
+  '|\\\\){0,1000}\\]');
 
 // Attempt to parse link title (sans quotes), returning the string
 // or null if no match.
 export function parseLinkTitle (parser : RegexStream) {
-    var title = parser.match(reLinkTitle);
+    const title = parser.match(reLinkTitle);
     if (title === null) {
         return null;
     } else {
@@ -43,12 +42,12 @@ export function parseLinkTitle (parser : RegexStream) {
 // Attempt to parse link destination, returning the string or
 // null if no match.
 export function parseLinkDestination(parser : RegexStream) {
-    var res = parser.match(reLinkDestinationBraces);
+    let res = parser.match(reLinkDestinationBraces);
     if (res === null) {
         // TODO handrolled parser; res should be null or the string
-        var savepos = parser.pos;
-        var openparens = 0;
-        var c;
+        const savepos = parser.pos;
+        let openparens = 0;
+        let c;
         while ((c = parser.peek()) !== -1) {
             if (c === C_BACKSLASH) {
                 parser.pos += 1;
@@ -65,7 +64,7 @@ export function parseLinkDestination(parser : RegexStream) {
                     parser.pos += 1;
                     openparens -= 1;
                 }
-            } else if (reWhitespaceChar.exec(fromCodePoint(c)) !== null) {
+            } else if (reWhitespaceChar.exec(String.fromCharCode(c)) !== null) {
                 break;
             } else {
                 parser.pos += 1;
@@ -81,7 +80,7 @@ export function parseLinkDestination(parser : RegexStream) {
 
 // Attempt to parse a link label, returning number of characters parsed.
 export function parseLinkLabel(parser : RegexStream) {
-    var m = parser.match(reLinkLabel);
+    const m = parser.match(reLinkLabel);
     // Note:  our regex will allow something of form [..\];
     // we disallow it here rather than using lookahead in the regex:
     if (m === null || m.length > 1001 || /[^\\]\\\]$/.exec(m)) {
@@ -98,19 +97,14 @@ export function parseReference(s : string|null, refmap : RefMap) {
         return;
     }
     const parser = new RegexStream(s);
-    var rawlabel;
-    var dest;
-    var title;
-    var matchChars;
-    var startpos = parser.pos;
+    const startpos = parser.pos;
 
     // label:
-    matchChars = parseLinkLabel(parser);
+    const matchChars = parseLinkLabel(parser);
     if (matchChars === 0) {
         return 0;
-    } else {
-        rawlabel = parser.subject.substr(0, matchChars);
     }
+    const rawlabel = parser.subject.substr(0, matchChars);
 
     // colon:
     if (parser.peek() === C_COLON) {
@@ -123,15 +117,15 @@ export function parseReference(s : string|null, refmap : RefMap) {
     //  link url
     parser.spnl();
 
-    dest = parseLinkDestination(parser);
+    const dest = parseLinkDestination(parser);
     if (dest === null || dest.length === 0) {
         parser.pos = startpos;
         return 0;
     }
 
-    var beforetitle = parser.pos;
+    const beforetitle = parser.pos;
     parser.spnl();
-    title = parseLinkTitle(parser);
+    let title = parseLinkTitle(parser);
     if (title === null) {
         title = '';
         // rewind before spaces
@@ -139,7 +133,7 @@ export function parseReference(s : string|null, refmap : RefMap) {
     }
 
     // make sure we're at line end:
-    var atLineEnd = true;
+    let atLineEnd = true;
     if (parser.match(reSpaceAtEndOfLine) === null) {
         if (title === '') {
             atLineEnd = false;
@@ -160,7 +154,7 @@ export function parseReference(s : string|null, refmap : RefMap) {
         return 0;
     }
 
-    var normlabel = normalizeReference(rawlabel);
+    const normlabel = normalizeReference(rawlabel);
     if (normlabel === '') {
         // label must contain non-whitespace characters
         parser.pos = startpos;

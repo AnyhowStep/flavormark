@@ -25,7 +25,7 @@ export class DelimiterCollection {
     public clear () {
         this.top = null;
     }
-    remove(delim : Delimiter|null) {
+    public remove (delim : Delimiter|null) {
         if (!delim) {
             return;
         }

@@ -1,2 +1,6 @@
 Refactor inline nodes to be more descriptive
 Refactor structure of project
+
+common.ts is not part of core parser
+remove from-code-point
+normalize-reference is not part of core parser
