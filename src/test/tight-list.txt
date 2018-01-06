@@ -1,0 +1,16 @@
+In the following example, a continuation paragraph of a list
+item is indented with a tab; this has exactly the same effect
+as indentation with four spaces would:
+
+```````````````````````````````` example
+  - foo
+
+→bar
+.
+<ul>
+<li>
+<p>foo</p>
+<p>bar</p>
+</li>
+</ul>
+````````````````````````````````

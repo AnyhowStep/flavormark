@@ -92,9 +92,6 @@ exports.parseLinkLabel = parseLinkLabel;
 ;
 // Attempt to parse a link reference, modifying refmap.
 function parseReference(s, refmap) {
-    if (s == undefined) {
-        return;
-    }
     const parser = new RegexStream_1.RegexStream(s);
     const startpos = parser.pos;
     // label:

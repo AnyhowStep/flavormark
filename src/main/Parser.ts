@@ -3,6 +3,7 @@ import {BlockParserCollection} from "./BlockParserCollection";
 import {Node, Range} from "./Node";
 import {INDENT_LENGTH} from "./Constants";
 import {InlineContentParser}  from "./InlineContentParser";
+import {TextParser} from "./TextParser";
 
 export interface Options {
     time? : boolean
@@ -29,6 +30,10 @@ export class Parser {
     options : Options;
     blockParsers : BlockParserCollection;
     constructor (blockParsers : BlockParserCollection, inlineParser : InlineContentParser, options? : Options|undefined) {
+        const textParser = new TextParser();
+        if (!blockParsers.has(textParser.getNodeType())) {
+            blockParsers.add(textParser);
+        }
         this.inlineParser = inlineParser;
         this.options = options || {};
         this.blockParsers = blockParsers;
@@ -360,7 +365,11 @@ export class Parser {
         var walker = block.walker();
         while ((event = walker.next())) {
             node = event.node;
-            if (!event.entering && node instanceof Node && this.blockParsers.has(node) && this.blockParsers.get(node).parseInlines) {
+            if (
+                !event.entering &&
+                this.blockParsers.has(node) &&
+                this.blockParsers.get(node).parseInlines
+            ) {
                 this.inlineParser.parse(this, this.getBlockParser(node), node);
             }
         }

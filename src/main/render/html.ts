@@ -208,7 +208,7 @@ export class HtmlRenderer extends Renderer {
     }
 
      paragraph(node:any, entering:boolean) {
-         if (node.parent == undefined) {
+         /*if (node.parent == undefined) {
              throw new Error("node.parent cannot be undefined");
          }
       var grandparent = node.parent.parent
@@ -218,7 +218,8 @@ export class HtmlRenderer extends Renderer {
         if (grandparent.listData.tight) {
           return;
         }
-      }
+    }*/
+    var attrs = this.attrs(node);
       if (entering) {
         this.cr();
         this.tag('p', attrs);

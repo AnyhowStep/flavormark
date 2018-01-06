@@ -4,7 +4,7 @@ const Node_1 = require("../Node");
 class ParagraphNode extends Node_1.Node {
     constructor() {
         super(...arguments);
-        this.string_content = undefined;
+        this.stringContent = "";
     }
 }
 exports.ParagraphNode = ParagraphNode;

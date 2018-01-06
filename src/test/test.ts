@@ -49,7 +49,7 @@ import {blockquoteParser} from "../main/refactored/blockquote";
 import {ItemParser} from "../main/refactored/item";
 import {ThematicBreakParser} from "../main/commonmark/ThematicBreakParser";
 import {HtmlBlockParser} from "../main/commonmark/HtmlBlockParser";
-import {ParagraphParser} from "../main/refactored/paragraph";
+import {ParagraphParser} from "../main/commonmark/ParagraphParser";
 import {AtxHeadingParser} from "../main/commonmark/AtxHeadingParser";
 import {SetextHeadingParser} from "../main/commonmark/SetextHeadingParser";
 import {FencedCodeBlockParser} from "../main/commonmark/FencedCodeBlockParser";
@@ -57,7 +57,6 @@ import {latexBlockParser} from "../main/refactored/latex-block";
 import {indentedCodeBlockParser} from "../main/commonmark/IndentedCodeBlockParser";
 import {BlockParserCollection} from "../main/BlockParserCollection";
 //import {Node} from "../main/refactored/Node";
-import {ParagraphNode} from "../main/refactored/ParagraphNode";
 import {tableParser, ThParser, TdParser, TrParser, TheadParser, TbodyParser} from "../main/refactored/table";
 
 import {RefMap} from "../main/refactored-misc/RefMap";
@@ -65,7 +64,7 @@ const refMap : RefMap = {};
 
 const blockParserCollection = new BlockParserCollection(
     documentParser,
-    new ParagraphParser("paragraph", ParagraphNode, refMap)
+    new ParagraphParser(refMap)
 )
     .add(blockquoteParser)
     .add(new AtxHeadingParser())
@@ -341,6 +340,10 @@ process.exit();*/
     }
 )
 process.exit();*/
+specTests('src/test/tight-list.txt', results, function(z : string) {
+    return writer.render(reader.parse(z));
+});
+//process.exit();
 specTests('src/test/latex.txt', results, function(z : string) {
     return writer.render(reader.parse(z));
 });

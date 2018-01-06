@@ -33,6 +33,24 @@ class ListParser extends BlockParser_1.BlockParser {
             }
             item = item.getNext();
         }
+        if (block.listData.tight) {
+            //Remove all paragraph elements
+            for (let item = block.getFirstChild(); item != undefined; item = item.getNext()) {
+                for (let paragraph = item.getFirstChild(); paragraph != undefined; paragraph = paragraph.getNext()) {
+                    if (parser.isParagraphNode(paragraph)) {
+                        //Move all its children to item, unlink paragraph
+                        parser.inlineParser.parse(parser, parser.getBlockParsers().getParagraphParser(), paragraph);
+                        let cur = paragraph.getFirstChild();
+                        while (cur != undefined) {
+                            let nxt = cur.getNext();
+                            paragraph.insertBefore(cur);
+                            cur = nxt;
+                        }
+                        paragraph.unlink();
+                    }
+                }
+            }
+        }
     }
     ;
     canContain(blockParser) { return blockParser instanceof item_1.ItemParser; }

@@ -204,16 +204,18 @@ class HtmlRenderer extends renderer_1.Renderer {
         }
     }
     paragraph(node, entering) {
-        if (node.parent == undefined) {
+        /*if (node.parent == undefined) {
             throw new Error("node.parent cannot be undefined");
         }
-        var grandparent = node.parent.parent, attrs = this.attrs(node);
-        if (grandparent != undefined &&
-            grandparent.type === 'list') {
-            if (grandparent.listData.tight) {
-                return;
-            }
-        }
+     var grandparent = node.parent.parent
+       , attrs = this.attrs(node);
+     if (grandparent != undefined &&
+       grandparent.type === 'list') {
+       if (grandparent.listData.tight) {
+         return;
+       }
+   }*/
+        var attrs = this.attrs(node);
         if (entering) {
             this.cr();
             this.tag('p', attrs);
