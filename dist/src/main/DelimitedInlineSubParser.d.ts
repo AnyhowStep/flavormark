@@ -6,10 +6,18 @@ export interface DelimiterInfo {
     leftFlanking: boolean;
     rightFlanking: boolean;
 }
-export interface ParseArgs {
+export declare type ParseArgs = ({
     delimiters: DelimiterCollection;
-    openerFound: boolean;
+    openerFound: true;
+    opener: Delimiter;
+    closer: Delimiter;
+} | {
+    delimiters: DelimiterCollection;
+    openerFound: false;
     opener: Delimiter | null;
+    closer: Delimiter;
+});
+export interface ParseResult {
     closer: Delimiter | null;
 }
 export declare abstract class DelimitedInlineSubParser {
@@ -18,5 +26,5 @@ export declare abstract class DelimitedInlineSubParser {
     abstract canOpen(info: DelimiterInfo, delimiter: number): boolean;
     abstract canClose(info: DelimiterInfo, delimiter: number): boolean;
     abstract getDelimiterContent(stream: RegexStream, delimiterStartPosition: number, delimiter: number): string;
-    abstract tryParse(args: ParseArgs, delimiter: number): boolean;
+    abstract parse(args: ParseArgs, delimiter: number): ParseResult;
 }

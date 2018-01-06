@@ -135,17 +135,31 @@ class DelimitedInlineParser extends InlineParser_1.InlineParser {
                 let old_closer = closer;
                 for (let p of this.parsers) {
                     if (p.getDelimiterCharacterCodes().indexOf(closercc) >= 0) {
-                        const args = {
-                            delimiters: this.delimiters,
-                            openerFound: opener_found,
-                            opener: opener,
-                            closer: closer
-                        };
-                        if (p.tryParse(args, closercc)) {
-                            opener = args.opener;
-                            closer = args.closer;
-                            break;
+                        let args = undefined;
+                        if (opener_found) {
+                            if (opener == null) {
+                                throw new Error("Opener found but opener is null");
+                            }
+                            else {
+                                args = {
+                                    delimiters: this.delimiters,
+                                    openerFound: opener_found,
+                                    opener: opener,
+                                    closer: closer
+                                };
+                            }
                         }
+                        else {
+                            args = {
+                                delimiters: this.delimiters,
+                                openerFound: opener_found,
+                                opener: opener,
+                                closer: closer
+                            };
+                        }
+                        const parseResult = p.parse(args, closercc);
+                        closer = parseResult.closer;
+                        break;
                     }
                 }
                 if (!opener_found && !odd_match) {

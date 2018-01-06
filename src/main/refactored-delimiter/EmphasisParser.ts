@@ -1,4 +1,4 @@
-import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs} from "../DelimitedInlineSubParser";
+import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs, ParseResult} from "../DelimitedInlineSubParser";
 import {RegexStream} from "../RegexStream";
 import {Node} from "../Node";
 import {removeDelimitersBetween} from "../DelimiterCollection";
@@ -47,12 +47,14 @@ export class EmphasisParser extends DelimitedInlineSubParser {
     public getDelimiterContent (stream : RegexStream, delimiterStartPosition : number) : string {
         return stream.subject.slice(delimiterStartPosition, stream.pos);
     }
-    public tryParse (args : ParseArgs) : boolean {
+    public parse (args : ParseArgs) : ParseResult {
         if (args.closer == null) {
             throw new Error("closer cannot be null");
         }
         if (!args.openerFound) {
-            args.closer = args.closer.next;
+            return {
+                closer : args.closer.next,
+            };
         } else {
             if (args.opener == null) {
                 throw new Error("opener cannot be null");
@@ -107,9 +109,13 @@ export class EmphasisParser extends DelimitedInlineSubParser {
                 closer_inl.unlink();
                 let tempstack = args.closer.next;
                 args.delimiters.remove(args.closer);
-                args.closer = tempstack;
+                return {
+                    closer : tempstack,
+                };
             }
+            return {
+                closer : args.closer,
+            };
         }
-        return true;
     }
 }

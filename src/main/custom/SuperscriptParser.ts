@@ -1,4 +1,4 @@
-import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs} from "../DelimitedInlineSubParser";
+import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs, ParseResult} from "../DelimitedInlineSubParser";
 import {RegexStream} from "../RegexStream";
 import {Node} from "../Node";
 import {removeDelimitersBetween} from "../DelimiterCollection";
@@ -28,12 +28,14 @@ export class SuperscriptParser extends DelimitedInlineSubParser {
     public getDelimiterContent (_stream : RegexStream, _delimiterStartPosition : number, _delimiter : number) : string {
         return CARET_CHAR;
     }
-    public tryParse (args : ParseArgs, _delimiter : number) : boolean {
+    public parse (args : ParseArgs, _delimiter : number) : ParseResult {
         if (args.closer == null) {
             throw new Error("closer cannot be null");
         }
         if (!args.openerFound) {
-            args.closer = args.closer.next;
+            return {
+                closer : args.closer.next,
+            };
         } else {
             if (args.opener == null) {
                 throw new Error("opener cannot be null");
@@ -87,9 +89,13 @@ export class SuperscriptParser extends DelimitedInlineSubParser {
                 closer_inl.unlink();
                 let tempstack = args.closer.next;
                 args.delimiters.remove(args.closer);
-                args.closer = tempstack;
+                return {
+                    closer : tempstack,
+                };
             }
+            return {
+                closer : args.closer,
+            };
         }
-        return true;
     }
 }

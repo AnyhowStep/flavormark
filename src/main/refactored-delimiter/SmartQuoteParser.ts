@@ -1,4 +1,4 @@
-import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs} from "../DelimitedInlineSubParser";
+import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs, ParseResult} from "../DelimitedInlineSubParser";
 import {RegexStream} from "../RegexStream";
 
 var C_SINGLEQUOTE = 39;
@@ -28,7 +28,7 @@ export class SmartQuoteParser extends DelimitedInlineSubParser {
             return "\u201C";
         }
     }
-    public tryParse (args : ParseArgs, delimiter : number) : boolean {
+    public parse (args : ParseArgs, delimiter : number) : ParseResult {
         if (args.closer == null) {
             throw new Error("closer cannot be null");
         }
@@ -40,7 +40,9 @@ export class SmartQuoteParser extends DelimitedInlineSubParser {
                 }
                 args.opener.node.setString("\u2018");
             }
-            args.closer = args.closer.next;
+            return {
+                closer : args.closer.next,
+            };
         } else {
             args.closer.node.setString("\u201D");
             if (args.openerFound) {
@@ -49,8 +51,9 @@ export class SmartQuoteParser extends DelimitedInlineSubParser {
                 }
                 args.opener.node.setString("\u201C");
             }
-            args.closer = args.closer.next;
+            return {
+                closer : args.closer.next,
+            };
         }
-        return true;
     }
 }

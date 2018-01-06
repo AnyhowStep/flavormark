@@ -40,12 +40,14 @@ class EmphasisParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser
     getDelimiterContent(stream, delimiterStartPosition) {
         return stream.subject.slice(delimiterStartPosition, stream.pos);
     }
-    tryParse(args) {
+    parse(args) {
         if (args.closer == null) {
             throw new Error("closer cannot be null");
         }
         if (!args.openerFound) {
-            args.closer = args.closer.next;
+            return {
+                closer: args.closer.next,
+            };
         }
         else {
             if (args.opener == null) {
@@ -82,10 +84,14 @@ class EmphasisParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser
                 closer_inl.unlink();
                 let tempstack = args.closer.next;
                 args.delimiters.remove(args.closer);
-                args.closer = tempstack;
+                return {
+                    closer: tempstack,
+                };
             }
+            return {
+                closer: args.closer,
+            };
         }
-        return true;
     }
 }
 exports.EmphasisParser = EmphasisParser;

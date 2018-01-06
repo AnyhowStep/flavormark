@@ -1,4 +1,4 @@
-import { DelimitedInlineSubParser, DelimiterInfo, ParseArgs } from "../DelimitedInlineSubParser";
+import { DelimitedInlineSubParser, DelimiterInfo, ParseArgs, ParseResult } from "../DelimitedInlineSubParser";
 import { RegexStream } from "../RegexStream";
 export declare class SuperscriptParser extends DelimitedInlineSubParser {
     getDelimiterCharacterCodes(): number[];
@@ -6,5 +6,5 @@ export declare class SuperscriptParser extends DelimitedInlineSubParser {
     canOpen(info: DelimiterInfo): boolean;
     canClose(info: DelimiterInfo): boolean;
     getDelimiterContent(_stream: RegexStream, _delimiterStartPosition: number, _delimiter: number): string;
-    tryParse(args: ParseArgs, _delimiter: number): boolean;
+    parse(args: ParseArgs, _delimiter: number): ParseResult;
 }

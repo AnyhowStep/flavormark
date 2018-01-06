@@ -27,7 +27,7 @@ class SmartQuoteParser extends DelimitedInlineSubParser_1.DelimitedInlineSubPars
             return "\u201C";
         }
     }
-    tryParse(args, delimiter) {
+    parse(args, delimiter) {
         if (args.closer == null) {
             throw new Error("closer cannot be null");
         }
@@ -39,7 +39,9 @@ class SmartQuoteParser extends DelimitedInlineSubParser_1.DelimitedInlineSubPars
                 }
                 args.opener.node.setString("\u2018");
             }
-            args.closer = args.closer.next;
+            return {
+                closer: args.closer.next,
+            };
         }
         else {
             args.closer.node.setString("\u201D");
@@ -49,9 +51,10 @@ class SmartQuoteParser extends DelimitedInlineSubParser_1.DelimitedInlineSubPars
                 }
                 args.opener.node.setString("\u201C");
             }
-            args.closer = args.closer.next;
+            return {
+                closer: args.closer.next,
+            };
         }
-        return true;
     }
 }
 exports.SmartQuoteParser = SmartQuoteParser;

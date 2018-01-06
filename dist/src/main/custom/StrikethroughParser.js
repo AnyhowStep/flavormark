@@ -25,12 +25,14 @@ class StrikethroughParser extends DelimitedInlineSubParser_1.DelimitedInlineSubP
     getDelimiterContent(stream, delimiterStartPosition, _delimiter) {
         return stream.subject.slice(delimiterStartPosition, stream.pos);
     }
-    tryParse(args, _delimiter) {
+    parse(args, _delimiter) {
         if (args.closer == null) {
             throw new Error("closer cannot be null");
         }
         if (!args.openerFound) {
-            args.closer = args.closer.next;
+            return {
+                closer: args.closer.next,
+            };
         }
         else {
             if (args.opener == null) {
@@ -65,10 +67,14 @@ class StrikethroughParser extends DelimitedInlineSubParser_1.DelimitedInlineSubP
                 closer_inl.unlink();
                 let tempstack = args.closer.next;
                 args.delimiters.remove(args.closer);
-                args.closer = tempstack;
+                return {
+                    closer: tempstack,
+                };
             }
+            return {
+                closer: args.closer,
+            };
         }
-        return true;
     }
 }
 exports.StrikethroughParser = StrikethroughParser;
