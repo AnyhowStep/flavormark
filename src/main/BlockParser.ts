@@ -24,22 +24,22 @@ export interface BlockParserMeta {
 
 export abstract class BlockParser<NodeT extends Node=Node> implements BlockParserMeta {
     //BEGIN META
-    abstract canContain (blockParser : BlockParserMeta, node : Node) : boolean;
-    canBeContainedBy (_blockParser : BlockParserMeta, _node : Node) : boolean {
+    public abstract canContain (blockParser : BlockParserMeta, node : Node) : boolean;
+    public canBeContainedBy (_blockParser : BlockParserMeta, _node : Node) : boolean {
         return true;
     }
 
-    acceptsLines : boolean = false;
+    public acceptsLines : boolean = false;
     //Has no effect unless acceptsLines is true
-    isParagraph? : boolean;
+    public isParagraph? : boolean;
 
     //If acceptsLines is true, calls appendString, otherwise lazyContinue()
-    acceptLazyContinuation? : boolean;
+    public acceptLazyContinuation? : boolean;
 
-    earlyExitOnEnd? : boolean;
-    parseInlines?   : boolean;
-    isLeaf?         : boolean;
-    endsWithBlankLineIfLastChildEndsWithBlankLine? : boolean;
+    public earlyExitOnEnd? : boolean;
+    public parseInlines?   : boolean;
+    public isLeaf?         : boolean;
+    public endsWithBlankLineIfLastChildEndsWithBlankLine? : boolean;
     //END META
 
     private readonly nodeType : string;

@@ -47,7 +47,7 @@ import {listParser} from "../main/refactored/list";
 import {ItemNode} from "../main/refactored/ItemNode";
 import {blockquoteParser} from "../main/refactored/blockquote";
 import {ItemParser} from "../main/refactored/item";
-import {thematicBreakParser} from "../main/refactored/thematic-break";
+import {ThematicBreakParser} from "../main/commonmark/ThematicBreakParser";
 import {htmlBlockParser} from "../main/refactored/html-block";
 import {ParagraphParser} from "../main/refactored/paragraph";
 import {atxHeadingParser} from "../main/refactored/atx-heading";
@@ -75,7 +75,7 @@ const blockParserCollection = new BlockParserCollection(
 
     .add(htmlBlockParser)
     .add(setextHeadingParser)
-    .add(thematicBreakParser)
+    .add(new ThematicBreakParser())
     .add(new ItemParser("item", ItemNode, listParser))
     .add(indentedCodeBlockParser)
 

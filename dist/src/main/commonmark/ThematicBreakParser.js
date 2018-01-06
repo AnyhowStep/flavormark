@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
 const Node_1 = require("../Node");
-var reThematicBreak = /^(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:-[ \t]*){3,})[ \t]*$/;
+const reThematicBreak = /^(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:-[ \t]*){3,})[ \t]*$/;
 class ThematicBreakParser extends BlockParser_1.BlockParser {
-    constructor() {
-        super(...arguments);
+    constructor(nodeType = "thematic_break", nodeCtor = Node_1.Node) {
+        super(nodeType, nodeCtor);
         this.acceptsLines = false;
         this.isLeaf = true;
     }
@@ -21,7 +21,6 @@ class ThematicBreakParser extends BlockParser_1.BlockParser {
             return false;
         }
     }
-    ;
     continue() {
         // a thematic break can never container > 1 line, so fail to match:
         return false;
@@ -31,5 +30,4 @@ class ThematicBreakParser extends BlockParser_1.BlockParser {
     canContain() { return false; }
 }
 exports.ThematicBreakParser = ThematicBreakParser;
-exports.thematicBreakParser = new ThematicBreakParser("thematic_break", Node_1.Node);
-//# sourceMappingURL=thematic-break.js.map
+//# sourceMappingURL=ThematicBreakParser.js.map

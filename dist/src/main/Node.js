@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const NodeWalker_1 = require("./NodeWalker");
 class Node {
-    constructor(nodeType, sourcepos) {
+    constructor(type, sourceRange) {
         //Should only really be modified by Parser
         this.lastLineBlank = false;
         this.open = true;
@@ -11,8 +11,8 @@ class Node {
         this.lastChild = undefined;
         this.prev = undefined;
         this.next = undefined;
-        this.type = nodeType;
-        this.sourceRange = sourcepos;
+        this.type = type;
+        this.sourceRange = sourceRange;
     }
     isLastLineBlank() {
         return this.lastLineBlank;

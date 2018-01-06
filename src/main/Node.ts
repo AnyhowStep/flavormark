@@ -13,9 +13,9 @@ export class Node {
     readonly type : string;
     readonly sourceRange? : Range;
 
-    public constructor (nodeType : string, sourcepos? : Range) {
-        this.type = nodeType;
-        this.sourceRange = sourcepos;
+    public constructor (type : string, sourceRange? : Range) {
+        this.type = type;
+        this.sourceRange = sourceRange;
     }
 
     //Should only really be modified by Parser
