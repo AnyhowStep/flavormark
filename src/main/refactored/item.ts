@@ -11,34 +11,34 @@ var reBulletListMarker = /^[*+-]/;
 var reOrderedListMarker = /^(\d{1,9})([.)])/;
 
 // Parse a list marker and return data on the marker (type,
-// start, delimiter, bullet character, padding) or null.
+// start, delimiter, bullet character, padding) or undefined.
 var parseListMarker = function(parser : Parser, container : Node) :
 { type: string,
              tight: boolean,  // lists are tight by default
-             bulletChar: string|null,
-             start: number|null,
-             delimiter: string|null,
+             bulletChar: string|undefined,
+             start: number|undefined,
+             delimiter: string|undefined,
              padding: number,
-             markerOffset: number }|null
+             markerOffset: number }|undefined
               {
     var rest = parser.currentLine.slice(parser.nextNonspace);
     var match;
     var nextc;
     var spacesStartCol;
     var spacesStartOffset;
-    var data : { type: null|string,
+    var data : { type: undefined|string,
                  tight: true,  // lists are tight by default
-                 bulletChar: null|string,
-                 start: null|number,
-                 delimiter: null|string,
-                 padding: null|number,
+                 bulletChar: undefined|string,
+                 start: undefined|number,
+                 delimiter: undefined|string,
+                 padding: undefined|number,
                  markerOffset: number }
-     = { type: null,
+     = { type: undefined,
                  tight: true,  // lists are tight by default
-                 bulletChar: null,
-                 start: null,
-                 delimiter: null,
-                 padding: null,
+                 bulletChar: undefined,
+                 start: undefined,
+                 delimiter: undefined,
+                 padding: undefined,
                  markerOffset: parser.indent };
     if ((match = rest.match(reBulletListMarker))) {
         data.type = 'bullet';
@@ -51,17 +51,17 @@ var parseListMarker = function(parser : Parser, container : Node) :
         data.start = parseInt(match[1]);
         data.delimiter = match[2];
     } else {
-        return null;
+        return undefined;
     }
     // make sure we have spaces after
     nextc = peek(parser.currentLine, parser.nextNonspace + match[0].length);
     if (!(nextc === -1 || isSpaceOrTab(nextc))) {
-        return null;
+        return undefined;
     }
 
     // if it interrupts paragraph, make sure first line isn't blank
     if (parser.isParagraphNode(container) && isBlank(parser.currentLine.slice(parser.nextNonspace + match[0].length))) {
-        return null;
+        return undefined;
     }
 
     // we've got a match! advance offset and calculate padding
@@ -99,21 +99,21 @@ var parseListMarker = function(parser : Parser, container : Node) :
 // with the same delimiter and bullet character.  This is used
 // in agglomerating list items into lists.
 var listsMatch = function(list_data : {
-    type? : string|null,
-    tight? : boolean|null,
-    bulletChar? : string|null,
-    start? : number|null,
-    delimiter? : string|null,
-    padding? : number|null,
-    markerOffset? : number|null,
+    type? : string|undefined,
+    tight? : boolean|undefined,
+    bulletChar? : string|undefined,
+    start? : number|undefined,
+    delimiter? : string|undefined,
+    padding? : number|undefined,
+    markerOffset? : number|undefined,
 }, item_data : {
-    type? : string|null,
-    tight? : boolean|null,
-    bulletChar? : string|null,
-    start? : number|null,
-    delimiter? : string|null,
-    padding? : number|null,
-    markerOffset? : number|null,
+    type? : string|undefined,
+    tight? : boolean|undefined,
+    bulletChar? : string|undefined,
+    start? : number|undefined,
+    delimiter? : string|undefined,
+    padding? : number|undefined,
+    markerOffset? : number|undefined,
 }) {
     return (list_data.type === item_data.type &&
             list_data.delimiter === item_data.delimiter &&
@@ -133,8 +133,8 @@ export class ItemParser extends BlockParser<ItemNode> {
                 && (data = parseListMarker(parser, container))) {
             parser.closeUnmatchedBlocks();
 
-            if (parser.tip == null) {
-                throw new Error("parser.tip cannot be null");
+            if (parser.tip == undefined) {
+                throw new Error("parser.tip cannot be undefined");
             }
 
             // add the list if needed
@@ -157,15 +157,15 @@ export class ItemParser extends BlockParser<ItemNode> {
     };
     continue (parser : Parser, container : ItemNode) {
         if (parser.blank) {
-            if (container.getFirstChild() == null) {
+            if (container.getFirstChild() == undefined) {
                 // Blank line after empty list item
                 return false;
             } else {
                 parser.advanceNextNonspace();
             }
         } else if (
-            container.listData.markerOffset != null &&
-            container.listData.padding != null &&
+            container.listData.markerOffset != undefined &&
+            container.listData.padding != undefined &&
             parser.indent >=
                    container.listData.markerOffset +
                    container.listData.padding) {
@@ -186,8 +186,8 @@ export class ItemParser extends BlockParser<ItemNode> {
     acceptsLines = false;
     public ignoreLastLineBlank (parser : Parser, container : Node) {
         return (
-            container.getFirstChild() == null &&
-            container.sourceRange != null &&
+            container.getFirstChild() == undefined &&
+            container.sourceRange != undefined &&
             container.sourceRange.start.row === parser.lineNumber
         );
     }

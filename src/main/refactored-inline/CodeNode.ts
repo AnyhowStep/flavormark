@@ -1,5 +1,5 @@
 import {Node} from "../Node";
 
 export class CodeNode extends Node {
-    public literal : string|null = null;
+    public literal : string|undefined = undefined;
 }

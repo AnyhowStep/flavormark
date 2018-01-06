@@ -5,7 +5,7 @@ class HeadingNode extends Node_1.Node {
     constructor() {
         super(...arguments);
         this.level = -1;
-        this.string_content = null;
+        this.string_content = undefined;
     }
 }
 exports.HeadingNode = HeadingNode;

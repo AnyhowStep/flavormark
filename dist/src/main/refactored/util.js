@@ -7,8 +7,8 @@ exports.isSpaceOrTab = function (c) {
     return c === C_SPACE || c === C_TAB;
 };
 exports.peek = function (ln, pos) {
-    if (ln == null) {
-        throw new Error("ln cannot be null");
+    if (ln == undefined) {
+        throw new Error("ln cannot be undefined");
     }
     if (pos < ln.length) {
         return ln.charCodeAt(pos);
@@ -36,8 +36,8 @@ exports.endsWithBlankLine = function (blockParsers, block) {
 };
 // Returns true if string contains only space characters.
 exports.isBlank = function (s) {
-    if (s == null) {
-        throw new Error("s cannot be null");
+    if (s == undefined) {
+        throw new Error("s cannot be undefined");
     }
     return !(reNonSpace.test(s));
 };

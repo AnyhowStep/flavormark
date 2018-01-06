@@ -28,7 +28,7 @@ class LatexBlockParser extends BlockParser_1.BlockParser {
             parser.advanceNextNonspace();
             parser.advanceOffset(fenceLength, false);
             const sameLineEndMatch = parser.currentLine.slice(parser.offset).match(/(\${2,})\s*$/);
-            if (sameLineEndMatch != null) {
+            if (sameLineEndMatch != undefined) {
                 if (sameLineEndMatch[1].length == fenceLength) {
                     //End now
                     container.oneLine = true;
@@ -61,8 +61,8 @@ class LatexBlockParser extends BlockParser_1.BlockParser {
         else {
             // skip optional spaces of fence offset
             var i = container.fenceOffset;
-            if (i == null) {
-                throw new Error("i cannot be null");
+            if (i == undefined) {
+                throw new Error("i cannot be undefined");
             }
             while (i > 0 && util_1.isSpaceOrTab(util_1.peek(ln, parser.offset))) {
                 parser.advanceOffset(1, true);
@@ -74,15 +74,15 @@ class LatexBlockParser extends BlockParser_1.BlockParser {
     ;
     finalize(_parser, block) {
         let content = block.string_content;
-        if (content == null) {
-            throw new Error("content cannot be null");
+        if (content == undefined) {
+            throw new Error("content cannot be undefined");
         }
         content = content.replace(/^\$/, "\\$");
         while (/[^\\]\$/.test(content)) {
             content = content.replace(/([^\\])\$/, "$1\\$");
         }
         block.literal = content;
-        block.string_content = null; // allow GC
+        block.string_content = undefined; // allow GC
     }
     ;
     canContain() { return false; }
@@ -90,7 +90,7 @@ class LatexBlockParser extends BlockParser_1.BlockParser {
         return true;
     }
     appendString(node, str) {
-        if (node.string_content == null) {
+        if (node.string_content == undefined) {
             node.string_content = "";
         }
         node.string_content += str;
@@ -100,7 +100,7 @@ class LatexBlockParser extends BlockParser_1.BlockParser {
     }
     // allow raw string to be garbage collected
     unsetString(node) {
-        node.string_content = null;
+        node.string_content = undefined;
     }
 }
 exports.LatexBlockParser = LatexBlockParser;

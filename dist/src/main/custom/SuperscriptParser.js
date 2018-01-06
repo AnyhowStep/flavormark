@@ -26,8 +26,8 @@ class SuperscriptParser extends DelimitedInlineSubParser_1.DelimitedInlineSubPar
         return CARET_CHAR;
     }
     parse(args, _delimiter) {
-        if (args.closer == null) {
-            throw new Error("closer cannot be null");
+        if (args.closer == undefined) {
+            throw new Error("closer cannot be undefined");
         }
         if (!args.openerFound) {
             return {
@@ -35,8 +35,8 @@ class SuperscriptParser extends DelimitedInlineSubParser_1.DelimitedInlineSubPar
             };
         }
         else {
-            if (args.opener == null) {
-                throw new Error("opener cannot be null");
+            if (args.opener == undefined) {
+                throw new Error("opener cannot be undefined");
             }
             // calculate actual number of delimiters used from closer
             let delimitersUsed = 1;

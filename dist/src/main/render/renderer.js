@@ -31,8 +31,8 @@ class Renderer {
      *  @param str {String} The string to concatenate.
      */
     lit(str) {
-        if (str == null) {
-            throw new Error("str cannot be null");
+        if (str == undefined) {
+            throw new Error("str cannot be undefined");
         }
         this.buffer += str;
         this.lastOut = str;

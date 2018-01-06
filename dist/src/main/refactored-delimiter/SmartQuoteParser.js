@@ -28,14 +28,14 @@ class SmartQuoteParser extends DelimitedInlineSubParser_1.DelimitedInlineSubPars
         }
     }
     parse(args, delimiter) {
-        if (args.closer == null) {
-            throw new Error("closer cannot be null");
+        if (args.closer == undefined) {
+            throw new Error("closer cannot be undefined");
         }
         if (delimiter == C_SINGLEQUOTE) {
             args.closer.node.setString("\u2019");
             if (args.openerFound) {
-                if (args.opener == null) {
-                    throw new Error("opener cannot be null");
+                if (args.opener == undefined) {
+                    throw new Error("opener cannot be undefined");
                 }
                 args.opener.node.setString("\u2018");
             }
@@ -46,8 +46,8 @@ class SmartQuoteParser extends DelimitedInlineSubParser_1.DelimitedInlineSubPars
         else {
             args.closer.node.setString("\u201D");
             if (args.openerFound) {
-                if (args.opener == null) {
-                    throw new Error("opener cannot be null");
+                if (args.opener == undefined) {
+                    throw new Error("opener cannot be undefined");
                 }
                 args.opener.node.setString("\u201C");
             }

@@ -42,7 +42,7 @@ export declare class HtmlRenderer extends Renderer {
     item(node: Node, entering: boolean): void;
     html_inline(node: any, entering: boolean): void;
     html_block(node: any, entering: boolean): void;
-    out(s: string | null): void;
+    out(s: string | undefined): void;
     attrs(node: Node): string[][];
     get(str: string): any;
 }

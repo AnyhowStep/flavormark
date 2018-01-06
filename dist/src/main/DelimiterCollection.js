@@ -2,19 +2,19 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class DelimiterCollection {
     constructor() {
-        this.top = null; // used by handleDelim method
+        this.top = undefined; // used by handleDelim method
     }
     clear() {
-        this.top = null;
+        this.top = undefined;
     }
     remove(delim) {
         if (!delim) {
             return;
         }
-        if (delim.previous != null) {
+        if (delim.previous != undefined) {
             delim.previous.next = delim.next;
         }
-        if (delim.next == null) {
+        if (delim.next == undefined) {
             // top of stack
             this.top = delim.previous;
         }
@@ -27,8 +27,8 @@ class DelimiterCollection {
         return this.top;
     }
     push(args) {
-        this.top = Object.assign({}, args, { previous: this.top, next: null });
-        if (this.top.previous != null) {
+        this.top = Object.assign({}, args, { previous: this.top, next: undefined });
+        if (this.top.previous != undefined) {
             this.top.previous.next = this.top;
         }
         return this.top;

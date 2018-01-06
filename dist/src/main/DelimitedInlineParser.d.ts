@@ -14,6 +14,6 @@ export declare class DelimitedInlineParser extends InlineParser {
         numdelims: number;
         can_open: boolean;
         can_close: boolean;
-    } | null;
-    processEmphasis(stack_bottom: Delimiter | null): void;
+    } | undefined;
+    processEmphasis(stack_bottom: Delimiter | undefined): void;
 }

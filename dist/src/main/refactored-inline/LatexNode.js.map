@@ -1,1 +1,1 @@
-{"version":3,"file":"LatexNode.js","sourceRoot":"","sources":["../../../../src/main/refactored-inline/LatexNode.ts"],"names":[],"mappings":";;AAAA,kCAA6B;AAE7B,eAAuB,SAAQ,WAAI;IAAnC;;QACW,YAAO,GAAiB,IAAI,CAAC;IACxC,CAAC;CAAA;AAFD,8BAEC"}
+{"version":3,"file":"LatexNode.js","sourceRoot":"","sources":["../../../../src/main/refactored-inline/LatexNode.ts"],"names":[],"mappings":";;AAAA,kCAA6B;AAE7B,eAAuB,SAAQ,WAAI;IAAnC;;QACW,YAAO,GAAsB,SAAS,CAAC;IAClD,CAAC;CAAA;AAFD,8BAEC"}

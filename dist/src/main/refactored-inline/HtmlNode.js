@@ -4,7 +4,7 @@ const Node_1 = require("../Node");
 class HtmlNode extends Node_1.Node {
     constructor() {
         super(...arguments);
-        this.literal = null;
+        this.literal = undefined;
     }
 }
 exports.HtmlNode = HtmlNode;

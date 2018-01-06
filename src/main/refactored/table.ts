@@ -157,7 +157,7 @@ export class TableParser extends BlockParser<TableNode> {
         }
         node.rows.push(row);
 
-        if (node.tbody == null) {
+        if (node.tbody == undefined) {
             node.tbody = new Tbody("tbody");
             node.appendChild(node.tbody);
         }

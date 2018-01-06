@@ -48,8 +48,8 @@ class FencedCodeBlockParser extends BlockParser_1.BlockParser {
         else {
             // skip optional spaces of fence offset
             var i = container.fenceOffset;
-            if (i == null) {
-                throw new Error("i cannot be null");
+            if (i == undefined) {
+                throw new Error("i cannot be undefined");
             }
             while (i > 0 && util_1.isSpaceOrTab(util_1.peek(ln, parser.offset))) {
                 parser.advanceOffset(1, true);
@@ -62,15 +62,15 @@ class FencedCodeBlockParser extends BlockParser_1.BlockParser {
     finalize(_parser, block) {
         // first line becomes info string
         var content = block.string_content;
-        if (content == null) {
-            throw new Error("content cannot be null");
+        if (content == undefined) {
+            throw new Error("content cannot be undefined");
         }
         var newlinePos = content.indexOf('\n');
         var firstLine = content.slice(0, newlinePos);
         var rest = content.slice(newlinePos + 1);
         block.info = common_1.unescapeString(firstLine.trim());
         block.literal = rest;
-        block.string_content = null; // allow GC
+        block.string_content = undefined; // allow GC
     }
     ;
     canContain() { return false; }
@@ -78,7 +78,7 @@ class FencedCodeBlockParser extends BlockParser_1.BlockParser {
         return true;
     }
     appendString(node, str) {
-        if (node.string_content == null) {
+        if (node.string_content == undefined) {
             node.string_content = "";
         }
         node.string_content += str;
@@ -88,7 +88,7 @@ class FencedCodeBlockParser extends BlockParser_1.BlockParser {
     }
     // allow raw string to be garbage collected
     unsetString(node) {
-        node.string_content = null;
+        node.string_content = undefined;
     }
 }
 exports.FencedCodeBlockParser = FencedCodeBlockParser;

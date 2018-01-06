@@ -19,11 +19,11 @@ const reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
 const reLinkLabel = new RegExp('^\\[(?:[^\\\\\\[\\]]|' + ESCAPED_CHAR +
     '|\\\\){0,1000}\\]');
 // Attempt to parse link title (sans quotes), returning the string
-// or null if no match.
+// or undefined if no match.
 function parseLinkTitle(parser) {
     const title = parser.match(reLinkTitle);
-    if (title == null) {
-        return null;
+    if (title == undefined) {
+        return undefined;
     }
     else {
         // chop off quotes from title and unescape:
@@ -32,11 +32,11 @@ function parseLinkTitle(parser) {
 }
 exports.parseLinkTitle = parseLinkTitle;
 // Attempt to parse link destination, returning the string or
-// null if no match.
+// undefined if no match.
 function parseLinkDestination(parser) {
     let res = parser.match(reLinkDestinationBraces);
-    if (res == null) {
-        // TODO handrolled parser; res should be null or the string
+    if (res == undefined) {
+        // TODO handrolled parser; res should be undefined or the string
         const savepos = parser.pos;
         let openparens = 0;
         let c;
@@ -60,7 +60,7 @@ function parseLinkDestination(parser) {
                     openparens -= 1;
                 }
             }
-            else if (reWhitespaceChar.exec(String.fromCharCode(c)) != null) {
+            else if (reWhitespaceChar.exec(String.fromCharCode(c)) != undefined) {
                 break;
             }
             else {
@@ -81,7 +81,7 @@ function parseLinkLabel(parser) {
     const m = parser.match(reLinkLabel);
     // Note:  our regex will allow something of form [..\];
     // we disallow it here rather than using lookahead in the regex:
-    if (m == null || m.length > 1001 || /[^\\]\\\]$/.exec(m)) {
+    if (m == undefined || m.length > 1001 || /[^\\]\\\]$/.exec(m)) {
         return 0;
     }
     else {
@@ -92,7 +92,7 @@ exports.parseLinkLabel = parseLinkLabel;
 ;
 // Attempt to parse a link reference, modifying refmap.
 function parseReference(s, refmap) {
-    if (s == null) {
+    if (s == undefined) {
         return;
     }
     const parser = new RegexStream_1.RegexStream(s);
@@ -114,21 +114,21 @@ function parseReference(s, refmap) {
     //  link url
     parser.spnl();
     const dest = parseLinkDestination(parser);
-    if (dest == null || dest.length === 0) {
+    if (dest == undefined || dest.length === 0) {
         parser.pos = startpos;
         return 0;
     }
     const beforetitle = parser.pos;
     parser.spnl();
     let title = parseLinkTitle(parser);
-    if (title == null) {
+    if (title == undefined) {
         title = '';
         // rewind before spaces
         parser.pos = beforetitle;
     }
     // make sure we're at line end:
     let atLineEnd = true;
-    if (parser.match(reSpaceAtEndOfLine) == null) {
+    if (parser.match(reSpaceAtEndOfLine) == undefined) {
         if (title === '') {
             atLineEnd = false;
         }
@@ -140,7 +140,7 @@ function parseReference(s, refmap) {
             // rewind before spaces
             parser.pos = beforetitle;
             // and instead check if the link URL is at the line end
-            atLineEnd = parser.match(reSpaceAtEndOfLine) != null;
+            atLineEnd = parser.match(reSpaceAtEndOfLine) != undefined;
         }
     }
     if (!atLineEnd) {

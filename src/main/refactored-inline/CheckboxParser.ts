@@ -11,7 +11,7 @@ export class CheckboxParser extends InlineParser {
     public parse (parser : InlineContentParser, block : Node, blockParser : BlockParser, mainParserThing : Parser) : boolean {
         if (mainParserThing.isParagraphNode(block)) {
             const parent = block.getParent();
-            if (parent == null) {
+            if (parent == undefined) {
                 return false;
             }
             block = parent;
@@ -27,7 +27,7 @@ export class CheckboxParser extends InlineParser {
         //console.log(parser.pos, parser.subject.substr(parser.pos));
 
         const m = parser.match(/^\s*\[(\s|x|X)\]/);
-        if (m == null) {
+        if (m == undefined) {
             return false;
         }
 

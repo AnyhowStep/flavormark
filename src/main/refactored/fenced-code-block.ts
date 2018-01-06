@@ -41,8 +41,8 @@ export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
         } else {
             // skip optional spaces of fence offset
             var i = container.fenceOffset;
-            if (i == null) {
-                throw new Error("i cannot be null")
+            if (i == undefined) {
+                throw new Error("i cannot be undefined")
             }
             while (i > 0 && isSpaceOrTab(peek(ln, parser.offset))) {
                 parser.advanceOffset(1, true);
@@ -54,15 +54,15 @@ export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
     finalize (_parser : Parser, block : FencedCodeBlockNode) {
         // first line becomes info string
         var content = block.string_content;
-        if (content == null) {
-            throw new Error("content cannot be null");
+        if (content == undefined) {
+            throw new Error("content cannot be undefined");
         }
         var newlinePos = content.indexOf('\n');
         var firstLine = content.slice(0, newlinePos);
         var rest = content.slice(newlinePos + 1);
         block.info = unescapeString(firstLine.trim());
         block.literal = rest;
-        block.string_content = null; // allow GC
+        block.string_content = undefined; // allow GC
     };
     canContain () { return false; }
     acceptsLines = true;
@@ -72,7 +72,7 @@ export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
     }
     isLeaf = true;
     public appendString (node : FencedCodeBlockNode, str : string) : void {
-        if (node.string_content == null) {
+        if (node.string_content == undefined) {
             node.string_content = "";
         }
         node.string_content += str;
@@ -82,7 +82,7 @@ export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
     }
     // allow raw string to be garbage collected
     public unsetString (node : FencedCodeBlockNode) : void {
-        node.string_content = null;
+        node.string_content = undefined;
     }
 }
 

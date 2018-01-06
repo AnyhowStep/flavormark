@@ -3,8 +3,8 @@ import {DelimiterCollection, Delimiter} from "../DelimiterCollection";
 
 export interface Bracket {
     node: Node,
-    previous: Bracket|null,
-    previousDelimiter: Delimiter|null,
+    previous: Bracket|undefined,
+    previousDelimiter: Delimiter|undefined,
     index: number,
     image: boolean,
     active: boolean,
@@ -12,16 +12,16 @@ export interface Bracket {
 }
 export class BracketCollection {
     private delimiters : DelimiterCollection;
-    private top : Bracket|null = null;
+    private top : Bracket|undefined = undefined;
     public constructor (delimiters : DelimiterCollection) {
         this.delimiters = delimiters;
     }
     public clear () {
-        this.top = null;
+        this.top = undefined;
     }
 
     public push (node : Node, index : number, image : boolean) {
-        if (this.top != null) {
+        if (this.top != undefined) {
             this.top.bracketAfter = true;
         }
         this.top = {
@@ -34,7 +34,7 @@ export class BracketCollection {
         };
     }
     public pop () {
-        if (this.top == null) {
+        if (this.top == undefined) {
             throw new Error("Removed more than we added");
         }
         this.top = this.top.previous;

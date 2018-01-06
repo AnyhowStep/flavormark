@@ -8,11 +8,11 @@ class RegexStream {
         this.pos = 0;
     }
     // If re matches at current position in the subject, advance
-    // position in subject and return the match; otherwise return null.
+    // position in subject and return the match; otherwise return undefined.
     match(re) {
         var m = re.exec(this.subject.slice(this.pos));
-        if (m == null) {
-            return null;
+        if (m == undefined) {
+            return undefined;
         }
         else {
             this.pos += m.index + m[0].length;

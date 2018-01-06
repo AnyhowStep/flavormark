@@ -42,7 +42,7 @@ class SetextHeadingParser extends BlockParser_1.BlockParser {
     }
     // allow raw string to be garbage collected
     unsetString(node) {
-        node.string_content = null;
+        node.string_content = undefined;
     }
 }
 exports.SetextHeadingParser = SetextHeadingParser;

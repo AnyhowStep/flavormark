@@ -37,7 +37,7 @@ export class AtxHeadingParser extends BlockParser<HeadingNode> {
     }
     // allow raw string to be garbage collected
     public unsetString (node : HeadingNode) : void {
-        node.string_content = null;
+        node.string_content = undefined;
     }
 }
 

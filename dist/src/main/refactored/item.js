@@ -6,19 +6,19 @@ const ListNode_1 = require("./ListNode");
 var reBulletListMarker = /^[*+-]/;
 var reOrderedListMarker = /^(\d{1,9})([.)])/;
 // Parse a list marker and return data on the marker (type,
-// start, delimiter, bullet character, padding) or null.
+// start, delimiter, bullet character, padding) or undefined.
 var parseListMarker = function (parser, container) {
     var rest = parser.currentLine.slice(parser.nextNonspace);
     var match;
     var nextc;
     var spacesStartCol;
     var spacesStartOffset;
-    var data = { type: null,
+    var data = { type: undefined,
         tight: true,
-        bulletChar: null,
-        start: null,
-        delimiter: null,
-        padding: null,
+        bulletChar: undefined,
+        start: undefined,
+        delimiter: undefined,
+        padding: undefined,
         markerOffset: parser.indent };
     if ((match = rest.match(reBulletListMarker))) {
         data.type = 'bullet';
@@ -32,16 +32,16 @@ var parseListMarker = function (parser, container) {
         data.delimiter = match[2];
     }
     else {
-        return null;
+        return undefined;
     }
     // make sure we have spaces after
     nextc = util_1.peek(parser.currentLine, parser.nextNonspace + match[0].length);
     if (!(nextc === -1 || util_1.isSpaceOrTab(nextc))) {
-        return null;
+        return undefined;
     }
     // if it interrupts paragraph, make sure first line isn't blank
     if (parser.isParagraphNode(container) && util_1.isBlank(parser.currentLine.slice(parser.nextNonspace + match[0].length))) {
-        return null;
+        return undefined;
     }
     // we've got a match! advance offset and calculate padding
     parser.advanceNextNonspace(); // to start of marker
@@ -90,8 +90,8 @@ class ItemParser extends BlockParser_1.BlockParser {
         if ((!parser.indented || parser.getBlockParser(container) == this.listParser)
             && (data = parseListMarker(parser, container))) {
             parser.closeUnmatchedBlocks();
-            if (parser.tip == null) {
-                throw new Error("parser.tip cannot be null");
+            if (parser.tip == undefined) {
+                throw new Error("parser.tip cannot be undefined");
             }
             // add the list if needed
             if (parser.getBlockParser(parser.tip) != this.listParser ||
@@ -112,7 +112,7 @@ class ItemParser extends BlockParser_1.BlockParser {
     ;
     continue(parser, container) {
         if (parser.blank) {
-            if (container.getFirstChild() == null) {
+            if (container.getFirstChild() == undefined) {
                 // Blank line after empty list item
                 return false;
             }
@@ -120,8 +120,8 @@ class ItemParser extends BlockParser_1.BlockParser {
                 parser.advanceNextNonspace();
             }
         }
-        else if (container.listData.markerOffset != null &&
-            container.listData.padding != null &&
+        else if (container.listData.markerOffset != undefined &&
+            container.listData.padding != undefined &&
             parser.indent >=
                 container.listData.markerOffset +
                     container.listData.padding) {
@@ -143,8 +143,8 @@ class ItemParser extends BlockParser_1.BlockParser {
         return blockParser == this.listParser;
     }
     ignoreLastLineBlank(parser, container) {
-        return (container.getFirstChild() == null &&
-            container.sourceRange != null &&
+        return (container.getFirstChild() == undefined &&
+            container.sourceRange != undefined &&
             container.sourceRange.start.row === parser.lineNumber);
     }
 }

@@ -37,8 +37,8 @@ class Parser {
     // Add a line to the block at the tip.  We assume the tip
     // can accept lines -- that check should be done before calling this.
     addLine() {
-        if (this.tip == null) {
-            throw new Error("this.tip cannot be null");
+        if (this.tip == undefined) {
+            throw new Error("this.tip cannot be undefined");
         }
         const p = this.getBlockParser(this.tip);
         if (!p.acceptsLines) {
@@ -57,8 +57,8 @@ class Parser {
     // accept children, close and finalize it and try its parent,
     // and so on til we find a block that can accept children.
     addChild(blockParser, offset) {
-        if (this.tip == null) {
-            throw new Error("this.tip cannot be null");
+        if (this.tip == undefined) {
+            throw new Error("this.tip cannot be undefined");
         }
         const ctor = blockParser.getNodeCtor();
         var column_number = offset + 1; // offset 0 = column 1
@@ -87,13 +87,13 @@ class Parser {
         if (!this.allClosed) {
             // finalize any blocks not matched
             while (this.oldtip !== this.lastMatchedContainer) {
-                if (this.oldtip == null) {
-                    throw new Error("this.oldtip cannot be null");
+                if (this.oldtip == undefined) {
+                    throw new Error("this.oldtip cannot be undefined");
                 }
                 var parent = this.oldtip.getParent();
                 this.finalize(this.oldtip, this.lineNumber - 1);
-                if (parent == null) {
-                    throw new Error("parent cannot be null");
+                if (parent == undefined) {
+                    throw new Error("parent cannot be undefined");
                 }
                 this.oldtip = parent;
             }
@@ -204,8 +204,8 @@ class Parser {
             }
         }
         this.allClosed = (container === this.oldtip);
-        if (container == null) {
-            throw new Error("container cannot be null");
+        if (container == undefined) {
+            throw new Error("container cannot be undefined");
         }
         this.lastMatchedContainer = container;
         var matchedLeaf = !this.isParagraphNode(container) &&
@@ -223,8 +223,8 @@ class Parser {
             }*/
             var i = 0;
             while (i < startsLen) {
-                if (container == null) {
-                    throw new Error("container cannot be null");
+                if (container == undefined) {
+                    throw new Error("container cannot be undefined");
                 }
                 const blockParser = this.blockParsers.at(i);
                 var res = blockParser.tryStart(this, container);
@@ -252,7 +252,7 @@ class Parser {
         // appropriate container.
         // First check for a lazy paragraph continuation:
         if (!this.allClosed && !this.blank &&
-            this.tip != null &&
+            this.tip != undefined &&
             this.blockParsers.get(this.tip).acceptLazyContinuation) {
             if (this.blockParsers.get(this.tip).acceptsLines) {
                 // lazy paragraph continuation
@@ -263,14 +263,14 @@ class Parser {
             }
         }
         else {
-            if (container == null) {
-                throw new Error("container  cannot be null");
+            if (container == undefined) {
+                throw new Error("container  cannot be undefined");
             }
             // finalize any blocks not matched
             this.closeUnmatchedBlocks();
             if (this.blank) {
                 const lastChild = container.getLastChild();
-                if (lastChild != null) {
+                if (lastChild != undefined) {
                     lastChild.setLastLineBlank(true);
                 }
             }
@@ -311,16 +311,16 @@ class Parser {
     finalize(block, lineNumber) {
         var above = block.getParent();
         block.close();
-        if (block.sourceRange == null) {
-            throw new Error("block.sourcepos cannot be null");
+        if (block.sourceRange == undefined) {
+            throw new Error("block.sourcepos cannot be undefined");
         }
         block.sourceRange.end = {
             row: lineNumber,
             column: this.lastLineLength,
         };
         this.blockParsers.get(block).finalize(this, block);
-        /*if (above == null) {
-            throw new Error("above cannot be null")
+        /*if (above == undefined) {
+            throw new Error("above cannot be undefined")
         }*/
         this.tip = above;
     }

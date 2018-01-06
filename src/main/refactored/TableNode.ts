@@ -5,7 +5,7 @@ export class TableNode extends Node {
     public alignments : string[] = [];
     public rows : string[][] = [];
 
-    public tbody : Tbody|null = null;
+    public tbody : Tbody|undefined = undefined;
 }
 
 export class Tr extends Node {

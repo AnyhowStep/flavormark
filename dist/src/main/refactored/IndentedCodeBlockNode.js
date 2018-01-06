@@ -4,8 +4,8 @@ const Node_1 = require("../Node");
 class IndentedCodeBlockNode extends Node_1.Node {
     constructor() {
         super(...arguments);
-        this.string_content = null;
-        this.literal = null;
+        this.string_content = undefined;
+        this.literal = undefined;
     }
 }
 exports.IndentedCodeBlockNode = IndentedCodeBlockNode;

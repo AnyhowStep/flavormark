@@ -145,7 +145,7 @@ class TableParser extends BlockParser_1.BlockParser {
             row.pop();
         }
         node.rows.push(row);
-        if (node.tbody == null) {
+        if (node.tbody == undefined) {
             node.tbody = new TableNode_1.Tbody("tbody");
             node.appendChild(node.tbody);
         }

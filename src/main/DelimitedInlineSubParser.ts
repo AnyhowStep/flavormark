@@ -18,12 +18,12 @@ export type ParseArgs = (
     {
         delimiters : DelimiterCollection;
         openerFound : false;
-        opener : Delimiter|null;
+        opener : Delimiter|undefined;
         closer : Delimiter;
     }
 );
 export interface ParseResult {
-    closer : Delimiter|null,
+    closer : Delimiter|undefined,
 }
 export abstract class DelimitedInlineSubParser {
     public abstract getDelimiterCharacterCodes () : number[];

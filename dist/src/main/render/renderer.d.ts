@@ -14,7 +14,7 @@ export declare class Renderer {
      *
      *  @param str {String} The string to concatenate.
      */
-    lit(str: string | undefined | null): void;
+    lit(str: string | undefined): void;
     /**
      *  Output a newline to the buffer.
      */

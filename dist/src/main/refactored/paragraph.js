@@ -31,8 +31,8 @@ class ParagraphParser extends BlockParser_1.BlockParser {
         while (util_1.peek(block.string_content, 0) === C_OPEN_BRACKET &&
             (pos =
                 util_2.parseReference(block.string_content, this.refMap))) {
-            if (block.string_content == null) {
-                throw new Error("block.string_content cannot be null");
+            if (block.string_content == undefined) {
+                throw new Error("block.string_content cannot be undefined");
             }
             block.string_content = block.string_content.slice(pos);
             hasReferenceDefs = true;
@@ -44,7 +44,7 @@ class ParagraphParser extends BlockParser_1.BlockParser {
     ;
     canContain() { return false; }
     appendString(node, str) {
-        if (node.string_content == null) {
+        if (node.string_content == undefined) {
             node.string_content = "";
         }
         node.string_content += str;
@@ -57,7 +57,7 @@ class ParagraphParser extends BlockParser_1.BlockParser {
     }
     // allow raw string to be garbage collected
     unsetString(node) {
-        node.string_content = null;
+        node.string_content = undefined;
     }
 }
 exports.ParagraphParser = ParagraphParser;

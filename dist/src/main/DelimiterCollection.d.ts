@@ -4,8 +4,8 @@ export interface Delimiter {
     numdelims: number;
     origdelims: number;
     node: TextNode;
-    previous: Delimiter | null;
-    next: Delimiter | null;
+    previous: Delimiter | undefined;
+    next: Delimiter | undefined;
     can_open: boolean;
     can_close: boolean;
 }
@@ -20,8 +20,8 @@ export interface PushArgs {
 export declare class DelimiterCollection {
     private top;
     clear(): void;
-    remove(delim: Delimiter | null): void;
-    peek(): Delimiter | null;
+    remove(delim: Delimiter | undefined): void;
+    peek(): Delimiter | undefined;
     push(args: PushArgs): Delimiter;
 }
-export declare function removeDelimitersBetween(bottom: Delimiter | null, top: Delimiter): void;
+export declare function removeDelimitersBetween(bottom: Delimiter | undefined, top: Delimiter): void;

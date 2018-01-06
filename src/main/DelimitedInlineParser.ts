@@ -26,7 +26,7 @@ export class DelimitedInlineParser extends InlineParser {
             //console.log(cc, String.fromCharCode(cc), p.getDelimiterCharacterCodes());
             return p.getDelimiterCharacterCodes().indexOf(cc) >= 0;
         });
-        if (dil == null) {
+        if (dil == undefined) {
             return false;
         }
         //console.log("found", dil.getDelimiterCharacterCodes());
@@ -56,7 +56,7 @@ export class DelimitedInlineParser extends InlineParser {
         return true;
     }
     public finalize () : void {
-        this.processEmphasis(null);
+        this.processEmphasis(undefined);
     }
     // Scan a sequence of characters with code cc, and return information about
     // the number of delimiters and whether they are positioned such that
@@ -70,7 +70,7 @@ export class DelimitedInlineParser extends InlineParser {
         let numdelims = parser.pos - startpos;
         //console.log("numdelims", numdelims);
         if (numdelims === 0) {
-            return null;
+            return undefined;
         }
 
         char_before = startpos === 0 ? '\n' : parser.subject.charAt(startpos - 1);
@@ -111,9 +111,9 @@ export class DelimitedInlineParser extends InlineParser {
         };
     };
 
-    processEmphasis(stack_bottom : Delimiter|null) {
+    processEmphasis(stack_bottom : Delimiter|undefined) {
         let openers_bottom : {
-            [characterCode : number] : Delimiter|null|undefined
+            [characterCode : number] : Delimiter|undefined
         } = [];
 
         for (let p of this.parsers) {
@@ -124,11 +124,11 @@ export class DelimitedInlineParser extends InlineParser {
 
         // find first closer above stack_bottom:
         let closer = this.delimiters.peek();
-        while (closer != null && closer.previous !== stack_bottom) {
+        while (closer != undefined && closer.previous !== stack_bottom) {
             closer = closer.previous;
         }
         // move forward, looking for closers, and handling each
-        while (closer != null) {
+        while (closer != undefined) {
             var closercc = closer.cc;
             if (!closer.can_close) {
                 closer = closer.next;
@@ -139,7 +139,7 @@ export class DelimitedInlineParser extends InlineParser {
 
                 let odd_match : boolean = false;
 
-                while (opener != null && opener !== stack_bottom &&
+                while (opener != undefined && opener !== stack_bottom &&
                        opener !== openers_bottom[closercc]) {
                     odd_match = (closer.can_open || opener.can_close) &&
                         (opener.origdelims + closer.origdelims) % 3 === 0;
@@ -155,8 +155,8 @@ export class DelimitedInlineParser extends InlineParser {
                     if (p.getDelimiterCharacterCodes().indexOf(closercc) >= 0) {
                         let args : ParseArgs|undefined = undefined;
                         if (opener_found) {
-                            if (opener == null) {
-                                throw new Error("Opener found but opener is null");
+                            if (opener == undefined) {
+                                throw new Error("Opener found but opener is undefined");
                             } else {
                                 args = {
                                    delimiters : this.delimiters,
@@ -198,7 +198,7 @@ export class DelimitedInlineParser extends InlineParser {
         }
 
         // remove all delimiters
-        while (this.delimiters.peek() != null && this.delimiters.peek() !== stack_bottom) {
+        while (this.delimiters.peek() != undefined && this.delimiters.peek() !== stack_bottom) {
             this.delimiters.remove(this.delimiters.peek());
         }
     };

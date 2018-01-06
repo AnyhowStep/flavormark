@@ -2,8 +2,8 @@ import { Node } from "../Node";
 import { DelimiterCollection, Delimiter } from "../DelimiterCollection";
 export interface Bracket {
     node: Node;
-    previous: Bracket | null;
-    previousDelimiter: Delimiter | null;
+    previous: Bracket | undefined;
+    previousDelimiter: Delimiter | undefined;
     index: number;
     image: boolean;
     active: boolean;
@@ -16,5 +16,5 @@ export declare class BracketCollection {
     clear(): void;
     push(node: Node, index: number, image: boolean): void;
     pop(): void;
-    peek(): Bracket | null;
+    peek(): Bracket | undefined;
 }

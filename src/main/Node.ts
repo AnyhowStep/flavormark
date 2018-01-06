@@ -22,11 +22,11 @@ export class Node {
     private lastLineBlank = false;
     private open = true;
 
-    private parent : Node|null = null;
-    private firstChild : Node|null = null;
-    private lastChild : Node|null = null;
-    private prev : Node|null = null;
-    private next : Node|null = null;
+    private parent : Node|undefined = undefined;
+    private firstChild : Node|undefined = undefined;
+    private lastChild : Node|undefined = undefined;
+    private prev : Node|undefined = undefined;
+    private next : Node|undefined = undefined;
 
     public isLastLineBlank () {
         return this.lastLineBlank;
@@ -69,9 +69,9 @@ export class Node {
         } else if (this.parent) {
             this.parent.lastChild = this.prev;
         }
-        this.parent = null;
-        this.next = null;
-        this.prev = null;
+        this.parent = undefined;
+        this.next = undefined;
+        this.prev = undefined;
     };
     public appendChild  (child : Node) {
         child.unlink();

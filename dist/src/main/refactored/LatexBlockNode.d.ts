@@ -4,6 +4,6 @@ export declare class LatexBlockNode extends Node {
     fenceChar: string;
     fenceOffset: number;
     oneLine: boolean;
-    string_content: string | null;
-    literal: string | null;
+    string_content: string | undefined;
+    literal: string | undefined;
 }

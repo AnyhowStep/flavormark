@@ -47,7 +47,7 @@ export class CloseBracketParser extends InlineParser {
         // get last [ or ![
         opener = this.brackets.peek();
 
-        if (opener == null) {
+        if (opener == undefined) {
             // no matched opener, just return a literal
             block.appendChild(parser.text(']'));
             return true;
@@ -72,7 +72,7 @@ export class CloseBracketParser extends InlineParser {
         if (parser.peek() === C_OPEN_PAREN) {
             parser.pos++;
             if (parser.spnl() &&
-                ((dest = parseLinkDestination(parser)) != null) &&
+                ((dest = parseLinkDestination(parser)) != undefined) &&
                 parser.spnl() &&
                 // make sure there's a space before the title:
                 (reWhitespaceChar.test(parser.subject.charAt(parser.pos - 1)) &&
@@ -137,7 +137,7 @@ export class CloseBracketParser extends InlineParser {
             // (no links in links)
             if (!is_image) {
               opener = this.brackets.peek();
-              while (opener != null) {
+              while (opener != undefined) {
                 if (!opener.image) {
                     opener.active = false; // deactivate this opener
                 }

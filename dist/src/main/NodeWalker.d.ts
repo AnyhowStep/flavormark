@@ -8,5 +8,5 @@ export declare class NodeWalker {
     next(): {
         entering: boolean;
         node: Node;
-    } | null;
+    } | undefined;
 }

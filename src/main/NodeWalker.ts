@@ -1,7 +1,7 @@
 import {Node} from "./Node";
 
 export class NodeWalker {
-    private current  : Node|null;
+    private current  : Node|undefined;
     private root     : Node;
     private entering : boolean;
     public constructor (root : Node) {
@@ -17,8 +17,8 @@ export class NodeWalker {
         var cur = this.current;
         var entering = this.entering;
 
-        if (cur == null) {
-            return null;
+        if (cur == undefined) {
+            return undefined;
         }
 
         if (entering) {
@@ -31,9 +31,9 @@ export class NodeWalker {
             }
 
         } else if (cur === this.root) {
-            this.current = null;
+            this.current = undefined;
 
-        } else if (cur.getNext() == null) {
+        } else if (cur.getNext() == undefined) {
             this.current = cur.getParent();
             this.entering = false;
 

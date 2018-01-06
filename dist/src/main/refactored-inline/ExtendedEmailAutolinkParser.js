@@ -9,7 +9,7 @@ class ExtendedEmailAutolinkParser extends InlineParser_1.InlineParser {
         const startpos = parser.pos;
         //There must be at least one period, and no underscores may be present in the last two segments of the domain.
         let email = parser.match(/^[a-zA-Z0-9\.\-\_\+]+\@[a-zA-Z0-9\.\-\_]+/);
-        if (email == null) {
+        if (email == undefined) {
             return false;
         }
         let lastChar = email[email.length - 1];

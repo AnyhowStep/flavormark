@@ -57,22 +57,22 @@ class HtmlBlockParser extends BlockParser_1.BlockParser {
     }
     ;
     finalize(_parser, block) {
-        if (block.string_content == null) {
-            throw new Error("block.string_content cannot be null");
+        if (block.string_content == undefined) {
+            throw new Error("block.string_content cannot be undefined");
         }
         block.literal = block.string_content.replace(/(\n *)+$/, '');
-        block.string_content = null; // allow GC
+        block.string_content = undefined; // allow GC
     }
     ;
     canContain() { return false; }
     finalizeAtLine(parser, container) {
-        return (container.htmlBlockType != null &&
+        return (container.htmlBlockType != undefined &&
             container.htmlBlockType >= 1 &&
             container.htmlBlockType <= 5 &&
             reHtmlBlockClose[container.htmlBlockType].test(parser.currentLine.slice(parser.offset)));
     }
     appendString(node, str) {
-        if (node.string_content == null) {
+        if (node.string_content == undefined) {
             node.string_content = "";
         }
         node.string_content += str;
@@ -82,7 +82,7 @@ class HtmlBlockParser extends BlockParser_1.BlockParser {
     }
     // allow raw string to be garbage collected
     unsetString(node) {
-        node.string_content = null;
+        node.string_content = undefined;
     }
 }
 exports.HtmlBlockParser = HtmlBlockParser;

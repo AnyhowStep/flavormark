@@ -7,7 +7,7 @@ import {IndentedCodeBlockNode} from "./IndentedCodeBlockNode";
 export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> {
     tryStart (parser : Parser) {
         if (parser.indented &&
-            parser.tip != null &&
+            parser.tip != undefined &&
             !parser.isParagraphNode(parser.tip) &&
             !parser.blank) {
             // indented code
@@ -31,17 +31,17 @@ export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> 
         return true;
     }
     finalize (_parser : Parser, block : IndentedCodeBlockNode) {
-        if (block.string_content == null) {
-            throw new Error("block.string_content cannot be null")
+        if (block.string_content == undefined) {
+            throw new Error("block.string_content cannot be undefined")
         }
         block.literal = block.string_content.replace(/(\n *)+$/, '\n');
-        block.string_content = null; // allow GC
+        block.string_content = undefined; // allow GC
     };
     canContain () { return false; }
     acceptsLines= true;
     isLeaf = true;
     public appendString (node : IndentedCodeBlockNode, str : string) : void {
-        if (node.string_content == null) {
+        if (node.string_content == undefined) {
             node.string_content = "";
         }
         node.string_content += str;
@@ -51,7 +51,7 @@ export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> 
     }
     // allow raw string to be garbage collected
     public unsetString (node : IndentedCodeBlockNode) : void {
-        node.string_content = null;
+        node.string_content = undefined;
     }
 }
 

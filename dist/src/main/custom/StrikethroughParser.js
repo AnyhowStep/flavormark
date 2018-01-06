@@ -26,8 +26,8 @@ class StrikethroughParser extends DelimitedInlineSubParser_1.DelimitedInlineSubP
         return stream.subject.slice(delimiterStartPosition, stream.pos);
     }
     parse(args, _delimiter) {
-        if (args.closer == null) {
-            throw new Error("closer cannot be null");
+        if (args.closer == undefined) {
+            throw new Error("closer cannot be undefined");
         }
         if (!args.openerFound) {
             return {
@@ -35,8 +35,8 @@ class StrikethroughParser extends DelimitedInlineSubParser_1.DelimitedInlineSubP
             };
         }
         else {
-            if (args.opener == null) {
-                throw new Error("opener cannot be null");
+            if (args.opener == undefined) {
+                throw new Error("opener cannot be undefined");
             }
             // calculate actual number of delimiters used from closer
             let opener_inl = args.opener.node;

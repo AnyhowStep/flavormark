@@ -1,7 +1,7 @@
 import {Node} from "./Node";
 
 export class TextNode extends Node {
-    public literal : string|null = null;
+    public literal : string|undefined = undefined;
     public constructor (str : string) {
         super("text");
         this.literal = str;

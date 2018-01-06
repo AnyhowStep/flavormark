@@ -7,8 +7,8 @@ export interface Options {
 }
 export declare class Parser {
     doc: Node;
-    tip: Node | null;
-    oldtip: Node | null;
+    tip: Node | undefined;
+    oldtip: Node | undefined;
     currentLine: string;
     lineNumber: number;
     offset: number;

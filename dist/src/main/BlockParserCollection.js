@@ -22,7 +22,7 @@ class BlockParserCollection {
         return this.paragraphParser;
     }
     hasName(name) {
-        return (this.dict[name] != null);
+        return (this.dict[name] != undefined);
     }
     add(parser) {
         const name = parser.getNodeType();
@@ -37,14 +37,14 @@ class BlockParserCollection {
         if (typeof key != "string") {
             return this.has(key.type);
         }
-        return this.dict[key] != null;
+        return this.dict[key] != undefined;
     }
     get(key) {
         if (typeof key != "string") {
             return this.get(key.type);
         }
         const result = this.dict[key];
-        if (result == null) {
+        if (result == undefined) {
             throw new Error(`Parser ${key} does not exist`);
         }
         return result;

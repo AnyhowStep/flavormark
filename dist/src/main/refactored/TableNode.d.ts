@@ -3,7 +3,7 @@ export declare class TableNode extends Node {
     headers: string[];
     alignments: string[];
     rows: string[][];
-    tbody: Tbody | null;
+    tbody: Tbody | undefined;
 }
 export declare class Tr extends Node {
 }

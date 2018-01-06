@@ -79,8 +79,8 @@ export class HtmlRenderer extends Renderer {
      link(node:any, entering:boolean) {
       var attrs = this.attrs(node);
       if (entering) {
-          if (node.destination == null) {
-              throw new Error("destination cannot be null");
+          if (node.destination == undefined) {
+              throw new Error("destination cannot be undefined");
           }
         if (!(this.options.safe && potentiallyUnsafe(node.destination))) {
           attrs.push(['href', this.esc(node.destination, true)]);
@@ -97,8 +97,8 @@ export class HtmlRenderer extends Renderer {
      image(node:any, entering:boolean) {
       if (entering) {
         if (this.disableTags === 0) {
-            if (node.destination == null) {
-                throw new Error("destination cannot be null");
+            if (node.destination == undefined) {
+                throw new Error("destination cannot be undefined");
             }
           if (this.options.safe && potentiallyUnsafe(node.destination)) {
             this.lit('<img src="" alt="');
@@ -208,12 +208,12 @@ export class HtmlRenderer extends Renderer {
     }
 
      paragraph(node:any, entering:boolean) {
-         if (node.parent == null) {
-             throw new Error("node.parent cannot be null");
+         if (node.parent == undefined) {
+             throw new Error("node.parent cannot be undefined");
          }
       var grandparent = node.parent.parent
         , attrs = this.attrs(node);
-      if (grandparent != null &&
+      if (grandparent != undefined &&
         grandparent.type === 'list') {
         if (grandparent.listData.tight) {
           return;
@@ -329,7 +329,7 @@ export class HtmlRenderer extends Renderer {
 
       if (entering) {
         var start = node.listData.start;
-        if (start != null && start !== 1) {
+        if (start != undefined && start !== 1) {
           attrs.push(['start', start.toString()]);
         }
         this.cr();
@@ -392,9 +392,9 @@ export class HtmlRenderer extends Renderer {
 */
     /* Helper methods */
 
-     out(s:string|null) {
-         if (s == null) {
-             throw new Error("s cannot be null")
+     out(s:string|undefined) {
+         if (s == undefined) {
+             throw new Error("s cannot be undefined")
          }
       this.lit(this.esc(s, false));
     }
@@ -417,8 +417,8 @@ export class HtmlRenderer extends Renderer {
       return att;
     }
     get (str : string) {
-        if ((this as any)[str] == null) {
-            return null;
+        if ((this as any)[str] == undefined) {
+            return undefined;
         }
         return (this as any)[str].bind(this);
     }

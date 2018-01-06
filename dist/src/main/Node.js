@@ -6,11 +6,11 @@ class Node {
         //Should only really be modified by Parser
         this.lastLineBlank = false;
         this.open = true;
-        this.parent = null;
-        this.firstChild = null;
-        this.lastChild = null;
-        this.prev = null;
-        this.next = null;
+        this.parent = undefined;
+        this.firstChild = undefined;
+        this.lastChild = undefined;
+        this.prev = undefined;
+        this.next = undefined;
         this.type = nodeType;
         this.sourceRange = sourcepos;
     }
@@ -54,9 +54,9 @@ class Node {
         else if (this.parent) {
             this.parent.lastChild = this.prev;
         }
-        this.parent = null;
-        this.next = null;
-        this.prev = null;
+        this.parent = undefined;
+        this.next = undefined;
+        this.prev = undefined;
     }
     ;
     appendChild(child) {

@@ -7,7 +7,7 @@ class TableNode extends Node_1.Node {
         this.headers = [];
         this.alignments = [];
         this.rows = [];
-        this.tbody = null;
+        this.tbody = undefined;
     }
 }
 exports.TableNode = TableNode;

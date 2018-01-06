@@ -11,9 +11,9 @@ export var isSpaceOrTab = function(c : number) {
     return c === C_SPACE || c === C_TAB;
 };
 
-export var peek = function(ln : string|null, pos : number) {
-    if (ln == null) {
-        throw new Error("ln cannot be null");
+export var peek = function(ln : string|undefined, pos : number) {
+    if (ln == undefined) {
+        throw new Error("ln cannot be undefined");
     }
     if (pos < ln.length) {
         return ln.charCodeAt(pos);
@@ -24,7 +24,7 @@ export var peek = function(ln : string|null, pos : number) {
 
 // Returns true if block ends with a blank line, descending if needed
 // into lists and sublists.
-export var endsWithBlankLine = function(blockParsers : BlockParserCollection, block : Node|null) {
+export var endsWithBlankLine = function(blockParsers : BlockParserCollection, block : Node|undefined) {
     while (block) {
         if (block.isLastLineBlank()) {
             return true;
@@ -40,9 +40,9 @@ export var endsWithBlankLine = function(blockParsers : BlockParserCollection, bl
 };
 
 // Returns true if string contains only space characters.
-export var isBlank = function(s : string|null) {
-    if (s == null) {
-        throw new Error("s cannot be null")
+export var isBlank = function(s : string|undefined) {
+    if (s == undefined) {
+        throw new Error("s cannot be undefined")
     }
     return !(reNonSpace.test(s));
 };

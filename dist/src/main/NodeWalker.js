@@ -14,8 +14,8 @@ class NodeWalker {
     next() {
         var cur = this.current;
         var entering = this.entering;
-        if (cur == null) {
-            return null;
+        if (cur == undefined) {
+            return undefined;
         }
         if (entering) {
             if (cur.getFirstChild()) {
@@ -28,9 +28,9 @@ class NodeWalker {
             }
         }
         else if (cur === this.root) {
-            this.current = null;
+            this.current = undefined;
         }
-        else if (cur.getNext() == null) {
+        else if (cur.getNext() == undefined) {
             this.current = cur.getParent();
             this.entering = false;
         }

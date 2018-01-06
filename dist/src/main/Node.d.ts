@@ -22,11 +22,11 @@ export declare class Node {
     isOpen(): boolean;
     setLastLineBlank(lastLineBlank: boolean): void;
     close(): void;
-    getParent(): Node | null;
-    getFirstChild(): Node | null;
-    getLastChild(): Node | null;
-    getPrev(): Node | null;
-    getNext(): Node | null;
+    getParent(): Node | undefined;
+    getFirstChild(): Node | undefined;
+    getLastChild(): Node | undefined;
+    getPrev(): Node | undefined;
+    getNext(): Node | undefined;
     unlink(): void;
     appendChild(child: Node): void;
     prependChild(child: Node): void;

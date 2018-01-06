@@ -2,14 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class BracketCollection {
     constructor(delimiters) {
-        this.top = null;
+        this.top = undefined;
         this.delimiters = delimiters;
     }
     clear() {
-        this.top = null;
+        this.top = undefined;
     }
     push(node, index, image) {
-        if (this.top != null) {
+        if (this.top != undefined) {
             this.top.bracketAfter = true;
         }
         this.top = {
@@ -22,7 +22,7 @@ class BracketCollection {
         };
     }
     pop() {
-        if (this.top == null) {
+        if (this.top == undefined) {
             throw new Error("Removed more than we added");
         }
         this.top = this.top.previous;

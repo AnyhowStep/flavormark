@@ -31,7 +31,7 @@ export class BlockParserCollection<DocumentT extends Node=Node, ParagraphT exten
         return this.paragraphParser;
     }
     public hasName (name : string) {
-        return (this.dict[name] != null);
+        return (this.dict[name] != undefined);
     }
     public add (parser : BlockParser) : this {
         const name = parser.getNodeType();
@@ -46,7 +46,7 @@ export class BlockParserCollection<DocumentT extends Node=Node, ParagraphT exten
         if (typeof key != "string") {
             return this.has(key.type);
         }
-        return this.dict[key] != null;
+        return this.dict[key] != undefined;
     }
     public get<NodeT extends Node> (key : NodeT) : BlockParser<NodeT>;
     public get (key : string) : BlockParser<Node>;
@@ -55,7 +55,7 @@ export class BlockParserCollection<DocumentT extends Node=Node, ParagraphT exten
             return this.get(key.type);
         }
         const result = this.dict[key];
-        if (result == null) {
+        if (result == undefined) {
             throw new Error(`Parser ${key} does not exist`);
         }
         return result;

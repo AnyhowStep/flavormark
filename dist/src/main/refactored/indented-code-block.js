@@ -12,7 +12,7 @@ class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
     }
     tryStart(parser) {
         if (parser.indented &&
-            parser.tip != null &&
+            parser.tip != undefined &&
             !parser.isParagraphNode(parser.tip) &&
             !parser.blank) {
             // indented code
@@ -40,16 +40,16 @@ class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
         return true;
     }
     finalize(_parser, block) {
-        if (block.string_content == null) {
-            throw new Error("block.string_content cannot be null");
+        if (block.string_content == undefined) {
+            throw new Error("block.string_content cannot be undefined");
         }
         block.literal = block.string_content.replace(/(\n *)+$/, '\n');
-        block.string_content = null; // allow GC
+        block.string_content = undefined; // allow GC
     }
     ;
     canContain() { return false; }
     appendString(node, str) {
-        if (node.string_content == null) {
+        if (node.string_content == undefined) {
             node.string_content = "";
         }
         node.string_content += str;
@@ -59,7 +59,7 @@ class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
     }
     // allow raw string to be garbage collected
     unsetString(node) {
-        node.string_content = null;
+        node.string_content = undefined;
     }
 }
 exports.IndentedCodeBlockParser = IndentedCodeBlockParser;

@@ -14,9 +14,9 @@ class StringParser extends InlineParser_1.InlineParser {
             //console.log("adding string", `'${m}'`);
             block.appendChild(parser.text(m));
             let trailingWhitespace = parser.match(/^\s+/);
-            if (trailingWhitespace != null) {
+            if (trailingWhitespace != undefined) {
                 const trailingNewline = /((\n|\r\n?)*)$/.exec(trailingWhitespace);
-                if (trailingNewline != null) {
+                if (trailingNewline != undefined) {
                     trailingWhitespace = trailingWhitespace.substr(0, trailingWhitespace.length - trailingNewline[1].length);
                     parser.pos -= trailingNewline[1].length;
                 }

@@ -21,7 +21,7 @@ class ExtendedWwwAutolinkParser extends InlineParser_1.InlineParser {
         const startpos = parser.pos;
         //There must be at least one period, and no underscores may be present in the last two segments of the domain.
         let domain = parser.match(/^(www\.|(https?|ftp)\:\/\/)[a-zA-Z0-9\_\-]+(\.[a-zA-Z0-9\_\-]+)+/);
-        if (domain == null) {
+        if (domain == undefined) {
             return false;
         }
         const domainSegments = domain.split(".");
@@ -38,12 +38,12 @@ class ExtendedWwwAutolinkParser extends InlineParser_1.InlineParser {
         }
         //After a valid domain, zero or more non-space non-< characters may follow:
         let trailing = parser.match(/^[^\s\<]*/);
-        if (trailing == null) {
+        if (trailing == undefined) {
             trailing = "";
         }
         else {
             const trailingPunctuation = reTrailingPunctuation.exec(trailing);
-            if (trailingPunctuation != null) {
+            if (trailingPunctuation != undefined) {
                 trailing = trailing.substr(0, trailing.length - trailingPunctuation[1].length);
                 parser.pos -= trailingPunctuation[1].length;
             }
@@ -66,7 +66,7 @@ class ExtendedWwwAutolinkParser extends InlineParser_1.InlineParser {
         //by one or more alphanumeric characters. If so, it is excluded from the autolink:
         if (trailing[trailing.length - 1] == ";") {
             const trailingEntity = /(\&[a-zA-Z0-9]+\;)$/.exec(trailing);
-            if (trailingEntity != null) {
+            if (trailingEntity != undefined) {
                 trailing = trailing.substr(0, trailing.length - trailingEntity[1].length);
                 parser.pos -= trailingEntity[1].length;
             }

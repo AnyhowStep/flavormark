@@ -8,8 +8,8 @@ class LatexBlockNode extends Node_1.Node {
         this.fenceChar = "";
         this.fenceOffset = -1;
         this.oneLine = false;
-        this.string_content = null;
-        this.literal = null;
+        this.string_content = undefined;
+        this.literal = undefined;
     }
 }
 exports.LatexBlockNode = LatexBlockNode;

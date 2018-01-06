@@ -25,7 +25,7 @@ export class LatexBlockParser extends BlockParser<LatexBlockNode> {
             parser.advanceOffset(fenceLength, false);
 
             const sameLineEndMatch = parser.currentLine.slice(parser.offset).match(/(\${2,})\s*$/);
-            if (sameLineEndMatch != null) {
+            if (sameLineEndMatch != undefined) {
                 if (sameLineEndMatch[1].length == fenceLength) {
                     //End now
                     container.oneLine = true;
@@ -58,8 +58,8 @@ export class LatexBlockParser extends BlockParser<LatexBlockNode> {
         } else {
             // skip optional spaces of fence offset
             var i = container.fenceOffset;
-            if (i == null) {
-                throw new Error("i cannot be null")
+            if (i == undefined) {
+                throw new Error("i cannot be undefined")
             }
             while (i > 0 && isSpaceOrTab(peek(ln, parser.offset))) {
                 parser.advanceOffset(1, true);
@@ -70,8 +70,8 @@ export class LatexBlockParser extends BlockParser<LatexBlockNode> {
     };
     finalize (_parser : Parser, block : LatexBlockNode) {
         let content = block.string_content;
-        if (content == null) {
-            throw new Error("content cannot be null");
+        if (content == undefined) {
+            throw new Error("content cannot be undefined");
         }
         content = content.replace(/^\$/, "\\$");
         while (/[^\\]\$/.test(content)) {
@@ -79,7 +79,7 @@ export class LatexBlockParser extends BlockParser<LatexBlockNode> {
         }
 
         block.literal = content;
-        block.string_content = null; // allow GC
+        block.string_content = undefined; // allow GC
     };
     canContain () { return false; }
     acceptsLines = true;
@@ -89,7 +89,7 @@ export class LatexBlockParser extends BlockParser<LatexBlockNode> {
     }
     isLeaf = true;
     public appendString (node : LatexBlockNode, str : string) : void {
-        if (node.string_content == null) {
+        if (node.string_content == undefined) {
             node.string_content = "";
         }
         node.string_content += str;
@@ -99,7 +99,7 @@ export class LatexBlockParser extends BlockParser<LatexBlockNode> {
     }
     // allow raw string to be garbage collected
     public unsetString (node : LatexBlockNode) : void {
-        node.string_content = null;
+        node.string_content = undefined;
     }
 }
 

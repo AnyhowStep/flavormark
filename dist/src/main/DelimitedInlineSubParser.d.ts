@@ -14,11 +14,11 @@ export declare type ParseArgs = ({
 } | {
     delimiters: DelimiterCollection;
     openerFound: false;
-    opener: Delimiter | null;
+    opener: Delimiter | undefined;
     closer: Delimiter;
 });
 export interface ParseResult {
-    closer: Delimiter | null;
+    closer: Delimiter | undefined;
 }
 export declare abstract class DelimitedInlineSubParser {
     abstract getDelimiterCharacterCodes(): number[];

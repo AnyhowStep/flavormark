@@ -1,9 +1,9 @@
 export interface ListData {
-    type? : string|null,
-    tight? : boolean|null,
-    bulletChar? : string|null,
-    start? : number|null,
-    delimiter? : string|null,
-    padding? : number|null,
-    markerOffset? : number|null,
+    type? : string|undefined,
+    tight? : boolean|undefined,
+    bulletChar? : string|undefined,
+    start? : number|undefined,
+    delimiter? : string|undefined,
+    padding? : number|undefined,
+    markerOffset? : number|undefined,
 }

@@ -29,16 +29,16 @@ export class StrikethroughParser extends DelimitedInlineSubParser {
         return stream.subject.slice(delimiterStartPosition, stream.pos);
     }
     public parse (args : ParseArgs, _delimiter : number) : ParseResult {
-        if (args.closer == null) {
-            throw new Error("closer cannot be null");
+        if (args.closer == undefined) {
+            throw new Error("closer cannot be undefined");
         }
         if (!args.openerFound) {
             return {
                 closer : args.closer.next,
             };
         } else {
-            if (args.opener == null) {
-                throw new Error("opener cannot be null");
+            if (args.opener == undefined) {
+                throw new Error("opener cannot be undefined");
             }
             // calculate actual number of delimiters used from closer
 

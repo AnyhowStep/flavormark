@@ -5,8 +5,8 @@ class HtmlBlockNode extends Node_1.Node {
     constructor() {
         super(...arguments);
         this.htmlBlockType = -1;
-        this.string_content = null;
-        this.literal = null;
+        this.string_content = undefined;
+        this.literal = undefined;
     }
 }
 exports.HtmlBlockNode = HtmlBlockNode;

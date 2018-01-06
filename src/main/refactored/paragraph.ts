@@ -31,8 +31,8 @@ export class ParagraphParser extends BlockParser<ParagraphNode> {
         while (peek(block.string_content, 0) === C_OPEN_BRACKET &&
                (pos =
                 parseReference(block.string_content, this.refMap))) {
-           if (block.string_content== null) {
-               throw new Error("block.string_content cannot be null");
+           if (block.string_content== undefined) {
+               throw new Error("block.string_content cannot be undefined");
            }
             block.string_content = block.string_content.slice(pos);
             hasReferenceDefs = true;
@@ -48,7 +48,7 @@ export class ParagraphParser extends BlockParser<ParagraphNode> {
     isLeaf = true;
     isParagraph = true;
     public appendString (node : ParagraphNode, str : string) : void {
-        if (node.string_content == null) {
+        if (node.string_content == undefined) {
             node.string_content = "";
         }
         node.string_content += str;
@@ -61,7 +61,7 @@ export class ParagraphParser extends BlockParser<ParagraphNode> {
     }
     // allow raw string to be garbage collected
     public unsetString (node : ParagraphNode) : void {
-        node.string_content = null;
+        node.string_content = undefined;
     }
 }
 
