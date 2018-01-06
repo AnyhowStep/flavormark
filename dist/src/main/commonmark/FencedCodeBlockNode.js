@@ -7,9 +7,9 @@ class FencedCodeBlockNode extends Node_1.Node {
         this.fenceLength = -1;
         this.fenceChar = "";
         this.fenceOffset = -1;
-        this.info = undefined;
-        this.string_content = undefined;
-        this.literal = undefined;
+        this.info = "";
+        this.stringContent = "";
+        this.literal = "";
     }
 }
 exports.FencedCodeBlockNode = FencedCodeBlockNode;
