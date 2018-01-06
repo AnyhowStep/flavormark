@@ -21,10 +21,10 @@ class AtxHeadingParser extends BlockParser_1.BlockParser {
         parser.advanceNextNonspace();
         parser.advanceOffset(match[0].length, false);
         parser.closeUnmatchedBlocks();
-        const container = parser.addChild(this, parser.nextNonspace);
-        container.level = match[0].trim().length; // number of #s
+        const heading = parser.addChild(this, parser.nextNonspace);
+        heading.level = match[0].trim().length; // number of #s
         // remove trailing ###s:
-        container.stringContent = parser.currentLine
+        heading.stringContent = parser.currentLine
             .slice(parser.offset)
             .replace(/^[ \t]*#+[ \t]*$/, "")
             .replace(/[ \t]+#+[ \t]*$/, "");

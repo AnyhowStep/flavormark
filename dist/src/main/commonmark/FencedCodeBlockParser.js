@@ -25,10 +25,10 @@ class FencedCodeBlockParser extends BlockParser_1.BlockParser {
         }
         const fenceLength = match[0].length;
         parser.closeUnmatchedBlocks();
-        const container = parser.addChild(this, parser.nextNonspace);
-        container.fenceLength = fenceLength;
-        container.fenceChar = match[0][0];
-        container.fenceOffset = parser.indent;
+        const fencedCodeBlock = parser.addChild(this, parser.nextNonspace);
+        fencedCodeBlock.fenceLength = fenceLength;
+        fencedCodeBlock.fenceChar = match[0][0];
+        fencedCodeBlock.fenceOffset = parser.indent;
         parser.advanceNextNonspace();
         parser.advanceOffset(fenceLength, false);
         return true;
