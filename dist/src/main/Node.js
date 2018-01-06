@@ -12,7 +12,7 @@ class Node {
         this.prev = null;
         this.next = null;
         this.type = nodeType;
-        this.sourcepos = sourcepos;
+        this.sourceRange = sourcepos;
     }
     isLastLineBlank() {
         return this.lastLineBlank;

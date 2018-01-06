@@ -11,11 +11,11 @@ export interface Range {
 
 export class Node {
     readonly type : string;
-    readonly sourcepos? : Range;
+    readonly sourceRange? : Range;
 
     public constructor (nodeType : string, sourcepos? : Range) {
         this.type = nodeType;
-        this.sourcepos = sourcepos;
+        this.sourceRange = sourcepos;
     }
 
     //Should only really be modified by Parser

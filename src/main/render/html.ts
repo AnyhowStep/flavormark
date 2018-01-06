@@ -402,7 +402,7 @@ export class HtmlRenderer extends Renderer {
      attrs (node:Node) {
       var att = [];
       if (this.options.sourcepos) {
-        var pos = node.sourcepos;
+        var pos = node.sourceRange;
         if (pos) {
             const start = pos.start;
             const end   = pos.end;

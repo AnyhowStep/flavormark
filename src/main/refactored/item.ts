@@ -187,8 +187,8 @@ export class ItemParser extends BlockParser<ItemNode> {
     public ignoreLastLineBlank (parser : Parser, container : Node) {
         return (
             container.getFirstChild() == null &&
-            container.sourcepos != null &&
-            container.sourcepos.start.row === parser.lineNumber
+            container.sourceRange != null &&
+            container.sourceRange.start.row === parser.lineNumber
         );
     }
     endsWithBlankLineIfLastChildEndsWithBlankLine = true;

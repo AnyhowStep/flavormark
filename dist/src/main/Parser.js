@@ -314,10 +314,10 @@ class Parser {
     finalize(block, lineNumber) {
         var above = block.getParent();
         block.close();
-        if (block.sourcepos == null) {
+        if (block.sourceRange == null) {
             throw new Error("block.sourcepos cannot be null");
         }
-        block.sourcepos.end = {
+        block.sourceRange.end = {
             row: lineNumber,
             column: this.lastLineLength,
         };

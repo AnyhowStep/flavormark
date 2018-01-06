@@ -9,7 +9,7 @@ export interface Range {
 }
 export declare class Node {
     readonly type: string;
-    readonly sourcepos?: Range;
+    readonly sourceRange?: Range;
     constructor(nodeType: string, sourcepos?: Range);
     private lastLineBlank;
     private open;

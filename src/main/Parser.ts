@@ -354,10 +354,10 @@ export class Parser {
     finalize(block : Node, lineNumber : number) {
         var above = block.getParent();
         block.close();
-        if (block.sourcepos == null) {
+        if (block.sourceRange == null) {
             throw new Error("block.sourcepos cannot be null")
         }
-        block.sourcepos.end = {
+        block.sourceRange.end = {
             row : lineNumber,
             column : this.lastLineLength,
         };

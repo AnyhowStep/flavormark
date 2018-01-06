@@ -15,7 +15,7 @@ export class SetextHeadingParser extends BlockParser<HeadingNode> {
             ((match = parser.currentLine.slice(parser.nextNonspace).match(reSetextHeadingLine)))
        ) {
             parser.closeUnmatchedBlocks();
-            var heading = new HeadingNode(this.getNodeType(), container.sourcepos);
+            var heading = new HeadingNode(this.getNodeType(), container.sourceRange);
             heading.level = match[0][0] === '=' ? 1 : 2;
             heading.string_content = parser.getBlockParsers().getParagraphParser().getString(container);
             container.insertAfter(heading);
