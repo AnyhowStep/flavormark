@@ -1,7 +1,4 @@
 //TODO Think of a better name for this, lol
-
-const reSpnl = /^ *(?:\n *)?/;
-
 export class RegexStream {
     public subject : string;
     public pos : number;
@@ -45,7 +42,7 @@ export class RegexStream {
 
     // Parse zero or more space characters, including at most one newline
     public spnl() {
-        this.match(reSpnl);
+        this.match(/^[ ]*(?:\n[ ]*)?/);
         return true;
     };
 }

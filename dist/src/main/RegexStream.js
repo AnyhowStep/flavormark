@@ -1,7 +1,6 @@
 "use strict";
-//TODO Think of a better name for this, lol
 Object.defineProperty(exports, "__esModule", { value: true });
-const reSpnl = /^ *(?:\n *)?/;
+//TODO Think of a better name for this, lol
 class RegexStream {
     constructor(subject) {
         this.subject = subject;
@@ -44,7 +43,7 @@ class RegexStream {
     }
     // Parse zero or more space characters, including at most one newline
     spnl() {
-        this.match(reSpnl);
+        this.match(/^[ ]*(?:\n[ ]*)?/);
         return true;
     }
     ;
