@@ -193,6 +193,9 @@ export class ThParser extends BlockParser<Th> {
     public getString (node : Th) : string {
         return node.string_content;
     }
+    continue (_parser : Parser, _node : Tbody) : boolean {
+        return false;
+    }
     parseInlines = true;
 }
 
@@ -203,6 +206,9 @@ export class TdParser extends BlockParser<Td> {
     public getString (node : Td) : string {
         return node.string_content;
     }
+    continue (_parser : Parser, _node : Tbody) : boolean {
+        return false;
+    }
     parseInlines = true;
 }
 
@@ -210,10 +216,16 @@ export class TrParser extends BlockParser<Tr> {
     public constructor () {
         super("tr", Tr);
     }
+    continue (_parser : Parser, _node : Tbody) : boolean {
+        return false;
+    }
 }
 export class TheadParser extends BlockParser<Thead> {
     public constructor () {
         super("thead", Thead);
+    }
+    continue (_parser : Parser, _node : Tbody) : boolean {
+        return false;
     }
 }
 export class TbodyParser extends BlockParser<Tbody> {

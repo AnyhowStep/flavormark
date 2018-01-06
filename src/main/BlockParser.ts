@@ -57,8 +57,6 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
     public getNodeCtor () : BlockNodeCtor<NodeT> {
         return this.nodeCtor;
     }
-    //Called before the parser starts parsing content
-    public reinit () {}
 
     //Only called if acceptsLines is true
     public appendString (_node : NodeT, _str : string) : void {
@@ -76,11 +74,11 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
         return (this.acceptsLines == true && this.isParagraph == true);
     }
 
+    //Called before the parser starts parsing content
+    public reinit () {}
     tryStart? : (parser : Parser, container : Node) => boolean;
-    continue (_parser : Parser, _block : NodeT) : boolean {
-        throw new Error("Not implemented");
-    }
-    lazyContinue (_parser : Parser, _block : NodeT) : void {}
+    abstract continue (_parser : Parser, _block : NodeT) : boolean;
+    public lazyContinue (_parser : Parser, _block : NodeT) : void {}
     finalizeAtLine? : (parser : Parser, container : NodeT) => boolean;
     finalize        : (parser : Parser, block : NodeT) => void = () => {
         throw new Error("Not implemented");

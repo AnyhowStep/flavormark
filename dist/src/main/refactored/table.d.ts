@@ -17,18 +17,22 @@ export declare const tableParser: TableParser;
 export declare class ThParser extends BlockParser<Th> {
     constructor();
     getString(node: Th): string;
+    continue(_parser: Parser, _node: Tbody): boolean;
     parseInlines: boolean;
 }
 export declare class TdParser extends BlockParser<Td> {
     constructor();
     getString(node: Td): string;
+    continue(_parser: Parser, _node: Tbody): boolean;
     parseInlines: boolean;
 }
 export declare class TrParser extends BlockParser<Tr> {
     constructor();
+    continue(_parser: Parser, _node: Tbody): boolean;
 }
 export declare class TheadParser extends BlockParser<Thead> {
     constructor();
+    continue(_parser: Parser, _node: Tbody): boolean;
 }
 export declare class TbodyParser extends BlockParser<Tbody> {
     constructor();

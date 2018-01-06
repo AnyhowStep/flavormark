@@ -29,13 +29,13 @@ export declare abstract class BlockParser<NodeT extends Node = Node> implements 
     constructor(nodeType: string, nodeCtor: BlockNodeCtor<NodeT>);
     getNodeType(): string;
     getNodeCtor(): BlockNodeCtor<NodeT>;
-    reinit(): void;
     appendString(_node: NodeT, _str: string): void;
     getString(_node: NodeT): string;
     setString(_node: NodeT, _str: string): void;
     isActuallyParagraph(): boolean;
+    reinit(): void;
     tryStart?: (parser: Parser, container: Node) => boolean;
-    continue(_parser: Parser, _block: NodeT): boolean;
+    abstract continue(_parser: Parser, _block: NodeT): boolean;
     lazyContinue(_parser: Parser, _block: NodeT): void;
     finalizeAtLine?: (parser: Parser, container: NodeT) => boolean;
     finalize: (parser: Parser, block: NodeT) => void;

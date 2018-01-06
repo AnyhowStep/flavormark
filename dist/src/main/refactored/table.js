@@ -175,6 +175,9 @@ class ThParser extends BlockParser_1.BlockParser {
     getString(node) {
         return node.string_content;
     }
+    continue(_parser, _node) {
+        return false;
+    }
 }
 exports.ThParser = ThParser;
 class TdParser extends BlockParser_1.BlockParser {
@@ -185,17 +188,26 @@ class TdParser extends BlockParser_1.BlockParser {
     getString(node) {
         return node.string_content;
     }
+    continue(_parser, _node) {
+        return false;
+    }
 }
 exports.TdParser = TdParser;
 class TrParser extends BlockParser_1.BlockParser {
     constructor() {
         super("tr", TableNode_1.Tr);
     }
+    continue(_parser, _node) {
+        return false;
+    }
 }
 exports.TrParser = TrParser;
 class TheadParser extends BlockParser_1.BlockParser {
     constructor() {
         super("thead", TableNode_1.Thead);
+    }
+    continue(_parser, _node) {
+        return false;
     }
 }
 exports.TheadParser = TheadParser;

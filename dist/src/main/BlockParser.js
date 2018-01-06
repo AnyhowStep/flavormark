@@ -22,8 +22,6 @@ class BlockParser {
     getNodeCtor() {
         return this.nodeCtor;
     }
-    //Called before the parser starts parsing content
-    reinit() { }
     //Only called if acceptsLines is true
     appendString(_node, _str) {
         throw new Error(`appendString() not implemented for ${this.getNodeType()}`);
@@ -36,9 +34,8 @@ class BlockParser {
     isActuallyParagraph() {
         return (this.acceptsLines == true && this.isParagraph == true);
     }
-    continue(_parser, _block) {
-        throw new Error("Not implemented");
-    }
+    //Called before the parser starts parsing content
+    reinit() { }
     lazyContinue(_parser, _block) { }
 }
 exports.BlockParser = BlockParser;
