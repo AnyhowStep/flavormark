@@ -176,7 +176,7 @@ export class ItemParser extends BlockParser<ItemNode> {
         }
         return true;
     };
-    finalize= () => { return; };
+    finalize () {}
     canContain= (blockParser : BlockParserMeta) : boolean => {
         return blockParser != this;
     };

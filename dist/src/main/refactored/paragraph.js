@@ -9,23 +9,6 @@ var C_OPEN_BRACKET = 91;
 class ParagraphParser extends BlockParser_1.BlockParser {
     constructor(nodeType, nodeCtor, refMap) {
         super(nodeType, nodeCtor);
-        this.finalize = (_parser, block) => {
-            var pos;
-            var hasReferenceDefs = false;
-            // try parsing the beginning as link reference definitions:
-            while (util_1.peek(block.string_content, 0) === C_OPEN_BRACKET &&
-                (pos =
-                    util_2.parseReference(block.string_content, this.refMap))) {
-                if (block.string_content == null) {
-                    throw new Error("block.string_content cannot be null");
-                }
-                block.string_content = block.string_content.slice(pos);
-                hasReferenceDefs = true;
-            }
-            if (hasReferenceDefs && util_1.isBlank(block.string_content)) {
-                block.unlink();
-            }
-        };
         this.canContain = () => { return false; };
         this.acceptsLines = true;
         this.parseInlines = true;
@@ -42,6 +25,24 @@ class ParagraphParser extends BlockParser_1.BlockParser {
     continue(parser) {
         return (parser.blank ? false : true);
     }
+    finalize(_parser, block) {
+        var pos;
+        var hasReferenceDefs = false;
+        // try parsing the beginning as link reference definitions:
+        while (util_1.peek(block.string_content, 0) === C_OPEN_BRACKET &&
+            (pos =
+                util_2.parseReference(block.string_content, this.refMap))) {
+            if (block.string_content == null) {
+                throw new Error("block.string_content cannot be null");
+            }
+            block.string_content = block.string_content.slice(pos);
+            hasReferenceDefs = true;
+        }
+        if (hasReferenceDefs && util_1.isBlank(block.string_content)) {
+            block.unlink();
+        }
+    }
+    ;
     appendString(node, str) {
         if (node.string_content == null) {
             node.string_content = "";

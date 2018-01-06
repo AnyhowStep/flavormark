@@ -27,7 +27,7 @@ export class AtxHeadingParser extends BlockParser<HeadingNode> {
         // a heading can never container > 1 line, so fail to match:
         return false;
     };
-    finalize = ()=> { return; };
+    finalize () {}
     canContain= () =>{ return false; };
     acceptsLines= false;
     parseInlines = true;

@@ -22,13 +22,6 @@ class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
                 return false;
             }
         };
-        this.finalize = (_parser, block) => {
-            if (block.string_content == null) {
-                throw new Error("block.string_content cannot be null");
-            }
-            block.literal = block.string_content.replace(/(\n *)+$/, '\n');
-            block.string_content = null; // allow GC
-        };
         this.canContain = () => { return false; };
         this.acceptsLines = true;
         this.isLeaf = true;
@@ -46,6 +39,14 @@ class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
         }
         return true;
     }
+    finalize(_parser, block) {
+        if (block.string_content == null) {
+            throw new Error("block.string_content cannot be null");
+        }
+        block.literal = block.string_content.replace(/(\n *)+$/, '\n');
+        block.string_content = null; // allow GC
+    }
+    ;
     appendString(node, str) {
         if (node.string_content == null) {
             node.string_content = "";

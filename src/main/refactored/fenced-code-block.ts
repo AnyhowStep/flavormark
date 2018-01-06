@@ -51,7 +51,7 @@ export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
         }
         return true;
     };
-    finalize= (_parser : Parser, block : FencedCodeBlockNode)=>  {
+    finalize (_parser : Parser, block : FencedCodeBlockNode) {
         // first line becomes info string
         var content = block.string_content;
         if (content == null) {

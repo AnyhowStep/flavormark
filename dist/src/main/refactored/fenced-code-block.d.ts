@@ -5,7 +5,7 @@ import { FencedCodeBlockNode } from "./FencedCodeBlockNode";
 export declare class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
     tryStart: (parser: Parser) => boolean;
     continue(parser: Parser, container: FencedCodeBlockNode): boolean;
-    finalize: (_parser: Parser, block: FencedCodeBlockNode) => void;
+    finalize(_parser: Parser, block: FencedCodeBlockNode): void;
     canContain: () => boolean;
     acceptsLines: boolean;
     earlyExitOnEnd: boolean;

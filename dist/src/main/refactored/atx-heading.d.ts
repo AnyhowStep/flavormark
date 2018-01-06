@@ -4,7 +4,7 @@ import { HeadingNode } from "./HeadingNode";
 export declare class AtxHeadingParser extends BlockParser<HeadingNode> {
     tryStart: (parser: Parser) => boolean;
     continue(): boolean;
-    finalize: () => void;
+    finalize(): void;
     canContain: () => boolean;
     acceptsLines: boolean;
     parseInlines: boolean;

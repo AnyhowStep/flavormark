@@ -25,7 +25,6 @@ class SetextHeadingParser extends BlockParser_1.BlockParser {
                 return false;
             }
         };
-        this.finalize = () => { return; };
         this.canContain = () => { return false; };
         this.acceptsLines = false;
         this.parseInlines = true;
@@ -36,6 +35,7 @@ class SetextHeadingParser extends BlockParser_1.BlockParser {
         return false;
     }
     ;
+    finalize() { }
     getString(node) {
         return node.string_content || "";
     }

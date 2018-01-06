@@ -10,9 +10,6 @@ class BlockParser {
             return true;
         };
         this.acceptsLines = false;
-        this.finalize = () => {
-            throw new Error("Not implemented");
-        };
         this.nodeType = nodeType;
         this.nodeCtor = nodeCtor;
     }
@@ -36,7 +33,8 @@ class BlockParser {
     }
     //Called before the parser starts parsing content
     reinit() { }
-    lazyContinue(_parser, _block) { }
+    lazyContinue(_parser, _block) {
+    }
 }
 exports.BlockParser = BlockParser;
 ;

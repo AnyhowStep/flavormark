@@ -68,7 +68,7 @@ export class LatexBlockParser extends BlockParser<LatexBlockNode> {
         }
         return true;
     };
-    finalize= (_parser : Parser, block : LatexBlockNode)=>  {
+    finalize (_parser : Parser, block : LatexBlockNode) {
         let content = block.string_content;
         if (content == null) {
             throw new Error("content cannot be null");

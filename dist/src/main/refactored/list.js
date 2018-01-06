@@ -8,33 +8,34 @@ const ListNode_1 = require("./ListNode");
 class ListParser extends BlockParser_1.BlockParser {
     constructor() {
         super(...arguments);
-        this.finalize = (parser, block) => {
-            var item = block.firstChild;
-            while (item) {
-                // check for non-final list item ending with blank line:
-                if (util_1.endsWithBlankLine(parser.getBlockParsers(), item) && item.next) {
-                    block.listData.tight = false;
-                    break;
-                }
-                // recurse into children of list item, to see if there are
-                // spaces between any of them:
-                var subitem = item.firstChild;
-                while (subitem) {
-                    if (util_1.endsWithBlankLine(parser.getBlockParsers(), subitem) &&
-                        (item.next || subitem.next)) {
-                        block.listData.tight = false;
-                        break;
-                    }
-                    subitem = subitem.next;
-                }
-                item = item.next;
-            }
-        };
         this.canContain = (blockParser) => { return blockParser instanceof item_1.ItemParser; };
         this.acceptsLines = false;
         this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;
     }
     continue() { return true; }
+    finalize(parser, block) {
+        var item = block.firstChild;
+        while (item) {
+            // check for non-final list item ending with blank line:
+            if (util_1.endsWithBlankLine(parser.getBlockParsers(), item) && item.next) {
+                block.listData.tight = false;
+                break;
+            }
+            // recurse into children of list item, to see if there are
+            // spaces between any of them:
+            var subitem = item.firstChild;
+            while (subitem) {
+                if (util_1.endsWithBlankLine(parser.getBlockParsers(), subitem) &&
+                    (item.next || subitem.next)) {
+                    block.listData.tight = false;
+                    break;
+                }
+                subitem = subitem.next;
+            }
+            item = item.next;
+        }
+    }
+    ;
 }
 exports.ListParser = ListParser;
 exports.listParser = new ListParser("list", ListNode_1.ListNode);

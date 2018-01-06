@@ -18,7 +18,6 @@ class ThematicBreakParser extends BlockParser_1.BlockParser {
                 return false;
             }
         };
-        this.finalize = () => { return; };
         this.canContain = () => { return false; };
         this.acceptsLines = false;
         this.isLeaf = true;
@@ -28,6 +27,7 @@ class ThematicBreakParser extends BlockParser_1.BlockParser {
         return false;
     }
     ;
+    finalize() { }
 }
 exports.ThematicBreakParser = ThematicBreakParser;
 exports.thematicBreakParser = new ThematicBreakParser("thematic_break", Node_1.Node);

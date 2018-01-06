@@ -38,18 +38,6 @@ class LatexBlockParser extends BlockParser_1.BlockParser {
                 return false;
             }
         };
-        this.finalize = (_parser, block) => {
-            let content = block.string_content;
-            if (content == null) {
-                throw new Error("content cannot be null");
-            }
-            content = content.replace(/^\$/, "\\$");
-            while (/[^\\]\$/.test(content)) {
-                content = content.replace(/([^\\])\$/, "$1\\$");
-            }
-            block.literal = content;
-            block.string_content = null; // allow GC
-        };
         this.canContain = () => { return false; };
         this.acceptsLines = true;
         this.earlyExitOnEnd = true;
@@ -82,6 +70,19 @@ class LatexBlockParser extends BlockParser_1.BlockParser {
             }
         }
         return true;
+    }
+    ;
+    finalize(_parser, block) {
+        let content = block.string_content;
+        if (content == null) {
+            throw new Error("content cannot be null");
+        }
+        content = content.replace(/^\$/, "\\$");
+        while (/[^\\]\$/.test(content)) {
+            content = content.replace(/([^\\])\$/, "$1\\$");
+        }
+        block.literal = content;
+        block.string_content = null; // allow GC
     }
     ;
     appendString(node, str) {

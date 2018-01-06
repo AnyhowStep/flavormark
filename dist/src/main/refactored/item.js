@@ -105,7 +105,6 @@ class ItemParser extends BlockParser_1.BlockParser {
                 return false;
             }
         };
-        this.finalize = () => { return; };
         this.canContain = (blockParser) => {
             return blockParser != this;
         };
@@ -145,6 +144,7 @@ class ItemParser extends BlockParser_1.BlockParser {
         return true;
     }
     ;
+    finalize() { }
 }
 exports.ItemParser = ItemParser;
 //import {listParser} from "./list";

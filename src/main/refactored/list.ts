@@ -7,7 +7,7 @@ import {ListNode} from "./ListNode";
 
 export class ListParser extends BlockParser<ListNode> {
     continue () { return true; }
-    finalize= (parser : Parser, block : ListNode) =>{
+    finalize (parser : Parser, block : ListNode) {
         var item = block.firstChild;
         while (item) {
             // check for non-final list item ending with blank line:

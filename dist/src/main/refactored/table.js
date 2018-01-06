@@ -118,8 +118,6 @@ class TableParser extends BlockParser_1.BlockParser {
                 return false;
             }
         };
-        this.finalize = (_parser, _node) => {
-        };
         this.canContain = () => { return false; };
         this.acceptsLines = false;
         this.parseInlines = false;
@@ -164,6 +162,9 @@ class TableParser extends BlockParser_1.BlockParser {
         }
     }
     ;
+    finalize(_parser, _node) {
+    }
+    ;
 }
 exports.TableParser = TableParser;
 exports.tableParser = new TableParser("table", TableNode_1.TableNode);
@@ -178,6 +179,7 @@ class ThParser extends BlockParser_1.BlockParser {
     continue(_parser, _node) {
         return false;
     }
+    finalize() { }
 }
 exports.ThParser = ThParser;
 class TdParser extends BlockParser_1.BlockParser {
@@ -191,6 +193,7 @@ class TdParser extends BlockParser_1.BlockParser {
     continue(_parser, _node) {
         return false;
     }
+    finalize() { }
 }
 exports.TdParser = TdParser;
 class TrParser extends BlockParser_1.BlockParser {
@@ -200,6 +203,7 @@ class TrParser extends BlockParser_1.BlockParser {
     continue(_parser, _node) {
         return false;
     }
+    finalize() { }
 }
 exports.TrParser = TrParser;
 class TheadParser extends BlockParser_1.BlockParser {
@@ -209,6 +213,7 @@ class TheadParser extends BlockParser_1.BlockParser {
     continue(_parser, _node) {
         return false;
     }
+    finalize() { }
 }
 exports.TheadParser = TheadParser;
 class TbodyParser extends BlockParser_1.BlockParser {
@@ -218,6 +223,7 @@ class TbodyParser extends BlockParser_1.BlockParser {
     continue(_parser, _node) {
         return false;
     }
+    finalize() { }
 }
 exports.TbodyParser = TbodyParser;
 //# sourceMappingURL=table.js.map

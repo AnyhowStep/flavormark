@@ -8,7 +8,7 @@ export declare class ItemParser extends BlockParser<ItemNode> {
     constructor(nodeType: string, nodeCtor: BlockNodeCtor<ItemNode>, listParser: BlockParser<ListNode>);
     tryStart: (parser: Parser, container: Node) => boolean;
     continue(parser: Parser, container: ItemNode): boolean;
-    finalize: () => void;
+    finalize(): void;
     canContain: (blockParser: BlockParserMeta) => boolean;
     canBeContainedBy: (blockParser: BlockParserMeta) => boolean;
     acceptsLines: boolean;

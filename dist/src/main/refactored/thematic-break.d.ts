@@ -3,7 +3,7 @@ import { Parser } from "../Parser";
 export declare class ThematicBreakParser extends BlockParser {
     tryStart: (parser: Parser) => boolean;
     continue(): boolean;
-    finalize: () => void;
+    finalize(): void;
     canContain: () => boolean;
     acceptsLines: boolean;
     isLeaf: boolean;

@@ -3,7 +3,7 @@ import {Node} from "../Node";
 
 export class DocumentParser extends BlockParser {
     continue () { return true; }
-    finalize= () => { return; };
+    finalize () {}
     canContain= () =>{ return true };
     acceptsLines = false;
 }

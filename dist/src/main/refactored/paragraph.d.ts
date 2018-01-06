@@ -7,7 +7,7 @@ export declare class ParagraphParser extends BlockParser<ParagraphNode> {
     constructor(nodeType: string, nodeCtor: BlockNodeCtor<ParagraphNode>, refMap: RefMap);
     reinit(): void;
     continue(parser: Parser): boolean;
-    finalize: (_parser: Parser, block: ParagraphNode) => void;
+    finalize(_parser: Parser, block: ParagraphNode): void;
     canContain: () => boolean;
     acceptsLines: boolean;
     parseInlines: boolean;

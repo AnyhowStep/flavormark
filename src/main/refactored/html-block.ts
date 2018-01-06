@@ -63,7 +63,7 @@ export class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
             ) ? false : true
         );
     };
-    finalize= (_parser : Parser, block : HtmlBlockNode) => {
+    finalize (_parser : Parser, block : HtmlBlockNode) {
         if (block.string_content == null) {
             throw new Error("block.string_content cannot be null")
         }

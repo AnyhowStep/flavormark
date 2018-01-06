@@ -30,7 +30,7 @@ export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> 
         }
         return true;
     }
-    finalize= (_parser : Parser, block : IndentedCodeBlockNode) => {
+    finalize (_parser : Parser, block : IndentedCodeBlockNode) {
         if (block.string_content == null) {
             throw new Error("block.string_content cannot be null")
         }

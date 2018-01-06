@@ -77,11 +77,11 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
     //Called before the parser starts parsing content
     public reinit () {}
     tryStart? : (parser : Parser, container : Node) => boolean;
-    abstract continue (_parser : Parser, _block : NodeT) : boolean;
-    public lazyContinue (_parser : Parser, _block : NodeT) : void {}
-    finalizeAtLine? : (parser : Parser, container : NodeT) => boolean;
-    finalize        : (parser : Parser, block : NodeT) => void = () => {
-        throw new Error("Not implemented");
+    public abstract continue (_parser : Parser, _block : NodeT) : boolean;
+    public lazyContinue (_parser : Parser, _block : NodeT) : void {
+
     }
+    finalizeAtLine? : (parser : Parser, container : NodeT) => boolean;
+    public abstract finalize (parser : Parser, block : NodeT) : void;
     ignoreLastLineBlank? : (parser : Parser, container : NodeT) => boolean;
 };

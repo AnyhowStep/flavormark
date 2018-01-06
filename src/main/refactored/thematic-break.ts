@@ -20,7 +20,7 @@ export class ThematicBreakParser extends BlockParser {
         // a thematic break can never container > 1 line, so fail to match:
         return false;
     };
-    finalize= () => { return; };
+    finalize () {}
     canContain= () => { return false; };
     acceptsLines= false;
     isLeaf = true;

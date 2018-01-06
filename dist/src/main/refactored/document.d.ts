@@ -1,7 +1,7 @@
 import { BlockParser } from "../BlockParser";
 export declare class DocumentParser extends BlockParser {
     continue(): boolean;
-    finalize: () => void;
+    finalize(): void;
     canContain: () => boolean;
     acceptsLines: boolean;
 }

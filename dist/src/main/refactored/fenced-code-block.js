@@ -28,19 +28,6 @@ class FencedCodeBlockParser extends BlockParser_1.BlockParser {
                 return false;
             }
         };
-        this.finalize = (_parser, block) => {
-            // first line becomes info string
-            var content = block.string_content;
-            if (content == null) {
-                throw new Error("content cannot be null");
-            }
-            var newlinePos = content.indexOf('\n');
-            var firstLine = content.slice(0, newlinePos);
-            var rest = content.slice(newlinePos + 1);
-            block.info = common_1.unescapeString(firstLine.trim());
-            block.literal = rest;
-            block.string_content = null; // allow GC
-        };
         this.canContain = () => { return false; };
         this.acceptsLines = true;
         this.earlyExitOnEnd = true;
@@ -70,6 +57,20 @@ class FencedCodeBlockParser extends BlockParser_1.BlockParser {
             }
         }
         return true;
+    }
+    ;
+    finalize(_parser, block) {
+        // first line becomes info string
+        var content = block.string_content;
+        if (content == null) {
+            throw new Error("content cannot be null");
+        }
+        var newlinePos = content.indexOf('\n');
+        var firstLine = content.slice(0, newlinePos);
+        var rest = content.slice(newlinePos + 1);
+        block.info = common_1.unescapeString(firstLine.trim());
+        block.literal = rest;
+        block.string_content = null; // allow GC
     }
     ;
     appendString(node, str) {
