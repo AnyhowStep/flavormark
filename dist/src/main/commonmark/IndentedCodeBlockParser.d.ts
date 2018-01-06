@@ -12,4 +12,3 @@ export declare class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlo
     appendString(node: IndentedCodeBlockNode, str: string): void;
     getString(node: IndentedCodeBlockNode): string;
 }
-export declare const indentedCodeBlockParser: IndentedCodeBlockParser;

@@ -45,7 +45,7 @@ var writer = new commonmark.HtmlRenderer();
 import {documentParser} from "../main/refactored/document";
 import {listParser} from "../main/refactored/list";
 import {ItemNode} from "../main/refactored/ItemNode";
-import {blockquoteParser} from "../main/refactored/blockquote";
+import {BlockquoteParser} from "../main/commonmark/BlockquoteParser";
 import {ItemParser} from "../main/refactored/item";
 import {ThematicBreakParser} from "../main/commonmark/ThematicBreakParser";
 import {HtmlBlockParser} from "../main/commonmark/HtmlBlockParser";
@@ -54,7 +54,7 @@ import {AtxHeadingParser} from "../main/commonmark/AtxHeadingParser";
 import {SetextHeadingParser} from "../main/commonmark/SetextHeadingParser";
 import {FencedCodeBlockParser} from "../main/commonmark/FencedCodeBlockParser";
 import {latexBlockParser} from "../main/refactored/latex-block";
-import {indentedCodeBlockParser} from "../main/commonmark/IndentedCodeBlockParser";
+import {IndentedCodeBlockParser} from "../main/commonmark/IndentedCodeBlockParser";
 import {BlockParserCollection} from "../main/BlockParserCollection";
 //import {Node} from "../main/refactored/Node";
 import {tableParser, ThParser, TdParser, TrParser, TheadParser, TbodyParser} from "../main/refactored/table";
@@ -66,7 +66,7 @@ const blockParserCollection = new BlockParserCollection(
     documentParser,
     new ParagraphParser(refMap)
 )
-    .add(blockquoteParser)
+    .add(new BlockquoteParser())
     .add(new AtxHeadingParser())
     .add(new FencedCodeBlockParser())
 
@@ -76,7 +76,7 @@ const blockParserCollection = new BlockParserCollection(
     .add(new SetextHeadingParser())
     .add(new ThematicBreakParser())
     .add(new ItemParser("item", ItemNode, listParser))
-    .add(indentedCodeBlockParser)
+    .add(new IndentedCodeBlockParser())
 
     .add(tableParser)
     .add(new ThParser())

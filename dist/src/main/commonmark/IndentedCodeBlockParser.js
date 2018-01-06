@@ -53,5 +53,4 @@ class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
     }
 }
 exports.IndentedCodeBlockParser = IndentedCodeBlockParser;
-exports.indentedCodeBlockParser = new IndentedCodeBlockParser("indented_code_block", IndentedCodeBlockNode_1.IndentedCodeBlockNode);
 //# sourceMappingURL=IndentedCodeBlockParser.js.map

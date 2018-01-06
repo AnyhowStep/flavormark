@@ -53,5 +53,3 @@ export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> 
         return node.stringContent;
     }
 }
-
-export const indentedCodeBlockParser = new IndentedCodeBlockParser("indented_code_block", IndentedCodeBlockNode);
