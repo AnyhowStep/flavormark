@@ -117,7 +117,7 @@ import {EscapeCharacterParser} from "./../main/commonmark/inline/parser/EscapeCh
 import {CodeSpanParser} from "./../main/commonmark/inline/parser/CodeSpanParser";
 import {DelimitedInlineParser} from "../main/DelimitedInlineParser";
 import {EmphasisParser} from "./../main/commonmark/inline/parser/EmphasisParser";
-import {SmartQuoteParser} from "../main/refactored-delimiter/SmartQuoteParser";
+import {SmartQuoteParser} from "./../main/misc/inline/parser/SmartQuoteParser";
 import {LinkStartParser} from "./../main/commonmark/inline/parser/LinkStartParser";
 import {ImageStartParser} from "./../main/commonmark/inline/parser/ImageStartParser";
 import {CloseBracketParser} from "./../main/commonmark/inline/parser/CloseBracketParser";
@@ -129,7 +129,7 @@ import {StringParser} from "./../main/commonmark/inline/parser/StringParser";
 import {InlineContentParser} from "../main/InlineContentParser";
 
 import {SuperscriptParser} from "./../main/flavormark/inline/parser/SuperscriptParser";
-import {SmartStringParser} from "./../main/commonmark/inline/parser/SmartStringParser";
+import {SmartStringParser} from "./../main/misc/inline/parser/SmartStringParser";
 import {StrikethroughParser} from "./../main/gfm/inline/parser/StrikethroughParser";
 import {CheckboxParser} from "./../main/gfm/inline/parser/CheckboxParser";
 import {ExtendedWwwAutolinkParser} from "./../main/gfm/inline/parser/ExtendedWwwAutolinkParser";
