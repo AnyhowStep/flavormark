@@ -58,7 +58,7 @@ import {BlockParserCollection} from "../main/BlockParserCollection";
 //import {Node} from "../main/refactored/Node";
 import {tableParser, ThParser, TdParser, TrParser, TheadParser, TbodyParser} from "../main/refactored/table";
 
-import {RefMap} from "../main/refactored-misc/RefMap";
+import {RefMap} from "./../main/commonmark/RefMap";
 const refMap : RefMap = {};
 
 const listParser = new ListParser();
@@ -89,7 +89,7 @@ const blockParserCollection = new BlockParserCollection(
     .add(listParser);
 
 import {DelimiterCollection} from "../main/DelimiterCollection";
-import {BracketCollection} from "../main/refactored-misc/BracketCollection";
+import {BracketCollection} from "./../main/commonmark/inline/parser/BracketCollection";
 const delimiters = new DelimiterCollection();
 const brackets = new BracketCollection(delimiters);
 
@@ -98,7 +98,7 @@ import {NewlineParser} from "./../main/commonmark/inline/parser/NewlineParser";
 import {EscapeCharacterParser} from "./../main/commonmark/inline/parser/EscapeCharacterParser";
 import {CodeSpanParser} from "./../main/commonmark/inline/parser/CodeSpanParser";
 import {DelimitedInlineParser} from "../main/DelimitedInlineParser";
-import {EmphasisParser} from "../main/refactored-delimiter/EmphasisParser";
+import {EmphasisParser} from "./../main/commonmark/inline/parser/EmphasisParser";
 import {SmartQuoteParser} from "../main/refactored-delimiter/SmartQuoteParser";
 import {LinkStartParser} from "./../main/commonmark/inline/parser/LinkStartParser";
 import {ImageStartParser} from "./../main/commonmark/inline/parser/ImageStartParser";

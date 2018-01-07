@@ -89,7 +89,7 @@ export function parseLinkLabel(parser : RegexStream) {
         return m.length;
     }
 };
-import {RefMap} from "./RefMap";
+import {RefMap} from "./../commonmark/RefMap";
 
 // Attempt to parse a link reference, modifying refmap.
 export function parseReference(s : string, refmap : RefMap) {

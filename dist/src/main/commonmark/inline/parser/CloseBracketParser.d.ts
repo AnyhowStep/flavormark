@@ -1,8 +1,8 @@
 import { InlineParser } from "./../../../InlineParser";
 import { InlineContentParser } from "./../../../InlineContentParser";
 import { Node } from "./../../../Node";
-import { RefMap } from "./../../../refactored-misc/RefMap";
-import { BracketCollection } from "./../../../refactored-misc/BracketCollection";
+import { RefMap } from "./../../RefMap";
+import { BracketCollection } from "./BracketCollection";
 import { DelimitedInlineParser } from "./../../../DelimitedInlineParser";
 export declare class CloseBracketParser extends InlineParser {
     private delimParser;

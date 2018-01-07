@@ -2,7 +2,7 @@ import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
 import {peek, isBlank} from "./../../../refactored/util";
 import {parseReference} from "./../../../refactored-misc/util";
-import {RefMap} from "./../../../refactored-misc/RefMap";
+import {RefMap} from "./../../RefMap";
 import {ParagraphNode} from "./../node/ParagraphNode";
 
 const C_OPEN_BRACKET = 91;

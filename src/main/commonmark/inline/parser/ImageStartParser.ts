@@ -1,7 +1,7 @@
 import {InlineParser} from "./../../../InlineParser";
 import {InlineContentParser} from "./../../../InlineContentParser";
 import {Node} from "./../../../Node";
-import {BracketCollection} from "./../../../refactored-misc/BracketCollection";
+import {BracketCollection} from "./BracketCollection";
 
 var C_BANG = 33;
 var C_OPEN_BRACKET = 91;
