@@ -1,9 +1,8 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
 import {isBlank} from "./../../string-util";
-import {parseReference} from "./../../link-util";
-import {RefMap} from "./../../RefMap";
 import {ParagraphNode} from "./../node/ParagraphNode";
+import {ParagraphContentParser} from "./ParagraphContentParser";
 
 export class ParagraphParser extends BlockParser<ParagraphNode> {
     public acceptsLines = true;
@@ -12,35 +11,33 @@ export class ParagraphParser extends BlockParser<ParagraphNode> {
     public isLeaf = true;
     public isParagraph = true;
 
-    private refMap : RefMap;
-    public constructor (refMap : RefMap, nodeCtor : BlockNodeCtor<ParagraphNode> = ParagraphNode) {
+    private contentParsers : ParagraphContentParser[];
+
+    public constructor (contentParsers : ParagraphContentParser[], nodeCtor : BlockNodeCtor<ParagraphNode> = ParagraphNode) {
         super(nodeCtor);
-        this.refMap = refMap;
+        this.contentParsers = contentParsers;
     }
 
     public reinit () {
-        for (let k of Object.keys(this.refMap)) {
-            delete this.refMap[k];
+        for (let p of this.contentParsers) {
+            p.reinit();
         }
     }
     public continue (parser : Parser) {
         return parser.blank ? false : true;
     }
-    public finalize (_parser : Parser, node : ParagraphNode) {
-        let hasReferenceDefs = false;
-
-        //TODO move to a different class. Pre-processor or parser of some sort
-        // try parsing the beginning as link reference definitions:
-        while (node.stringContent[0] === "[") {
-            const pos = parseReference(node.stringContent, this.refMap);
-            if (pos == 0) {
-                break;
+    public finalize (parser : Parser, node : ParagraphNode) {
+        let parsed = true;
+        while (parsed) {
+            parsed = false;
+            for (let p of this.contentParsers) {
+                if (p.parse(this, node, parser)) {
+                    parsed = true;
+                    break;
+                }
             }
-
-            node.stringContent = node.stringContent.slice(pos);
-            hasReferenceDefs = true;
         }
-        if (hasReferenceDefs && isBlank(node.stringContent)) {
+        if (isBlank(node.stringContent)) {
             node.unlink();
         }
     };

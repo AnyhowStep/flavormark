@@ -129,7 +129,7 @@ import {TexBlockParser} from "./../main/flavormark/block/parser/TexBlockParser";
 import {IndentedCodeBlockParser} from "./../main/commonmark/block/parser/IndentedCodeBlockParser";
 import {BlockParserCollection} from "../main/BlockParserCollection";
 import {TextParser} from "./../main/commonmark/block/parser/TextParser";
-
+import {LinkReferenceDefinitionParser} from "../main/commonmark/block/parser/LinkReferenceDefinitionParser";
 import {TableParser} from "./../main/gfm/block/parser/TableParser";
 import {TbodyParser} from "./../main/gfm/block/parser/TbodyParser";
 import {TdParser} from "./../main/gfm/block/parser/TdParser";
@@ -157,7 +157,9 @@ const listParser = new ListParser();
 
 const blockParserCollection = new BlockParserCollection(
     new DocumentParser(),
-    new ParagraphParser(refMap)
+    new ParagraphParser([
+        new LinkReferenceDefinitionParser(refMap)
+    ])
 )
     .add(new BlockquoteParser())
     .add(new AtxHeadingParser())
