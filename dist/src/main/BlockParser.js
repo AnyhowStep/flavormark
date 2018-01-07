@@ -37,7 +37,7 @@ class BlockParser {
     tryStart(_parser, _container) {
         return false;
     }
-    lazyContinue(_parser, _block) {
+    lazyContinue(_parser, _node) {
     }
     finalizeAtLine(_parser, _container) {
         return false;

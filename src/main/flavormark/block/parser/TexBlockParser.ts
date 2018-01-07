@@ -76,8 +76,8 @@ export class TexBlockParser extends BlockParser<TexBlockNode> {
         }
         return true;
     }
-    public finalize (_parser : Parser, block : TexBlockNode) {
-        let content = block.stringContent;
+    public finalize (_parser : Parser, node : TexBlockNode) {
+        let content = node.stringContent;
         if (content == undefined) {
             throw new Error("content cannot be undefined");
         }
@@ -86,7 +86,7 @@ export class TexBlockParser extends BlockParser<TexBlockNode> {
             content = content.replace(/([^\\])\$/, "$1\\$");
         }
 
-        block.literal = content;
+        node.literal = content;
     }
     public canContain () { return false; }
     public ignoreLastLineBlank () {

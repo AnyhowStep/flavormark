@@ -45,7 +45,7 @@ class StrikethroughParser extends DelimitedInlineSubParser_1.DelimitedInlineSubP
             opener_inl.setString(opener_inl.getString().slice(0, opener_inl.getString().length));
             closer_inl.setString(closer_inl.getString().slice(0, closer_inl.getString().length));
             // build contents for new element
-            var emph = new StrikethroughNode_1.StrikethroughNode();
+            const emph = new StrikethroughNode_1.StrikethroughNode();
             let tmp = opener_inl.getNext();
             while (tmp && tmp !== closer_inl) {
                 let next = tmp.getNext();

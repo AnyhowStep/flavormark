@@ -7,7 +7,7 @@ export declare class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlo
     constructor(nodeCtor?: BlockNodeCtor<IndentedCodeBlockNode>);
     tryStart(parser: Parser): boolean;
     continue(parser: Parser): boolean;
-    finalize(_parser: Parser, block: IndentedCodeBlockNode): void;
+    finalize(_parser: Parser, node: IndentedCodeBlockNode): void;
     canContain(): boolean;
     appendString(node: IndentedCodeBlockNode, str: string): void;
     getString(node: IndentedCodeBlockNode): string;

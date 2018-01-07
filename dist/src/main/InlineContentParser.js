@@ -24,32 +24,32 @@ class InlineContentParser extends RegexStream_1.RegexStream {
     // Parse the next inline element in subject, advancing subject position.
     // On success, add the result to block's children and return true.
     // On failure, return false.
-    parseInline(parser, blockParser, block) {
+    parseInline(parser, blockParser, node) {
         const c = this.peek();
         //console.log("peek", this.pos, c, String.fromCharCode(c));
         if (c == undefined) {
             return false;
         }
         for (let p of this.inParsers) {
-            if (p.parse(this, block, blockParser, parser)) {
+            if (p.parse(this, node, blockParser, parser)) {
                 //console.log("c", this.pos, c, fromCodePoint(c), this.inParsers.indexOf(p));
                 return true;
             }
         }
         this.pos += 1;
-        block.appendChild(this.text(c));
+        node.appendChild(this.text(c));
         //console.log("adding text", c, fromCodePoint(c));
         return true;
     }
     ;
     // Parse string content in block into inline children,
-    parse(parser, blockParser, block) {
+    parse(parser, blockParser, node) {
         for (let i of this.inParsers) {
             i.reinit();
         }
-        this.subject = (blockParser.getString(block)).trim();
+        this.subject = (blockParser.getString(node)).trim();
         this.pos = 0;
-        while (this.parseInline(parser, blockParser, block)) {
+        while (this.parseInline(parser, blockParser, node)) {
         }
         for (let i of this.inParsers) {
             i.finalize();

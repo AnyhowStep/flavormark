@@ -17,7 +17,7 @@ function countChar(str, char) {
     return result;
 }
 class ExtendedWwwAutolinkParser extends InlineParser_1.InlineParser {
-    parse(parser, block) {
+    parse(parser, node) {
         const startpos = parser.pos;
         //There must be at least one period, and no underscores may be present in the last two segments of the domain.
         let domain = parser.match(/^(www\.|(https?|ftp)\:\/\/)[a-zA-Z0-9\_\-]+(\.[a-zA-Z0-9\_\-]+)+/);
@@ -75,11 +75,11 @@ class ExtendedWwwAutolinkParser extends InlineParser_1.InlineParser {
         if (/^www\./.test(destinationDomain)) {
             destinationDomain = "http://" + destinationDomain;
         }
-        const node = new LinkNode_1.LinkNode();
-        node.destination = common_1.normalizeURI(`${destinationDomain}${trailing}`);
+        const link = new LinkNode_1.LinkNode();
+        link.destination = common_1.normalizeURI(`${destinationDomain}${trailing}`);
         //node.title = domain;
-        node.appendChild(parser.text(common_2.escapeXml(domain + trailing, true)));
-        block.appendChild(node);
+        link.appendChild(parser.text(common_2.escapeXml(domain + trailing, true)));
+        node.appendChild(link);
         return true;
     }
 }

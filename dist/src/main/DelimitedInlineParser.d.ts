@@ -8,7 +8,7 @@ export declare class DelimitedInlineParser extends InlineParser {
     private parsers;
     constructor(delimiters: DelimiterCollection, parsers: DelimitedInlineSubParser[]);
     reinit(): void;
-    parse(parser: InlineContentParser, block: Node): boolean;
+    parse(parser: InlineContentParser, node: Node): boolean;
     finalize(): void;
     scanDelims(parser: InlineContentParser, dil: DelimitedInlineSubParser, cc: string): {
         numdelims: number;

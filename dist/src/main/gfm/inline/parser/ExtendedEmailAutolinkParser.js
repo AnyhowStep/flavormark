@@ -5,7 +5,7 @@ const common_1 = require("./../../../commonmark/common");
 const LinkNode_1 = require("./../../../commonmark/inline/node/LinkNode");
 const common_2 = require("./../../../commonmark/common");
 class ExtendedEmailAutolinkParser extends InlineParser_1.InlineParser {
-    parse(parser, block) {
+    parse(parser, node) {
         const startpos = parser.pos;
         //There must be at least one period, and no underscores may be present in the last two segments of the domain.
         let email = parser.match(/^[a-zA-Z0-9\.\-\_\+]+\@[a-zA-Z0-9\.\-\_]+/);
@@ -32,11 +32,11 @@ class ExtendedEmailAutolinkParser extends InlineParser_1.InlineParser {
             parser.pos = startpos;
             return false;
         }
-        const node = new LinkNode_1.LinkNode();
-        node.destination = common_1.normalizeURI(`mailto:${email}`);
+        const link = new LinkNode_1.LinkNode();
+        link.destination = common_1.normalizeURI(`mailto:${email}`);
         //node.title = domain;
-        node.appendChild(parser.text(common_2.escapeXml(email, true)));
-        block.appendChild(node);
+        link.appendChild(parser.text(common_2.escapeXml(email, true)));
+        node.appendChild(link);
         return true;
     }
 }

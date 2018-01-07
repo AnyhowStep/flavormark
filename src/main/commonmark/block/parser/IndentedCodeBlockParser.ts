@@ -37,8 +37,8 @@ export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> 
             return false;
         }
     }
-    public finalize (_parser : Parser, block : IndentedCodeBlockNode) {
-        block.literal = block.stringContent.replace(/(\n *)+$/, '\n');
+    public finalize (_parser : Parser, node : IndentedCodeBlockNode) {
+        node.literal = node.stringContent.replace(/(\n *)+$/, '\n');
     }
     public canContain () { return false; }
 

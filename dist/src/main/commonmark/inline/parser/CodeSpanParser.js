@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("./../../../InlineParser");
 const CodeSpanNode_1 = require("./../node/CodeSpanNode");
-var reTicks = /`+/;
-var reTicksHere = /^`+/;
-var reWhitespace = /[ \t\n\x0b\x0c\x0d]+/g;
+const reTicks = /`+/;
+const reTicksHere = /^`+/;
+const reWhitespace = /[ \t\n\x0b\x0c\x0d]+/g;
 class CodeSpanParser extends InlineParser_1.InlineParser {
     // All of the parsers below try to match something at the current position
     // in the subject.  If they succeed in matching anything, they

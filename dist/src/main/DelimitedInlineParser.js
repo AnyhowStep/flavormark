@@ -13,7 +13,7 @@ class DelimitedInlineParser extends InlineParser_1.InlineParser {
         this.delimiters.clear();
     }
     // Handle a delimiter marker for emphasis or a quote.
-    parse(parser, block) {
+    parse(parser, node) {
         const cc = parser.peek();
         if (cc == undefined) {
             return false;
@@ -34,14 +34,14 @@ class DelimitedInlineParser extends InlineParser_1.InlineParser {
         var startpos = parser.pos;
         parser.pos += numdelims;
         const contents = dil.getDelimiterContent(parser, startpos, cc);
-        var node = parser.text(contents);
-        block.appendChild(node);
+        var text = parser.text(contents);
+        node.appendChild(text);
         // Add entry to stack for this opener
         this.delimiters.push({
             cc: cc,
             numdelims: numdelims,
             origdelims: numdelims,
-            node: node,
+            node: text,
             can_open: res.can_open,
             can_close: res.can_close
         });

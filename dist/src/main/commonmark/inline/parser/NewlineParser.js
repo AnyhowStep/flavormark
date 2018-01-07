@@ -6,28 +6,28 @@ const SoftbreakNode_1 = require("./../node/SoftbreakNode");
 const reFinalSpace = / *$/;
 const reInitialSpace = /^ */;
 class NewlineParser extends InlineParser_1.InlineParser {
-    parse(parser, block) {
+    parse(parser, node) {
         const c = parser.peek();
         if (c != "\n") {
             return false;
         }
         ++parser.pos;
         // check previous node for trailing spaces
-        const lastc = block.getLastChild();
+        const lastc = node.getLastChild();
         if (lastc != undefined &&
             parser.isTextNode(lastc) &&
             lastc.getString()[lastc.getString().length - 1] === " ") {
             const isHardbreak = lastc.getString()[lastc.getString().length - 2] === " ";
             lastc.setString(lastc.getString().replace(reFinalSpace, ""));
             if (isHardbreak) {
-                block.appendChild(new HardbreakNode_1.HardbreakNode());
+                node.appendChild(new HardbreakNode_1.HardbreakNode());
             }
             else {
-                block.appendChild(new SoftbreakNode_1.SoftbreakNode());
+                node.appendChild(new SoftbreakNode_1.SoftbreakNode());
             }
         }
         else {
-            block.appendChild(new SoftbreakNode_1.SoftbreakNode());
+            node.appendChild(new SoftbreakNode_1.SoftbreakNode());
         }
         parser.match(reInitialSpace); // gobble leading spaces in next line
         return true;

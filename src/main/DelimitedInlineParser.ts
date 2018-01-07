@@ -20,7 +20,7 @@ export class DelimitedInlineParser extends InlineParser {
         this.delimiters.clear();
     }
     // Handle a delimiter marker for emphasis or a quote.
-    public parse (parser : InlineContentParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, node : Node) : boolean {
         const cc = parser.peek();
         if (cc == undefined) {
             return false;
@@ -42,15 +42,15 @@ export class DelimitedInlineParser extends InlineParser {
 
         parser.pos += numdelims;
         const contents = dil.getDelimiterContent(parser, startpos, cc);
-        var node = parser.text(contents);
-        block.appendChild(node);
+        var text = parser.text(contents);
+        node.appendChild(text);
 
         // Add entry to stack for this opener
         this.delimiters.push({
             cc: cc,
             numdelims: numdelims,
             origdelims: numdelims,
-            node: node,
+            node: text,
             can_open: res.can_open,
             can_close: res.can_close
         });

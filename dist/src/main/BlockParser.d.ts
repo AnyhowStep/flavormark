@@ -36,9 +36,9 @@ export declare abstract class BlockParser<NodeT extends Node = Node> implements 
     isActuallyParagraph(): boolean;
     reinit(): void;
     tryStart(_parser: Parser, _container: Node): boolean;
-    abstract continue(_parser: Parser, _block: NodeT): boolean;
-    lazyContinue(_parser: Parser, _block: NodeT): void;
+    abstract continue(_parser: Parser, _node: NodeT): boolean;
+    lazyContinue(_parser: Parser, _node: NodeT): void;
     finalizeAtLine(_parser: Parser, _container: NodeT): boolean;
-    abstract finalize(parser: Parser, block: NodeT): void;
+    abstract finalize(parser: Parser, node: NodeT): void;
     ignoreLastLineBlank(_parser: Parser, _container: NodeT): boolean;
 }

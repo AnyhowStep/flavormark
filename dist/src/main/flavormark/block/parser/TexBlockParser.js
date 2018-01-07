@@ -64,8 +64,8 @@ class TexBlockParser extends BlockParser_1.BlockParser {
         }
         return true;
     }
-    finalize(_parser, block) {
-        let content = block.stringContent;
+    finalize(_parser, node) {
+        let content = node.stringContent;
         if (content == undefined) {
             throw new Error("content cannot be undefined");
         }
@@ -73,7 +73,7 @@ class TexBlockParser extends BlockParser_1.BlockParser {
         while (/[^\\]\$/.test(content)) {
             content = content.replace(/([^\\])\$/, "$1\\$");
         }
-        block.literal = content;
+        node.literal = content;
     }
     canContain() { return false; }
     ignoreLastLineBlank() {

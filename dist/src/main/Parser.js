@@ -306,17 +306,17 @@ class Parser {
     // or 'loose' status of a list, and parsing the beginnings
     // of paragraphs for reference definitions.  Reset the tip to the
     // parent of the closed block.
-    finalize(block, lineNumber) {
-        var above = block.getParent();
-        block.close();
-        if (block.sourceRange == undefined) {
+    finalize(node, lineNumber) {
+        var above = node.getParent();
+        node.close();
+        if (node.sourceRange == undefined) {
             throw new Error("block.sourcepos cannot be undefined");
         }
-        block.sourceRange.end = {
+        node.sourceRange.end = {
             row: lineNumber,
             column: this.lastLineLength,
         };
-        this.blockParsers.get(block).finalize(this, block);
+        this.blockParsers.get(node).finalize(this, node);
         /*if (above == undefined) {
             throw new Error("above cannot be undefined")
         }*/
@@ -325,15 +325,14 @@ class Parser {
     ;
     // Walk through a block & children recursively, parsing string content
     // into inline content where appropriate.
-    processInlines(block) {
-        var node, event;
-        var walker = block.walker();
+    processInlines(root) {
+        let event;
+        const walker = root.walker();
         while ((event = walker.next())) {
-            node = event.node;
             if (!event.entering &&
-                this.blockParsers.has(node) &&
-                this.blockParsers.get(node).parseInlines) {
-                this.inlineParser.parse(this, this.getBlockParser(node), node);
+                this.blockParsers.has(event.node) &&
+                this.blockParsers.get(event.node).parseInlines) {
+                this.inlineParser.parse(this, this.getBlockParser(event.node), event.node);
             }
         }
     }

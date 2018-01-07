@@ -3,11 +3,11 @@ import {InlineContentParser} from "./../../../InlineContentParser";
 import {Node} from "./../../../Node";
 import {CodeSpanNode} from "./../node/CodeSpanNode";
 
-var reTicks = /`+/;
+const reTicks = /`+/;
 
-var reTicksHere = /^`+/;
+const reTicksHere = /^`+/;
 
-var reWhitespace = /[ \t\n\x0b\x0c\x0d]+/g;
+const reWhitespace = /[ \t\n\x0b\x0c\x0d]+/g;
 
 
 export class CodeSpanParser extends InlineParser {

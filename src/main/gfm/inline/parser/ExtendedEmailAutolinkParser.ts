@@ -6,7 +6,7 @@ import {LinkNode} from "./../../../commonmark/inline/node/LinkNode";
 import {escapeXml} from "./../../../commonmark/common";
 
 export class ExtendedEmailAutolinkParser extends InlineParser {
-    public parse (parser : InlineContentParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, node : Node) : boolean {
         const startpos = parser.pos;
         //There must be at least one period, and no underscores may be present in the last two segments of the domain.
         let email = parser.match(/^[a-zA-Z0-9\.\-\_\+]+\@[a-zA-Z0-9\.\-\_]+/);
@@ -35,11 +35,11 @@ export class ExtendedEmailAutolinkParser extends InlineParser {
             return false;
         }
 
-        const node = new LinkNode();
-        node.destination = normalizeURI(`mailto:${email}`);
+        const link = new LinkNode();
+        link.destination = normalizeURI(`mailto:${email}`);
         //node.title = domain;
-        node.appendChild(parser.text(escapeXml(email, true)));
-        block.appendChild(node);
+        link.appendChild(parser.text(escapeXml(email, true)));
+        node.appendChild(link);
         return true;
     }
 }

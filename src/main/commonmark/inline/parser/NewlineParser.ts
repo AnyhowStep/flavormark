@@ -9,7 +9,7 @@ const reFinalSpace = / *$/;
 const reInitialSpace = /^ */;
 
 export class NewlineParser extends InlineParser {
-    public parse (parser : InlineContentParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, node : Node) : boolean {
         const c = parser.peek();
         if (c != "\n") {
             return false;
@@ -17,7 +17,7 @@ export class NewlineParser extends InlineParser {
         ++parser.pos;
 
         // check previous node for trailing spaces
-        const lastc = block.getLastChild();
+        const lastc = node.getLastChild();
         if (
             lastc != undefined &&
             parser.isTextNode(lastc) &&
@@ -26,12 +26,12 @@ export class NewlineParser extends InlineParser {
             const isHardbreak = lastc.getString()[lastc.getString().length - 2] === " ";
             lastc.setString(lastc.getString().replace(reFinalSpace, ""));
             if (isHardbreak) {
-                block.appendChild(new HardbreakNode());
+                node.appendChild(new HardbreakNode());
             } else {
-                block.appendChild(new SoftbreakNode());
+                node.appendChild(new SoftbreakNode());
             }
         } else {
-            block.appendChild(new SoftbreakNode());
+            node.appendChild(new SoftbreakNode());
         }
         parser.match(reInitialSpace); // gobble leading spaces in next line
         return true;

@@ -4,6 +4,6 @@ import { BlockParser } from "./BlockParser";
 import { Parser } from "./Parser";
 export declare abstract class InlineParser {
     reinit(): void;
-    abstract parse(parser: InlineContentParser, block: Node, blockParser: BlockParser, mainParserThing: Parser): boolean;
+    abstract parse(inlineContentParser: InlineContentParser, node: Node, blockParser: BlockParser, mainParser: Parser): boolean;
     finalize(): void;
 }

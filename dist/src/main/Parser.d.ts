@@ -47,8 +47,8 @@ export declare class Parser {
     advanceNextNonspace(): void;
     findNextNonspace(): void;
     incorporateLine(ln: string): void;
-    finalize(block: Node, lineNumber: number): void;
-    processInlines(block: Node): void;
+    finalize(node: Node, lineNumber: number): void;
+    processInlines(root: Node): void;
     parse(input: string): Node;
     isParagraphNode(node: Node): boolean;
     getParagraphString(node: Node): string;

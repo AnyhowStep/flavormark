@@ -63,7 +63,7 @@ class EmphasisParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser
             opener_inl.setString(opener_inl.getString().slice(0, opener_inl.getString().length - delimitersUsed));
             closer_inl.setString(closer_inl.getString().slice(0, closer_inl.getString().length - delimitersUsed));
             // build contents for new emph element
-            var emph = (delimitersUsed == 1) ?
+            const emph = (delimitersUsed == 1) ?
                 new EmphasisNode_1.EmphasisNode() :
                 new StrongNode_1.StrongNode();
             let tmp = opener_inl.getNext();

@@ -5,6 +5,6 @@ import {Parser} from "./Parser";
 
 export abstract class InlineParser {
     public reinit () : void {}
-    public abstract parse (parser : InlineContentParser, block : Node, blockParser : BlockParser, mainParserThing : Parser) : boolean;
+    public abstract parse (inlineContentParser : InlineContentParser, node : Node, blockParser : BlockParser, mainParser : Parser) : boolean;
     public finalize () : void {}
 }

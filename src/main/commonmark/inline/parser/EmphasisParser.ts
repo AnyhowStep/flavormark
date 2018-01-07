@@ -83,7 +83,7 @@ export class EmphasisParser extends DelimitedInlineSubParser {
             );
 
             // build contents for new emph element
-            var emph = (delimitersUsed == 1) ?
+            const emph = (delimitersUsed == 1) ?
                 new EmphasisNode() :
                 new StrongNode();
 

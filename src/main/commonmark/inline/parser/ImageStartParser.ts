@@ -14,7 +14,7 @@ export class ImageStartParser extends InlineParser {
         if (c != "!") {
             return false;
         }
-        var startpos = parser.pos;
+        const startpos = parser.pos;
         ++parser.pos;
         if (parser.peek() != "[") {
             --parser.pos;
@@ -22,7 +22,7 @@ export class ImageStartParser extends InlineParser {
         }
         ++parser.pos;
 
-        var text = parser.text('![');
+        const text = parser.text('![');
         node.appendChild(text);
 
         // Add entry to stack for this opener

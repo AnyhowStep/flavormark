@@ -8,7 +8,7 @@ export declare class TexBlockParser extends BlockParser<TexBlockNode> {
     constructor(nodeCtor?: BlockNodeCtor<TexBlockNode>);
     tryStart(parser: Parser): boolean;
     continue(parser: Parser, node: TexBlockNode): boolean;
-    finalize(_parser: Parser, block: TexBlockNode): void;
+    finalize(_parser: Parser, node: TexBlockNode): void;
     canContain(): boolean;
     ignoreLastLineBlank(): boolean;
     appendString(node: TexBlockNode, str: string): void;

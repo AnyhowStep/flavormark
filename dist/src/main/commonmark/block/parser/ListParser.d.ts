@@ -7,6 +7,6 @@ export declare class ListParser extends BlockParser<ListNode> {
     endsWithBlankLineIfLastChildEndsWithBlankLine: boolean;
     constructor(nodeCtor?: BlockNodeCtor<ListNode>);
     continue(): boolean;
-    finalize(parser: Parser, block: ListNode): void;
+    finalize(parser: Parser, node: ListNode): void;
     canContain(_blockParser: BlockParserMeta, node: Node): boolean;
 }

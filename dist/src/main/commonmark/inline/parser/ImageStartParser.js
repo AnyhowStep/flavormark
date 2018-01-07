@@ -11,14 +11,14 @@ class ImageStartParser extends InlineParser_1.InlineParser {
         if (c != "!") {
             return false;
         }
-        var startpos = parser.pos;
+        const startpos = parser.pos;
         ++parser.pos;
         if (parser.peek() != "[") {
             --parser.pos;
             return false;
         }
         ++parser.pos;
-        var text = parser.text('![');
+        const text = parser.text('![');
         node.appendChild(text);
         // Add entry to stack for this opener
         this.brackets.push(text, startpos + 1, true);

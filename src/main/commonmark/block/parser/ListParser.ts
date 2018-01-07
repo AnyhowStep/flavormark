@@ -13,12 +13,12 @@ export class ListParser extends BlockParser<ListNode> {
     }
 
     public continue () { return true; }
-    public finalize (parser : Parser, block : ListNode) {
-        let item = block.getFirstChild();
+    public finalize (parser : Parser, node : ListNode) {
+        let item = node.getFirstChild();
         while (item != null) {
             // check for non-final list item ending with blank line:
             if (parser.endsWithBlankLine(item) && item.getNext()) {
-                block.listData.tight = false;
+                node.listData.tight = false;
                 break;
             }
             // recurse into children of list item, to see if there are
@@ -32,16 +32,16 @@ export class ListParser extends BlockParser<ListNode> {
                         subitem.getNext()
                     )
                 ) {
-                    block.listData.tight = false;
+                    node.listData.tight = false;
                     break;
                 }
                 subitem = subitem.getNext();
             }
             item = item.getNext();
         }
-        if (block.listData.tight) {
+        if (node.listData.tight) {
             //Remove all paragraph elements
-            for (let item = block.getFirstChild(); item != undefined; item = item.getNext()) {
+            for (let item = node.getFirstChild(); item != undefined; item = item.getNext()) {
                 for (let paragraph = item.getFirstChild(); paragraph != undefined; paragraph = paragraph.getNext()) {
                     if (parser.isParagraphNode(paragraph)) {
                         //Move all its children to item, unlink paragraph
