@@ -1,11 +1,11 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
-import {peek, isSpaceOrTab} from "./../../../refactored/util";
+import {isSpaceOrTab} from "./../../../refactored/util";
 import {BlockquoteNode} from "./../node/BlockquoteNode";
 
-var C_GREATERTHAN = 62;
-
 export class BlockquoteParser extends BlockParser<BlockquoteNode> {
+    public static readonly START_CHAR = ">";
+
     public acceptsLines = false;
 
     public constructor (nodeType : string = "block_quote", nodeCtor : BlockNodeCtor<BlockquoteNode> = BlockquoteNode) {
@@ -16,13 +16,13 @@ export class BlockquoteParser extends BlockParser<BlockquoteNode> {
         if (parser.indented) {
             return false;
         }
-        if (peek(parser.currentLine, parser.nextNonspace) != C_GREATERTHAN) {
+        if (parser.currentLine[parser.nextNonspace] != BlockquoteParser.START_CHAR) {
             return false;
         }
         parser.advanceNextNonspace();
         parser.advanceOffset(1, false);
         // optional following space
-        if (isSpaceOrTab(peek(parser.currentLine, parser.offset))) {
+        if (isSpaceOrTab(parser.currentLine[parser.offset])) {
             parser.advanceOffset(1, true);
         }
         parser.closeUnmatchedBlocks();
@@ -33,12 +33,12 @@ export class BlockquoteParser extends BlockParser<BlockquoteNode> {
         if (parser.indented) {
             return false;
         }
-        if (peek(parser.currentLine, parser.nextNonspace) != C_GREATERTHAN) {
+        if (parser.currentLine[parser.nextNonspace] != BlockquoteParser.START_CHAR) {
             return false;
         }
         parser.advanceNextNonspace();
         parser.advanceOffset(1, false);
-        if (isSpaceOrTab(peek(parser.currentLine, parser.offset))) {
+        if (isSpaceOrTab(parser.currentLine[parser.offset])) {
             parser.advanceOffset(1, true);
         }
         return true;

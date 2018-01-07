@@ -1,11 +1,8 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
 import {Node} from "./../../../Node";
-import {peek} from "./../../../refactored/util";
 import {OPENTAG, CLOSETAG} from "./../../../common";
 import {HtmlBlockNode} from "./../node/HtmlBlockNode";
-
-const C_LESSTHAN = 60;
 
 const reHtmlBlockClose = [
    /./, // dummy for 0
@@ -29,6 +26,8 @@ const reHtmlBlockOpen = [
 ];
 
 export class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
+    public static readonly START_CHAR = "<";
+
     public acceptsLines = true;
     public isLeaf = true;
 
@@ -40,7 +39,8 @@ export class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
         if (parser.indented) {
             return false;
         }
-        if (peek(parser.currentLine, parser.nextNonspace) != C_LESSTHAN) {
+        //This line isn't really needed but helps with efficiency, I guess
+        if (parser.currentLine[parser.nextNonspace] != HtmlBlockParser.START_CHAR) {
             return false;
         }
         const line = parser.currentLine.slice(parser.nextNonspace);
@@ -86,9 +86,6 @@ export class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
         );
     }
     public appendString (node : HtmlBlockNode, str : string) : void {
-        if (node.stringContent == undefined) {
-            node.stringContent = "";
-        }
         node.stringContent += str;
     }
     public getString (node : HtmlBlockNode) : string {

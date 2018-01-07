@@ -3,6 +3,7 @@ import { Parser } from "./../../../Parser";
 import { Node } from "./../../../Node";
 import { HtmlBlockNode } from "./../node/HtmlBlockNode";
 export declare class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
+    static readonly START_CHAR: string;
     acceptsLines: boolean;
     isLeaf: boolean;
     constructor(nodeType?: string, nodeCtor?: BlockNodeCtor<HtmlBlockNode>);

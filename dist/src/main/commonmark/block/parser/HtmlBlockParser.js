@@ -1,10 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
-const util_1 = require("./../../../refactored/util");
 const common_1 = require("./../../../common");
 const HtmlBlockNode_1 = require("./../node/HtmlBlockNode");
-const C_LESSTHAN = 60;
 const reHtmlBlockClose = [
     /./,
     /<\/(?:script|pre|style)>/i,
@@ -33,7 +31,8 @@ class HtmlBlockParser extends BlockParser_1.BlockParser {
         if (parser.indented) {
             return false;
         }
-        if (util_1.peek(parser.currentLine, parser.nextNonspace) != C_LESSTHAN) {
+        //This line isn't really needed but helps with efficiency, I guess
+        if (parser.currentLine[parser.nextNonspace] != HtmlBlockParser.START_CHAR) {
             return false;
         }
         const line = parser.currentLine.slice(parser.nextNonspace);
@@ -67,14 +66,12 @@ class HtmlBlockParser extends BlockParser_1.BlockParser {
             reHtmlBlockClose[node.htmlBlockType].test(parser.currentLine.slice(parser.offset)));
     }
     appendString(node, str) {
-        if (node.stringContent == undefined) {
-            node.stringContent = "";
-        }
         node.stringContent += str;
     }
     getString(node) {
         return node.stringContent;
     }
 }
+HtmlBlockParser.START_CHAR = "<";
 exports.HtmlBlockParser = HtmlBlockParser;
 //# sourceMappingURL=HtmlBlockParser.js.map

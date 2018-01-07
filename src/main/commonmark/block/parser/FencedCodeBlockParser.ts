@@ -1,6 +1,6 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
-import {peek, isSpaceOrTab} from "./../../../refactored/util";
+import {isSpaceOrTab} from "./../../../refactored/util";
 import {unescapeString} from "./../../../common";
 import {FencedCodeBlockNode} from "./../node/FencedCodeBlockNode";
 
@@ -54,7 +54,7 @@ export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
         }
 
         // skip optional spaces of fence offset
-        for (let i=node.fenceOffset; i > 0 && isSpaceOrTab(peek(ln, parser.offset)); --i) {
+        for (let i=node.fenceOffset; i > 0 && isSpaceOrTab(ln[parser.offset]); --i) {
             parser.advanceOffset(1, true);
         }
         return true;
@@ -76,12 +76,9 @@ export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
         return true;
     }
     public appendString (node : FencedCodeBlockNode, str : string) : void {
-        if (node.stringContent == undefined) {
-            node.stringContent = "";
-        }
         node.stringContent += str;
     }
     public getString (node : FencedCodeBlockNode) : string {
-        return node.stringContent || "";
+        return node.stringContent;
     }
 }

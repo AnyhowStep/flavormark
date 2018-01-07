@@ -7,7 +7,11 @@ var reNonSpace = /[^ \t\f\v\r\n]/;
 var C_TAB = 9;
 var C_SPACE = 32;
 
-export var isSpaceOrTab = function(c : number) {
+export var isSpaceOrTab = function(c : number|string) {
+    //Temporarily making it accept both
+    if (typeof c == "string") {
+        return c == " " || c == "\t";
+    }
     return c === C_SPACE || c === C_TAB;
 };
 

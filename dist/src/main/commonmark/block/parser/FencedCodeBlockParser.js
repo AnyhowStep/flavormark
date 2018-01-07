@@ -46,7 +46,7 @@ class FencedCodeBlockParser extends BlockParser_1.BlockParser {
             return false;
         }
         // skip optional spaces of fence offset
-        for (let i = node.fenceOffset; i > 0 && util_1.isSpaceOrTab(util_1.peek(ln, parser.offset)); --i) {
+        for (let i = node.fenceOffset; i > 0 && util_1.isSpaceOrTab(ln[parser.offset]); --i) {
             parser.advanceOffset(1, true);
         }
         return true;
@@ -68,13 +68,10 @@ class FencedCodeBlockParser extends BlockParser_1.BlockParser {
         return true;
     }
     appendString(node, str) {
-        if (node.stringContent == undefined) {
-            node.stringContent = "";
-        }
         node.stringContent += str;
     }
     getString(node) {
-        return node.stringContent || "";
+        return node.stringContent;
     }
 }
 exports.FencedCodeBlockParser = FencedCodeBlockParser;

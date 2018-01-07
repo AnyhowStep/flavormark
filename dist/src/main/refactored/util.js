@@ -4,6 +4,10 @@ var reNonSpace = /[^ \t\f\v\r\n]/;
 var C_TAB = 9;
 var C_SPACE = 32;
 exports.isSpaceOrTab = function (c) {
+    //Temporarily making it accept both
+    if (typeof c == "string") {
+        return c == " " || c == "\t";
+    }
     return c === C_SPACE || c === C_TAB;
 };
 exports.peek = function (ln, pos) {
