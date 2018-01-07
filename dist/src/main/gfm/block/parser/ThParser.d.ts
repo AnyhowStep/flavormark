@@ -1,10 +1,10 @@
 import { BlockParser, BlockNodeCtor } from "./../../../BlockParser";
-import { Th } from "./../node/TableNode";
-export declare class ThParser extends BlockParser<Th> {
+import { ThNode } from "./../node/ThNode";
+export declare class ThParser extends BlockParser<ThNode> {
     parseInlines: boolean;
-    constructor(nodeType?: string, nodeCtor?: BlockNodeCtor<Th>);
+    constructor(nodeType?: string, nodeCtor?: BlockNodeCtor<ThNode>);
     continue(): boolean;
     finalize(): void;
     canContain(): boolean;
-    getString(node: Th): string;
+    getString(node: ThNode): string;
 }

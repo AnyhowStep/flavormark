@@ -1,8 +1,8 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
-import {Tr} from "./../node/TableNode";
+import {TrNode} from "./../node/TrNode";
 
-export class TrParser extends BlockParser<Tr> {
-    public constructor (nodeType : string = "tr", nodeCtor : BlockNodeCtor<Tr> = Tr) {
+export class TrParser extends BlockParser<TrNode> {
+    public constructor (nodeType : string = "tr", nodeCtor : BlockNodeCtor<TrNode> = TrNode) {
         super(nodeType, nodeCtor);
     }
     public continue () : boolean { return false; }

@@ -1,15 +1,15 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
-import {Th} from "./../node/TableNode";
+import {ThNode} from "./../node/ThNode";
 
-export class ThParser extends BlockParser<Th> {
+export class ThParser extends BlockParser<ThNode> {
     public parseInlines = true;
-    public constructor (nodeType : string = "th", nodeCtor : BlockNodeCtor<Th> = Th) {
+    public constructor (nodeType : string = "th", nodeCtor : BlockNodeCtor<ThNode> = ThNode) {
         super(nodeType, nodeCtor);
     }
     public continue () : boolean { return false; }
     public finalize () {}
     public canContain () { return false; }
-    public getString (node : Th) : string {
-        return node.string_content;
+    public getString (node : ThNode) : string {
+        return node.stringContent;
     }
 }

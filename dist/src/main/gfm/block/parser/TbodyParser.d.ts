@@ -1,7 +1,7 @@
 import { BlockParser, BlockNodeCtor } from "./../../../BlockParser";
-import { Tbody } from "./../node/TableNode";
-export declare class TbodyParser extends BlockParser<Tbody> {
-    constructor(nodeType?: string, nodeCtor?: BlockNodeCtor<Tbody>);
+import { TbodyNode } from "./../node/TbodyNode";
+export declare class TbodyParser extends BlockParser<TbodyNode> {
+    constructor(nodeType?: string, nodeCtor?: BlockNodeCtor<TbodyNode>);
     continue(): boolean;
     finalize(): void;
     canContain(): boolean;

@@ -1,8 +1,8 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
-import {Thead} from "./../node/TableNode";
+import {TheadNode} from "./../node/TheadNode";
 
-export class TheadParser extends BlockParser<Thead> {
-    public constructor (nodeType : string = "thead", nodeCtor : BlockNodeCtor<Thead> = Thead) {
+export class TheadParser extends BlockParser<TheadNode> {
+    public constructor (nodeType : string = "thead", nodeCtor : BlockNodeCtor<TheadNode> = TheadNode) {
         super(nodeType, nodeCtor);
     }
     public continue () : boolean { return false; }

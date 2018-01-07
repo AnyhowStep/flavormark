@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
-const TableNode_1 = require("./../node/TableNode");
+const TheadNode_1 = require("./../node/TheadNode");
 class TheadParser extends BlockParser_1.BlockParser {
-    constructor(nodeType = "thead", nodeCtor = TableNode_1.Thead) {
+    constructor(nodeType = "thead", nodeCtor = TheadNode_1.TheadNode) {
         super(nodeType, nodeCtor);
     }
     continue() { return false; }

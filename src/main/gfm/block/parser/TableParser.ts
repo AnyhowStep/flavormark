@@ -140,7 +140,7 @@ export class TableParser extends BlockParser<TableNode> {
             const h = table.headers[i];
             const th = this.args.thParser.instantiate(table.getSourceRangeOrError());
             th.alignment = a;
-            th.string_content = h;
+            th.stringContent = h;
             theadRow.appendChild(th);
         }
 
@@ -177,7 +177,7 @@ export class TableParser extends BlockParser<TableNode> {
             const c = row[j];
             const td = this.args.tdParser.instantiate(parser.getRangeStart(0));
             td.alignment = a;
-            td.string_content = c;
+            td.stringContent = c;
             //parser.processInlines(td);
             tr.appendChild(td);
         }

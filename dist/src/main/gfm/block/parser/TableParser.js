@@ -110,7 +110,7 @@ class TableParser extends BlockParser_1.BlockParser {
             const h = table.headers[i];
             const th = this.args.thParser.instantiate(table.getSourceRangeOrError());
             th.alignment = a;
-            th.string_content = h;
+            th.stringContent = h;
             theadRow.appendChild(th);
         }
         parser.advanceOffset(parser.currentLine.length);
@@ -144,7 +144,7 @@ class TableParser extends BlockParser_1.BlockParser {
             const c = row[j];
             const td = this.args.tdParser.instantiate(parser.getRangeStart(0));
             td.alignment = a;
-            td.string_content = c;
+            td.stringContent = c;
             //parser.processInlines(td);
             tr.appendChild(td);
         }

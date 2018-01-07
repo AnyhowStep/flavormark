@@ -1,8 +1,8 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
-import {Tbody} from "./../node/TableNode";
+import {TbodyNode} from "./../node/TbodyNode";
 
-export class TbodyParser extends BlockParser<Tbody> {
-    public constructor (nodeType : string = "tbody", nodeCtor : BlockNodeCtor<Tbody> = Tbody) {
+export class TbodyParser extends BlockParser<TbodyNode> {
+    public constructor (nodeType : string = "tbody", nodeCtor : BlockNodeCtor<TbodyNode> = TbodyNode) {
         super(nodeType, nodeCtor);
     }
     public continue () : boolean { return false; }

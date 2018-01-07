@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
-const TableNode_1 = require("./../node/TableNode");
+const ThNode_1 = require("./../node/ThNode");
 class ThParser extends BlockParser_1.BlockParser {
-    constructor(nodeType = "th", nodeCtor = TableNode_1.Th) {
+    constructor(nodeType = "th", nodeCtor = ThNode_1.ThNode) {
         super(nodeType, nodeCtor);
         this.parseInlines = true;
     }
@@ -11,7 +11,7 @@ class ThParser extends BlockParser_1.BlockParser {
     finalize() { }
     canContain() { return false; }
     getString(node) {
-        return node.string_content;
+        return node.stringContent;
     }
 }
 exports.ThParser = ThParser;
