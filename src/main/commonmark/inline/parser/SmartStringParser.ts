@@ -1,6 +1,6 @@
-import {InlineParser} from "../InlineParser";
-import {InlineContentParser} from "../InlineContentParser";
-import {Node} from "../Node";
+import {InlineParser} from "./../../../InlineParser";
+import {InlineContentParser} from "./../../../InlineContentParser";
+import {Node} from "./../../../Node";
 //import {Node} from "./Node";
 
 export class SmartStringParser extends InlineParser {

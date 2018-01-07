@@ -100,7 +100,7 @@ import {CodeSpanParser} from "./../main/commonmark/inline/parser/CodeSpanParser"
 import {DelimitedInlineParser} from "../main/DelimitedInlineParser";
 import {EmphasisParser} from "../main/refactored-delimiter/EmphasisParser";
 import {SmartQuoteParser} from "../main/refactored-delimiter/SmartQuoteParser";
-import {OpenBracketParser} from "../main/refactored-inline/OpenBracketParser";
+import {LinkStartParser} from "./../main/commonmark/inline/parser/LinkStartParser";
 import {ImageStartParser} from "./../main/commonmark/inline/parser/ImageStartParser";
 import {CloseBracketParser} from "./../main/commonmark/inline/parser/CloseBracketParser";
 import {EmailAutolinkParser} from "./../main/commonmark/inline/parser/EmailAutolinkParser";
@@ -111,7 +111,7 @@ import {StringParser} from "../main/refactored-inline/StringParser";
 import {InlineContentParser} from "../main/InlineContentParser";
 
 import {SuperscriptParser} from "../main/custom/SuperscriptParser";
-import {SmartStringParser} from "../main/refactored-inline/SmartStringParser";
+import {SmartStringParser} from "./../main/commonmark/inline/parser/SmartStringParser";
 import {StrikethroughParser} from "../main/custom/StrikethroughParser";
 import {CheckboxParser} from "../main/refactored-inline/CheckboxParser";
 import {ExtendedWwwAutolinkParser} from "../main/refactored-inline/ExtendedWwwAutolinkParser";
@@ -132,7 +132,7 @@ const inParsers : InlineParser[] = [
     new CodeSpanParser(),
     new InlineLatexParser(),
     delimParser,
-    new OpenBracketParser(brackets),
+    new LinkStartParser(brackets),
     new ImageStartParser(brackets),
     new CloseBracketParser(delimParser, brackets, refMap),
     new EmailAutolinkParser(),
@@ -159,7 +159,7 @@ const flavorInlineParsers : InlineParser[] = [
 
     new CodeSpanParser(),
     flavorDelimParser,
-    new OpenBracketParser(brackets),
+    new LinkStartParser(brackets),
     new ImageStartParser(brackets),
     new CloseBracketParser(flavorDelimParser, brackets, refMap),
     new EmailAutolinkParser(),
@@ -186,7 +186,7 @@ const smartInlineParsers : InlineParser[] = [
     new EscapeCharacterParser(),
     new CodeSpanParser(),
     smartDelimParser,
-    new OpenBracketParser(brackets),
+    new LinkStartParser(brackets),
     new ImageStartParser(brackets),
     new CloseBracketParser(smartDelimParser, brackets, refMap),
     new EmailAutolinkParser(),

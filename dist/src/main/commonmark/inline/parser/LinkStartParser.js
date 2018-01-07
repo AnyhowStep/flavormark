@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InlineParser_1 = require("../InlineParser");
-var C_OPEN_BRACKET = 91;
-class OpenBracketParser extends InlineParser_1.InlineParser {
+const InlineParser_1 = require("./../../../InlineParser");
+const C_OPEN_BRACKET = 91;
+class LinkStartParser extends InlineParser_1.InlineParser {
     constructor(brackets) {
         super();
         this.brackets = brackets;
@@ -11,19 +11,19 @@ class OpenBracketParser extends InlineParser_1.InlineParser {
         this.brackets.clear();
     }
     // Add open bracket to delimiter stack and add a text node to block's children.
-    parse(parser, block) {
+    parse(parser, node) {
         const c = parser.peek();
         if (c != C_OPEN_BRACKET) {
             return false;
         }
-        var startpos = parser.pos;
+        const startpos = parser.pos;
         parser.pos += 1;
-        var node = parser.text('[');
-        block.appendChild(node);
+        const text = parser.text('[');
+        node.appendChild(text);
         // Add entry to stack for this opener
-        this.brackets.push(node, startpos, false);
+        this.brackets.push(text, startpos, false);
         return true;
     }
 }
-exports.OpenBracketParser = OpenBracketParser;
-//# sourceMappingURL=OpenBracketParser.js.map
+exports.LinkStartParser = LinkStartParser;
+//# sourceMappingURL=LinkStartParser.js.map
