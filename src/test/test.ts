@@ -105,7 +105,7 @@ import {ImageStartParser} from "./../main/commonmark/inline/parser/ImageStartPar
 import {CloseBracketParser} from "./../main/commonmark/inline/parser/CloseBracketParser";
 import {EmailAutolinkParser} from "./../main/commonmark/inline/parser/EmailAutolinkParser";
 import {UriAutolinkParser} from "./../main/commonmark/inline/parser/UriAutolinkParser";
-import {HtmlTagParser} from "../main/refactored-inline/HtmlTagParser";
+import {HtmlTagParser} from "./../main/commonmark/inline/parser/HtmlTagParser";
 import {EntityParser} from "./../main/commonmark/inline/parser/EntityParser";
 import {StringParser} from "../main/refactored-inline/StringParser";
 import {InlineContentParser} from "../main/InlineContentParser";
