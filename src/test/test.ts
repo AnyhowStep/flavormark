@@ -113,8 +113,7 @@ const betterHtmlRenderer = new BetterHtmlRenderer([
 
 import {Node} from "../main/Node";
 
-var writer : { render(n : Node) : string } = new commonmark.HtmlRenderer();
-writer = betterHtmlRenderer;
+var writer : { render(n : Node) : string } = betterHtmlRenderer;
 
 import {DocumentParser} from "./../main/commonmark/block/parser/DocumentParser";
 import {ListParser} from "./../main/commonmark/block/parser/ListParser";
