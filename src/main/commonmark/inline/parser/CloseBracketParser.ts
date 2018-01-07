@@ -29,7 +29,7 @@ export class CloseBracketParser extends InlineParser {
     // stack.  Add either a link or image, or a plain [ character,
     // to block's children.  If there is a matching delimiter,
     // remove it from the delimiter stack.
-    public parse (parser : InlineContentParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, node : Node) : boolean {
         const c = parser.peek();
         if (c != C_CLOSE_BRACKET) {
             return false;
@@ -50,13 +50,13 @@ export class CloseBracketParser extends InlineParser {
 
         if (opener == undefined) {
             // no matched opener, just return a literal
-            block.appendChild(parser.text(']'));
+            node.appendChild(parser.text(']'));
             return true;
         }
 
         if (!opener.active) {
             // no matched opener, just return a literal
-            block.appendChild(parser.text(']'));
+            node.appendChild(parser.text(']'));
             // take opener off brackets stack
             this.brackets.pop();
             return true;
@@ -116,21 +116,21 @@ export class CloseBracketParser extends InlineParser {
         }
 
         if (matched) {
-            var node = is_image ?
+            var imageOrLink = is_image ?
                 new ImageNode("image") :
                 new LinkNode("link");
-            node.destination = dest || "";
-            node.title = title || '';
+            imageOrLink.destination = dest || "";
+            imageOrLink.title = title || '';
 
             var tmp, next;
             tmp = opener.node.getNext();
             while (tmp) {
                 next = tmp.getNext();
                 tmp.unlink();
-                node.appendChild(tmp);
+                imageOrLink.appendChild(tmp);
                 tmp = next;
             }
-            block.appendChild(node);
+            node.appendChild(imageOrLink);
             this.delimParser.processEmphasis(opener.previousDelimiter);
             this.brackets.pop();
             opener.node.unlink();
@@ -154,7 +154,7 @@ export class CloseBracketParser extends InlineParser {
 
             this.brackets.pop();  // remove this opener from stack
             parser.pos = startpos;
-            block.appendChild(parser.text(']'));
+            node.appendChild(parser.text(']'));
             return true;
         }
     }

@@ -7,7 +7,7 @@ const C_NEWLINE = 10;
 const C_BACKSLASH = 92;
 const reEscapable = new RegExp('^' + common_1.ESCAPABLE);
 class EscapeCharacterParser extends InlineParser_1.InlineParser {
-    parse(parser, block) {
+    parse(parser, node) {
         const c = parser.peek();
         if (c != C_BACKSLASH) {
             return false;
@@ -16,15 +16,15 @@ class EscapeCharacterParser extends InlineParser_1.InlineParser {
         ++parser.pos;
         if (parser.peek() === C_NEWLINE) {
             ++parser.pos;
-            const node = new HardbreakNode_1.HardbreakNode();
-            block.appendChild(node);
+            const hardbreak = new HardbreakNode_1.HardbreakNode();
+            node.appendChild(hardbreak);
         }
         else if (reEscapable.test(subj.charAt(parser.pos))) {
-            block.appendChild(parser.text(subj.charAt(parser.pos)));
+            node.appendChild(parser.text(subj.charAt(parser.pos)));
             ++parser.pos;
         }
         else {
-            block.appendChild(parser.text('\\'));
+            node.appendChild(parser.text('\\'));
         }
         return true;
     }

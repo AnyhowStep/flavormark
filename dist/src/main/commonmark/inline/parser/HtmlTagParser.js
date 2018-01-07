@@ -5,7 +5,7 @@ const common_1 = require("./../../../common");
 const HtmlTagNode_1 = require("./../node/HtmlTagNode");
 const C_LESSTHAN = 60;
 class HtmlTagParser extends InlineParser_1.InlineParser {
-    parse(parser, block) {
+    parse(parser, node) {
         const c = parser.peek();
         if (c != C_LESSTHAN) {
             return false;
@@ -14,9 +14,9 @@ class HtmlTagParser extends InlineParser_1.InlineParser {
         if (m == undefined) {
             return false;
         }
-        const node = new HtmlTagNode_1.HtmlTagNode('html_inline');
-        node.literal = m;
-        block.appendChild(node);
+        const htmlTag = new HtmlTagNode_1.HtmlTagNode('html_inline');
+        htmlTag.literal = m;
+        node.appendChild(htmlTag);
         return true;
     }
 }

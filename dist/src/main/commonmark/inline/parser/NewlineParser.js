@@ -1,14 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InlineParser_1 = require("../InlineParser");
-const HardbreakNode_1 = require("./../commonmark/inline/node/HardbreakNode");
-const SoftbreakNode_1 = require("./SoftbreakNode");
-var C_NEWLINE = 10;
-var reFinalSpace = / *$/;
-var reInitialSpace = /^ */;
+const InlineParser_1 = require("./../../../InlineParser");
+const HardbreakNode_1 = require("./../node/HardbreakNode");
+const SoftbreakNode_1 = require("./../node/SoftbreakNode");
+const C_NEWLINE = 10;
+const reFinalSpace = / *$/;
+const reInitialSpace = /^ */;
 class NewlineParser extends InlineParser_1.InlineParser {
-    // Parse a newline.  If it was preceded by two spaces, return a hard
-    // line break; otherwise a soft line break.
     parse(parser, block) {
         const c = parser.peek();
         if (c != C_NEWLINE) {
@@ -16,11 +14,13 @@ class NewlineParser extends InlineParser_1.InlineParser {
         }
         ++parser.pos;
         // check previous node for trailing spaces
-        var lastc = block.getLastChild();
-        if (lastc != undefined && parser.isTextNode(lastc) && lastc.getString()[lastc.getString().length - 1] === ' ') {
-            var hardbreak = lastc.getString()[lastc.getString().length - 2] === ' ';
-            lastc.setString(lastc.getString().replace(reFinalSpace, ''));
-            if (hardbreak) {
+        const lastc = block.getLastChild();
+        if (lastc != undefined &&
+            parser.isTextNode(lastc) &&
+            lastc.getString()[lastc.getString().length - 1] === " ") {
+            const isHardbreak = lastc.getString()[lastc.getString().length - 2] === " ";
+            lastc.setString(lastc.getString().replace(reFinalSpace, ""));
+            if (isHardbreak) {
                 block.appendChild(new HardbreakNode_1.HardbreakNode());
             }
             else {

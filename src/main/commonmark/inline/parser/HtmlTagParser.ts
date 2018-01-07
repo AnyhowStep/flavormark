@@ -7,7 +7,7 @@ import {HtmlTagNode} from "./../node/HtmlTagNode";
 const C_LESSTHAN = 60;
 
 export class HtmlTagParser extends InlineParser {
-    public parse (parser : InlineContentParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, node : Node) : boolean {
         const c = parser.peek();
         if (c != C_LESSTHAN) {
             return false;
@@ -16,9 +16,9 @@ export class HtmlTagParser extends InlineParser {
         if (m == undefined) {
             return false;
         }
-        const node = new HtmlTagNode('html_inline');
-        node.literal = m;
-        block.appendChild(node);
+        const htmlTag = new HtmlTagNode('html_inline');
+        htmlTag.literal = m;
+        node.appendChild(htmlTag);
         return true;
     }
 }

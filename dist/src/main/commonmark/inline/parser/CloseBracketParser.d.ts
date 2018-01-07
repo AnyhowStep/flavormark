@@ -9,5 +9,5 @@ export declare class CloseBracketParser extends InlineParser {
     private brackets;
     private refMap;
     constructor(delimParser: DelimitedInlineParser, brackets: BracketCollection, refMap: RefMap);
-    parse(parser: InlineContentParser, block: Node): boolean;
+    parse(parser: InlineContentParser, node: Node): boolean;
 }

@@ -169,8 +169,8 @@ const backupFolder = "./src/dev/backup";
 moveRefactorProject(
     projectGlobs,
     backupFolder,
-    "./src/main/commonmark/inline/node/HtmlNode.ts",
-    "./src/main/commonmark/inline/node/HtmlTagNode.ts"
+    "./src/main/refactored-inline/SoftbreakNode.ts",
+    "./src/main/commonmark/inline/node/SoftbreakNode.ts"
 );
 
 /*moveRefactorProjectMulti(
