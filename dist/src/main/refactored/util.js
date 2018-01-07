@@ -1,23 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var reNonSpace = /[^ \t\f\v\r\n]/;
-var C_TAB = 9;
-var C_SPACE = 32;
-exports.isSpaceOrTab = function (c) {
-    //Temporarily making it accept both
-    if (typeof c == "string") {
-        return c == " " || c == "\t";
-    }
-    return c === C_SPACE || c === C_TAB;
-};
-exports.peek = function (ln, pos) {
-    if (pos < ln.length) {
-        return ln.charCodeAt(pos);
-    }
-    else {
-        return -1;
-    }
-};
+function isSpaceOrTab(c) {
+    return c == " " || c == "\t";
+}
+exports.isSpaceOrTab = isSpaceOrTab;
+;
 // Returns true if block ends with a blank line, descending if needed
 // into lists and sublists.
 exports.endsWithBlankLine = function (blockParsers, block) {

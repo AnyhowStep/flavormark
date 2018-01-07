@@ -1,7 +1,7 @@
 import {BlockParser, BlockParserMeta, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
 import {Node} from "./../../../Node";
-import {peek, isSpaceOrTab, isBlank} from "./../../../refactored/util";
+import {isSpaceOrTab, isBlank} from "./../../../refactored/util";
 
 import {ListNode} from "./../node/ListNode";
 import {ItemNode} from "./../node/ItemNode";
@@ -46,8 +46,8 @@ function parseListMarker (parser : Parser, container : Node) : ListData|undefine
         return undefined;
     }
     // make sure we have spaces after
-    nextc = peek(parser.currentLine, parser.nextNonspace + match[0].length);
-    if (!(nextc === -1 || isSpaceOrTab(nextc))) {
+    nextc = parser.currentLine[parser.nextNonspace + match[0].length];
+    if (!(nextc == undefined || isSpaceOrTab(nextc))) {
         return undefined;
     }
 
@@ -63,10 +63,10 @@ function parseListMarker (parser : Parser, container : Node) : ListData|undefine
     spacesStartOffset = parser.offset;
     do {
         parser.advanceOffset(1, true);
-        nextc = peek(parser.currentLine, parser.offset);
+        nextc = parser.currentLine[parser.offset];
     } while (parser.column - spacesStartCol < 5 && isSpaceOrTab(nextc));
 
-    var blank_item = peek(parser.currentLine, parser.offset) === -1;
+    var blank_item = (parser.currentLine[parser.offset] == undefined);
     var spaces_after_marker = parser.column - spacesStartCol;
     if (
         spaces_after_marker >= 5 ||
@@ -76,7 +76,7 @@ function parseListMarker (parser : Parser, container : Node) : ListData|undefine
         data.padding = match[0].length + 1;
         parser.column = spacesStartCol;
         parser.offset = spacesStartOffset;
-        if (isSpaceOrTab(peek(parser.currentLine, parser.offset))) {
+        if (isSpaceOrTab(parser.currentLine[parser.offset])) {
             parser.advanceOffset(1, true);
         }
     } else {

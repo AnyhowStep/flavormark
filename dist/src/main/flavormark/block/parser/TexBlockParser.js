@@ -59,7 +59,7 @@ class TexBlockParser extends BlockParser_1.BlockParser {
             parser.finalize(node, parser.lineNumber);
             return false;
         }
-        for (let i = node.fenceOffset; i > 0 && util_1.isSpaceOrTab(util_1.peek(ln, parser.offset)); --i) {
+        for (let i = node.fenceOffset; i > 0 && util_1.isSpaceOrTab(ln[parser.offset]); --i) {
             parser.advanceOffset(1, true);
         }
         return true;

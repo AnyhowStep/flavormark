@@ -1,11 +1,9 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
-import {peek, isBlank} from "./../../../refactored/util";
+import {isBlank} from "./../../../refactored/util";
 import {parseReference} from "./../../../refactored-misc/util";
 import {RefMap} from "./../../RefMap";
 import {ParagraphNode} from "./../node/ParagraphNode";
-
-const C_OPEN_BRACKET = 91;
 
 export class ParagraphParser extends BlockParser<ParagraphNode> {
     public acceptsLines = true;
@@ -31,8 +29,9 @@ export class ParagraphParser extends BlockParser<ParagraphNode> {
     public finalize (_parser : Parser, node : ParagraphNode) {
         let hasReferenceDefs = false;
 
+        //TODO move to a different class. Pre-processor or parser of some sort
         // try parsing the beginning as link reference definitions:
-        while (peek(node.stringContent, 0) === C_OPEN_BRACKET) {
+        while (node.stringContent[0] === "[") {
             const pos = parseReference(node.stringContent, this.refMap);
             if (pos == 0) {
                 break;

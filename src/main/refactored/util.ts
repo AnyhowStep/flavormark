@@ -3,24 +3,8 @@ import {BlockParserCollection} from "../BlockParserCollection";
 
 var reNonSpace = /[^ \t\f\v\r\n]/;
 
-
-var C_TAB = 9;
-var C_SPACE = 32;
-
-export var isSpaceOrTab = function(c : number|string) {
-    //Temporarily making it accept both
-    if (typeof c == "string") {
-        return c == " " || c == "\t";
-    }
-    return c === C_SPACE || c === C_TAB;
-};
-
-export var peek = function(ln : string, pos : number) {
-    if (pos < ln.length) {
-        return ln.charCodeAt(pos);
-    } else {
-        return -1;
-    }
+export function isSpaceOrTab (c : string) {
+    return c == " " || c == "\t";
 };
 
 // Returns true if block ends with a blank line, descending if needed

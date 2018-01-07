@@ -1,6 +1,6 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
-import {peek, isSpaceOrTab} from "./../../../refactored/util";
+import {isSpaceOrTab} from "./../../../refactored/util";
 import {TexBlockNode} from "./../node/TexBlockNode";
 
 var reCodeFence = /^\${2,}(?!.*`)/;
@@ -71,7 +71,7 @@ export class TexBlockParser extends BlockParser<TexBlockNode> {
             return false;
         }
 
-        for (let i=node.fenceOffset; i > 0 && isSpaceOrTab(peek(ln, parser.offset)); --i) {
+        for (let i=node.fenceOffset; i > 0 && isSpaceOrTab(ln[parser.offset]); --i) {
             parser.advanceOffset(1, true);
         }
         return true;

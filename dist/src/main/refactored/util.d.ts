@@ -1,6 +1,5 @@
 import { Node } from "../Node";
 import { BlockParserCollection } from "../BlockParserCollection";
-export declare var isSpaceOrTab: (c: string | number) => boolean;
-export declare var peek: (ln: string, pos: number) => number;
+export declare function isSpaceOrTab(c: string): boolean;
 export declare var endsWithBlankLine: (blockParsers: BlockParserCollection<Node, Node>, block: Node | undefined) => boolean;
 export declare var isBlank: (s: string | undefined) => boolean;

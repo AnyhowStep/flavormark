@@ -38,8 +38,8 @@ function parseListMarker(parser, container) {
         return undefined;
     }
     // make sure we have spaces after
-    nextc = util_1.peek(parser.currentLine, parser.nextNonspace + match[0].length);
-    if (!(nextc === -1 || util_1.isSpaceOrTab(nextc))) {
+    nextc = parser.currentLine[parser.nextNonspace + match[0].length];
+    if (!(nextc == undefined || util_1.isSpaceOrTab(nextc))) {
         return undefined;
     }
     // if it interrupts paragraph, make sure first line isn't blank
@@ -53,9 +53,9 @@ function parseListMarker(parser, container) {
     spacesStartOffset = parser.offset;
     do {
         parser.advanceOffset(1, true);
-        nextc = util_1.peek(parser.currentLine, parser.offset);
+        nextc = parser.currentLine[parser.offset];
     } while (parser.column - spacesStartCol < 5 && util_1.isSpaceOrTab(nextc));
-    var blank_item = util_1.peek(parser.currentLine, parser.offset) === -1;
+    var blank_item = (parser.currentLine[parser.offset] == undefined);
     var spaces_after_marker = parser.column - spacesStartCol;
     if (spaces_after_marker >= 5 ||
         spaces_after_marker < 1 ||
@@ -63,7 +63,7 @@ function parseListMarker(parser, container) {
         data.padding = match[0].length + 1;
         parser.column = spacesStartCol;
         parser.offset = spacesStartOffset;
-        if (util_1.isSpaceOrTab(util_1.peek(parser.currentLine, parser.offset))) {
+        if (util_1.isSpaceOrTab(parser.currentLine[parser.offset])) {
             parser.advanceOffset(1, true);
         }
     }
