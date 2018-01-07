@@ -226,3 +226,27 @@ foo
 \$\$\$ mixed
 </latex_block>
 ````````````````````````````````
+
+Accidental Latex
+
+```````````````````````````````` example
+I have $32 and you have $64
+.
+<p>I have <latex>32 and you have</latex>64</p>
+````````````````````````````````
+
+Escape Latex delimiters
+
+```````````````````````````````` example
+I have \$32 and you have \$64
+.
+<p>I have $32 and you have $64</p>
+````````````````````````````````
+
+You cannot have empty inline tex
+
+```````````````````````````````` example
+Empty tex renders as $$ dollar signs
+.
+<p>Empty tex renders as $$ dollar signs</p>
+````````````````````````````````

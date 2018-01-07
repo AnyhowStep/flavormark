@@ -16,3 +16,27 @@ Nested superscript
 .
 <p>2 <sup>2 <sup>2</sup></sup></p>
 ````````````````````````````````
+
+Accidental superscript
+
+```````````````````````````````` example
+Emoji accidentally becomes superscript ^_^
+.
+<p>Emoji accidentally becomes superscript <sup>_</sup></p>
+````````````````````````````````
+
+Spaces allowed
+
+```````````````````````````````` example
+Spaces ^are allowed^
+.
+<p>Spaces <sup>are allowed</sup></p>
+````````````````````````````````
+
+Escape to not have superscripts
+
+```````````````````````````````` example
+Escape \^to avoid superscripts\^
+.
+<p>Escape ^to avoid superscripts^</p>
+````````````````````````````````

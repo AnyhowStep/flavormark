@@ -134,7 +134,7 @@ import {StrikethroughParser} from "./../main/gfm/inline/parser/StrikethroughPars
 import {CheckboxParser} from "./../main/gfm/inline/parser/CheckboxParser";
 import {ExtendedWwwAutolinkParser} from "./../main/gfm/inline/parser/ExtendedWwwAutolinkParser";
 import {ExtendedEmailAutolinkParser} from "./../main/gfm/inline/parser/ExtendedEmailAutolinkParser";
-import {InlineLatexParser} from "../main/refactored-inline/InlineLatexParser";
+import {TexSpanParser} from "./../main/flavormark/inline/parser/TexSpanParser";
 
 const delimParser = new DelimitedInlineParser(delimiters, [
     new EmphasisParser(),
@@ -148,7 +148,7 @@ const inParsers : InlineParser[] = [
     new CheckboxParser(),
 
     new CodeSpanParser(),
-    new InlineLatexParser(),
+    new TexSpanParser(),
     delimParser,
     new LinkStartParser(brackets),
     new ImageStartParser(brackets),
