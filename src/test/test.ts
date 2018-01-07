@@ -107,7 +107,7 @@ import {EmailAutolinkParser} from "./../main/commonmark/inline/parser/EmailAutol
 import {UriAutolinkParser} from "./../main/commonmark/inline/parser/UriAutolinkParser";
 import {HtmlTagParser} from "./../main/commonmark/inline/parser/HtmlTagParser";
 import {EntityParser} from "./../main/commonmark/inline/parser/EntityParser";
-import {StringParser} from "../main/refactored-inline/StringParser";
+import {StringParser} from "./../main/commonmark/inline/parser/StringParser";
 import {InlineContentParser} from "../main/InlineContentParser";
 
 import {SuperscriptParser} from "../main/custom/SuperscriptParser";
