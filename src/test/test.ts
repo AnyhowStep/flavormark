@@ -131,9 +131,9 @@ import {InlineContentParser} from "../main/InlineContentParser";
 import {SuperscriptParser} from "../main/custom/SuperscriptParser";
 import {SmartStringParser} from "./../main/commonmark/inline/parser/SmartStringParser";
 import {StrikethroughParser} from "../main/custom/StrikethroughParser";
-import {CheckboxParser} from "../main/refactored-inline/CheckboxParser";
-import {ExtendedWwwAutolinkParser} from "../main/refactored-inline/ExtendedWwwAutolinkParser";
-import {ExtendedEmailAutolinkParser} from "../main/refactored-inline/ExtendedEmailAutolinkParser";
+import {CheckboxParser} from "./../main/gfm/inline/parser/CheckboxParser";
+import {ExtendedWwwAutolinkParser} from "./../main/gfm/inline/parser/ExtendedWwwAutolinkParser";
+import {ExtendedEmailAutolinkParser} from "./../main/gfm/inline/parser/ExtendedEmailAutolinkParser";
 import {InlineLatexParser} from "../main/refactored-inline/InlineLatexParser";
 
 const delimParser = new DelimitedInlineParser(delimiters, [

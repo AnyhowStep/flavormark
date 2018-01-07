@@ -1,9 +1,9 @@
-import {InlineParser} from "../InlineParser";
-import {InlineContentParser} from "../InlineContentParser";
-import {Node} from "../Node";
-import {normalizeURI} from "../common";
-import {LinkNode} from "./../commonmark/inline/node/LinkNode";
-import {escapeXml} from "../common";
+import {InlineParser} from "./../../../InlineParser";
+import {InlineContentParser} from "./../../../InlineContentParser";
+import {Node} from "./../../../Node";
+import {normalizeURI} from "./../../../common";
+import {LinkNode} from "./../../../commonmark/inline/node/LinkNode";
+import {escapeXml} from "./../../../common";
 
 export class ExtendedEmailAutolinkParser extends InlineParser {
     public parse (parser : InlineContentParser, block : Node) : boolean {

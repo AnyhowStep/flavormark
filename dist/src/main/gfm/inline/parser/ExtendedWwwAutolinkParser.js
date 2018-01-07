@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InlineParser_1 = require("../InlineParser");
-const common_1 = require("../common");
-const LinkNode_1 = require("./../commonmark/inline/node/LinkNode");
-const common_2 = require("../common");
+const InlineParser_1 = require("./../../../InlineParser");
+const common_1 = require("./../../../common");
+const LinkNode_1 = require("./../../../commonmark/inline/node/LinkNode");
+const common_2 = require("./../../../common");
 //Trailing punctuation (specifically, ?, !, ., ,, :, *, _, and ~) will not be
 //considered part of the autolink, though they may be included in the interior of the link:
 var reTrailingPunctuation = new RegExp(/([\?\!\.\,\:\*\_\~]+)$/);

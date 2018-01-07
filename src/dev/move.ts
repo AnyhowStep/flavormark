@@ -169,8 +169,8 @@ const backupFolder = "./src/dev/backup";
 moveRefactorProject(
     projectGlobs,
     backupFolder,
-    "./src/main/refactored/TableNode.ts",
-    "./src/main/gfm/block/node/TableNode.ts"
+    "./src/main/refactored-inline/ExtendedWwwAutolinkParser.ts",
+    "./src/main/gfm/inline/parser/ExtendedWwwAutolinkParser.ts"
 );
 
 /*moveRefactorProjectMulti(
