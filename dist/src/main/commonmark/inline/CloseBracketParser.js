@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const InlineParser_1 = require("../InlineParser");
-const normalize_reference_1 = require("../normalize-reference");
-const util_1 = require("../refactored-misc/util");
-const LinkNode_1 = require("../commonmark/inline/LinkNode");
-var C_CLOSE_BRACKET = 93;
-var C_OPEN_PAREN = 40;
-var C_CLOSE_PAREN = 41;
+const InlineParser_1 = require("../../InlineParser");
+const normalize_reference_1 = require("../../normalize-reference");
+const util_1 = require("../../refactored-misc/util");
+const LinkNode_1 = require("./LinkNode");
+const ImageNode_1 = require("./ImageNode");
+const C_CLOSE_BRACKET = 93;
+const C_OPEN_PAREN = 40;
+const C_CLOSE_PAREN = 41;
 var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
 class CloseBracketParser extends InlineParser_1.InlineParser {
     constructor(delimParser, brackets, refMap) {
@@ -96,7 +97,9 @@ class CloseBracketParser extends InlineParser_1.InlineParser {
             }
         }
         if (matched) {
-            var node = new LinkNode_1.LinkNode(is_image ? 'image' : 'link');
+            var node = is_image ?
+                new ImageNode_1.ImageNode("image") :
+                new LinkNode_1.LinkNode("link");
             node.destination = dest || "";
             node.title = title || '';
             var tmp, next;

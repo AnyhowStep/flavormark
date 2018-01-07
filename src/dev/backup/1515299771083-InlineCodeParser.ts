@@ -1,19 +1,25 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const InlineParser_1 = require("../InlineParser");
+import {InlineParser} from "../InlineParser";
+import {InlineContentParser} from "../InlineContentParser";
+import {Node} from "../Node";
 //import {Node} from "./Node";
-const CodeNode_1 = require("./CodeNode");
+import {CodeNode} from "./CodeNode";
+
 var C_BACKTICK = 96;
 var reTicks = /`+/;
+
 var reTicksHere = /^`+/;
+
 var reWhitespace = /[ \t\n\x0b\x0c\x0d]+/g;
-class InlineCodeParser extends InlineParser_1.InlineParser {
+
+
+export class InlineCodeParser extends InlineParser {
     // All of the parsers below try to match something at the current position
     // in the subject.  If they succeed in matching anything, they
     // return the inline matched, advancing the subject.
+
     // Attempt to parse backticks, adding either a backtick code span or a
     // literal sequence of backticks.
-    parse(parser, block) {
+    public parse (parser : InlineContentParser, block : Node) : boolean {
         const c = parser.peek();
         if (c != C_BACKTICK) {
             return false;
@@ -27,9 +33,10 @@ class InlineCodeParser extends InlineParser_1.InlineParser {
         var node;
         while ((matched = parser.match(reTicks)) != undefined) {
             if (matched === ticks) {
-                node = new CodeNode_1.CodeNode('code');
-                node.literal = parser.subject.slice(afterOpenTicks, parser.pos - ticks.length)
-                    .trim().replace(reWhitespace, ' ');
+                node = new CodeNode('code');
+                node.literal = parser.subject.slice(afterOpenTicks,
+                                            parser.pos - ticks.length)
+                              .trim().replace(reWhitespace, ' ');
                 block.appendChild(node);
                 return true;
             }
@@ -40,5 +47,3 @@ class InlineCodeParser extends InlineParser_1.InlineParser {
         return true;
     }
 }
-exports.InlineCodeParser = InlineCodeParser;
-//# sourceMappingURL=InlineCodeParser.js.map

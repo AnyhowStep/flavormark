@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("../../InlineParser");
 var C_BANG = 33;
 var C_OPEN_BRACKET = 91;
-class BangParser extends InlineParser_1.InlineParser {
+class ImageStartParser extends InlineParser_1.InlineParser {
     constructor(brackets) {
         super();
         this.brackets = brackets;
@@ -27,5 +27,5 @@ class BangParser extends InlineParser_1.InlineParser {
         return true;
     }
 }
-exports.BangParser = BangParser;
-//# sourceMappingURL=BangParser.js.map
+exports.ImageStartParser = ImageStartParser;
+//# sourceMappingURL=ImageStartParser.js.map
