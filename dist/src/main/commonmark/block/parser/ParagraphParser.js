@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
 const util_1 = require("./../../../refactored/util");
-const util_2 = require("./../../../refactored-misc/util");
+const link_util_1 = require("./../../link-util");
 const ParagraphNode_1 = require("./../node/ParagraphNode");
 class ParagraphParser extends BlockParser_1.BlockParser {
     constructor(refMap, nodeType = "paragraph", nodeCtor = ParagraphNode_1.ParagraphNode) {
@@ -27,7 +27,7 @@ class ParagraphParser extends BlockParser_1.BlockParser {
         //TODO move to a different class. Pre-processor or parser of some sort
         // try parsing the beginning as link reference definitions:
         while (node.stringContent[0] === "[") {
-            const pos = util_2.parseReference(node.stringContent, this.refMap);
+            const pos = link_util_1.parseReference(node.stringContent, this.refMap);
             if (pos == 0) {
                 break;
             }

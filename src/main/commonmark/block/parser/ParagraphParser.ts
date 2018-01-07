@@ -1,7 +1,7 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
 import {isBlank} from "./../../../refactored/util";
-import {parseReference} from "./../../../refactored-misc/util";
+import {parseReference} from "./../../link-util";
 import {RefMap} from "./../../RefMap";
 import {ParagraphNode} from "./../node/ParagraphNode";
 

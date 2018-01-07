@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
-const util_1 = require("./../../../refactored/util");
 const ItemNode_1 = require("./../node/ItemNode");
 const ListNode_1 = require("./../node/ListNode");
 class ListParser extends BlockParser_1.BlockParser {
@@ -15,7 +14,7 @@ class ListParser extends BlockParser_1.BlockParser {
         let item = block.getFirstChild();
         while (item != null) {
             // check for non-final list item ending with blank line:
-            if (util_1.endsWithBlankLine(parser.getBlockParsers(), item) && item.getNext()) {
+            if (parser.endsWithBlankLine(item) && item.getNext()) {
                 block.listData.tight = false;
                 break;
             }
@@ -23,7 +22,7 @@ class ListParser extends BlockParser_1.BlockParser {
             // spaces between any of them:
             let subitem = item.getFirstChild();
             while (subitem != null) {
-                if (util_1.endsWithBlankLine(parser.getBlockParsers(), subitem) &&
+                if (parser.endsWithBlankLine(subitem) &&
                     (item.getNext() ||
                         subitem.getNext())) {
                     block.listData.tight = false;

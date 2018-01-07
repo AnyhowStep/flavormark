@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("./../../../InlineParser");
 const normalize_reference_1 = require("./../../../normalize-reference");
-const util_1 = require("./../../../refactored-misc/util");
+const link_util_1 = require("./../../link-util");
 const LinkNode_1 = require("./../node/LinkNode");
 const ImageNode_1 = require("./../node/ImageNode");
 const C_CLOSE_BRACKET = 93;
@@ -56,11 +56,11 @@ class CloseBracketParser extends InlineParser_1.InlineParser {
         if (parser.peek() === C_OPEN_PAREN) {
             parser.pos++;
             if (parser.spnl() &&
-                ((dest = util_1.parseLinkDestination(parser)) != undefined) &&
+                ((dest = link_util_1.parseLinkDestination(parser)) != undefined) &&
                 parser.spnl() &&
                 // make sure there's a space before the title:
                 (reWhitespaceChar.test(parser.subject.charAt(parser.pos - 1)) &&
-                    (title = util_1.parseLinkTitle(parser)) || true) &&
+                    (title = link_util_1.parseLinkTitle(parser)) || true) &&
                 parser.spnl() &&
                 parser.peek() === C_CLOSE_PAREN) {
                 parser.pos += 1;
@@ -73,7 +73,7 @@ class CloseBracketParser extends InlineParser_1.InlineParser {
         if (!matched) {
             // Next, see if there's a link label
             var beforelabel = parser.pos;
-            var n = util_1.parseLinkLabel(parser);
+            var n = link_util_1.parseLinkLabel(parser);
             if (n > 2) {
                 reflabel = parser.subject.slice(beforelabel, beforelabel + n);
             }

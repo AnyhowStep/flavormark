@@ -53,4 +53,5 @@ export declare class Parser {
     getBlockParser<NodeT extends Node>(key: NodeT): BlockParser<NodeT>;
     getBlockParser(key: string): BlockParser<Node>;
     getBlockParsers(): BlockParserCollection<Node, Node>;
+    endsWithBlankLine(node: Node): boolean;
 }

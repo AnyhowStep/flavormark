@@ -1,6 +1,5 @@
 import {BlockParser, BlockParserMeta, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
-import {endsWithBlankLine} from "./../../../refactored/util";
 import {ItemNode} from "./../node/ItemNode";
 import {ListNode} from "./../node/ListNode";
 import {Node} from "./../../../Node";
@@ -18,7 +17,7 @@ export class ListParser extends BlockParser<ListNode> {
         let item = block.getFirstChild();
         while (item != null) {
             // check for non-final list item ending with blank line:
-            if (endsWithBlankLine(parser.getBlockParsers(), item) && item.getNext()) {
+            if (parser.endsWithBlankLine(item) && item.getNext()) {
                 block.listData.tight = false;
                 break;
             }
@@ -27,7 +26,7 @@ export class ListParser extends BlockParser<ListNode> {
             let subitem = item.getFirstChild();
             while (subitem != null) {
                 if (
-                    endsWithBlankLine(parser.getBlockParsers(), subitem) &&
+                    parser.endsWithBlankLine(subitem) &&
                     (
                         item.getNext() ||
                         subitem.getNext()

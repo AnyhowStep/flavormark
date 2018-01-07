@@ -424,6 +424,22 @@ class Parser {
     getBlockParsers() {
         return this.blockParsers;
     }
+    endsWithBlankLine(node) {
+        let cur = node;
+        while (cur != undefined) {
+            if (cur.isLastLineBlank()) {
+                return true;
+            }
+            const p = this.getBlockParser(cur);
+            if (p.endsWithBlankLineIfLastChildEndsWithBlankLine) {
+                cur = cur.getLastChild();
+            }
+            else {
+                break;
+            }
+        }
+        return false;
+    }
 }
 exports.Parser = Parser;
 //# sourceMappingURL=Parser.js.map

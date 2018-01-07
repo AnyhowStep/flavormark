@@ -452,4 +452,19 @@ export class Parser {
     public getBlockParsers () {
         return this.blockParsers;
     }
+    public endsWithBlankLine (node : Node) : boolean {
+        let cur : Node|undefined = node;
+        while (cur != undefined) {
+            if (cur.isLastLineBlank()) {
+                return true;
+            }
+            const p = this.getBlockParser(cur);
+            if (p.endsWithBlankLineIfLastChildEndsWithBlankLine) {
+                cur = cur.getLastChild();
+            } else {
+                break;
+            }
+        }
+        return false;
+    }
 }
