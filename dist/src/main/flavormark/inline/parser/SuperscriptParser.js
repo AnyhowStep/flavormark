@@ -3,12 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const DelimitedInlineSubParser_1 = require("./../../../DelimitedInlineSubParser");
 const DelimiterCollection_1 = require("./../../../DelimiterCollection");
 const SuperscriptNode_1 = require("../node/SuperscriptNode");
-const CARET_CHAR = "^";
-const C_CARET = CARET_CHAR.charCodeAt(0);
 class SuperscriptParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser {
-    getDelimiterCharacterCodes() {
+    getDelimiterCharacters() {
         return [
-            C_CARET,
+            "^",
         ];
     }
     advanceDelimiter(stream, delimiter) {

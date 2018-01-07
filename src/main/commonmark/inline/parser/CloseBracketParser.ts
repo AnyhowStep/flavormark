@@ -9,10 +9,6 @@ import {LinkNode} from "./../node/LinkNode";
 import {ImageNode} from "./../node/ImageNode";
 import {DelimitedInlineParser} from "./../../../DelimitedInlineParser";
 
-const C_CLOSE_BRACKET = 93;
-const C_OPEN_PAREN = 40;
-const C_CLOSE_PAREN = 41;
-
 var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
 
 export class CloseBracketParser extends InlineParser {
@@ -31,7 +27,7 @@ export class CloseBracketParser extends InlineParser {
     // remove it from the delimiter stack.
     public parse (parser : InlineContentParser, node : Node) : boolean {
         const c = parser.peek();
-        if (c != C_CLOSE_BRACKET) {
+        if (c != "]") {
             return false;
         }
         var startpos;
@@ -70,7 +66,7 @@ export class CloseBracketParser extends InlineParser {
         var savepos = parser.pos;
 
         // Inline link?
-        if (parser.peek() === C_OPEN_PAREN) {
+        if (parser.peek() == "(") {
             parser.pos++;
             if (parser.spnl() &&
                 ((dest = parseLinkDestination(parser)) != undefined) &&
@@ -79,7 +75,7 @@ export class CloseBracketParser extends InlineParser {
                 (reWhitespaceChar.test(parser.subject.charAt(parser.pos - 1)) &&
                  (title = parseLinkTitle(parser)) || true) &&
                 parser.spnl() &&
-                parser.peek() === C_CLOSE_PAREN) {
+                parser.peek() == ")") {
                 parser.pos += 1;
                 matched = true;
             } else {

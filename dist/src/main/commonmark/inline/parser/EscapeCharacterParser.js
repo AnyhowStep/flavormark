@@ -3,18 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("./../../../InlineParser");
 const common_1 = require("./../../common");
 const HardbreakNode_1 = require("./../node/HardbreakNode");
-const C_NEWLINE = 10;
-const C_BACKSLASH = 92;
 const reEscapable = new RegExp('^' + common_1.ESCAPABLE);
 class EscapeCharacterParser extends InlineParser_1.InlineParser {
     parse(parser, node) {
         const c = parser.peek();
-        if (c != C_BACKSLASH) {
+        if (c != "\\") {
             return false;
         }
         const subj = parser.subject;
         ++parser.pos;
-        if (parser.peek() === C_NEWLINE) {
+        if (parser.peek() === "\n") {
             ++parser.pos;
             const hardbreak = new HardbreakNode_1.HardbreakNode();
             node.appendChild(hardbreak);

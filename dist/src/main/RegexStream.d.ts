@@ -4,7 +4,6 @@ export declare class RegexStream {
     constructor(subject: string);
     match(re: RegExp): string | undefined;
     hasCharacters(): boolean;
-    peek(): number;
-    peekChar(): string | -1;
+    peek(): string | undefined;
     spnl(): boolean;
 }

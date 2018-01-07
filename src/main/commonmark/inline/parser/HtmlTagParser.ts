@@ -4,12 +4,10 @@ import {Node} from "./../../../Node";
 import {reHtmlTag} from "./../../common";
 import {HtmlTagNode} from "./../node/HtmlTagNode";
 
-const C_LESSTHAN = 60;
-
 export class HtmlTagParser extends InlineParser {
     public parse (parser : InlineContentParser, node : Node) : boolean {
         const c = parser.peek();
-        if (c != C_LESSTHAN) {
+        if (c != "<") {
             return false;
         }
         const m = parser.match(reHtmlTag);

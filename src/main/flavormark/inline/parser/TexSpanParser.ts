@@ -3,7 +3,6 @@ import {InlineContentParser} from "./../../../InlineContentParser";
 import {Node} from "./../../../Node";
 import {TexSpanNode} from "./../node/TexSpanNode";
 
-const C_DOLLAR = 36;
 const reDollar = /.\$/;
 
 //Consider not replacing \n in inline tex
@@ -12,12 +11,12 @@ const reWhitespace = /[ \t\n\x0b\x0c\x0d]+/g;
 export class TexSpanParser extends InlineParser {
     public parse (parser : InlineContentParser, node : Node) : boolean {
         const c = parser.peek();
-        if (c != C_DOLLAR) {
+        if (c != "$") {
             return false;
         }
         const startpos = parser.pos;
         ++parser.pos;
-        if (parser.peek() == C_DOLLAR) {
+        if (parser.peek() == "$") {
             //Two $$ signs beside each other
             node.appendChild(parser.text("$$"));
             ++parser.pos;

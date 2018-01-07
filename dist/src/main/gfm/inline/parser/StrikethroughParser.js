@@ -3,12 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const DelimitedInlineSubParser_1 = require("./../../../DelimitedInlineSubParser");
 const DelimiterCollection_1 = require("./../../../DelimiterCollection");
 const StrikethroughNode_1 = require("../node/StrikethroughNode");
-var TILDE_CHAR = "~";
-var C_TILDE = TILDE_CHAR.charCodeAt(0);
 class StrikethroughParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser {
-    getDelimiterCharacterCodes() {
+    getDelimiterCharacters() {
         return [
-            C_TILDE,
+            "~",
         ];
     }
     advanceDelimiter(stream, delimiter) {

@@ -4,13 +4,11 @@ const DelimitedInlineSubParser_1 = require("./../../../DelimitedInlineSubParser"
 const DelimiterCollection_1 = require("./../../../DelimiterCollection");
 const EmphasisNode_1 = require("../node/EmphasisNode");
 const StrongNode_1 = require("../node/StrongNode");
-var C_ASTERISK = 42;
-var C_UNDERSCORE = 95;
 class EmphasisParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser {
-    getDelimiterCharacterCodes() {
+    getDelimiterCharacters() {
         return [
-            C_ASTERISK,
-            C_UNDERSCORE
+            "*",
+            "_"
         ];
     }
     advanceDelimiter(stream, delimiter) {
@@ -19,7 +17,7 @@ class EmphasisParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser
         }
     }
     canOpen(info, delimiter) {
-        if (delimiter == C_ASTERISK) {
+        if (delimiter == "*") {
             return info.leftFlanking;
         }
         else {
@@ -29,7 +27,7 @@ class EmphasisParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser
         }
     }
     canClose(info, delimiter) {
-        if (delimiter == C_ASTERISK) {
+        if (delimiter == "*") {
             return info.rightFlanking;
         }
         else {

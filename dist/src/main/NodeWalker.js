@@ -12,8 +12,8 @@ class NodeWalker {
     }
     ;
     next() {
-        var cur = this.current;
-        var entering = this.entering;
+        const cur = this.current;
+        const entering = this.entering;
         if (cur == undefined) {
             return undefined;
         }

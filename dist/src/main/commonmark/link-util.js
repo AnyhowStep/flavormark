@@ -3,11 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("./common");
 const normalize_reference_1 = require("./normalize-reference");
 const RegexStream_1 = require("../RegexStream");
-const C_BACKSLASH = 92;
-const C_OPEN_PAREN = 40;
-const C_CLOSE_PAREN = 41;
 const ESCAPED_CHAR = '\\\\' + common_1.ESCAPABLE;
-const C_COLON = 58;
 const reSpaceAtEndOfLine = /^ *(?:\n|$)/;
 const reLinkTitle = new RegExp('^(?:"(' + ESCAPED_CHAR + '|[^"\\x00])*"' +
     '|' +
@@ -40,18 +36,18 @@ function parseLinkDestination(parser) {
         const savepos = parser.pos;
         let openparens = 0;
         let c;
-        while ((c = parser.peek()) !== -1) {
-            if (c === C_BACKSLASH) {
+        while ((c = parser.peek()) != undefined) {
+            if (c == "\\") {
                 parser.pos += 1;
-                if (parser.peek() !== -1) {
+                if (parser.peek() != undefined) {
                     parser.pos += 1;
                 }
             }
-            else if (c === C_OPEN_PAREN) {
+            else if (c == "(") {
                 parser.pos += 1;
                 openparens += 1;
             }
-            else if (c === C_CLOSE_PAREN) {
+            else if (c == ")") {
                 if (openparens < 1) {
                     break;
                 }
@@ -60,7 +56,7 @@ function parseLinkDestination(parser) {
                     openparens -= 1;
                 }
             }
-            else if (reWhitespaceChar.exec(String.fromCharCode(c)) != undefined) {
+            else if (reWhitespaceChar.exec(c) != undefined) {
                 break;
             }
             else {
@@ -101,7 +97,7 @@ function parseReference(s, refmap) {
     }
     const rawlabel = parser.subject.substr(0, matchChars);
     // colon:
-    if (parser.peek() === C_COLON) {
+    if (parser.peek() == ":") {
         parser.pos++;
     }
     else {

@@ -3,7 +3,6 @@ import {InlineContentParser} from "./../../../InlineContentParser";
 import {Node} from "./../../../Node";
 import {CodeSpanNode} from "./../node/CodeSpanNode";
 
-var C_BACKTICK = 96;
 var reTicks = /`+/;
 
 var reTicksHere = /^`+/;
@@ -20,7 +19,7 @@ export class CodeSpanParser extends InlineParser {
     // literal sequence of backticks.
     public parse (parser : InlineContentParser, node : Node) : boolean {
         const c = parser.peek();
-        if (c != C_BACKTICK) {
+        if (c != "`") {
             return false;
         }
         const ticks = parser.match(reTicksHere);

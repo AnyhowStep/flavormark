@@ -16,8 +16,8 @@ class SmartStringParser extends InlineParser_1.InlineParser {
         {
             const m = parser.match(/^--+/);
             if (m != undefined) {
-                var enCount = 0;
-                var emCount = 0;
+                let enCount = 0;
+                let emCount = 0;
                 if (m.length % 3 === 0) {
                     emCount = m.length / 3;
                 }

@@ -22,9 +22,11 @@ export class DelimitedInlineParser extends InlineParser {
     // Handle a delimiter marker for emphasis or a quote.
     public parse (parser : InlineContentParser, block : Node) : boolean {
         const cc = parser.peek();
+        if (cc == undefined) {
+            return false;
+        }
         let dil = this.parsers.find((p) => {
-            //console.log(cc, String.fromCharCode(cc), p.getDelimiterCharacterCodes());
-            return p.getDelimiterCharacterCodes().indexOf(cc) >= 0;
+            return p.getDelimiterCharacters().indexOf(cc) >= 0;
         });
         if (dil == undefined) {
             return false;
@@ -62,7 +64,7 @@ export class DelimitedInlineParser extends InlineParser {
     // the number of delimiters and whether they are positioned such that
     // they can open and/or close emphasis or strong emphasis.  A utility
     // function for strong/emph parsing.
-    scanDelims(parser : InlineContentParser, dil : DelimitedInlineSubParser, cc : number) {
+    scanDelims(parser : InlineContentParser, dil : DelimitedInlineSubParser, cc : string) {
         var char_before, char_after, cc_after;
         var startpos = parser.pos;
 
@@ -76,10 +78,10 @@ export class DelimitedInlineParser extends InlineParser {
         char_before = startpos === 0 ? '\n' : parser.subject.charAt(startpos - 1);
 
         cc_after = parser.peek();
-        if (cc_after === -1) {
+        if (cc_after == undefined) {
             char_after = '\n';
         } else {
-            char_after = String.fromCharCode(cc_after);
+            char_after = cc_after;
         }
         //console.log("char_after", char_after);
 
@@ -113,11 +115,11 @@ export class DelimitedInlineParser extends InlineParser {
 
     processEmphasis(stack_bottom : Delimiter|undefined) {
         let openers_bottom : {
-            [characterCode : number] : Delimiter|undefined
-        } = [];
+            [character : string] : Delimiter|undefined
+        } = {};
 
         for (let p of this.parsers) {
-            for (let c of p.getDelimiterCharacterCodes()) {
+            for (let c of p.getDelimiterCharacters()) {
                 openers_bottom[c] = stack_bottom;
             }
         }
@@ -152,7 +154,7 @@ export class DelimitedInlineParser extends InlineParser {
                 let old_closer = closer;
 
                 for (let p of this.parsers) {
-                    if (p.getDelimiterCharacterCodes().indexOf(closercc) >= 0) {
+                    if (p.getDelimiterCharacters().indexOf(closercc) >= 0) {
                         let args : ParseArgs|undefined = undefined;
                         if (opener_found) {
                             if (opener == undefined) {

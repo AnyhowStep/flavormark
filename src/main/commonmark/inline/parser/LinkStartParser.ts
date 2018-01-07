@@ -3,8 +3,6 @@ import {InlineContentParser} from "./../../../InlineContentParser";
 import {Node} from "./../../../Node";
 import {BracketCollection} from "./BracketCollection";
 
-const C_OPEN_BRACKET = 91;
-
 export class LinkStartParser extends InlineParser {
     private brackets : BracketCollection;
     public constructor (brackets : BracketCollection) {
@@ -17,7 +15,7 @@ export class LinkStartParser extends InlineParser {
     // Add open bracket to delimiter stack and add a text node to block's children.
     public parse (parser : InlineContentParser, node : Node) : boolean {
         const c = parser.peek();
-        if (c != C_OPEN_BRACKET) {
+        if (c != "[") {
             return false;
         }
         const startpos = parser.pos;

@@ -1,8 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("./../../../InlineParser");
-var C_BANG = 33;
-var C_OPEN_BRACKET = 91;
 class ImageStartParser extends InlineParser_1.InlineParser {
     constructor(brackets) {
         super();
@@ -10,12 +8,12 @@ class ImageStartParser extends InlineParser_1.InlineParser {
     }
     parse(parser, node) {
         const c = parser.peek();
-        if (c != C_BANG) {
+        if (c != "!") {
             return false;
         }
         var startpos = parser.pos;
         ++parser.pos;
-        if (parser.peek() != C_OPEN_BRACKET) {
+        if (parser.peek() != "[") {
             --parser.pos;
             return false;
         }

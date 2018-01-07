@@ -1,13 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const DelimitedInlineSubParser_1 = require("./../../../DelimitedInlineSubParser");
-const C_SINGLEQUOTE = 39;
-const C_DOUBLEQUOTE = 34;
 class SmartQuoteParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser {
-    getDelimiterCharacterCodes() {
+    getDelimiterCharacters() {
         return [
-            C_SINGLEQUOTE,
-            C_DOUBLEQUOTE
+            "'",
+            "\""
         ];
     }
     advanceDelimiter(stream) {
@@ -20,7 +18,7 @@ class SmartQuoteParser extends DelimitedInlineSubParser_1.DelimitedInlineSubPars
         return info.rightFlanking;
     }
     getDelimiterContent(_stream, _delimiterStartPosition, delimiter) {
-        if (delimiter == C_SINGLEQUOTE) {
+        if (delimiter == "'") {
             return "\u2019";
         }
         else {
@@ -28,7 +26,7 @@ class SmartQuoteParser extends DelimitedInlineSubParser_1.DelimitedInlineSubPars
         }
     }
     parse(args, delimiter) {
-        if (delimiter == C_SINGLEQUOTE) {
+        if (delimiter == "'") {
             args.closer.node.setString("\u2019");
             if (args.openerFound) {
                 args.opener.node.setString("\u2018");

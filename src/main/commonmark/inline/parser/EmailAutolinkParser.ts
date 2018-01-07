@@ -4,12 +4,11 @@ import {Node} from "./../../../Node";
 import {normalizeURI} from "./../../common";
 import {LinkNode} from "./../node/LinkNode";
 
-const C_LESSTHAN = 60;
 const reEmailAutolink = /^<([a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)>/;
 
 export class EmailAutolinkParser extends InlineParser {
     public parse (parser : InlineContentParser, node : Node) : boolean {
-        if (parser.peek() != C_LESSTHAN) {
+        if (parser.peek() != "<") {
             return false;
         }
         const m = parser.match(reEmailAutolink);

@@ -21,10 +21,10 @@ export interface ParseResult {
     closer: Delimiter | undefined;
 }
 export declare abstract class DelimitedInlineSubParser {
-    abstract getDelimiterCharacterCodes(): number[];
-    abstract advanceDelimiter(stream: RegexStream, delimiter: number): void;
-    abstract canOpen(info: DelimiterInfo, delimiter: number): boolean;
-    abstract canClose(info: DelimiterInfo, delimiter: number): boolean;
-    abstract getDelimiterContent(stream: RegexStream, delimiterStartPosition: number, delimiter: number): string;
-    abstract parse(args: ParseArgs, delimiter: number): ParseResult;
+    abstract getDelimiterCharacters(): string[];
+    abstract advanceDelimiter(stream: RegexStream, delimiter: string): void;
+    abstract canOpen(info: DelimiterInfo, delimiter: string): boolean;
+    abstract canClose(info: DelimiterInfo, delimiter: string): boolean;
+    abstract getDelimiterContent(stream: RegexStream, delimiterStartPosition: number, delimiter: string): string;
+    abstract parse(args: ParseArgs, delimiter: string): ParseResult;
 }

@@ -37,9 +37,9 @@ export class InlineContentParser extends RegexStream {
     // On success, add the result to block's children and return true.
     // On failure, return false.
     public parseInline (parser : Parser, blockParser : BlockParser, block : Node) {
-        var c = this.peek();
+        const c = this.peek();
         //console.log("peek", this.pos, c, String.fromCharCode(c));
-        if (c === -1) {
+        if (c == undefined) {
             return false;
         }
         for (let p of this.inParsers) {
@@ -49,7 +49,7 @@ export class InlineContentParser extends RegexStream {
             }
         }
         this.pos += 1;
-        block.appendChild(this.text(String.fromCharCode(c)));
+        block.appendChild(this.text(c));
         //console.log("adding text", c, fromCodePoint(c));
         return true;
     };

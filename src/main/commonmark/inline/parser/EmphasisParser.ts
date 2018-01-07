@@ -4,23 +4,20 @@ import {removeDelimitersBetween} from "./../../../DelimiterCollection";
 import {EmphasisNode} from "../node/EmphasisNode";
 import {StrongNode} from "../node/StrongNode";
 
-var C_ASTERISK = 42;
-var C_UNDERSCORE = 95;
-
 export class EmphasisParser extends DelimitedInlineSubParser {
-    public getDelimiterCharacterCodes () : number[] {
+    public getDelimiterCharacters () : string[] {
         return [
-            C_ASTERISK,
-            C_UNDERSCORE
+            "*",
+            "_"
         ];
     }
-    public advanceDelimiter (stream : RegexStream, delimiter : number) : void {
+    public advanceDelimiter (stream : RegexStream, delimiter : string) : void {
         while (stream.peek() === delimiter) {
             ++stream.pos;
         }
     }
-    public canOpen (info : DelimiterInfo, delimiter : number) : boolean {
-        if (delimiter == C_ASTERISK) {
+    public canOpen (info : DelimiterInfo, delimiter : string) : boolean {
+        if (delimiter == "*") {
             return info.leftFlanking;
         } else {
             return (
@@ -32,8 +29,8 @@ export class EmphasisParser extends DelimitedInlineSubParser {
             );
         }
     }
-    public canClose (info : DelimiterInfo, delimiter : number) : boolean {
-        if (delimiter == C_ASTERISK) {
+    public canClose (info : DelimiterInfo, delimiter : string) : boolean {
+        if (delimiter == "*") {
             return info.rightFlanking;
         } else {
             return (

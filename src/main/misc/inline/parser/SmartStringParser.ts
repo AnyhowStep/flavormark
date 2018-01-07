@@ -17,8 +17,8 @@ export class SmartStringParser extends InlineParser {
         {
             const m = parser.match(/^--+/);
             if (m != undefined) {
-                var enCount = 0;
-                var emCount = 0;
+                let enCount = 0;
+                let emCount = 0;
                 if (m.length % 3 === 0) { // If divisible by 3, use all em dashes
                     emCount = m.length / 3;
                 } else if (m.length % 2 === 0) { // If divisible by 2, use all en dashes

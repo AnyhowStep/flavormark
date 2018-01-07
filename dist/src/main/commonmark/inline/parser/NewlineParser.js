@@ -3,13 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("./../../../InlineParser");
 const HardbreakNode_1 = require("./../node/HardbreakNode");
 const SoftbreakNode_1 = require("./../node/SoftbreakNode");
-const C_NEWLINE = 10;
 const reFinalSpace = / *$/;
 const reInitialSpace = /^ */;
 class NewlineParser extends InlineParser_1.InlineParser {
     parse(parser, block) {
         const c = parser.peek();
-        if (c != C_NEWLINE) {
+        if (c != "\n") {
             return false;
         }
         ++parser.pos;

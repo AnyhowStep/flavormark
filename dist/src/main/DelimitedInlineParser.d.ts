@@ -10,7 +10,7 @@ export declare class DelimitedInlineParser extends InlineParser {
     reinit(): void;
     parse(parser: InlineContentParser, block: Node): boolean;
     finalize(): void;
-    scanDelims(parser: InlineContentParser, dil: DelimitedInlineSubParser, cc: number): {
+    scanDelims(parser: InlineContentParser, dil: DelimitedInlineSubParser, cc: string): {
         numdelims: number;
         can_open: boolean;
         can_close: boolean;

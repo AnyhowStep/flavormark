@@ -3,9 +3,9 @@ import {Parser} from "./../../../Parser";
 import {isSpaceOrTab} from "./../../../refactored/util";
 import {TexBlockNode} from "./../node/TexBlockNode";
 
-var reCodeFence = /^\${2,}(?!.*`)/;
+const reCodeFence = /^\${2,}(?!.*`)/;
 
-var reClosingCodeFence = /^(?:\${2,})(?= *$)/;
+const reClosingCodeFence = /^(?:\${2,})(?= *$)/;
 
 export class TexBlockParser extends BlockParser<TexBlockNode> {
     public acceptsLines = true;

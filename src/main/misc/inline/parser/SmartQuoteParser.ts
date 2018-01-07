@@ -1,14 +1,11 @@
 import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs, ParseResult} from "./../../../DelimitedInlineSubParser";
 import {RegexStream} from "./../../../RegexStream";
 
-const C_SINGLEQUOTE = 39;
-const C_DOUBLEQUOTE = 34;
-
 export class SmartQuoteParser extends DelimitedInlineSubParser {
-    public getDelimiterCharacterCodes () : number[] {
+    public getDelimiterCharacters () : string[] {
         return [
-            C_SINGLEQUOTE,
-            C_DOUBLEQUOTE
+            "'",
+            "\""
         ];
     }
     public advanceDelimiter (stream : RegexStream) : void {
@@ -21,15 +18,15 @@ export class SmartQuoteParser extends DelimitedInlineSubParser {
         return info.rightFlanking;
     }
 
-    public getDelimiterContent (_stream : RegexStream, _delimiterStartPosition : number, delimiter : number) : string {
-        if (delimiter == C_SINGLEQUOTE) {
+    public getDelimiterContent (_stream : RegexStream, _delimiterStartPosition : number, delimiter : string) : string {
+        if (delimiter == "'") {
             return "\u2019";
         } else {
             return "\u201C";
         }
     }
-    public parse (args : ParseArgs, delimiter : number) : ParseResult {
-        if (delimiter == C_SINGLEQUOTE) {
+    public parse (args : ParseArgs, delimiter : string) : ParseResult {
+        if (delimiter == "'") {
             args.closer.node.setString("\u2019");
             if (args.openerFound) {
                 args.opener.node.setString("\u2018");

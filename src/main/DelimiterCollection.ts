@@ -1,7 +1,7 @@
 import {TextNode} from "./TextNode";
 
 export interface Delimiter {
-    cc: number,
+    cc: string,
     numdelims: number,
     origdelims: number,
     node: TextNode,
@@ -12,7 +12,7 @@ export interface Delimiter {
 }
 
 export interface PushArgs {
-    cc: number,
+    cc: string,
     numdelims: number,
     origdelims: number,
     node: TextNode,

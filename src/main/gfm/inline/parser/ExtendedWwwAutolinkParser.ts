@@ -7,7 +7,7 @@ import {escapeXml} from "./../../../commonmark/common";
 
 //Trailing punctuation (specifically, ?, !, ., ,, :, *, _, and ~) will not be
 //considered part of the autolink, though they may be included in the interior of the link:
-var reTrailingPunctuation = new RegExp(/([\?\!\.\,\:\*\_\~]+)$/);
+const reTrailingPunctuation = new RegExp(/([\?\!\.\,\:\*\_\~]+)$/);
 
 function countChar (str : string, char : string) {
     let result = 0;

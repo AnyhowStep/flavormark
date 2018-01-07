@@ -4,13 +4,12 @@ import {Node} from "./../../../Node";
 import {normalizeURI} from "./../../common";
 import {LinkNode} from "./../node/LinkNode";
 
-const C_LESSTHAN = 60;
 const reAutolink = /^<[A-Za-z][A-Za-z0-9.+-]{1,31}:[^<>\x00-\x20]*>/i;
 
 export class UriAutolinkParser extends InlineParser {
     // Attempt to parse an autolink (URL or email in pointy brackets).
     public parse (parser : InlineContentParser, node : Node) : boolean {
-        if (parser.peek() != C_LESSTHAN) {
+        if (parser.peek() != "<") {
             return false;
         }
         const m = parser.match(reAutolink);

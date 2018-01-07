@@ -6,7 +6,7 @@ const LinkNode_1 = require("./../../../commonmark/inline/node/LinkNode");
 const common_2 = require("./../../../commonmark/common");
 //Trailing punctuation (specifically, ?, !, ., ,, :, *, _, and ~) will not be
 //considered part of the autolink, though they may be included in the interior of the link:
-var reTrailingPunctuation = new RegExp(/([\?\!\.\,\:\*\_\~]+)$/);
+const reTrailingPunctuation = new RegExp(/([\?\!\.\,\:\*\_\~]+)$/);
 function countChar(str, char) {
     let result = 0;
     for (let c of str) {

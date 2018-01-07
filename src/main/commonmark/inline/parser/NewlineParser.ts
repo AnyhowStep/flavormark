@@ -4,7 +4,6 @@ import {Node} from "./../../../Node";
 import {HardbreakNode} from "./../node/HardbreakNode";
 import {SoftbreakNode} from "./../node/SoftbreakNode";
 
-const C_NEWLINE = 10;
 const reFinalSpace = / *$/;
 
 const reInitialSpace = /^ */;
@@ -12,7 +11,7 @@ const reInitialSpace = /^ */;
 export class NewlineParser extends InlineParser {
     public parse (parser : InlineContentParser, block : Node) : boolean {
         const c = parser.peek();
-        if (c != C_NEWLINE) {
+        if (c != "\n") {
             return false;
         }
         ++parser.pos;

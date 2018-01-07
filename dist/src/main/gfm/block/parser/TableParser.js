@@ -4,7 +4,7 @@ const BlockParser_1 = require("./../../../BlockParser");
 const TableNode_1 = require("./../node/TableNode");
 const VALID_CHARACTERS = "[\\-\\|\\:\\s]";
 //Must have at least one - and one |
-var reTableDelimiter = new RegExp("^" +
+const reTableDelimiter = new RegExp("^" +
     "(" +
     VALID_CHARACTERS + "*" +
     "\\-" +

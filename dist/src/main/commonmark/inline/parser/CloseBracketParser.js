@@ -5,9 +5,6 @@ const normalize_reference_1 = require("./../../normalize-reference");
 const link_util_1 = require("./../../link-util");
 const LinkNode_1 = require("./../node/LinkNode");
 const ImageNode_1 = require("./../node/ImageNode");
-const C_CLOSE_BRACKET = 93;
-const C_OPEN_PAREN = 40;
-const C_CLOSE_PAREN = 41;
 var reWhitespaceChar = /^[ \t\n\x0b\x0c\x0d]/;
 class CloseBracketParser extends InlineParser_1.InlineParser {
     constructor(delimParser, brackets, refMap) {
@@ -22,7 +19,7 @@ class CloseBracketParser extends InlineParser_1.InlineParser {
     // remove it from the delimiter stack.
     parse(parser, node) {
         const c = parser.peek();
-        if (c != C_CLOSE_BRACKET) {
+        if (c != "]") {
             return false;
         }
         var startpos;
@@ -53,7 +50,7 @@ class CloseBracketParser extends InlineParser_1.InlineParser {
         // Check to see if we have a link/image
         var savepos = parser.pos;
         // Inline link?
-        if (parser.peek() === C_OPEN_PAREN) {
+        if (parser.peek() == "(") {
             parser.pos++;
             if (parser.spnl() &&
                 ((dest = link_util_1.parseLinkDestination(parser)) != undefined) &&
@@ -62,7 +59,7 @@ class CloseBracketParser extends InlineParser_1.InlineParser {
                 (reWhitespaceChar.test(parser.subject.charAt(parser.pos - 1)) &&
                     (title = link_util_1.parseLinkTitle(parser)) || true) &&
                 parser.spnl() &&
-                parser.peek() === C_CLOSE_PAREN) {
+                parser.peek() == ")") {
                 parser.pos += 1;
                 matched = true;
             }

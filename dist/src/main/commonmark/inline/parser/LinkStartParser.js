@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("./../../../InlineParser");
-const C_OPEN_BRACKET = 91;
 class LinkStartParser extends InlineParser_1.InlineParser {
     constructor(brackets) {
         super();
@@ -13,7 +12,7 @@ class LinkStartParser extends InlineParser_1.InlineParser {
     // Add open bracket to delimiter stack and add a text node to block's children.
     parse(parser, node) {
         const c = parser.peek();
-        if (c != C_OPEN_BRACKET) {
+        if (c != "[") {
             return false;
         }
         const startpos = parser.pos;

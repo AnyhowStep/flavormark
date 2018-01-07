@@ -26,11 +26,11 @@ export interface ParseResult {
     closer : Delimiter|undefined,
 }
 export abstract class DelimitedInlineSubParser {
-    public abstract getDelimiterCharacterCodes () : number[];
-    public abstract advanceDelimiter (stream : RegexStream, delimiter : number) : void;
-    public abstract canOpen (info : DelimiterInfo, delimiter : number) : boolean;
-    public abstract canClose (info : DelimiterInfo, delimiter : number) : boolean;
+    public abstract getDelimiterCharacters () : string[];
+    public abstract advanceDelimiter (stream : RegexStream, delimiter : string) : void;
+    public abstract canOpen (info : DelimiterInfo, delimiter : string) : boolean;
+    public abstract canClose (info : DelimiterInfo, delimiter : string) : boolean;
 
-    public abstract getDelimiterContent (stream : RegexStream, delimiterStartPosition : number, delimiter : number) : string;
-    public abstract parse (args : ParseArgs, delimiter : number) : ParseResult;
+    public abstract getDelimiterContent (stream : RegexStream, delimiterStartPosition : number, delimiter : string) : string;
+    public abstract parse (args : ParseArgs, delimiter : string) : ParseResult;
 }

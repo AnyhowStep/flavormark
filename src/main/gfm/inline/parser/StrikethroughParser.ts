@@ -3,17 +3,13 @@ import {RegexStream} from "./../../../RegexStream";
 import {removeDelimitersBetween} from "./../../../DelimiterCollection";
 import {StrikethroughNode} from "../node/StrikethroughNode";
 
-var TILDE_CHAR = "~";
-var C_TILDE = TILDE_CHAR.charCodeAt(0);
-
-
 export class StrikethroughParser extends DelimitedInlineSubParser {
-    public getDelimiterCharacterCodes () : number[] {
+    public getDelimiterCharacters () : string[] {
         return [
-            C_TILDE,
+            "~",
         ];
     }
-    public advanceDelimiter (stream : RegexStream, delimiter : number) : void {
+    public advanceDelimiter (stream : RegexStream, delimiter : string) : void {
         while (stream.peek() === delimiter) {
             ++stream.pos;
         }
@@ -25,10 +21,10 @@ export class StrikethroughParser extends DelimitedInlineSubParser {
         return info.rightFlanking;
     }
 
-    public getDelimiterContent (stream : RegexStream, delimiterStartPosition : number, _delimiter : number) : string {
+    public getDelimiterContent (stream : RegexStream, delimiterStartPosition : number, _delimiter : string) : string {
         return stream.subject.slice(delimiterStartPosition, stream.pos);
     }
-    public parse (args : ParseArgs, _delimiter : number) : ParseResult {
+    public parse (args : ParseArgs, _delimiter : string) : ParseResult {
         if (args.closer == undefined) {
             throw new Error("closer cannot be undefined");
         }

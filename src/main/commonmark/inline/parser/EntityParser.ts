@@ -5,14 +5,12 @@ import {ENTITY} from "./../../common";
 
 import {decodeHTML} from "entities";
 
-const C_AMPERSAND = 38;
-
 const reEntityHere = new RegExp('^' + ENTITY, 'i');
 
 export class EntityParser extends InlineParser {
     public parse (parser : InlineContentParser, node : Node) : boolean {
         const c = parser.peek();
-        if (c != C_AMPERSAND) {
+        if (c != "&") {
             return false;
         }
         const m = parser.match(reEntityHere);

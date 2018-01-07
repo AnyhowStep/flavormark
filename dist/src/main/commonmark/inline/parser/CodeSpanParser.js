@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("./../../../InlineParser");
 const CodeSpanNode_1 = require("./../node/CodeSpanNode");
-var C_BACKTICK = 96;
 var reTicks = /`+/;
 var reTicksHere = /^`+/;
 var reWhitespace = /[ \t\n\x0b\x0c\x0d]+/g;
@@ -14,7 +13,7 @@ class CodeSpanParser extends InlineParser_1.InlineParser {
     // literal sequence of backticks.
     parse(parser, node) {
         const c = parser.peek();
-        if (c != C_BACKTICK) {
+        if (c != "`") {
             return false;
         }
         const ticks = parser.match(reTicksHere);

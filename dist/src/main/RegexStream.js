@@ -9,14 +9,12 @@ class RegexStream {
     // If re matches at current position in the subject, advance
     // position in subject and return the match; otherwise return undefined.
     match(re) {
-        var m = re.exec(this.subject.slice(this.pos));
+        const m = re.exec(this.subject.slice(this.pos));
         if (m == undefined) {
             return undefined;
         }
-        else {
-            this.pos += m.index + m[0].length;
-            return m[0];
-        }
+        this.pos += m.index + m[0].length;
+        return m[0];
     }
     ;
     hasCharacters() {
@@ -25,21 +23,7 @@ class RegexStream {
     // Returns the code for the character at the current subject position, or -1
     // there are no more characters.
     peek() {
-        if (this.hasCharacters()) {
-            return this.subject.charCodeAt(this.pos);
-        }
-        else {
-            return -1;
-        }
-    }
-    ;
-    peekChar() {
-        if (this.hasCharacters()) {
-            return this.subject.charAt(this.pos);
-        }
-        else {
-            return -1;
-        }
+        return this.subject[this.pos];
     }
     // Parse zero or more space characters, including at most one newline
     spnl() {

@@ -3,9 +3,6 @@ import {InlineContentParser} from "./../../../InlineContentParser";
 import {Node} from "./../../../Node";
 import {BracketCollection} from "./BracketCollection";
 
-var C_BANG = 33;
-var C_OPEN_BRACKET = 91;
-
 export class ImageStartParser extends InlineParser {
     private brackets : BracketCollection;
     public constructor (brackets : BracketCollection) {
@@ -14,12 +11,12 @@ export class ImageStartParser extends InlineParser {
     }
     public parse (parser : InlineContentParser, node : Node) : boolean {
         const c = parser.peek();
-        if (c != C_BANG) {
+        if (c != "!") {
             return false;
         }
         var startpos = parser.pos;
         ++parser.pos;
-        if (parser.peek() != C_OPEN_BRACKET) {
+        if (parser.peek() != "[") {
             --parser.pos;
             return false;
         }

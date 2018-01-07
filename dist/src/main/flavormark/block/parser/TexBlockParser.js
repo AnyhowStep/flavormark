@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
 const util_1 = require("./../../../refactored/util");
 const TexBlockNode_1 = require("./../node/TexBlockNode");
-var reCodeFence = /^\${2,}(?!.*`)/;
-var reClosingCodeFence = /^(?:\${2,})(?= *$)/;
+const reCodeFence = /^\${2,}(?!.*`)/;
+const reClosingCodeFence = /^(?:\${2,})(?= *$)/;
 class TexBlockParser extends BlockParser_1.BlockParser {
     constructor(nodeCtor = TexBlockNode_1.TexBlockNode) {
         super(nodeCtor);
