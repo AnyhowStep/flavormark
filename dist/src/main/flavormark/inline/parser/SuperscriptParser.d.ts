@@ -5,6 +5,6 @@ export declare class SuperscriptParser extends DelimitedInlineSubParser {
     advanceDelimiter(stream: RegexStream, delimiter: number): void;
     canOpen(info: DelimiterInfo): boolean;
     canClose(info: DelimiterInfo): boolean;
-    getDelimiterContent(_stream: RegexStream, _delimiterStartPosition: number, _delimiter: number): string;
+    getDelimiterContent(stream: RegexStream, delimiterStartPosition: number, _delimiter: number): string;
     parse(args: ParseArgs, _delimiter: number): ParseResult;
 }

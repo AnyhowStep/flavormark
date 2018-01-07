@@ -25,8 +25,8 @@ export class SuperscriptParser extends DelimitedInlineSubParser {
         return info.rightFlanking;
     }
 
-    public getDelimiterContent (_stream : RegexStream, _delimiterStartPosition : number, _delimiter : number) : string {
-        return CARET_CHAR;
+    public getDelimiterContent (stream : RegexStream, delimiterStartPosition : number, _delimiter : number) : string {
+        return stream.subject.slice(delimiterStartPosition, stream.pos);
     }
     public parse (args : ParseArgs, _delimiter : number) : ParseResult {
         if (args.closer == undefined) {

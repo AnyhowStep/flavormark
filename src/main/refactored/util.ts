@@ -11,10 +11,7 @@ export var isSpaceOrTab = function(c : number) {
     return c === C_SPACE || c === C_TAB;
 };
 
-export var peek = function(ln : string|undefined, pos : number) {
-    if (ln == undefined) {
-        throw new Error("ln cannot be undefined");
-    }
+export var peek = function(ln : string, pos : number) {
     if (pos < ln.length) {
         return ln.charCodeAt(pos);
     } else {

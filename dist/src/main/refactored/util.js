@@ -7,9 +7,6 @@ exports.isSpaceOrTab = function (c) {
     return c === C_SPACE || c === C_TAB;
 };
 exports.peek = function (ln, pos) {
-    if (ln == undefined) {
-        throw new Error("ln cannot be undefined");
-    }
     if (pos < ln.length) {
         return ln.charCodeAt(pos);
     }

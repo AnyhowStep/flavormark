@@ -22,8 +22,8 @@ class SuperscriptParser extends DelimitedInlineSubParser_1.DelimitedInlineSubPar
     canClose(info) {
         return info.rightFlanking;
     }
-    getDelimiterContent(_stream, _delimiterStartPosition, _delimiter) {
-        return CARET_CHAR;
+    getDelimiterContent(stream, delimiterStartPosition, _delimiter) {
+        return stream.subject.slice(delimiterStartPosition, stream.pos);
     }
     parse(args, _delimiter) {
         if (args.closer == undefined) {

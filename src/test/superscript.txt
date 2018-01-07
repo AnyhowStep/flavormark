@@ -40,3 +40,19 @@ Escape \^to avoid superscripts\^
 .
 <p>Escape ^to avoid superscripts^</p>
 ````````````````````````````````
+
+Empty superscripts are not allowed
+
+```````````````````````````````` example
+Not a superscript ^^
+.
+<p>Not a superscript ^^</p>
+````````````````````````````````
+
+Carets must be escaped in superscripts
+
+```````````````````````````````` example
+Caret in superscript ^\^^
+.
+<p>Caret in superscript <sup>^</sup></p>
+````````````````````````````````
