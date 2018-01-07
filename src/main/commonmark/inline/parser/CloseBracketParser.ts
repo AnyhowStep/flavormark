@@ -1,7 +1,7 @@
 import {InlineParser} from "./../../../InlineParser";
 import {InlineContentParser} from "./../../../InlineContentParser";
 import {Node} from "./../../../Node";
-import {normalizeReference} from "./../../../normalize-reference";
+import {normalizeReference} from "./../../normalize-reference";
 import {parseLinkTitle, parseLinkDestination, parseLinkLabel} from "./../../link-util";
 import {RefMap} from "./../../RefMap";
 import {BracketCollection} from "./BracketCollection";

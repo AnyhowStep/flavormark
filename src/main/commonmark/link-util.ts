@@ -1,5 +1,5 @@
 import {normalizeURI, unescapeString, ESCAPABLE} from "../common";
-import {normalizeReference} from "../normalize-reference";
+import {normalizeReference} from "./normalize-reference";
 import {RegexStream} from "../RegexStream";
 
 const C_BACKSLASH = 92;

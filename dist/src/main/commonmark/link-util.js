@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("../common");
-const normalize_reference_1 = require("../normalize-reference");
+const normalize_reference_1 = require("./normalize-reference");
 const RegexStream_1 = require("../RegexStream");
 const C_BACKSLASH = 92;
 const C_OPEN_PAREN = 40;

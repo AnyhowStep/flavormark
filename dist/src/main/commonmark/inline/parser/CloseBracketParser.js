@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("./../../../InlineParser");
-const normalize_reference_1 = require("./../../../normalize-reference");
+const normalize_reference_1 = require("./../../normalize-reference");
 const link_util_1 = require("./../../link-util");
 const LinkNode_1 = require("./../node/LinkNode");
 const ImageNode_1 = require("./../node/ImageNode");

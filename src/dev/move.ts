@@ -169,8 +169,8 @@ const backupFolder = "./src/dev/backup";
 moveRefactorProject(
     projectGlobs,
     backupFolder,
-    "./src/main/refactored/LatexBlockNode.ts",
-    "./src/main/flavormark/block/node/TexBlockNode.ts"
+    "./src/main/normalize-reference.ts",
+    "./src/main/commonmark/normalize-reference.ts"
 );
 
 /*moveRefactorProjectMulti(
