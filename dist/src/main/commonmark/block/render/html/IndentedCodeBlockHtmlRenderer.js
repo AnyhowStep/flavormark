@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const HtmlSubRenderer_1 = require("./../../../../render/html/HtmlSubRenderer");
 const IndentedCodeBlockNode_1 = require("./../../node/IndentedCodeBlockNode");
-const common_1 = require("./../../../../common");
+const common_1 = require("./../../../common");
 class IndentedCodeBlockHtmlRenderer extends HtmlSubRenderer_1.HtmlSubRenderer {
     constructor() {
         super(IndentedCodeBlockNode_1.IndentedCodeBlockNode);

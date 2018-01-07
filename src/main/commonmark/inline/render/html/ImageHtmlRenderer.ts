@@ -1,7 +1,7 @@
 import {HtmlSubRenderer} from "./../../../../render/html/HtmlSubRenderer";
 import {HtmlBuilder} from "./../../../../render/html/HtmlBuilder";
 import {ImageNode} from "./../../node/ImageNode";
-import {escapeXml} from "./../../../../common";
+import {escapeXml} from "./../../../common";
 
 export class ImageHtmlRenderer extends HtmlSubRenderer<ImageNode> {
     public constructor () {

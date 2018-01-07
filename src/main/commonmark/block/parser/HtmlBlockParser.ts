@@ -1,7 +1,7 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
 import {Node} from "./../../../Node";
-import {OPENTAG, CLOSETAG} from "./../../../common";
+import {OPENTAG, CLOSETAG} from "./../../common";
 import {HtmlBlockNode} from "./../node/HtmlBlockNode";
 
 const reHtmlBlockClose = [

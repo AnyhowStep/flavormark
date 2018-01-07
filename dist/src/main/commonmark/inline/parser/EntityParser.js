@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("./../../../InlineParser");
-const common_1 = require("./../../../common");
+const common_1 = require("./../../common");
 const entities_1 = require("entities");
 const C_AMPERSAND = 38;
 const reEntityHere = new RegExp('^' + common_1.ENTITY, 'i');

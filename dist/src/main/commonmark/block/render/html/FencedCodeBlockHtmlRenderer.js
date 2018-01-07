@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const HtmlSubRenderer_1 = require("./../../../../render/html/HtmlSubRenderer");
 const FencedCodeBlockNode_1 = require("./../../node/FencedCodeBlockNode");
-const common_1 = require("./../../../../common");
+const common_1 = require("./../../../common");
 class FencedCodeBlockHtmlRenderer extends HtmlSubRenderer_1.HtmlSubRenderer {
     constructor() {
         super(FencedCodeBlockNode_1.FencedCodeBlockNode);

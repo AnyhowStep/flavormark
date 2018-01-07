@@ -1,4 +1,4 @@
-import {normalizeURI, unescapeString, ESCAPABLE} from "../common";
+import {normalizeURI, unescapeString, ESCAPABLE} from "./common";
 import {normalizeReference} from "./normalize-reference";
 import {RegexStream} from "../RegexStream";
 

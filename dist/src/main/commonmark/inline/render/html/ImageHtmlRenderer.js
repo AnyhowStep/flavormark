@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const HtmlSubRenderer_1 = require("./../../../../render/html/HtmlSubRenderer");
 const ImageNode_1 = require("./../../node/ImageNode");
-const common_1 = require("./../../../../common");
+const common_1 = require("./../../../common");
 class ImageHtmlRenderer extends HtmlSubRenderer_1.HtmlSubRenderer {
     constructor() {
         super(ImageNode_1.ImageNode);

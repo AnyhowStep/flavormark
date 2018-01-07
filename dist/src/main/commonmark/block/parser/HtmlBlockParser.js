@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
-const common_1 = require("./../../../common");
+const common_1 = require("./../../common");
 const HtmlBlockNode_1 = require("./../node/HtmlBlockNode");
 const reHtmlBlockClose = [
     /./,

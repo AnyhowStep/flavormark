@@ -35,7 +35,7 @@ function matchSingleLineImportOrExportStatement (row : string) {
     }
     const importOrExportText  = match[1];
     const matchedRelativePath = match[3];
-    if (matchedRelativePath.indexOf("/") < 0) {
+    if (matchedRelativePath[0] != ".") {
         return undefined;
     }
 
@@ -169,8 +169,8 @@ const backupFolder = "./src/dev/backup";
 moveRefactorProject(
     projectGlobs,
     backupFolder,
-    "./src/main/TextParser.ts",
-    "./src/main/commonmark/block/parser/TextParser.ts"
+    "./src/main/common.ts",
+    "./src/main/commonmark/common.ts"
 );
 
 /*moveRefactorProjectMulti(

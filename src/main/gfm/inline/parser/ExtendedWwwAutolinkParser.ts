@@ -1,9 +1,9 @@
 import {InlineParser} from "./../../../InlineParser";
 import {InlineContentParser} from "./../../../InlineContentParser";
 import {Node} from "./../../../Node";
-import {normalizeURI} from "./../../../common";
+import {normalizeURI} from "./../../../commonmark/common";
 import {LinkNode} from "./../../../commonmark/inline/node/LinkNode";
-import {escapeXml} from "./../../../common";
+import {escapeXml} from "./../../../commonmark/common";
 
 //Trailing punctuation (specifically, ?, !, ., ,, :, *, _, and ~) will not be
 //considered part of the autolink, though they may be included in the interior of the link:

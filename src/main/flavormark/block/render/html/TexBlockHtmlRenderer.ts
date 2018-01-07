@@ -1,7 +1,7 @@
 import {HtmlSubRenderer} from "./../../../../render/html/HtmlSubRenderer";
 import {HtmlBuilder} from "./../../../../render/html/HtmlBuilder";
 import {TexBlockNode} from "./../../node/TexBlockNode";
-import {escapeXml} from "./../../../../common";
+import {escapeXml} from "./../../../../commonmark/common";
 
 export class TexBlockHtmlRenderer extends HtmlSubRenderer<TexBlockNode> {
     public constructor () {

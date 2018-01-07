@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("./../../../InlineParser");
-const common_1 = require("./../../../common");
+const common_1 = require("./../../common");
 const HtmlTagNode_1 = require("./../node/HtmlTagNode");
 const C_LESSTHAN = 60;
 class HtmlTagParser extends InlineParser_1.InlineParser {

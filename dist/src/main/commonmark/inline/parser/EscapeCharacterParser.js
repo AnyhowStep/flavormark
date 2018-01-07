@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("./../../../InlineParser");
-const common_1 = require("./../../../common");
+const common_1 = require("./../../common");
 const HardbreakNode_1 = require("./../node/HardbreakNode");
 const C_NEWLINE = 10;
 const C_BACKSLASH = 92;

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
 const util_1 = require("./../../../refactored/util");
-const common_1 = require("./../../../common");
+const common_1 = require("./../../common");
 const FencedCodeBlockNode_1 = require("./../node/FencedCodeBlockNode");
 const reCodeFence = /^`{3,}(?!.*`)|^~{3,}(?!.*~)/;
 const reClosingCodeFence = /^(?:`{3,}|~{3,})(?= *$)/;

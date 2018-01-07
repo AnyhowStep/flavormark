@@ -1,7 +1,7 @@
 import {InlineParser} from "./../../../InlineParser";
 import {InlineContentParser} from "./../../../InlineContentParser";
 import {Node} from "./../../../Node";
-import {reHtmlTag} from "./../../../common";
+import {reHtmlTag} from "./../../common";
 import {HtmlTagNode} from "./../node/HtmlTagNode";
 
 const C_LESSTHAN = 60;

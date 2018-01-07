@@ -1,7 +1,7 @@
 import {InlineParser} from "./../../../InlineParser";
 import {InlineContentParser} from "./../../../InlineContentParser";
 import {Node} from "./../../../Node";
-import {ESCAPABLE} from "./../../../common";
+import {ESCAPABLE} from "./../../common";
 import {HardbreakNode} from "./../node/HardbreakNode";
 
 const C_NEWLINE = 10;

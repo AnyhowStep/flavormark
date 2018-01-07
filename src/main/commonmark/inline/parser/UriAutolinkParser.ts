@@ -1,7 +1,7 @@
 import {InlineParser} from "./../../../InlineParser";
 import {InlineContentParser} from "./../../../InlineContentParser";
 import {Node} from "./../../../Node";
-import {normalizeURI} from "./../../../common";
+import {normalizeURI} from "./../../common";
 import {LinkNode} from "./../node/LinkNode";
 
 const C_LESSTHAN = 60;

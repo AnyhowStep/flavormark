@@ -1,7 +1,7 @@
 import {InlineParser} from "./../../../InlineParser";
 import {InlineContentParser} from "./../../../InlineContentParser";
 import {Node} from "./../../../Node";
-import {ENTITY} from "./../../../common";
+import {ENTITY} from "./../../common";
 
 import {decodeHTML} from "entities";
 
