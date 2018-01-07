@@ -8,7 +8,7 @@ var reBulletListMarker = /^[*+-]/;
 var reOrderedListMarker = /^(\d{1,9})([.)])/;
 // Parse a list marker and return data on the marker (type,
 // start, delimiter, bullet character, padding) or undefined.
-function parseListMarker(parser, container) {
+function parseListMarker(parser, node) {
     var rest = parser.currentLine.slice(parser.nextNonspace);
     var match;
     var nextc;
@@ -28,7 +28,7 @@ function parseListMarker(parser, container) {
         data.bulletChar = match[0][0];
     }
     else if ((match = rest.match(reOrderedListMarker)) &&
-        (!parser.isParagraphNode(container) ||
+        (!parser.isParagraphNode(node) ||
             match[1] === '1')) {
         data.type = 'ordered';
         data.start = parseInt(match[1]);
@@ -43,7 +43,7 @@ function parseListMarker(parser, container) {
         return undefined;
     }
     // if it interrupts paragraph, make sure first line isn't blank
-    if (parser.isParagraphNode(container) && util_1.isBlank(parser.currentLine.slice(parser.nextNonspace + match[0].length))) {
+    if (parser.isParagraphNode(node) && util_1.isBlank(parser.currentLine.slice(parser.nextNonspace + match[0].length))) {
         return undefined;
     }
     // we've got a match! advance offset and calculate padding
@@ -89,11 +89,11 @@ class ItemParser extends BlockParser_1.BlockParser {
         this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;
         this.listParser = listParser;
     }
-    tryStart(parser, container) {
-        if (parser.indented && parser.getBlockParser(container) != this.listParser) {
+    tryStart(parser, node) {
+        if (parser.indented && parser.getBlockParser(node) != this.listParser) {
             return false;
         }
-        const data = parseListMarker(parser, container);
+        const data = parseListMarker(parser, node);
         if (data == undefined) {
             return false;
         }
@@ -103,8 +103,8 @@ class ItemParser extends BlockParser_1.BlockParser {
         }
         // add the list if needed
         if (!(parser.tip instanceof ListNode_1.ListNode) ||
-            !(container instanceof ListNode_1.ListNode) ||
-            !listsMatch(container.listData, data)) {
+            !(node instanceof ListNode_1.ListNode) ||
+            !listsMatch(node.listData, data)) {
             const listNode = parser.addChild(this.listParser, parser.nextNonspace);
             listNode.listData = data;
         }
@@ -114,9 +114,9 @@ class ItemParser extends BlockParser_1.BlockParser {
         return true;
     }
     ;
-    continue(parser, container) {
+    continue(parser, node) {
         if (parser.blank) {
-            if (container.getFirstChild() == undefined) {
+            if (node.getFirstChild() == undefined) {
                 // Blank line after empty list item
                 return false;
             }
@@ -124,12 +124,12 @@ class ItemParser extends BlockParser_1.BlockParser {
                 parser.advanceNextNonspace();
             }
         }
-        else if (container.listData.markerOffset != undefined &&
-            container.listData.padding != undefined &&
-            parser.indent >= (container.listData.markerOffset +
-                container.listData.padding)) {
-            parser.advanceOffset(container.listData.markerOffset +
-                container.listData.padding, true);
+        else if (node.listData.markerOffset != undefined &&
+            node.listData.padding != undefined &&
+            parser.indent >= (node.listData.markerOffset +
+                node.listData.padding)) {
+            parser.advanceOffset(node.listData.markerOffset +
+                node.listData.padding, true);
         }
         else {
             return false;
@@ -144,10 +144,10 @@ class ItemParser extends BlockParser_1.BlockParser {
     canBeContainedBy(_blockParser, node) {
         return node instanceof ListNode_1.ListNode;
     }
-    ignoreLastLineBlank(parser, container) {
-        return (container.getFirstChild() == undefined &&
-            container.sourceRange != undefined &&
-            container.sourceRange.start.row === parser.lineNumber);
+    ignoreLastLineBlank(parser, node) {
+        return (node.getFirstChild() == undefined &&
+            node.sourceRange != undefined &&
+            node.sourceRange.start.row === parser.lineNumber);
     }
 }
 exports.ItemParser = ItemParser;

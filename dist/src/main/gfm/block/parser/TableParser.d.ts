@@ -21,7 +21,7 @@ export declare class TableParser extends BlockParser<TableNode> {
     acceptLazyContinuation: boolean;
     private args;
     constructor(args: TableParserArgs, nodeCtor?: BlockNodeCtor<TableNode>);
-    tryStart(parser: Parser, container: Node): boolean;
+    tryStart(parser: Parser, node: Node): boolean;
     continue(_parser: Parser, _node: TableNode): boolean;
     lazyContinue(parser: Parser, node: TableNode): void;
     finalize(_parser: Parser, _node: TableNode): void;

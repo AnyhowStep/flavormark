@@ -6,11 +6,11 @@ import {Node} from "./../../../Node";
 export class SmartStringParser extends InlineParser {
     // Parse a run of ordinary characters, or a single character with
     // a special meaning in markdown, as a plain string.
-    public parse (parser : InlineContentParser, block : Node) : boolean {
+    public parse (parser : InlineContentParser, node : Node) : boolean {
         {
             const m = parser.match(/^\.\.\./);
             if (m != undefined) {
-                block.appendChild(parser.text("\u2026"));
+                node.appendChild(parser.text("\u2026"));
                 return true;
             }
         }
@@ -31,7 +31,7 @@ export class SmartStringParser extends InlineParser {
                     emCount = (m.length - 4) / 3;
                 }
                 const text = "\u2014".repeat(emCount) + "\u2013".repeat(enCount);
-                block.appendChild(parser.text(text));
+                node.appendChild(parser.text(text));
                 return true;
             }
         }

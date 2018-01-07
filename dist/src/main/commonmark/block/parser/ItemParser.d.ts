@@ -8,10 +8,10 @@ export declare class ItemParser extends BlockParser<ItemNode> {
     endsWithBlankLineIfLastChildEndsWithBlankLine: boolean;
     private listParser;
     constructor(listParser: BlockParser<ListNode>, nodeCtor?: BlockNodeCtor<ItemNode>);
-    tryStart(parser: Parser, container: Node): boolean;
-    continue(parser: Parser, container: ItemNode): boolean;
+    tryStart(parser: Parser, node: Node): boolean;
+    continue(parser: Parser, node: ItemNode): boolean;
     finalize(): void;
     canContain(_blockParser: BlockParserMeta, node: Node): boolean;
     canBeContainedBy(_blockParser: BlockParserMeta, node: Node): boolean;
-    ignoreLastLineBlank(parser: Parser, container: Node): boolean;
+    ignoreLastLineBlank(parser: Parser, node: Node): boolean;
 }

@@ -68,8 +68,8 @@ export class TableParser extends BlockParser<TableNode> {
         this.args = args;
     }
 
-    public tryStart (parser : Parser, container : Node) {
-        if (!parser.isParagraphNode(container)) {
+    public tryStart (parser : Parser, node : Node) {
+        if (!parser.isParagraphNode(node)) {
             return false;
         }
         const line = parser.currentLine.slice(parser.nextNonspace);
@@ -97,7 +97,7 @@ export class TableParser extends BlockParser<TableNode> {
             return "left";
         });
 
-        let paragraphStr = parser.getParagraphString(container);
+        let paragraphStr = parser.getParagraphString(node);
         if (paragraphStr.length == 0) {
             return false;
         }
@@ -118,7 +118,7 @@ export class TableParser extends BlockParser<TableNode> {
             return false;
         }
         parser.setParagraphString(
-            container,
+            node,
             (lastNewline < 0) ?
                 "" :
                 paragraphStr.substr(0, lastNewline+1)
@@ -127,7 +127,7 @@ export class TableParser extends BlockParser<TableNode> {
         table.headers = headers;
         table.alignments = alignments;
         if (lastNewline < 0) {
-            container.unlink();
+            node.unlink();
         }
 
         const thead = this.args.theadParser.instantiate(table.getSourceRangeOrError());

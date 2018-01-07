@@ -13,7 +13,7 @@ var reOrderedListMarker = /^(\d{1,9})([.)])/;
 
 // Parse a list marker and return data on the marker (type,
 // start, delimiter, bullet character, padding) or undefined.
-function parseListMarker (parser : Parser, container : Node) : ListData|undefined {
+function parseListMarker (parser : Parser, node : Node) : ListData|undefined {
     var rest = parser.currentLine.slice(parser.nextNonspace);
     var match;
     var nextc;
@@ -35,7 +35,7 @@ function parseListMarker (parser : Parser, container : Node) : ListData|undefine
     } else if (
         (match = rest.match(reOrderedListMarker)) &&
         (
-            !parser.isParagraphNode(container) ||
+            !parser.isParagraphNode(node) ||
             match[1] === '1'
         )
     ) {
@@ -52,7 +52,7 @@ function parseListMarker (parser : Parser, container : Node) : ListData|undefine
     }
 
     // if it interrupts paragraph, make sure first line isn't blank
-    if (parser.isParagraphNode(container) && isBlank(parser.currentLine.slice(parser.nextNonspace + match[0].length))) {
+    if (parser.isParagraphNode(node) && isBlank(parser.currentLine.slice(parser.nextNonspace + match[0].length))) {
         return undefined;
     }
 
@@ -111,11 +111,11 @@ export class ItemParser extends BlockParser<ItemNode> {
         this.listParser = listParser;
     }
 
-    public tryStart (parser : Parser, container : Node) {
-        if (parser.indented && parser.getBlockParser(container) != this.listParser) {
+    public tryStart (parser : Parser, node : Node) {
+        if (parser.indented && parser.getBlockParser(node) != this.listParser) {
             return false;
         }
-        const data = parseListMarker(parser, container);
+        const data = parseListMarker(parser, node);
         if (data == undefined) {
             return false;
         }
@@ -128,8 +128,8 @@ export class ItemParser extends BlockParser<ItemNode> {
         // add the list if needed
         if (
             !(parser.tip instanceof ListNode) ||
-            !(container instanceof ListNode) ||
-            !listsMatch(container.listData, data)
+            !(node instanceof ListNode) ||
+            !listsMatch(node.listData, data)
         ) {
             const listNode = parser.addChild<ListNode>(this.listParser, parser.nextNonspace);
             listNode.listData = data;
@@ -140,25 +140,25 @@ export class ItemParser extends BlockParser<ItemNode> {
         itemNode.listData = data;
         return true;
     };
-    public continue (parser : Parser, container : ItemNode) {
+    public continue (parser : Parser, node : ItemNode) {
         if (parser.blank) {
-            if (container.getFirstChild() == undefined) {
+            if (node.getFirstChild() == undefined) {
                 // Blank line after empty list item
                 return false;
             } else {
                 parser.advanceNextNonspace();
             }
         } else if (
-            container.listData.markerOffset != undefined &&
-            container.listData.padding != undefined &&
+            node.listData.markerOffset != undefined &&
+            node.listData.padding != undefined &&
             parser.indent >= (
-                container.listData.markerOffset +
-                container.listData.padding
+                node.listData.markerOffset +
+                node.listData.padding
             )
        ) {
             parser.advanceOffset(
-                container.listData.markerOffset +
-                container.listData.padding,
+                node.listData.markerOffset +
+                node.listData.padding,
                 true
             );
         } else {
@@ -173,11 +173,11 @@ export class ItemParser extends BlockParser<ItemNode> {
     public canBeContainedBy (_blockParser : BlockParserMeta, node : Node) {
         return node instanceof ListNode;
     }
-    public ignoreLastLineBlank (parser : Parser, container : Node) {
+    public ignoreLastLineBlank (parser : Parser, node : Node) {
         return (
-            container.getFirstChild() == undefined &&
-            container.sourceRange != undefined &&
-            container.sourceRange.start.row === parser.lineNumber
+            node.getFirstChild() == undefined &&
+            node.sourceRange != undefined &&
+            node.sourceRange.start.row === parser.lineNumber
         );
     }
 }

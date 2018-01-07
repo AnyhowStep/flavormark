@@ -46,8 +46,8 @@ class TableParser extends BlockParser_1.BlockParser {
         this.acceptLazyContinuation = true;
         this.args = args;
     }
-    tryStart(parser, container) {
-        if (!parser.isParagraphNode(container)) {
+    tryStart(parser, node) {
+        if (!parser.isParagraphNode(node)) {
             return false;
         }
         const line = parser.currentLine.slice(parser.nextNonspace);
@@ -74,7 +74,7 @@ class TableParser extends BlockParser_1.BlockParser {
             }
             return "left";
         });
-        let paragraphStr = parser.getParagraphString(container);
+        let paragraphStr = parser.getParagraphString(node);
         if (paragraphStr.length == 0) {
             return false;
         }
@@ -92,14 +92,14 @@ class TableParser extends BlockParser_1.BlockParser {
         if (alignments.length != headers.length) {
             return false;
         }
-        parser.setParagraphString(container, (lastNewline < 0) ?
+        parser.setParagraphString(node, (lastNewline < 0) ?
             "" :
             paragraphStr.substr(0, lastNewline + 1));
         const table = parser.addChild(this, parser.nextNonspace);
         table.headers = headers;
         table.alignments = alignments;
         if (lastNewline < 0) {
-            container.unlink();
+            node.unlink();
         }
         const thead = this.args.theadParser.instantiate(table.getSourceRangeOrError());
         table.appendChild(thead);

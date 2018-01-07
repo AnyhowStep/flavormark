@@ -34,15 +34,15 @@ class BlockParser {
     }
     //Called before the parser starts parsing content
     reinit() { }
-    tryStart(_parser, _container) {
+    tryStart(_parser, _node) {
         return false;
     }
     lazyContinue(_parser, _node) {
     }
-    finalizeAtLine(_parser, _container) {
+    finalizeAtLine(_parser, _node) {
         return false;
     }
-    ignoreLastLineBlank(_parser, _container) {
+    ignoreLastLineBlank(_parser, _node) {
         return false;
     }
 }
