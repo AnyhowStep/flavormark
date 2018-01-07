@@ -15,7 +15,7 @@ class EmailAutolinkParser extends InlineParser_1.InlineParser {
             return false;
         }
         const dest = m.slice(1, m.length - 1);
-        const link = new LinkNode_1.LinkNode('link');
+        const link = new LinkNode_1.LinkNode();
         link.destination = common_1.normalizeURI('mailto:' + dest);
         link.title = '';
         link.appendChild(parser.text(dest));

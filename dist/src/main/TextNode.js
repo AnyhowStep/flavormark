@@ -5,10 +5,14 @@ const Node_1 = require("./Node");
 //extend this class and pass its ctor to
 //InlineContentParser
 class TextNode extends Node_1.Node {
-    constructor(str) {
-        super("text");
+    constructor(strOrRange) {
+        super((typeof strOrRange == "string") ?
+            undefined :
+            strOrRange);
         this.literal = "";
-        this.literal = str;
+        if (typeof strOrRange == "string") {
+            this.literal = strOrRange;
+        }
     }
     getString() {
         return this.literal;

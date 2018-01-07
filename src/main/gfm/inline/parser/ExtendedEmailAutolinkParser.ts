@@ -35,7 +35,7 @@ export class ExtendedEmailAutolinkParser extends InlineParser {
             return false;
         }
 
-        const node = new LinkNode('link');
+        const node = new LinkNode();
         node.destination = normalizeURI(`mailto:${email}`);
         //node.title = domain;
         node.appendChild(parser.text(escapeXml(email, true)));

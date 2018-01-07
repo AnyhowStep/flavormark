@@ -8,9 +8,8 @@ export interface Range {
     end: Position;
 }
 export declare class Node {
-    readonly type: string;
     readonly sourceRange?: Range;
-    constructor(type: string, sourceRange?: Range);
+    constructor(sourceRange?: Range);
     private lastLineBlank;
     private open;
     private parent;

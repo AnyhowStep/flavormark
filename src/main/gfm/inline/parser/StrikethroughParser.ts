@@ -63,7 +63,7 @@ export class StrikethroughParser extends DelimitedInlineSubParser {
             );
 
             // build contents for new element
-            var emph = new StrikethroughNode("strikethrough");
+            var emph = new StrikethroughNode();
 
             let tmp = opener_inl.getNext();
             while (tmp && tmp !== closer_inl) {

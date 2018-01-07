@@ -31,7 +31,7 @@ export class CodeSpanParser extends InlineParser {
         let matched = parser.match(reTicks);
         while (matched != undefined) {
             if (matched == ticks) {
-                const codeSpan = new CodeSpanNode('code');
+                const codeSpan = new CodeSpanNode();
                 codeSpan.literal = parser.subject.slice(
                     afterOpenTicks,
                     parser.pos - ticks.length

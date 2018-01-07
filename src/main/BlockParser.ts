@@ -2,7 +2,7 @@ import {Parser} from "./Parser";
 import {Node, Range} from "./Node";
 
 export type BlockNodeCtor<NodeT extends Node> = {
-    new (nodeType : string, sourcepos : Range) : NodeT
+    new (sourcepos : Range) : NodeT
 };
 
 export interface BlockParserMeta {
@@ -49,6 +49,10 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
         this.nodeCtor = nodeCtor;
     }
 
+    public isParserOf<OtherT extends Node> (node : OtherT) : this is BlockParser<OtherT> {
+        return node instanceof this.nodeCtor;
+    }
+
     public getNodeType () : string {
         return this.nodeType;
     }
@@ -56,7 +60,7 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
         return this.nodeCtor;
     }
     public instantiate (sourceRange : Range) {
-        return new this.nodeCtor(this.nodeType, sourceRange);
+        return new this.nodeCtor(sourceRange);
     }
 
     //Only called if acceptsLines is true

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Node_1 = require("./../../../Node");
 class SoftbreakNode extends Node_1.Node {
     constructor() {
-        super("softbreak");
+        super();
     }
 }
 exports.SoftbreakNode = SoftbreakNode;

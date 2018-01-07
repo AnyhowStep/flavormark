@@ -10,11 +10,9 @@ export interface Range {
 }
 
 export class Node {
-    readonly type : string;
     readonly sourceRange? : Range;
 
-    public constructor (type : string, sourceRange? : Range) {
-        this.type = type;
+    public constructor (sourceRange? : Range) {
         this.sourceRange = sourceRange;
     }
 

@@ -29,7 +29,7 @@ export class TexSpanParser extends InlineParser {
         let matched = parser.match(reDollar);
         while (matched != undefined) {
             if (/[^\\]\$/.test(matched)) {
-                const texSpan = new TexSpanNode('latex');
+                const texSpan = new TexSpanNode();
                 texSpan.literal = parser.subject.slice(
                     startpos + 1,
                     parser.pos - 1

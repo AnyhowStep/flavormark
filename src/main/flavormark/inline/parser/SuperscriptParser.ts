@@ -64,7 +64,7 @@ export class SuperscriptParser extends DelimitedInlineSubParser {
             );
 
             // build contents for new element
-            const emph = new SuperscriptNode("superscript");
+            const emph = new SuperscriptNode();
 
             let tmp = opener_inl.getNext();
             while (tmp && tmp !== closer_inl) {

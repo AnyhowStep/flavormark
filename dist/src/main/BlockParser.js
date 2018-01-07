@@ -9,6 +9,9 @@ class BlockParser {
     canBeContainedBy(_blockParser, _node) {
         return true;
     }
+    isParserOf(node) {
+        return node instanceof this.nodeCtor;
+    }
     getNodeType() {
         return this.nodeType;
     }
@@ -16,7 +19,7 @@ class BlockParser {
         return this.nodeCtor;
     }
     instantiate(sourceRange) {
-        return new this.nodeCtor(this.nodeType, sourceRange);
+        return new this.nodeCtor(sourceRange);
     }
     //Only called if acceptsLines is true
     appendString(_node, _str) {

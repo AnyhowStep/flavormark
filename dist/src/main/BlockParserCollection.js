@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class BlockParserCollection {
     constructor(documentParser, paragraphParser) {
-        this.dict = {};
         this.arr = [];
         if (!paragraphParser.isActuallyParagraph()) {
             throw new Error(`Paragraph parser must accept lines and be a paragraph`);
@@ -12,8 +11,8 @@ class BlockParserCollection {
         }
         this.documentParser = documentParser;
         this.paragraphParser = paragraphParser;
-        this.dict[documentParser.getNodeType()] = documentParser;
-        this.dict[paragraphParser.getNodeType()] = paragraphParser;
+        this.arr.push(documentParser);
+        this.arr.push(paragraphParser);
     }
     getDocumentParser() {
         return this.documentParser;
@@ -21,33 +20,25 @@ class BlockParserCollection {
     getParagraphParser() {
         return this.paragraphParser;
     }
-    hasName(name) {
-        return (this.dict[name] != undefined);
-    }
     add(parser) {
-        const name = parser.getNodeType();
-        if (this.hasName(name)) {
-            throw new Error(`Parser ${name} has already been added`);
-        }
-        this.dict[name] = parser;
         this.arr.push(parser);
         return this;
     }
     has(key) {
-        if (typeof key != "string") {
-            return this.has(key.type);
+        for (let i of this.arr) {
+            if (i.isParserOf(key)) {
+                return true;
+            }
         }
-        return this.dict[key] != undefined;
+        return false;
     }
     get(key) {
-        if (typeof key != "string") {
-            return this.get(key.type);
+        for (let i of this.arr) {
+            if (i.isParserOf(key)) {
+                return i;
+            }
         }
-        const result = this.dict[key];
-        if (result == undefined) {
-            throw new Error(`Parser ${key} does not exist`);
-        }
-        return result;
+        throw new Error(`No parser found for node ${Object.getPrototypeOf(key).constructor.name}`);
     }
     length() {
         return this.arr.length;
@@ -56,12 +47,16 @@ class BlockParserCollection {
         return this.arr[index];
     }
     isParagraphNode(node) {
-        return (this.getParagraphParser().getNodeType() == node.type &&
-            node instanceof this.getParagraphParser().getNodeCtor());
+        return (Object.getPrototypeOf(node).constructor ==
+            this.getParagraphParser().getNodeCtor());
     }
     instantiateDocument(sourcepos) {
         const ctor = this.getDocumentParser().getNodeCtor();
-        return new ctor(this.getDocumentParser().getNodeType(), sourcepos);
+        return new ctor(sourcepos);
+    }
+    instantiateParagraph(sourcepos) {
+        const ctor = this.getParagraphParser().getNodeCtor();
+        return new ctor(sourcepos);
     }
     reinit() {
         this.documentParser.reinit();

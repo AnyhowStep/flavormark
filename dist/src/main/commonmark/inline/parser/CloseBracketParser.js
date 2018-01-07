@@ -98,8 +98,8 @@ class CloseBracketParser extends InlineParser_1.InlineParser {
         }
         if (matched) {
             var imageOrLink = is_image ?
-                new ImageNode_1.ImageNode("image") :
-                new LinkNode_1.LinkNode("link");
+                new ImageNode_1.ImageNode() :
+                new LinkNode_1.LinkNode();
             imageOrLink.destination = dest || "";
             imageOrLink.title = title || '';
             var tmp, next;

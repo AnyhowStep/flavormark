@@ -45,7 +45,7 @@ class Parser {
         }
         const p = this.getBlockParser(this.tip);
         if (!p.acceptsLines) {
-            throw new Error(`Cannot add line to ${this.tip.type}; it does not accept lines`);
+            throw new Error(`Cannot add line to ${Object.getPrototypeOf(this.tip).constructor.name}; it does not accept lines`);
         }
         if (this.partiallyConsumedTab) {
             this.offset += 1; // skip over tab
@@ -212,8 +212,8 @@ class Parser {
             throw new Error("container cannot be undefined");
         }
         this.lastMatchedContainer = container;
-        var matchedLeaf = !this.isParagraphNode(container) &&
-            (this.blockParsers.get(container).isLeaf);
+        let matchedLeaf = (!this.isParagraphNode(container) &&
+            this.blockParsers.get(container).isLeaf);
         var startsLen = this.blockParsers.length();
         // Unless last matched container is a code block, try new container starts,
         // adding children to the last matched container:
@@ -401,7 +401,7 @@ class Parser {
             return this.blockParsers.getParagraphParser().getString(node);
         }
         else {
-            throw new Error(`Node ${node.type} is not a paragraph`);
+            throw new Error(`Node ${Object.getPrototypeOf(node).constructor.name} is not a paragraph`);
         }
     }
     setParagraphString(node, str) {
@@ -409,13 +409,11 @@ class Parser {
             return this.blockParsers.getParagraphParser().setString(node, str);
         }
         else {
-            throw new Error(`Node ${node.type} is not a paragraph`);
+            throw new Error(`Node ${Object.getPrototypeOf(node).constructor.name} is not a paragraph`);
         }
     }
     createParagraph(sourcepos) {
-        const ctor = this.blockParsers.getParagraphParser().getNodeCtor();
-        const result = new ctor(this.blockParsers.getParagraphParser().getNodeType(), sourcepos);
-        return result;
+        return this.blockParsers.instantiateParagraph(sourcepos);
     }
     getBlockParser(key) {
         return this.blockParsers.get(key);

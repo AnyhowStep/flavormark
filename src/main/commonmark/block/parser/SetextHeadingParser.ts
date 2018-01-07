@@ -29,7 +29,10 @@ export class SetextHeadingParser extends BlockParser<HeadingNode> {
             return false;
         }
         parser.closeUnmatchedBlocks();
-        const heading = new HeadingNode(this.getNodeType(), node.sourceRange);
+        if (node.sourceRange == undefined) {
+            throw new Error("sourceRange cannot be undefined")
+        }
+        const heading = this.instantiate(node.sourceRange);
         heading.level = (match[0][0] === "=") ?
             1 : 2;
         heading.stringContent = parser.getBlockParsers().getParagraphParser().getString(node);

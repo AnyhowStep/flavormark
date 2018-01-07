@@ -14,7 +14,7 @@ class HtmlTagParser extends InlineParser_1.InlineParser {
         if (m == undefined) {
             return false;
         }
-        const htmlTag = new HtmlTagNode_1.HtmlTagNode('html_inline');
+        const htmlTag = new HtmlTagNode_1.HtmlTagNode();
         htmlTag.literal = m;
         node.appendChild(htmlTag);
         return true;

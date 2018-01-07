@@ -117,8 +117,8 @@ export class CloseBracketParser extends InlineParser {
 
         if (matched) {
             var imageOrLink = is_image ?
-                new ImageNode("image") :
-                new LinkNode("link");
+                new ImageNode() :
+                new LinkNode();
             imageOrLink.destination = dest || "";
             imageOrLink.title = title || '';
 

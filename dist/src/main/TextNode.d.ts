@@ -1,7 +1,7 @@
-import { Node } from "./Node";
+import { Node, Range } from "./Node";
 export declare class TextNode extends Node {
     literal: string;
-    constructor(str: string);
+    constructor(strOrRange: string | Range);
     getString(): string;
     setString(str: string): void;
 }

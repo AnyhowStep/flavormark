@@ -5,9 +5,6 @@ export class BlockParserCollection<DocumentT extends Node=Node, ParagraphT exten
     private documentParser  : BlockParser<DocumentT>;
     private paragraphParser : BlockParser<ParagraphT>;
 
-    private dict : {
-        [name : string] : BlockParser<any>|undefined
-    } = {};
     private arr : BlockParser[] = [];
 
     public constructor (documentParser : BlockParser<DocumentT>, paragraphParser : BlockParser<ParagraphT>) {
@@ -20,8 +17,8 @@ export class BlockParserCollection<DocumentT extends Node=Node, ParagraphT exten
         this.documentParser = documentParser;
         this.paragraphParser = paragraphParser;
 
-        this.dict[documentParser.getNodeType()] = documentParser;
-        this.dict[paragraphParser.getNodeType()] = paragraphParser;
+        this.arr.push(documentParser);
+        this.arr.push(paragraphParser);
     }
 
     public getDocumentParser () {
@@ -30,35 +27,25 @@ export class BlockParserCollection<DocumentT extends Node=Node, ParagraphT exten
     public getParagraphParser () {
         return this.paragraphParser;
     }
-    public hasName (name : string) {
-        return (this.dict[name] != undefined);
-    }
     public add (parser : BlockParser) : this {
-        const name = parser.getNodeType();
-        if (this.hasName(name)) {
-            throw new Error(`Parser ${name} has already been added`)
-        }
-        this.dict[name] = parser;
         this.arr.push(parser);
         return this;
     }
-    public has (key : string|Node) : boolean {
-        if (typeof key != "string") {
-            return this.has(key.type);
+    public has (key : Node) : boolean {
+        for (let i of this.arr) {
+            if (i.isParserOf(key)) {
+                return true;
+            }
         }
-        return this.dict[key] != undefined;
+        return false;
     }
-    public get<NodeT extends Node> (key : NodeT) : BlockParser<NodeT>;
-    public get (key : string) : BlockParser<Node>;
-    public get (key : string|Node) : BlockParser<Node> {
-        if (typeof key != "string") {
-            return this.get(key.type);
+    public get<NodeT extends Node> (key : NodeT) : BlockParser<NodeT> {
+        for (let i of this.arr) {
+            if (i.isParserOf(key)) {
+                return i;
+            }
         }
-        const result = this.dict[key];
-        if (result == undefined) {
-            throw new Error(`Parser ${key} does not exist`);
-        }
-        return result;
+        throw new Error(`No parser found for node ${Object.getPrototypeOf(key).constructor.name}`);
     }
     public length () {
         return this.arr.length;
@@ -68,13 +55,17 @@ export class BlockParserCollection<DocumentT extends Node=Node, ParagraphT exten
     }
     public isParagraphNode (node : Node) : node is ParagraphT {
         return (
-            this.getParagraphParser().getNodeType() == node.type &&
-            node instanceof this.getParagraphParser().getNodeCtor()
+            Object.getPrototypeOf(node).constructor ==
+            this.getParagraphParser().getNodeCtor()
         );
     }
     public instantiateDocument (sourcepos : Range) : DocumentT {
         const ctor = this.getDocumentParser().getNodeCtor();
-        return new ctor(this.getDocumentParser().getNodeType(), sourcepos);
+        return new ctor(sourcepos);
+    }
+    public instantiateParagraph (sourcepos : Range) : ParagraphT {
+        const ctor = this.getParagraphParser().getNodeCtor();
+        return new ctor(sourcepos);
     }
     public reinit () {
         this.documentParser.reinit();

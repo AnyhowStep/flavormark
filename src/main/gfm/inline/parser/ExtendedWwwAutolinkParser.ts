@@ -82,7 +82,7 @@ export class ExtendedWwwAutolinkParser extends InlineParser {
             destinationDomain = "http://" + destinationDomain;
         }
 
-        const node = new LinkNode('link');
+        const node = new LinkNode();
         node.destination = normalizeURI(`${destinationDomain}${trailing}`);
         //node.title = domain;
         node.appendChild(parser.text(escapeXml(domain+trailing, true)));

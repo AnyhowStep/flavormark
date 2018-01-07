@@ -1,1 +1,1 @@
-{"version":3,"file":"HardbreakNode.js","sourceRoot":"","sources":["../../../../../../src/main/commonmark/inline/node/HardbreakNode.ts"],"names":[],"mappings":";;AAAA,0CAAqC;AAErC,mBAA2B,SAAQ,WAAI;IACnC;QACI,KAAK,CAAC,WAAW,CAAC,CAAC;IACvB,CAAC;CACJ;AAJD,sCAIC"}
+{"version":3,"file":"HardbreakNode.js","sourceRoot":"","sources":["../../../../../../src/main/commonmark/inline/node/HardbreakNode.ts"],"names":[],"mappings":";;AAAA,0CAAqC;AAErC,mBAA2B,SAAQ,WAAI;IACnC;QACI,KAAK,EAAE,CAAC;IACZ,CAAC;CACJ;AAJD,sCAIC"}

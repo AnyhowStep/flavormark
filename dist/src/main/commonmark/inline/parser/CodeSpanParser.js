@@ -25,7 +25,7 @@ class CodeSpanParser extends InlineParser_1.InlineParser {
         let matched = parser.match(reTicks);
         while (matched != undefined) {
             if (matched == ticks) {
-                const codeSpan = new CodeSpanNode_1.CodeSpanNode('code');
+                const codeSpan = new CodeSpanNode_1.CodeSpanNode();
                 codeSpan.literal = parser.subject.slice(afterOpenTicks, parser.pos - ticks.length)
                     .trim()
                     .replace(reWhitespace, " ");

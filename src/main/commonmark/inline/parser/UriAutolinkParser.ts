@@ -18,7 +18,7 @@ export class UriAutolinkParser extends InlineParser {
             return false;
         }
         const dest = m.slice(1, m.length - 1);
-        const link = new LinkNode('link');
+        const link = new LinkNode();
         link.destination = normalizeURI(dest);
         link.title = '';
         link.appendChild(parser.text(dest));

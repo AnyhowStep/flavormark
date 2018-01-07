@@ -33,7 +33,7 @@ export class CheckboxParser extends InlineParser {
         const checkCharacter = m[m.length-2];
         const checked = (checkCharacter == "x" || checkCharacter == "X");
 
-        var checkbox = new CheckboxNode("checkbox");
+        var checkbox = new CheckboxNode();
         checkbox.checked = checked;
         node.prependChild(checkbox);
         return true;

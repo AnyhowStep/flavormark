@@ -75,7 +75,7 @@ class ExtendedWwwAutolinkParser extends InlineParser_1.InlineParser {
         if (/^www\./.test(destinationDomain)) {
             destinationDomain = "http://" + destinationDomain;
         }
-        const node = new LinkNode_1.LinkNode('link');
+        const node = new LinkNode_1.LinkNode();
         node.destination = common_1.normalizeURI(`${destinationDomain}${trailing}`);
         //node.title = domain;
         node.appendChild(parser.text(common_2.escapeXml(domain + trailing, true)));

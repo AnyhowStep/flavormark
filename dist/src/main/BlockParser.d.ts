@@ -1,7 +1,7 @@
 import { Parser } from "./Parser";
 import { Node, Range } from "./Node";
 export declare type BlockNodeCtor<NodeT extends Node> = {
-    new (nodeType: string, sourcepos: Range): NodeT;
+    new (sourcepos: Range): NodeT;
 };
 export interface BlockParserMeta {
     canContain(blockParser: BlockParserMeta, node: Node): boolean;
@@ -27,6 +27,7 @@ export declare abstract class BlockParser<NodeT extends Node = Node> implements 
     private readonly nodeType;
     private readonly nodeCtor;
     constructor(nodeType: string, nodeCtor: BlockNodeCtor<NodeT>);
+    isParserOf<OtherT extends Node>(node: OtherT): this is BlockParser<OtherT>;
     getNodeType(): string;
     getNodeCtor(): BlockNodeCtor<NodeT>;
     instantiate(sourceRange: Range): NodeT;

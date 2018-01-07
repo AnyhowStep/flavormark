@@ -26,7 +26,7 @@ class TexSpanParser extends InlineParser_1.InlineParser {
         let matched = parser.match(reDollar);
         while (matched != undefined) {
             if (/[^\\]\$/.test(matched)) {
-                const texSpan = new TexSpanNode_1.TexSpanNode('latex');
+                const texSpan = new TexSpanNode_1.TexSpanNode();
                 texSpan.literal = parser.subject.slice(startpos + 1, parser.pos - 1).trim().replace(reWhitespace, ' ');
                 node.appendChild(texSpan);
                 return true;
