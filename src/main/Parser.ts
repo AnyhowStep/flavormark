@@ -389,6 +389,7 @@ export class Parser {
             },
         });
         this.tip = this.doc;
+        this.oldtip = this.doc;
         this.lineNumber = 0;
         this.lastLineLength = 0;
         this.offset = 0;
