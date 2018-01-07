@@ -61,6 +61,7 @@ import {StrongHtmlRenderer} from "../main/commonmark/inline/render/html/StrongHt
 
 import {TexBlockHtmlRenderer} from "../main/flavormark/block/render/html/TexBlockHtmlRenderer";
 
+import {SubscriptHtmlRenderer} from "../main/flavormark/inline/render/html/SubscriptHtmlRenderer";
 import {SuperscriptHtmlRenderer} from "../main/flavormark/inline/render/html/SuperscriptHtmlRenderer";
 import {TexSpanHtmlRenderer} from "../main/flavormark/inline/render/html/TexSpanHtmlRenderer";
 
@@ -98,6 +99,7 @@ const betterHtmlRenderer = new BetterHtmlRenderer([
     new SoftbreakHtmlRenderer(),
     new StrongHtmlRenderer(),
     new TexBlockHtmlRenderer(),
+    new SubscriptHtmlRenderer(),
     new SuperscriptHtmlRenderer(),
     new TexSpanHtmlRenderer(),
     new TableHtmlRenderer(),
@@ -206,6 +208,7 @@ import {StringParser} from "./../main/commonmark/inline/parser/StringParser";
 import {InlineContentParser} from "../main/InlineContentParser";
 
 import {SuperscriptParser} from "./../main/flavormark/inline/parser/SuperscriptParser";
+import {SubscriptParser} from "./../main/flavormark/inline/parser/SubscriptParser";
 import {SmartStringParser} from "./../main/misc/inline/parser/SmartStringParser";
 import {StrikethroughParser} from "./../main/gfm/inline/parser/StrikethroughParser";
 import {CheckboxParser} from "./../main/gfm/inline/parser/CheckboxParser";
@@ -247,7 +250,7 @@ let reader = new commonmark.Parser({
 const flavorDelimParser = new DelimitedInlineParser(delimiters, [
     new EmphasisParser(),
     new SuperscriptParser(),
-    new StrikethroughParser(),
+    new SubscriptParser(), //Interferes with GFM strikethrough
 ]);
 const flavorInlineParsers : InlineParser[] = [
     new NewlineParser(),
@@ -483,6 +486,10 @@ specTests('src/test/strikethrough.txt', results, function(z : string) {
 //process.exit();
 specTests('src/test/smart.txt', results, function(z : string) {
     return writer.render(readerSmart.parse(z));
+});
+//process.exit();
+specTests('src/test/subscript.txt', results, function(z : string) {
+    return writer.render(flavorReader.parse(z));
 });
 //process.exit();
 specTests('src/test/superscript.txt', results, function(z : string) {
