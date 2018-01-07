@@ -177,6 +177,6 @@ moveRefactorProjectMulti(
         "./src/test/**/*.ts",
     ],
     "./src/dev/backup",
-    "./src/main/commonmark/*Parser.ts",
-    "./src/main/commonmark/block/parser"
+    "./src/main/commonmark/render/html/*.ts",
+    "./src/main/commonmark/block/render/html"
 );
