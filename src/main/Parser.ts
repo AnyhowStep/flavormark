@@ -3,7 +3,6 @@ import {BlockParserCollection} from "./BlockParserCollection";
 import {Node, Range} from "./Node";
 import {INDENT_LENGTH} from "./Constants";
 import {InlineContentParser}  from "./InlineContentParser";
-import {TextParser} from "./TextParser";
 
 export interface Options {
     time? : boolean
@@ -30,10 +29,6 @@ export class Parser {
     options : Options;
     blockParsers : BlockParserCollection;
     constructor (blockParsers : BlockParserCollection, inlineParser : InlineContentParser, options? : Options|undefined) {
-        const textParser = new TextParser();
-        if (!blockParsers.has(textParser.getNodeType())) {
-            blockParsers.add(textParser);
-        }
         this.inlineParser = inlineParser;
         this.options = options || {};
         this.blockParsers = blockParsers;

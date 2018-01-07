@@ -4,9 +4,16 @@ import { InlineParser } from "./InlineParser";
 import { RegexStream } from "./RegexStream";
 import { Node } from "./Node";
 import { Parser } from "./Parser";
+export interface InlineContentParserArgs {
+    inParsers: InlineParser[];
+    textNodeCtor?: {
+        new (str: string): TextNode;
+    };
+}
 export declare class InlineContentParser extends RegexStream {
     private inParsers;
-    constructor(inParsers: InlineParser[]);
+    private textNodeCtor;
+    constructor(args: InlineContentParserArgs);
     text(s: string): TextNode;
     isTextNode(node: Node): node is TextNode;
     parseInline(parser: Parser, blockParser: BlockParser, block: Node): boolean;

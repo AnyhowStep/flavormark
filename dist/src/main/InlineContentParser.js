@@ -8,12 +8,15 @@ const RegexStream_1 = require("./RegexStream");
 //TODO consider having InlineContentParser CONTAIN RegexStream, rather than extending.
 //     It makes more sense since the role of the parser isn't really to be a regex stream
 class InlineContentParser extends RegexStream_1.RegexStream {
-    constructor(inParsers) {
+    constructor(args) {
         super("");
-        this.inParsers = inParsers;
+        this.inParsers = args.inParsers;
+        this.textNodeCtor = (args.textNodeCtor == undefined) ?
+            TextNode_1.TextNode :
+            args.textNodeCtor;
     }
     text(s) {
-        return new TextNode_1.TextNode(s);
+        return new this.textNodeCtor(s);
     }
     isTextNode(node) {
         return node instanceof TextNode_1.TextNode;

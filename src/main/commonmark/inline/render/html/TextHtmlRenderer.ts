@@ -1,7 +1,7 @@
-import {HtmlSubRenderer} from "./render/html/HtmlSubRenderer";
-import {HtmlBuilder} from "./render/html/HtmlBuilder";
-import {TextNode} from "./TextNode";
-import {escapeXml} from "./common";
+import {HtmlSubRenderer} from "./../../../../render/html/HtmlSubRenderer";
+import {HtmlBuilder} from "./../../../../render/html/HtmlBuilder";
+import {TextNode} from "./../../../../TextNode";
+import {escapeXml} from "./../../../../common";
 
 export class TextHtmlRenderer extends HtmlSubRenderer<TextNode> {
     public constructor () {

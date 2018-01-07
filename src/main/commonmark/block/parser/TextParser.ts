@@ -1,5 +1,5 @@
-import {BlockParser, BlockNodeCtor} from "./BlockParser";
-import {TextNode} from "./TextNode";
+import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
+import {TextNode} from "./../../../TextNode";
 
 
 export class TextParser extends BlockParser<TextNode> {

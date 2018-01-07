@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const encode = require("mdurl/encode");
 const decode = require("mdurl/decode");
-const C_BACKSLASH = 92;
 const decodeHTML = require('entities').decodeHTML;
 exports.ENTITY = "&(?:#x[a-f0-9]{1,8}|#[0-9]{1,8}|[a-z][a-z0-9]{1,31});";
 const TAGNAME = '[A-Za-z][A-Za-z0-9-]*';
@@ -29,7 +28,7 @@ const XMLSPECIAL = '[&<>"]';
 const reXmlSpecial = new RegExp(XMLSPECIAL, 'g');
 const reXmlSpecialOrEntity = new RegExp(exports.ENTITY + '|' + XMLSPECIAL, 'gi');
 const unescapeChar = function (s) {
-    if (s.charCodeAt(0) === C_BACKSLASH) {
+    if (s[0] == "\\") {
         return s.charAt(1);
     }
     else {

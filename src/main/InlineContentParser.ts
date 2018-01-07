@@ -5,6 +5,11 @@ import {RegexStream} from "./RegexStream";
 import {Node} from "./Node";
 import {Parser} from "./Parser";
 
+export interface InlineContentParserArgs {
+    inParsers : InlineParser[],
+    textNodeCtor? : {new(str:string):TextNode},
+}
+
 // These are methods of an InlineContentParser object, defined below.
 // An InlineContentParser keeps track of a subject (a string to be
 // parsed) and a position in that subject.
@@ -12,13 +17,17 @@ import {Parser} from "./Parser";
 //     It makes more sense since the role of the parser isn't really to be a regex stream
 export class InlineContentParser extends RegexStream {
     private inParsers : InlineParser[];
-    public constructor (inParsers : InlineParser[]) {
+    private textNodeCtor : {new(str:string):TextNode};
+    public constructor (args : InlineContentParserArgs) {
         super("");
-        this.inParsers = inParsers;
+        this.inParsers = args.inParsers;
+        this.textNodeCtor = (args.textNodeCtor == undefined) ?
+            TextNode :
+            args.textNodeCtor;
     }
 
     public text (s : string) : TextNode {
-        return new TextNode(s);
+        return new this.textNodeCtor(s);
     }
     public isTextNode (node : Node) : node is TextNode {
         return node instanceof TextNode;

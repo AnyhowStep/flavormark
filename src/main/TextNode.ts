@@ -1,5 +1,8 @@
 import {Node} from "./Node";
 
+//If you want your own custom text node,
+//extend this class and pass its ctor to
+//InlineContentParser
 export class TextNode extends Node {
     public literal : string = "";
     public constructor (str : string) {

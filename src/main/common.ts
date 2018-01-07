@@ -3,8 +3,6 @@
 import * as encode from "mdurl/encode";
 import * as decode from "mdurl/decode";
 
-const C_BACKSLASH = 92;
-
 const decodeHTML = require('entities').decodeHTML;
 
 export const ENTITY = "&(?:#x[a-f0-9]{1,8}|#[0-9]{1,8}|[a-z][a-z0-9]{1,31});";
@@ -40,7 +38,7 @@ const reXmlSpecial = new RegExp(XMLSPECIAL, 'g');
 const reXmlSpecialOrEntity = new RegExp(ENTITY + '|' + XMLSPECIAL, 'gi');
 
 const unescapeChar = function(s : string) {
-    if (s.charCodeAt(0) === C_BACKSLASH) {
+    if (s[0] == "\\") {
         return s.charAt(1);
     } else {
         return decodeHTML(s);

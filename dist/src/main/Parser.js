@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const Constants_1 = require("./Constants");
-const TextParser_1 = require("./TextParser");
 class Parser {
     constructor(blockParsers, inlineParser, options) {
         this.currentLine = "";
@@ -16,10 +15,6 @@ class Parser {
         this.partiallyConsumedTab = false;
         this.allClosed = true;
         this.lastLineLength = 0;
-        const textParser = new TextParser_1.TextParser();
-        if (!blockParsers.has(textParser.getNodeType())) {
-            blockParsers.add(textParser);
-        }
         this.inlineParser = inlineParser;
         this.options = options || {};
         this.blockParsers = blockParsers;

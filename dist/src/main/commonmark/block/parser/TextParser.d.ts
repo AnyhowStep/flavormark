@@ -1,5 +1,5 @@
-import { BlockParser, BlockNodeCtor } from "./BlockParser";
-import { TextNode } from "./TextNode";
+import { BlockParser, BlockNodeCtor } from "./../../../BlockParser";
+import { TextNode } from "./../../../TextNode";
 export declare class TextParser extends BlockParser<TextNode> {
     acceptsLines: boolean;
     isLeaf: boolean;
