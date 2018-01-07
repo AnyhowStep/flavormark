@@ -1,7 +1,9 @@
 import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs, ParseResult} from "./../../../DelimitedInlineSubParser";
 import {RegexStream} from "./../../../RegexStream";
-import {Node} from "./../../../Node";
 import {removeDelimitersBetween} from "./../../../DelimiterCollection";
+import {EmphasisNode} from "../node/EmphasisNode";
+import {StrongNode} from "../node/StrongNode";
+
 var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;
 
@@ -84,7 +86,9 @@ export class EmphasisParser extends DelimitedInlineSubParser {
             );
 
             // build contents for new emph element
-            var emph = new Node(delimitersUsed === 1 ? 'emph' : 'strong');
+            var emph = (delimitersUsed == 1) ?
+                new EmphasisNode("emph") :
+                new StrongNode("strong");
 
             let tmp = opener_inl.getNext();
             while (tmp && tmp !== closer_inl) {

@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const DelimitedInlineSubParser_1 = require("./../../../DelimitedInlineSubParser");
-const Node_1 = require("./../../../Node");
 const DelimiterCollection_1 = require("./../../../DelimiterCollection");
+const EmphasisNode_1 = require("../node/EmphasisNode");
+const StrongNode_1 = require("../node/StrongNode");
 var C_ASTERISK = 42;
 var C_UNDERSCORE = 95;
 class EmphasisParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser {
@@ -64,7 +65,9 @@ class EmphasisParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser
             opener_inl.setString(opener_inl.getString().slice(0, opener_inl.getString().length - delimitersUsed));
             closer_inl.setString(closer_inl.getString().slice(0, closer_inl.getString().length - delimitersUsed));
             // build contents for new emph element
-            var emph = new Node_1.Node(delimitersUsed === 1 ? 'emph' : 'strong');
+            var emph = (delimitersUsed == 1) ?
+                new EmphasisNode_1.EmphasisNode("emph") :
+                new StrongNode_1.StrongNode("strong");
             let tmp = opener_inl.getNext();
             while (tmp && tmp !== closer_inl) {
                 let next = tmp.getNext();
