@@ -3,8 +3,8 @@ import {ThNode} from "./../node/ThNode";
 
 export class ThParser extends BlockParser<ThNode> {
     public parseInlines = true;
-    public constructor (nodeType : string = "th", nodeCtor : BlockNodeCtor<ThNode> = ThNode) {
-        super(nodeType, nodeCtor);
+    public constructor (nodeCtor : BlockNodeCtor<ThNode> = ThNode) {
+        super(nodeCtor);
     }
     public continue () : boolean { return false; }
     public finalize () {}

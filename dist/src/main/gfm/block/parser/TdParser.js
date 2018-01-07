@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
 const TdNode_1 = require("./../node/TdNode");
 class TdParser extends BlockParser_1.BlockParser {
-    constructor(nodeType = "td", nodeCtor = TdNode_1.TdNode) {
-        super(nodeType, nodeCtor);
+    constructor(nodeCtor = TdNode_1.TdNode) {
+        super(nodeCtor);
         this.parseInlines = true;
     }
     continue() { return false; }

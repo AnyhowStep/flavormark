@@ -5,7 +5,7 @@ export declare class AtxHeadingParser extends BlockParser<HeadingNode> {
     acceptsLines: boolean;
     parseInlines: boolean;
     isLeaf: boolean;
-    constructor(nodeType?: string, nodeCtor?: BlockNodeCtor<HeadingNode>);
+    constructor(nodeCtor?: BlockNodeCtor<HeadingNode>);
     tryStart(parser: Parser): boolean;
     continue(): boolean;
     finalize(): void;

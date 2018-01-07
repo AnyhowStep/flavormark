@@ -6,8 +6,8 @@ export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> 
     public acceptsLines = true;
     public isLeaf = true;
 
-    public constructor (nodeType : string = "indented_code_block", nodeCtor : BlockNodeCtor<IndentedCodeBlockNode> = IndentedCodeBlockNode) {
-        super(nodeType, nodeCtor);
+    public constructor (nodeCtor : BlockNodeCtor<IndentedCodeBlockNode> = IndentedCodeBlockNode) {
+        super(nodeCtor);
     }
 
     public tryStart (parser : Parser) {

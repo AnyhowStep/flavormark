@@ -6,7 +6,7 @@ export declare class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
     static readonly START_CHAR: string;
     acceptsLines: boolean;
     isLeaf: boolean;
-    constructor(nodeType?: string, nodeCtor?: BlockNodeCtor<HtmlBlockNode>);
+    constructor(nodeCtor?: BlockNodeCtor<HtmlBlockNode>);
     tryStart(parser: Parser, node: Node): boolean;
     continue(parser: Parser, node: HtmlBlockNode): boolean;
     finalize(_parser: Parser, node: HtmlBlockNode): void;

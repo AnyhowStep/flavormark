@@ -13,8 +13,8 @@ export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
     public earlyExitOnEnd = true;
     public isLeaf = true;
 
-    public constructor (nodeType : string = "fenced_code_block", nodeCtor : BlockNodeCtor<FencedCodeBlockNode> = FencedCodeBlockNode) {
-        super(nodeType, nodeCtor);
+    public constructor (nodeCtor : BlockNodeCtor<FencedCodeBlockNode> = FencedCodeBlockNode) {
+        super(nodeCtor);
     }
 
     public tryStart (parser : Parser) {

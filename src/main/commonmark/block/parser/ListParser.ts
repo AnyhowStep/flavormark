@@ -8,8 +8,8 @@ export class ListParser extends BlockParser<ListNode> {
     public acceptsLines = false;
     public endsWithBlankLineIfLastChildEndsWithBlankLine = true;
 
-    public constructor (nodeType : string = "list", nodeCtor : BlockNodeCtor<ListNode> = ListNode) {
-        super(nodeType, nodeCtor);
+    public constructor (nodeCtor : BlockNodeCtor<ListNode> = ListNode) {
+        super(nodeCtor);
     }
 
     public continue () { return true; }

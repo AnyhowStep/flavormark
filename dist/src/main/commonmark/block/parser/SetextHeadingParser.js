@@ -4,8 +4,8 @@ const BlockParser_1 = require("./../../../BlockParser");
 const HeadingNode_1 = require("./../node/HeadingNode");
 const reSetextHeadingLine = /^(?:=+|-+)[ \t]*$/;
 class SetextHeadingParser extends BlockParser_1.BlockParser {
-    constructor(nodeType = "setext_heading", nodeCtor = HeadingNode_1.HeadingNode) {
-        super(nodeType, nodeCtor);
+    constructor(nodeCtor = HeadingNode_1.HeadingNode) {
+        super(nodeCtor);
         this.acceptsLines = false;
         this.parseInlines = true;
         this.isLeaf = true;

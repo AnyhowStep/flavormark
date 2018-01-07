@@ -24,12 +24,11 @@ export declare abstract class BlockParser<NodeT extends Node = Node> implements 
     parseInlines?: boolean;
     isLeaf?: boolean;
     endsWithBlankLineIfLastChildEndsWithBlankLine?: boolean;
-    private readonly nodeType;
     private readonly nodeCtor;
-    constructor(nodeType: string, nodeCtor: BlockNodeCtor<NodeT>);
+    constructor(nodeCtor: BlockNodeCtor<NodeT>);
     isParserOf<OtherT extends Node>(node: OtherT): this is BlockParser<OtherT>;
-    getNodeType(): string;
     getNodeCtor(): BlockNodeCtor<NodeT>;
+    getName(): string;
     instantiate(sourceRange: Range): NodeT;
     appendString(_node: NodeT, _str: string): void;
     getString(_node: NodeT): string;

@@ -9,7 +9,7 @@ export declare class ParagraphParser extends BlockParser<ParagraphNode> {
     isLeaf: boolean;
     isParagraph: boolean;
     private refMap;
-    constructor(refMap: RefMap, nodeType?: string, nodeCtor?: BlockNodeCtor<ParagraphNode>);
+    constructor(refMap: RefMap, nodeCtor?: BlockNodeCtor<ParagraphNode>);
     reinit(): void;
     continue(parser: Parser): boolean;
     finalize(_parser: Parser, node: ParagraphNode): void;

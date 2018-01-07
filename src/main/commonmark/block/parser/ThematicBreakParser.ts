@@ -8,8 +8,8 @@ export class ThematicBreakParser extends BlockParser<ThematicBreakNode> {
     public acceptsLines = false;
     public isLeaf = true;
 
-    public constructor (nodeType : string = "thematic_break", nodeCtor : BlockNodeCtor<ThematicBreakNode> = ThematicBreakNode) {
-        super(nodeType, nodeCtor);
+    public constructor (nodeCtor : BlockNodeCtor<ThematicBreakNode> = ThematicBreakNode) {
+        super(nodeCtor);
     }
 
     public tryStart (parser : Parser) {

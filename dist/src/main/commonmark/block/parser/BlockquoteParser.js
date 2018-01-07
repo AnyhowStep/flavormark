@@ -4,8 +4,8 @@ const BlockParser_1 = require("./../../../BlockParser");
 const util_1 = require("./../../../refactored/util");
 const BlockquoteNode_1 = require("./../node/BlockquoteNode");
 class BlockquoteParser extends BlockParser_1.BlockParser {
-    constructor(nodeType = "block_quote", nodeCtor = BlockquoteNode_1.BlockquoteNode) {
-        super(nodeType, nodeCtor);
+    constructor(nodeCtor = BlockquoteNode_1.BlockquoteNode) {
+        super(nodeCtor);
         this.acceptsLines = false;
     }
     tryStart(parser) {

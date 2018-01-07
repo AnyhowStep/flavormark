@@ -8,8 +8,8 @@ export class BlockquoteParser extends BlockParser<BlockquoteNode> {
 
     public acceptsLines = false;
 
-    public constructor (nodeType : string = "block_quote", nodeCtor : BlockNodeCtor<BlockquoteNode> = BlockquoteNode) {
-        super(nodeType, nodeCtor);
+    public constructor (nodeCtor : BlockNodeCtor<BlockquoteNode> = BlockquoteNode) {
+        super(nodeCtor);
     }
 
     public tryStart (parser : Parser) {

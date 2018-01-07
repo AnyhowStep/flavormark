@@ -1,9 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class BlockParser {
-    constructor(nodeType, nodeCtor) {
+    constructor(nodeCtor) {
         this.acceptsLines = false;
-        this.nodeType = nodeType;
         this.nodeCtor = nodeCtor;
     }
     canBeContainedBy(_blockParser, _node) {
@@ -12,18 +11,18 @@ class BlockParser {
     isParserOf(node) {
         return node instanceof this.nodeCtor;
     }
-    getNodeType() {
-        return this.nodeType;
-    }
     getNodeCtor() {
         return this.nodeCtor;
+    }
+    getName() {
+        return this.nodeCtor.name;
     }
     instantiate(sourceRange) {
         return new this.nodeCtor(sourceRange);
     }
     //Only called if acceptsLines is true
     appendString(_node, _str) {
-        throw new Error(`appendString() not implemented for ${this.getNodeType()}`);
+        throw new Error(`appendString() not implemented for ${this.getName()}`);
     }
     getString(_node) {
         return "";

@@ -6,7 +6,7 @@ export declare class SetextHeadingParser extends BlockParser<HeadingNode> {
     acceptsLines: boolean;
     parseInlines: boolean;
     isLeaf: boolean;
-    constructor(nodeType?: string, nodeCtor?: BlockNodeCtor<HeadingNode>);
+    constructor(nodeCtor?: BlockNodeCtor<HeadingNode>);
     tryStart(parser: Parser, node: Node): boolean;
     continue(): boolean;
     finalize(): void;

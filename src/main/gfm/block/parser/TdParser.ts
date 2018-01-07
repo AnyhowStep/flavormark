@@ -3,8 +3,8 @@ import {TdNode} from "./../node/TdNode";
 
 export class TdParser extends BlockParser<TdNode> {
     public parseInlines = true;
-    public constructor (nodeType : string = "td", nodeCtor : BlockNodeCtor<TdNode> = TdNode) {
-        super(nodeType, nodeCtor);
+    public constructor (nodeCtor : BlockNodeCtor<TdNode> = TdNode) {
+        super(nodeCtor);
     }
     public continue () : boolean { return false; }
     public finalize () {}

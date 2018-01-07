@@ -106,8 +106,8 @@ export class ItemParser extends BlockParser<ItemNode> {
 
     private listParser : BlockParser<ListNode>;
 
-    public constructor (listParser : BlockParser<ListNode>, nodeType : string = "item", nodeCtor : BlockNodeCtor<ItemNode> = ItemNode) {
-        super(nodeType, nodeCtor);
+    public constructor (listParser : BlockParser<ListNode>, nodeCtor : BlockNodeCtor<ItemNode> = ItemNode) {
+        super(nodeCtor);
         this.listParser = listParser;
     }
 

@@ -38,8 +38,8 @@ function toColumns(str) {
     });
 }
 class TableParser extends BlockParser_1.BlockParser {
-    constructor(args, nodeType = "table", nodeCtor = TableNode_1.TableNode) {
-        super(nodeType, nodeCtor);
+    constructor(args, nodeCtor = TableNode_1.TableNode) {
+        super(nodeCtor);
         this.acceptsLines = false;
         this.parseInlines = false;
         this.isLeaf = true;

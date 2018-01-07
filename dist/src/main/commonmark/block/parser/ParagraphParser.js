@@ -5,8 +5,8 @@ const util_1 = require("./../../../refactored/util");
 const link_util_1 = require("./../../link-util");
 const ParagraphNode_1 = require("./../node/ParagraphNode");
 class ParagraphParser extends BlockParser_1.BlockParser {
-    constructor(refMap, nodeType = "paragraph", nodeCtor = ParagraphNode_1.ParagraphNode) {
-        super(nodeType, nodeCtor);
+    constructor(refMap, nodeCtor = ParagraphNode_1.ParagraphNode) {
+        super(nodeCtor);
         this.acceptsLines = true;
         this.parseInlines = true;
         this.acceptLazyContinuation = true;

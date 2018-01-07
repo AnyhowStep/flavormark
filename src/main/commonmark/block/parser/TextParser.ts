@@ -6,8 +6,8 @@ export class TextParser extends BlockParser<TextNode> {
     public acceptsLines = false;
     public isLeaf = true;
 
-    public constructor (nodeType : string = "text", nodeCtor : BlockNodeCtor<TextNode> = TextNode) {
-        super(nodeType, nodeCtor);
+    public constructor (nodeCtor : BlockNodeCtor<TextNode> = TextNode) {
+        super(nodeCtor);
     }
 
     public tryStart () {

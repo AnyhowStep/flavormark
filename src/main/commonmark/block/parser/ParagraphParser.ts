@@ -13,8 +13,8 @@ export class ParagraphParser extends BlockParser<ParagraphNode> {
     public isParagraph = true;
 
     private refMap : RefMap;
-    public constructor (refMap : RefMap, nodeType : string = "paragraph", nodeCtor : BlockNodeCtor<ParagraphNode> = ParagraphNode) {
-        super(nodeType, nodeCtor);
+    public constructor (refMap : RefMap, nodeCtor : BlockNodeCtor<ParagraphNode> = ParagraphNode) {
+        super(nodeCtor);
         this.refMap = refMap;
     }
 

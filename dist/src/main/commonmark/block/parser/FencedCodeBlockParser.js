@@ -7,8 +7,8 @@ const FencedCodeBlockNode_1 = require("./../node/FencedCodeBlockNode");
 const reCodeFence = /^`{3,}(?!.*`)|^~{3,}(?!.*~)/;
 const reClosingCodeFence = /^(?:`{3,}|~{3,})(?= *$)/;
 class FencedCodeBlockParser extends BlockParser_1.BlockParser {
-    constructor(nodeType = "fenced_code_block", nodeCtor = FencedCodeBlockNode_1.FencedCodeBlockNode) {
-        super(nodeType, nodeCtor);
+    constructor(nodeCtor = FencedCodeBlockNode_1.FencedCodeBlockNode) {
+        super(nodeCtor);
         this.acceptsLines = true;
         this.earlyExitOnEnd = true;
         this.isLeaf = true;

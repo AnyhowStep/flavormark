@@ -4,8 +4,8 @@ const BlockParser_1 = require("./../../../BlockParser");
 const ItemNode_1 = require("./../node/ItemNode");
 const ListNode_1 = require("./../node/ListNode");
 class ListParser extends BlockParser_1.BlockParser {
-    constructor(nodeType = "list", nodeCtor = ListNode_1.ListNode) {
-        super(nodeType, nodeCtor);
+    constructor(nodeCtor = ListNode_1.ListNode) {
+        super(nodeCtor);
         this.acceptsLines = false;
         this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;
     }

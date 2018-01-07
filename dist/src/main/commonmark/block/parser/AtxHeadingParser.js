@@ -4,8 +4,8 @@ const BlockParser_1 = require("./../../../BlockParser");
 const HeadingNode_1 = require("./../node/HeadingNode");
 const reATXHeadingMarker = /^#{1,6}(?:[ \t]+|$)/;
 class AtxHeadingParser extends BlockParser_1.BlockParser {
-    constructor(nodeType = "atx_heading", nodeCtor = HeadingNode_1.HeadingNode) {
-        super(nodeType, nodeCtor);
+    constructor(nodeCtor = HeadingNode_1.HeadingNode) {
+        super(nodeCtor);
         this.acceptsLines = false;
         this.parseInlines = true;
         this.isLeaf = true;

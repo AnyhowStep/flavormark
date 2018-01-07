@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
 const DocumentNode_1 = require("./../node/DocumentNode");
 class DocumentParser extends BlockParser_1.BlockParser {
-    constructor(nodeType = "document", nodeCtor = DocumentNode_1.DocumentNode) {
-        super(nodeType, nodeCtor);
+    constructor(nodeCtor = DocumentNode_1.DocumentNode) {
+        super(nodeCtor);
         this.acceptsLines = false;
     }
     continue() { return true; }

@@ -42,10 +42,8 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
     public endsWithBlankLineIfLastChildEndsWithBlankLine? : boolean;
     //END META
 
-    private readonly nodeType : string;
     private readonly nodeCtor : BlockNodeCtor<NodeT>;
-    public constructor (nodeType : string, nodeCtor : BlockNodeCtor<NodeT>) {
-        this.nodeType = nodeType;
+    public constructor (nodeCtor : BlockNodeCtor<NodeT>) {
         this.nodeCtor = nodeCtor;
     }
 
@@ -53,11 +51,11 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
         return node instanceof this.nodeCtor;
     }
 
-    public getNodeType () : string {
-        return this.nodeType;
-    }
     public getNodeCtor () : BlockNodeCtor<NodeT> {
         return this.nodeCtor;
+    }
+    public getName () {
+        return this.nodeCtor.name;
     }
     public instantiate (sourceRange : Range) {
         return new this.nodeCtor(sourceRange);
@@ -65,7 +63,7 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
 
     //Only called if acceptsLines is true
     public appendString (_node : NodeT, _str : string) : void {
-        throw new Error(`appendString() not implemented for ${this.getNodeType()}`);
+        throw new Error(`appendString() not implemented for ${this.getName()}`);
     }
 
     public getString (_node : NodeT) : string {

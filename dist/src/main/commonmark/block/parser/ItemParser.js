@@ -83,8 +83,8 @@ function listsMatch(list_data, item_data) {
 }
 ;
 class ItemParser extends BlockParser_1.BlockParser {
-    constructor(listParser, nodeType = "item", nodeCtor = ItemNode_1.ItemNode) {
-        super(nodeType, nodeCtor);
+    constructor(listParser, nodeCtor = ItemNode_1.ItemNode) {
+        super(nodeCtor);
         this.acceptsLines = false;
         this.endsWithBlankLineIfLastChildEndsWithBlankLine = true;
         this.listParser = listParser;

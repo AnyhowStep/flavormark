@@ -9,8 +9,8 @@ export class AtxHeadingParser extends BlockParser<HeadingNode> {
     public parseInlines = true;
     public isLeaf = true;
 
-    public constructor (nodeType : string = "atx_heading", nodeCtor : BlockNodeCtor<HeadingNode> = HeadingNode) {
-        super(nodeType, nodeCtor);
+    public constructor (nodeCtor : BlockNodeCtor<HeadingNode> = HeadingNode) {
+        super(nodeCtor);
     }
 
     public tryStart (parser : Parser) {

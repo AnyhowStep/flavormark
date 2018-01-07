@@ -31,8 +31,8 @@ export class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
     public acceptsLines = true;
     public isLeaf = true;
 
-    public constructor (nodeType : string = "html_block", nodeCtor : BlockNodeCtor<HtmlBlockNode> = HtmlBlockNode) {
-        super(nodeType, nodeCtor);
+    public constructor (nodeCtor : BlockNodeCtor<HtmlBlockNode> = HtmlBlockNode) {
+        super(nodeCtor);
     }
 
     public tryStart (parser : Parser, node : Node) {

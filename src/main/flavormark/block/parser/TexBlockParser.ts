@@ -12,8 +12,8 @@ export class TexBlockParser extends BlockParser<TexBlockNode> {
     public earlyExitOnEnd = true;
     public isLeaf = true;
 
-    public constructor (nodeType : string = "latex_block", nodeCtor : BlockNodeCtor<TexBlockNode> = TexBlockNode) {
-        super(nodeType, nodeCtor);
+    public constructor (nodeCtor : BlockNodeCtor<TexBlockNode> = TexBlockNode) {
+        super(nodeCtor);
     }
 
     public tryStart (parser : Parser) {

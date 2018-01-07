@@ -5,7 +5,7 @@ export declare class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNo
     acceptsLines: boolean;
     earlyExitOnEnd: boolean;
     isLeaf: boolean;
-    constructor(nodeType?: string, nodeCtor?: BlockNodeCtor<FencedCodeBlockNode>);
+    constructor(nodeCtor?: BlockNodeCtor<FencedCodeBlockNode>);
     tryStart(parser: Parser): boolean;
     continue(parser: Parser, node: FencedCodeBlockNode): boolean;
     finalize(_parser: Parser, node: FencedCodeBlockNode): void;

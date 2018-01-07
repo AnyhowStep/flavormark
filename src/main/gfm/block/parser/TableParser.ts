@@ -63,8 +63,8 @@ export class TableParser extends BlockParser<TableNode> {
     public acceptLazyContinuation = true;
 
     private args : TableParserArgs;
-    public constructor (args : TableParserArgs, nodeType : string = "table", nodeCtor : BlockNodeCtor<TableNode> = TableNode) {
-        super(nodeType, nodeCtor);
+    public constructor (args : TableParserArgs, nodeCtor : BlockNodeCtor<TableNode> = TableNode) {
+        super(nodeCtor);
         this.args = args;
     }
 

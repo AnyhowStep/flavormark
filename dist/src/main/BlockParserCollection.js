@@ -6,9 +6,6 @@ class BlockParserCollection {
         if (!paragraphParser.isActuallyParagraph()) {
             throw new Error(`Paragraph parser must accept lines and be a paragraph`);
         }
-        if (documentParser.getNodeType() == paragraphParser.getNodeType()) {
-            throw new Error(`Document and paragraph parser cannot both have the same name ${documentParser.getNodeType()}`);
-        }
         this.documentParser = documentParser;
         this.paragraphParser = paragraphParser;
         this.arr.push(documentParser);

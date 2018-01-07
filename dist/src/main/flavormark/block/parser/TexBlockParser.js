@@ -6,8 +6,8 @@ const TexBlockNode_1 = require("./../node/TexBlockNode");
 var reCodeFence = /^\${2,}(?!.*`)/;
 var reClosingCodeFence = /^(?:\${2,})(?= *$)/;
 class TexBlockParser extends BlockParser_1.BlockParser {
-    constructor(nodeType = "latex_block", nodeCtor = TexBlockNode_1.TexBlockNode) {
-        super(nodeType, nodeCtor);
+    constructor(nodeCtor = TexBlockNode_1.TexBlockNode) {
+        super(nodeCtor);
         this.acceptsLines = true;
         this.earlyExitOnEnd = true;
         this.isLeaf = true;

@@ -4,8 +4,8 @@ import {DocumentNode} from "./../node/DocumentNode";
 export class DocumentParser extends BlockParser<DocumentNode> {
     public acceptsLines = false;
 
-    public constructor (nodeType : string = "document", nodeCtor : BlockNodeCtor<DocumentNode> = DocumentNode) {
-        super(nodeType, nodeCtor);
+    public constructor (nodeCtor : BlockNodeCtor<DocumentNode> = DocumentNode) {
+        super(nodeCtor);
     }
 
     public continue () { return true; }

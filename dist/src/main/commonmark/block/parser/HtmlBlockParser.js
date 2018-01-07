@@ -22,8 +22,8 @@ const reHtmlBlockOpen = [
     new RegExp('^(?:' + common_1.OPENTAG + '|' + common_1.CLOSETAG + ')\\s*$', 'i')
 ];
 class HtmlBlockParser extends BlockParser_1.BlockParser {
-    constructor(nodeType = "html_block", nodeCtor = HtmlBlockNode_1.HtmlBlockNode) {
-        super(nodeType, nodeCtor);
+    constructor(nodeCtor = HtmlBlockNode_1.HtmlBlockNode) {
+        super(nodeCtor);
         this.acceptsLines = true;
         this.isLeaf = true;
     }

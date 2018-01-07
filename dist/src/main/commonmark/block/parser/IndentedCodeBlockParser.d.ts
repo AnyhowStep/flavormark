@@ -4,7 +4,7 @@ import { IndentedCodeBlockNode } from "./../node/IndentedCodeBlockNode";
 export declare class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> {
     acceptsLines: boolean;
     isLeaf: boolean;
-    constructor(nodeType?: string, nodeCtor?: BlockNodeCtor<IndentedCodeBlockNode>);
+    constructor(nodeCtor?: BlockNodeCtor<IndentedCodeBlockNode>);
     tryStart(parser: Parser): boolean;
     continue(parser: Parser): boolean;
     finalize(_parser: Parser, block: IndentedCodeBlockNode): void;

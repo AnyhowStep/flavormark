@@ -7,7 +7,7 @@ export declare class ItemParser extends BlockParser<ItemNode> {
     acceptsLines: boolean;
     endsWithBlankLineIfLastChildEndsWithBlankLine: boolean;
     private listParser;
-    constructor(listParser: BlockParser<ListNode>, nodeType?: string, nodeCtor?: BlockNodeCtor<ItemNode>);
+    constructor(listParser: BlockParser<ListNode>, nodeCtor?: BlockNodeCtor<ItemNode>);
     tryStart(parser: Parser, container: Node): boolean;
     continue(parser: Parser, container: ItemNode): boolean;
     finalize(): void;
