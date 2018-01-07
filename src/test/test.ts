@@ -39,8 +39,82 @@ var cursor = {
     reset: escSeq('[0m')
 };
 
-var writer = new commonmark.HtmlRenderer();
+import {BlockquoteHtmlRenderer} from "../main/commonmark/block/render/html/BlockquoteHtmlRenderer";
+import {DocumentHtmlRenderer} from "../main/commonmark/block/render/html/DocumentHtmlRenderer";
+import {FencedCodeBlockHtmlRenderer} from "../main/commonmark/block/render/html/FencedCodeBlockHtmlRenderer";
+import {HeadingHtmlRenderer} from "../main/commonmark/block/render/html/HeadingHtmlRenderer";
+import {HtmlBlockHtmlRenderer} from "../main/commonmark/block/render/html/HtmlBlockHtmlRenderer";
+import {IndentedCodeBlockHtmlRenderer} from "../main/commonmark/block/render/html/IndentedCodeBlockHtmlRenderer";
+import {ItemHtmlRenderer} from "../main/commonmark/block/render/html/ItemHtmlRenderer";
+import {ListHtmlRenderer} from "../main/commonmark/block/render/html/ListHtmlRenderer";
+import {ParagraphHtmlRenderer} from "../main/commonmark/block/render/html/ParagraphHtmlRenderer";
+import {ThematicBreakHtmlRenderer} from "../main/commonmark/block/render/html/ThematicBreakHtmlRenderer";
 
+import {CodeSpanHtmlRenderer} from "../main/commonmark/inline/render/html/CodeSpanHtmlRenderer";
+import {EmphasisHtmlRenderer} from "../main/commonmark/inline/render/html/EmphasisHtmlRenderer";
+import {HardbreakHtmlRenderer} from "../main/commonmark/inline/render/html/HardbreakHtmlRenderer";
+import {HtmlTagHtmlRenderer} from "../main/commonmark/inline/render/html/HtmlTagHtmlRenderer";
+import {ImageHtmlRenderer} from "../main/commonmark/inline/render/html/ImageHtmlRenderer";
+import {LinkHtmlRenderer} from "../main/commonmark/inline/render/html/LinkHtmlRenderer";
+import {SoftbreakHtmlRenderer} from "../main/commonmark/inline/render/html/SoftbreakHtmlRenderer";
+import {StrongHtmlRenderer} from "../main/commonmark/inline/render/html/StrongHtmlRenderer";
+
+import {TexBlockHtmlRenderer} from "../main/flavormark/block/render/html/TexBlockHtmlRenderer";
+
+import {SuperscriptHtmlRenderer} from "../main/flavormark/inline/render/html/SuperscriptHtmlRenderer";
+import {TexSpanHtmlRenderer} from "../main/flavormark/inline/render/html/TexSpanHtmlRenderer";
+
+import {TableHtmlRenderer} from "../main/gfm/block/render/html/TableHtmlRenderer";
+import {TbodyHtmlRenderer} from "../main/gfm/block/render/html/TbodyHtmlRenderer";
+import {TdHtmlRenderer} from "../main/gfm/block/render/html/TdHtmlRenderer";
+import {TheadHtmlRenderer} from "../main/gfm/block/render/html/TheadHtmlRenderer";
+import {ThHtmlRenderer} from "../main/gfm/block/render/html/ThHtmlRenderer";
+import {TrHtmlRenderer} from "../main/gfm/block/render/html/TrHtmlRenderer";
+
+import {CheckboxHtmlRenderer} from "../main/gfm/inline/render/html/CheckboxHtmlRenderer";
+import {StrikethroughHtmlRenderer} from "../main/gfm/inline/render/html/StrikethroughHtmlRenderer";
+
+import {TextHtmlRenderer} from "../main/TextHtmlRenderer";
+
+import {HtmlRenderer as BetterHtmlRenderer} from "../main/render/html/HtmlRenderer";
+const betterHtmlRenderer = new BetterHtmlRenderer([
+    //Lazy to do this right
+    new BlockquoteHtmlRenderer(),
+    new DocumentHtmlRenderer(),
+    new FencedCodeBlockHtmlRenderer(),
+    new HeadingHtmlRenderer(),
+    new HtmlBlockHtmlRenderer(),
+    new IndentedCodeBlockHtmlRenderer(),
+    new ItemHtmlRenderer(),
+    new ListHtmlRenderer(),
+    new ParagraphHtmlRenderer(),
+    new ThematicBreakHtmlRenderer(),
+    new CodeSpanHtmlRenderer(),
+    new EmphasisHtmlRenderer(),
+    new HardbreakHtmlRenderer(),
+    new HtmlTagHtmlRenderer(),
+    new ImageHtmlRenderer(),
+    new LinkHtmlRenderer(),
+    new SoftbreakHtmlRenderer(),
+    new StrongHtmlRenderer(),
+    new TexBlockHtmlRenderer(),
+    new SuperscriptHtmlRenderer(),
+    new TexSpanHtmlRenderer(),
+    new TableHtmlRenderer(),
+    new TbodyHtmlRenderer(),
+    new TdHtmlRenderer(),
+    new TheadHtmlRenderer(),
+    new ThHtmlRenderer(),
+    new TrHtmlRenderer(),
+    new CheckboxHtmlRenderer(),
+    new StrikethroughHtmlRenderer(),
+    new TextHtmlRenderer(),
+]);
+
+import {Node} from "../main/Node";
+
+var writer : { render(n : Node) : string } = new commonmark.HtmlRenderer();
+writer = betterHtmlRenderer;
 
 import {DocumentParser} from "./../main/commonmark/block/parser/DocumentParser";
 import {ListParser} from "./../main/commonmark/block/parser/ListParser";
@@ -52,10 +126,10 @@ import {ParagraphParser} from "./../main/commonmark/block/parser/ParagraphParser
 import {AtxHeadingParser} from "./../main/commonmark/block/parser/AtxHeadingParser";
 import {SetextHeadingParser} from "./../main/commonmark/block/parser/SetextHeadingParser";
 import {FencedCodeBlockParser} from "./../main/commonmark/block/parser/FencedCodeBlockParser";
-import {latexBlockParser} from "../main/refactored/latex-block";
+import {TexBlockParser} from "./../main/flavormark/block/parser/TexBlockParser";
 import {IndentedCodeBlockParser} from "./../main/commonmark/block/parser/IndentedCodeBlockParser";
 import {BlockParserCollection} from "../main/BlockParserCollection";
-//import {Node} from "../main/refactored/Node";
+
 import {TableParser} from "./../main/gfm/block/parser/TableParser";
 import {TbodyParser} from "./../main/gfm/block/parser/TbodyParser";
 import {TdParser} from "./../main/gfm/block/parser/TdParser";
@@ -89,7 +163,7 @@ const blockParserCollection = new BlockParserCollection(
     .add(new AtxHeadingParser())
     .add(new FencedCodeBlockParser())
 
-    .add(latexBlockParser)
+    .add(new TexBlockParser())
 
     .add(new HtmlBlockParser())
     .add(new SetextHeadingParser())

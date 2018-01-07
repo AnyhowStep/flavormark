@@ -9,19 +9,19 @@ class ImageHtmlRenderer extends HtmlSubRenderer_1.HtmlSubRenderer {
     }
     render(builder, node, entering) {
         if (entering) {
-            //if (this.disableTags === 0) {
-            builder.append('<img src="', common_1.escapeXml(node.destination, true), '" alt="');
-            //}
-            //this.disableTags += 1;
+            if (builder.tagsAllowed()) {
+                builder.append('<img src="', common_1.escapeXml(node.destination, true), '" alt="');
+            }
+            builder.addDisableTag();
         }
         else {
-            //this.disableTags -= 1;
-            //if (this.disableTags === 0) {
-            if (node.title) {
-                builder.append('" title="', common_1.escapeXml(node.title, true));
+            builder.removeDisableTag();
+            if (builder.tagsAllowed()) {
+                if (node.title) {
+                    builder.append('" title="', common_1.escapeXml(node.title, true));
+                }
+                builder.append('" />');
             }
-            builder.append('" />');
-            //}
         }
     }
 }

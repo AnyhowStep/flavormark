@@ -1,13 +1,13 @@
 import {Node} from "./Node";
 
 export class TextNode extends Node {
-    public literal : string|undefined = undefined;
+    public literal : string = "";
     public constructor (str : string) {
         super("text");
         this.literal = str;
     }
     public getString () {
-        return this.literal || "";
+        return this.literal;
     }
     public setString (str : string) {
         this.literal = str;

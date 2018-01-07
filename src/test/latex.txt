@@ -14,7 +14,7 @@ This example also illustrates stripping of leading and trailing spaces:
 ```````````````````````````````` example
 $$ foo $ bar  $$
 .
-<latex_block> foo \$ bar</latex_block>
+<latex_block> foo \$ bar  </latex_block>
 ````````````````````````````````
 
 
@@ -249,4 +249,57 @@ You cannot have empty inline tex
 Empty tex renders as $$ dollar signs
 .
 <p>Empty tex renders as $$ dollar signs</p>
+````````````````````````````````
+
+
+Empty Tex Block
+
+```````````````````````````````` example
+$$$$
+.
+<latex_block>
+</latex_block>
+````````````````````````````````
+
+Whitespace Tex Block
+
+```````````````````````````````` example
+$$ $$
+.
+<latex_block> </latex_block>
+````````````````````````````````
+
+Empty Tex Block
+
+```````````````````````````````` example
+$$$$$$
+.
+<latex_block>
+</latex_block>
+````````````````````````````````
+
+Dollar in Tex Block
+
+```````````````````````````````` example
+$$ $ $$
+.
+<latex_block> \$ </latex_block>
+````````````````````````````````
+
+Empty Tex Block
+
+```````````````````````````````` example
+$$$$$
+.
+<latex_block>
+</latex_block>
+````````````````````````````````
+
+Unexpected
+
+```````````````````````````````` example
+$$\$$$
+.
+<latex_block>\$\$\$
+</latex_block>
 ````````````````````````````````

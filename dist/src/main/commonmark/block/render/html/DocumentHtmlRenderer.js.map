@@ -1,0 +1,1 @@
+{"version":3,"file":"DocumentHtmlRenderer.js","sourceRoot":"","sources":["../../../../../../../src/main/commonmark/block/render/html/DocumentHtmlRenderer.ts"],"names":[],"mappings":";;AAAA,+EAA0E;AAE1E,4DAAuD;AAEvD,0BAAkC,SAAQ,iCAA6B;IACnE;QACI,KAAK,CAAC,2BAAY,CAAC,CAAC;IACxB,CAAC;IACM,MAAM,CAAE,QAAsB,EAAE,KAAoB,EAAE,SAAmB;IAChF,CAAC;CACJ;AAND,oDAMC"}

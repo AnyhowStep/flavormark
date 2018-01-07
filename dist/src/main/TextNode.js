@@ -4,11 +4,11 @@ const Node_1 = require("./Node");
 class TextNode extends Node_1.Node {
     constructor(str) {
         super("text");
-        this.literal = undefined;
+        this.literal = "";
         this.literal = str;
     }
     getString() {
-        return this.literal || "";
+        return this.literal;
     }
     setString(str) {
         this.literal = str;

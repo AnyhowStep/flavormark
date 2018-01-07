@@ -9,10 +9,10 @@ class ThHtmlRenderer extends HtmlSubRenderer_1.HtmlSubRenderer {
     render(builder, node, entering) {
         if (entering) {
             if (node.alignment == "left") {
-                builder.tag("td");
+                builder.tag("th");
             }
             else {
-                builder.tag("td", [
+                builder.tag("th", [
                     ["align", node.alignment]
                 ]);
             }
@@ -20,7 +20,7 @@ class ThHtmlRenderer extends HtmlSubRenderer_1.HtmlSubRenderer {
         }
         else {
             builder
-                .tag(`/td`)
+                .tag(`/th`)
                 .nl();
         }
     }

@@ -9,22 +9,22 @@ export class ImageHtmlRenderer extends HtmlSubRenderer<ImageNode> {
     }
     public render (builder : HtmlBuilder, node : ImageNode, entering : boolean) : void {
         if (entering) {
-            //if (this.disableTags === 0) {
-            builder.append(
-                '<img src="',
-                escapeXml(node.destination, true),
-                '" alt="'
-            );
-            //}
-            //this.disableTags += 1;
+            if (builder.tagsAllowed()) {
+                builder.append(
+                    '<img src="',
+                    escapeXml(node.destination, true),
+                    '" alt="'
+                );
+            }
+            builder.addDisableTag();
         } else {
-            //this.disableTags -= 1;
-            //if (this.disableTags === 0) {
+            builder.removeDisableTag();
+            if (builder.tagsAllowed()) {
                 if (node.title) {
                     builder.append('" title="', escapeXml(node.title, true));
                 }
                 builder.append('" />');
-            //}
+            }
         }
     }
 }

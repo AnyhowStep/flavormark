@@ -3,9 +3,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class HtmlBuilder {
     constructor() {
         this.buffer = "";
+        this.disableTagCount = 0;
     }
     toString() {
         return this.buffer;
+    }
+    addDisableTag() {
+        ++this.disableTagCount;
+    }
+    removeDisableTag() {
+        --this.disableTagCount;
+        if (this.disableTagCount < 0) {
+            throw new Error("Removed more than added");
+        }
+    }
+    tagsAllowed() {
+        return (this.disableTagCount == 0);
     }
     appendOne(str) {
         if (str.length == 0) {
@@ -21,10 +34,13 @@ class HtmlBuilder {
         return this;
     }
     tag(name, attrs, selfClosing) {
+        if (!this.tagsAllowed()) {
+            return this;
+        }
         this.append("<", name);
         if (attrs != undefined) {
             for (let attrib of attrs) {
-                this.append(" ", attrib[0], "=", attrib[1]);
+                this.append(" ", attrib[0], `="`, attrib[1], `"`);
             }
         }
         if (selfClosing) {

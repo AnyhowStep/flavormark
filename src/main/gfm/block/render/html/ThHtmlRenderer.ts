@@ -9,15 +9,15 @@ export class ThHtmlRenderer extends HtmlSubRenderer<ThNode> {
     public render (builder : HtmlBuilder, node : ThNode, entering : boolean) : void {
         if (entering) {
             if (node.alignment == "left") {
-                builder.tag("td");
+                builder.tag("th");
             } else {
-                builder.tag("td", [
+                builder.tag("th", [
                     ["align", node.alignment]
                 ]);
             };
         } else {
             builder
-                .tag(`/td`)
+                .tag(`/th`)
                 .nl();
         }
     }

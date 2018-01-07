@@ -38,7 +38,7 @@ export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
         return true;
     }
     public continue (parser : Parser, node : FencedCodeBlockNode) {
-        var ln = parser.currentLine;
+        const ln = parser.currentLine;
         let match : null|RegExpMatchArray = null;
         if (
             !parser.indented &&

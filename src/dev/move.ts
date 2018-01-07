@@ -169,8 +169,8 @@ const backupFolder = "./src/dev/backup";
 moveRefactorProject(
     projectGlobs,
     backupFolder,
-    "./src/main/commonmark/inline/parser/SmartStringParser.ts",
-    "./src/main/misc/inline/parser/SmartStringParser.ts"
+    "./src/main/refactored/LatexBlockNode.ts",
+    "./src/main/flavormark/block/node/TexBlockNode.ts"
 );
 
 /*moveRefactorProjectMulti(

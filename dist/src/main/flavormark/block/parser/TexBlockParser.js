@@ -2,12 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
 const util_1 = require("./../../../refactored/util");
-const common_1 = require("./../../../common");
-const FencedCodeBlockNode_1 = require("./../node/FencedCodeBlockNode");
-const reCodeFence = /^`{3,}(?!.*`)|^~{3,}(?!.*~)/;
-const reClosingCodeFence = /^(?:`{3,}|~{3,})(?= *$)/;
-class FencedCodeBlockParser extends BlockParser_1.BlockParser {
-    constructor(nodeType = "fenced_code_block", nodeCtor = FencedCodeBlockNode_1.FencedCodeBlockNode) {
+const TexBlockNode_1 = require("./../node/TexBlockNode");
+var reCodeFence = /^\${2,}(?!.*`)/;
+var reClosingCodeFence = /^(?:\${2,})(?= *$)/;
+class TexBlockParser extends BlockParser_1.BlockParser {
+    constructor(nodeType = "latex_block", nodeCtor = TexBlockNode_1.TexBlockNode) {
         super(nodeType, nodeCtor);
         this.acceptsLines = true;
         this.earlyExitOnEnd = true;
@@ -20,20 +19,36 @@ class FencedCodeBlockParser extends BlockParser_1.BlockParser {
         const match = parser.currentLine
             .slice(parser.nextNonspace)
             .match(reCodeFence);
-        if (match == null) {
+        if (match == undefined) {
             return false;
         }
         const fenceLength = match[0].length;
         parser.closeUnmatchedBlocks();
-        const fencedCodeBlock = parser.addChild(this, parser.nextNonspace);
-        fencedCodeBlock.fenceLength = fenceLength;
-        fencedCodeBlock.fenceChar = match[0][0];
-        fencedCodeBlock.fenceOffset = parser.indent;
+        const texBlock = parser.addChild(this, parser.nextNonspace);
+        texBlock.fenceLength = fenceLength;
+        texBlock.fenceChar = match[0][0];
+        texBlock.fenceOffset = parser.indent;
         parser.advanceNextNonspace();
         parser.advanceOffset(fenceLength, false);
+        const sameLineEndMatch = parser.currentLine.slice(parser.offset).match(/(\${2,})\s*$/);
+        if (sameLineEndMatch != undefined) {
+            if (sameLineEndMatch[1].length == fenceLength) {
+                if (sameLineEndMatch.index == undefined) {
+                    throw new Error("index cannot be undefined");
+                }
+                //End now
+                texBlock.oneLine = true;
+                texBlock.stringContent = parser.currentLine.slice(parser.offset, parser.offset + sameLineEndMatch.index);
+                parser.advanceOffset(parser.currentLine.length - parser.offset, false);
+                parser.finalize(texBlock, parser.lineNumber);
+            }
+        }
         return true;
     }
     continue(parser, node) {
+        if (node.oneLine) {
+            return false;
+        }
         const ln = parser.currentLine;
         let match = null;
         if (!parser.indented &&
@@ -41,41 +56,35 @@ class FencedCodeBlockParser extends BlockParser_1.BlockParser {
             match = ln.slice(parser.nextNonspace).match(reClosingCodeFence);
         }
         if (match != undefined && match[0].length >= node.fenceLength) {
-            // closing fence - we're at end of line, so we can return
             parser.finalize(node, parser.lineNumber);
             return false;
         }
-        // skip optional spaces of fence offset
         for (let i = node.fenceOffset; i > 0 && util_1.isSpaceOrTab(util_1.peek(ln, parser.offset)); --i) {
             parser.advanceOffset(1, true);
         }
         return true;
     }
-    finalize(_parser, node) {
-        // first line becomes info string
-        const content = node.stringContent;
+    finalize(_parser, block) {
+        let content = block.stringContent;
         if (content == undefined) {
             throw new Error("content cannot be undefined");
         }
-        const newlinePos = content.indexOf('\n');
-        const firstLine = content.slice(0, newlinePos);
-        const rest = content.slice(newlinePos + 1);
-        node.info = common_1.unescapeString(firstLine.trim());
-        node.literal = rest;
+        content = content.replace(/^\$/, "\\$");
+        while (/[^\\]\$/.test(content)) {
+            content = content.replace(/([^\\])\$/, "$1\\$");
+        }
+        block.literal = content;
     }
     canContain() { return false; }
     ignoreLastLineBlank() {
         return true;
     }
     appendString(node, str) {
-        if (node.stringContent == undefined) {
-            node.stringContent = "";
-        }
         node.stringContent += str;
     }
     getString(node) {
-        return node.stringContent || "";
+        return node.stringContent;
     }
 }
-exports.FencedCodeBlockParser = FencedCodeBlockParser;
-//# sourceMappingURL=FencedCodeBlockParser.js.map
+exports.TexBlockParser = TexBlockParser;
+//# sourceMappingURL=TexBlockParser.js.map
