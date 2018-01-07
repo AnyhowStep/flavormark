@@ -161,22 +161,22 @@ async function moveRefactorProjectMulti (
         );
     }
 }
-/*moveRefactorProject(
-    [
-        "./src/main/** /*.ts",
-        "./src/test/** /*.ts",
-    ],
-    "./src/dev/backup",
-    "./src/main/commonmark/inline/CodeNode.ts",
-    "./src/main/commonmark/inline/CodeSpanNode.ts"
+const projectGlobs = [
+    "./src/main/**/*.ts",
+    "./src/test/**/*.ts",
+];
+const backupFolder = "./src/dev/backup";
+moveRefactorProject(
+    projectGlobs,
+    backupFolder,
+    "./src/main/refactored-inline/EntityParser.ts",
+    "./src/main/commonmark/inline/parser/EntityParser.ts"
 );
-*/
-moveRefactorProjectMulti(
-    [
-        "./src/main/**/*.ts",
-        "./src/test/**/*.ts",
-    ],
-    "./src/dev/backup",
+
+/*moveRefactorProjectMulti(
+    projectGlobs,
+    backupFolder,
     "./src/main/commonmark/render/html/inline/*.ts",
     "./src/main/commonmark/inline/render/html"
 );
+*/
