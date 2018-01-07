@@ -3,7 +3,7 @@ import {Parser} from "../Parser";
 import {Node} from "../Node";
 import {peek} from "../refactored/util";
 import {OPENTAG, CLOSETAG} from "../common";
-import {HtmlBlockNode} from "./HtmlBlockNode";
+import {HtmlBlockNode} from "./block/node/HtmlBlockNode";
 
 const C_LESSTHAN = 60;
 

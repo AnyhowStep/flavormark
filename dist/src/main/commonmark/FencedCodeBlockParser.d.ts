@@ -1,6 +1,6 @@
 import { BlockParser, BlockNodeCtor } from "../BlockParser";
 import { Parser } from "../Parser";
-import { FencedCodeBlockNode } from "./FencedCodeBlockNode";
+import { FencedCodeBlockNode } from "./block/node/FencedCodeBlockNode";
 export declare class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
     acceptsLines: boolean;
     earlyExitOnEnd: boolean;

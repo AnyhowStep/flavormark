@@ -1,6 +1,6 @@
 import {HtmlSubRenderer} from "../../../render/html/HtmlSubRenderer";
 import {HtmlBuilder} from "../../../render/html/HtmlBuilder";
-import {IndentedCodeBlockNode} from "../../IndentedCodeBlockNode";
+import {IndentedCodeBlockNode} from "./../../block/node/IndentedCodeBlockNode";
 import {escapeXml} from "../../../common";
 
 export class IndentedCodeBlockHtmlRenderer extends HtmlSubRenderer<IndentedCodeBlockNode> {

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
 const Constants_1 = require("../Constants");
-const IndentedCodeBlockNode_1 = require("./IndentedCodeBlockNode");
+const IndentedCodeBlockNode_1 = require("./block/node/IndentedCodeBlockNode");
 class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
     constructor(nodeType = "indented_code_block", nodeCtor = IndentedCodeBlockNode_1.IndentedCodeBlockNode) {
         super(nodeType, nodeCtor);

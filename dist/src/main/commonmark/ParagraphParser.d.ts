@@ -1,7 +1,7 @@
 import { BlockParser, BlockNodeCtor } from "../BlockParser";
 import { Parser } from "../Parser";
 import { RefMap } from "../refactored-misc/RefMap";
-import { ParagraphNode } from "./ParagraphNode";
+import { ParagraphNode } from "./block/node/ParagraphNode";
 export declare class ParagraphParser extends BlockParser<ParagraphNode> {
     acceptsLines: boolean;
     parseInlines: boolean;

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
-const HeadingNode_1 = require("./HeadingNode");
+const HeadingNode_1 = require("./block/node/HeadingNode");
 const reSetextHeadingLine = /^(?:=+|-+)[ \t]*$/;
 class SetextHeadingParser extends BlockParser_1.BlockParser {
     constructor(nodeType = "setext_heading", nodeCtor = HeadingNode_1.HeadingNode) {

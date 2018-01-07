@@ -1,6 +1,6 @@
 import {HtmlSubRenderer} from "../../../render/html/HtmlSubRenderer";
 import {HtmlBuilder} from "../../../render/html/HtmlBuilder";
-import {HtmlBlockNode} from "../../HtmlBlockNode";
+import {HtmlBlockNode} from "./../../block/node/HtmlBlockNode";
 
 export class HtmlBlockHtmlRenderer extends HtmlSubRenderer<HtmlBlockNode> {
     public constructor () {

@@ -1,6 +1,6 @@
 import { BlockParser, BlockNodeCtor } from "../BlockParser";
 import { Parser } from "../Parser";
-import { BlockquoteNode } from "./BlockquoteNode";
+import { BlockquoteNode } from "./block/node/BlockquoteNode";
 export declare class BlockquoteParser extends BlockParser<BlockquoteNode> {
     acceptsLines: boolean;
     constructor(nodeType?: string, nodeCtor?: BlockNodeCtor<BlockquoteNode>);

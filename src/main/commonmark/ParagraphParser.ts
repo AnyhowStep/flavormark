@@ -3,7 +3,7 @@ import {Parser} from "../Parser";
 import {peek, isBlank} from "../refactored/util";
 import {parseReference} from "../refactored-misc/util";
 import {RefMap} from "../refactored-misc/RefMap";
-import {ParagraphNode} from "./ParagraphNode";
+import {ParagraphNode} from "./block/node/ParagraphNode";
 
 const C_OPEN_BRACKET = 91;
 

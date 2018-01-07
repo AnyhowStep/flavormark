@@ -1,7 +1,7 @@
 import { BlockParser, BlockNodeCtor } from "../BlockParser";
 import { Parser } from "../Parser";
 import { Node } from "../Node";
-import { HtmlBlockNode } from "./HtmlBlockNode";
+import { HtmlBlockNode } from "./block/node/HtmlBlockNode";
 export declare class HtmlBlockParser extends BlockParser<HtmlBlockNode> {
     acceptsLines: boolean;
     isLeaf: boolean;

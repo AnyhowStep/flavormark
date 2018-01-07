@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
 const util_1 = require("../refactored/util");
-const BlockquoteNode_1 = require("./BlockquoteNode");
+const BlockquoteNode_1 = require("./block/node/BlockquoteNode");
 var C_GREATERTHAN = 62;
 class BlockquoteParser extends BlockParser_1.BlockParser {
     constructor(nodeType = "block_quote", nodeCtor = BlockquoteNode_1.BlockquoteNode) {

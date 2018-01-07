@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
 const util_1 = require("../refactored/util");
-const ListNode_1 = require("./ListNode");
-const ItemNode_1 = require("./ItemNode");
+const ListNode_1 = require("./block/node/ListNode");
+const ItemNode_1 = require("./block/node/ItemNode");
 var reBulletListMarker = /^[*+-]/;
 var reOrderedListMarker = /^(\d{1,9})([.)])/;
 // Parse a list marker and return data on the marker (type,

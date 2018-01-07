@@ -3,8 +3,8 @@ import {Parser} from "../Parser";
 import {Node} from "../Node";
 import {peek, isSpaceOrTab, isBlank} from "../refactored/util";
 
-import {ListNode} from "./ListNode";
-import {ItemNode} from "./ItemNode";
+import {ListNode} from "./block/node/ListNode";
+import {ItemNode} from "./block/node/ItemNode";
 import {ListData} from "./ListData";
 
 var reBulletListMarker = /^[*+-]/;

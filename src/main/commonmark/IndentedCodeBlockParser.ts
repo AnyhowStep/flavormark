@@ -1,7 +1,7 @@
 import {BlockParser, BlockNodeCtor} from "../BlockParser";
 import {Parser} from "../Parser";
 import {INDENT_LENGTH} from "../Constants";
-import {IndentedCodeBlockNode} from "./IndentedCodeBlockNode";
+import {IndentedCodeBlockNode} from "./block/node/IndentedCodeBlockNode";
 
 export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> {
     public acceptsLines = true;

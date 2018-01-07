@@ -68,7 +68,7 @@ async function moveRefactorFile (backupFolder : string, src : string, dst : stri
             path.relative(path.dirname(dst), matchedActualDir) +
             "/" +
             match.relativeName
-        );
+        ).replace(/^\.\/\//, "");
 
         const transformedMatch = `${match.importOrExportText}"${transformedPath}";`;
         code[i] = transformedMatch;
@@ -99,7 +99,9 @@ async function updateReference (f : string, backupFolder : string, src : string,
         if (matchedActualPath != path.normalize(src.replace(/\.[^\.]+$/, ""))) {
             continue;
         }
-        const transformedPath = path.normalize(path.relative(path.dirname(f), dst).replace(/\.[^\.]+$/, ""));
+        const transformedPath = "./" + path.normalize(path.relative(path.dirname(f), dst)
+            .replace(/\.[^\.]+$/, ""))
+            .replace(/^\.\/\//, "");
         const transformedMatch = `${match.importOrExportText}"${transformedPath}";`;
         code[i] = transformedMatch;
         changed = true;
@@ -134,19 +136,47 @@ async function moveRefactorProject (projectGlobs : string[], backupFolder : stri
         return;
     }
 
-    moveRefactorFile(backupFolder, src, dst);
+    await moveRefactorFile(backupFolder, src, dst);
 
     files.splice(files.indexOf(src), 1);
     for (let f of files) {
-        updateReference(f, backupFolder, src, dst);
+        await updateReference(f, backupFolder, src, dst);
     }
 }
-moveRefactorProject(
+async function moveRefactorProjectMulti (
+    projectGlobs : string[],
+    backupFolder : string,
+    srcGlob : string,
+    dstDirectory : string
+) {
+    const files = glob.sync(srcGlob);
+    for (let f of files) {
+        const src = f;
+        const dst = dstDirectory + "/" + path.basename(src);
+        await moveRefactorProject(
+            projectGlobs,
+            backupFolder,
+            src,
+            dst
+        );
+    }
+}
+/*moveRefactorProject(
+    [
+        "./src/main/** /*.ts",
+        "./src/test/** /*.ts",
+    ],
+    "./src/dev/backup",
+    "./src/main/commonmark/inline/CodeNode.ts",
+    "./src/main/commonmark/inline/CodeSpanNode.ts"
+);
+*/
+moveRefactorProjectMulti(
     [
         "./src/main/**/*.ts",
         "./src/test/**/*.ts",
     ],
     "./src/dev/backup",
-    "./src/main/refactored-inline/InlineCodeParser.ts",
-    "./src/main/commonmark/inline/InlineCodeParser.ts"
+    "./src/main/commonmark/*Node.ts",
+    "./src/main/commonmark/block/node"
 );

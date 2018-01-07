@@ -96,7 +96,7 @@ const brackets = new BracketCollection(delimiters);
 import {InlineParser} from "../main/InlineParser";
 import {NewlineParser} from "../main/refactored-inline/NewlineParser";
 import {EscapeCharacterParser} from "../main/refactored-inline/EscapeCharacterParser";
-import {InlineCodeParser} from "../main/commonmark/inline/InlineCodeParser";
+import {CodeSpanParser} from "../main/commonmark/inline/CodeSpanParser";
 import {DelimitedInlineParser} from "../main/DelimitedInlineParser";
 import {EmphasisParser} from "../main/refactored-delimiter/EmphasisParser";
 import {SmartQuoteParser} from "../main/refactored-delimiter/SmartQuoteParser";
@@ -129,7 +129,7 @@ const inParsers : InlineParser[] = [
 
     new CheckboxParser(),
 
-    new InlineCodeParser(),
+    new CodeSpanParser(),
     new InlineLatexParser(),
     delimParser,
     new OpenBracketParser(brackets),
@@ -157,7 +157,7 @@ const flavorInlineParsers : InlineParser[] = [
 
     new CheckboxParser(),
 
-    new InlineCodeParser(),
+    new CodeSpanParser(),
     flavorDelimParser,
     new OpenBracketParser(brackets),
     new ImageStartParser(brackets),
@@ -184,7 +184,7 @@ const smartDelimParser = new DelimitedInlineParser(delimiters, [
 const smartInlineParsers : InlineParser[] = [
     new NewlineParser(),
     new EscapeCharacterParser(),
-    new InlineCodeParser(),
+    new CodeSpanParser(),
     smartDelimParser,
     new OpenBracketParser(brackets),
     new ImageStartParser(brackets),

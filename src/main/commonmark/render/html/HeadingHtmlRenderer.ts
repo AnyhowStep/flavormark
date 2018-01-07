@@ -1,6 +1,6 @@
 import {HtmlSubRenderer} from "../../../render/html/HtmlSubRenderer";
 import {HtmlBuilder} from "../../../render/html/HtmlBuilder";
-import {HeadingNode} from "../../HeadingNode";
+import {HeadingNode} from "./../../block/node/HeadingNode";
 
 export class HeadingHtmlRenderer extends HtmlSubRenderer<HeadingNode> {
     public constructor () {

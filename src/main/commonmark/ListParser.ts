@@ -1,8 +1,8 @@
 import {BlockParser, BlockParserMeta, BlockNodeCtor} from "../BlockParser";
 import {Parser} from "../Parser";
 import {endsWithBlankLine} from "../refactored/util";
-import {ItemNode} from "./ItemNode";
-import {ListNode} from "./ListNode";
+import {ItemNode} from "./block/node/ItemNode";
+import {ListNode} from "./block/node/ListNode";
 import {Node} from "../Node";
 
 export class ListParser extends BlockParser<ListNode> {

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const HtmlSubRenderer_1 = require("../../../render/html/HtmlSubRenderer");
-const ThematicBreakNode_1 = require("../../ThematicBreakNode");
+const ThematicBreakNode_1 = require("./../../block/node/ThematicBreakNode");
 class ThematicBreakHtmlRenderer extends HtmlSubRenderer_1.HtmlSubRenderer {
     constructor() {
         super(ThematicBreakNode_1.ThematicBreakNode);

@@ -1,6 +1,6 @@
 import {BlockParser, BlockNodeCtor} from "../BlockParser";
 import {Parser} from "../Parser";
-import {ThematicBreakNode} from "./ThematicBreakNode";
+import {ThematicBreakNode} from "./block/node/ThematicBreakNode";
 
 const reThematicBreak = /^(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:-[ \t]*){3,})[ \t]*$/;
 

@@ -2,7 +2,7 @@ import {BlockParser, BlockNodeCtor} from "../BlockParser";
 import {Parser} from "../Parser";
 import {peek, isSpaceOrTab} from "../refactored/util";
 import {unescapeString} from "../common";
-import {FencedCodeBlockNode} from "./FencedCodeBlockNode";
+import {FencedCodeBlockNode} from "./block/node/FencedCodeBlockNode";
 
 const reCodeFence = /^`{3,}(?!.*`)|^~{3,}(?!.*~)/;
 

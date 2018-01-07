@@ -1,6 +1,6 @@
 import {HtmlSubRenderer} from "../../../render/html/HtmlSubRenderer";
 import {HtmlBuilder} from "../../../render/html/HtmlBuilder";
-import {ThematicBreakNode} from "../../ThematicBreakNode";
+import {ThematicBreakNode} from "./../../block/node/ThematicBreakNode";
 
 export class ThematicBreakHtmlRenderer extends HtmlSubRenderer<ThematicBreakNode> {
     public constructor () {

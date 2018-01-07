@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
 const util_1 = require("../refactored/util");
-const ItemNode_1 = require("./ItemNode");
-const ListNode_1 = require("./ListNode");
+const ItemNode_1 = require("./block/node/ItemNode");
+const ListNode_1 = require("./block/node/ListNode");
 class ListParser extends BlockParser_1.BlockParser {
     constructor(nodeType = "list", nodeCtor = ListNode_1.ListNode) {
         super(nodeType, nodeCtor);

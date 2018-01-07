@@ -1,6 +1,6 @@
 import {HtmlSubRenderer} from "../../../render/html/HtmlSubRenderer";
 import {HtmlBuilder} from "../../../render/html/HtmlBuilder";
-import {ListNode} from "../../ListNode";
+import {ListNode} from "./../../block/node/ListNode";
 
 export class ListHtmlRenderer extends HtmlSubRenderer<ListNode> {
     public constructor () {

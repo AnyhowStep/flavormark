@@ -1,5 +1,5 @@
 import {BlockParser, BlockNodeCtor} from "../BlockParser";
-import {DocumentNode} from "./DocumentNode";
+import {DocumentNode} from "./block/node/DocumentNode";
 
 export class DocumentParser extends BlockParser<DocumentNode> {
     public acceptsLines = false;

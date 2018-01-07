@@ -1,6 +1,6 @@
 import {HtmlSubRenderer} from "../../../render/html/HtmlSubRenderer";
 import {HtmlBuilder} from "../../../render/html/HtmlBuilder";
-import {ParagraphNode} from "../../ParagraphNode";
+import {ParagraphNode} from "./../../block/node/ParagraphNode";
 
 export class ParagraphHtmlRenderer extends HtmlSubRenderer<ParagraphNode> {
     public constructor () {

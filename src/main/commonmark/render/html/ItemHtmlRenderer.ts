@@ -1,6 +1,6 @@
 import {HtmlSubRenderer} from "../../../render/html/HtmlSubRenderer";
 import {HtmlBuilder} from "../../../render/html/HtmlBuilder";
-import {ItemNode} from "../../ItemNode";
+import {ItemNode} from "./../../block/node/ItemNode";
 
 export class ItemHtmlRenderer extends HtmlSubRenderer<ItemNode> {
     public constructor () {

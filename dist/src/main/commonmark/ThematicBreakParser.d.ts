@@ -1,6 +1,6 @@
 import { BlockParser, BlockNodeCtor } from "../BlockParser";
 import { Parser } from "../Parser";
-import { ThematicBreakNode } from "./ThematicBreakNode";
+import { ThematicBreakNode } from "./block/node/ThematicBreakNode";
 export declare class ThematicBreakParser extends BlockParser<ThematicBreakNode> {
     acceptsLines: boolean;
     isLeaf: boolean;

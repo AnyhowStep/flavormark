@@ -1,8 +1,8 @@
 import { BlockParser, BlockParserMeta, BlockNodeCtor } from "../BlockParser";
 import { Parser } from "../Parser";
 import { Node } from "../Node";
-import { ListNode } from "./ListNode";
-import { ItemNode } from "./ItemNode";
+import { ListNode } from "./block/node/ListNode";
+import { ItemNode } from "./block/node/ItemNode";
 export declare class ItemParser extends BlockParser<ItemNode> {
     acceptsLines: boolean;
     endsWithBlankLineIfLastChildEndsWithBlankLine: boolean;

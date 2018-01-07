@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test2": "test2.js",
+    "move": "ts-node ./src/dev/move.ts",
     "test": "ts-node ./src/test/test.ts",
     "build": "(rm -r ./dist || true) && tsc -d"
   },

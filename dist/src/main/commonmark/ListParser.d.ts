@@ -1,6 +1,6 @@
 import { BlockParser, BlockParserMeta, BlockNodeCtor } from "../BlockParser";
 import { Parser } from "../Parser";
-import { ListNode } from "./ListNode";
+import { ListNode } from "./block/node/ListNode";
 import { Node } from "../Node";
 export declare class ListParser extends BlockParser<ListNode> {
     acceptsLines: boolean;

@@ -1,7 +1,7 @@
 import {BlockParser, BlockNodeCtor} from "../BlockParser";
 import {Parser} from "../Parser";
 import {peek, isSpaceOrTab} from "../refactored/util";
-import {BlockquoteNode} from "./BlockquoteNode";
+import {BlockquoteNode} from "./block/node/BlockquoteNode";
 
 var C_GREATERTHAN = 62;
 

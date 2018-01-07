@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const HtmlSubRenderer_1 = require("../../../render/html/HtmlSubRenderer");
-const HeadingNode_1 = require("../../HeadingNode");
+const HeadingNode_1 = require("./../../block/node/HeadingNode");
 class HeadingHtmlRenderer extends HtmlSubRenderer_1.HtmlSubRenderer {
     constructor() {
         super(HeadingNode_1.HeadingNode);

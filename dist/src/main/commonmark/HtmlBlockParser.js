@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
 const util_1 = require("../refactored/util");
 const common_1 = require("../common");
-const HtmlBlockNode_1 = require("./HtmlBlockNode");
+const HtmlBlockNode_1 = require("./block/node/HtmlBlockNode");
 const C_LESSTHAN = 60;
 const reHtmlBlockClose = [
     /./,

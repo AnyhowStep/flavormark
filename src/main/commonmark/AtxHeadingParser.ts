@@ -1,6 +1,6 @@
 import {BlockParser, BlockNodeCtor} from "../BlockParser";
 import {Parser} from "../Parser";
-import {HeadingNode} from "./HeadingNode";
+import {HeadingNode} from "./block/node/HeadingNode";
 
 const reATXHeadingMarker = /^#{1,6}(?:[ \t]+|$)/;
 

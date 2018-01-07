@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
 const util_1 = require("../refactored/util");
 const util_2 = require("../refactored-misc/util");
-const ParagraphNode_1 = require("./ParagraphNode");
+const ParagraphNode_1 = require("./block/node/ParagraphNode");
 const C_OPEN_BRACKET = 91;
 class ParagraphParser extends BlockParser_1.BlockParser {
     constructor(refMap, nodeType = "paragraph", nodeCtor = ParagraphNode_1.ParagraphNode) {

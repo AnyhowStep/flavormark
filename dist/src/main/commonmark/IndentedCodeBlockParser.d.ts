@@ -1,6 +1,6 @@
 import { BlockParser, BlockNodeCtor } from "../BlockParser";
 import { Parser } from "../Parser";
-import { IndentedCodeBlockNode } from "./IndentedCodeBlockNode";
+import { IndentedCodeBlockNode } from "./block/node/IndentedCodeBlockNode";
 export declare class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> {
     acceptsLines: boolean;
     isLeaf: boolean;

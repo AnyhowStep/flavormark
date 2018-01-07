@@ -1,6 +1,6 @@
 import {HtmlSubRenderer} from "../../../render/html/HtmlSubRenderer";
 import {HtmlBuilder} from "../../../render/html/HtmlBuilder";
-import {FencedCodeBlockNode} from "../../FencedCodeBlockNode";
+import {FencedCodeBlockNode} from "./../../block/node/FencedCodeBlockNode";
 import {escapeXml} from "../../../common";
 
 export class FencedCodeBlockHtmlRenderer extends HtmlSubRenderer<FencedCodeBlockNode> {

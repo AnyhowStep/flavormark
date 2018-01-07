@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("../BlockParser");
-const HeadingNode_1 = require("./HeadingNode");
+const HeadingNode_1 = require("./block/node/HeadingNode");
 const reATXHeadingMarker = /^#{1,6}(?:[ \t]+|$)/;
 class AtxHeadingParser extends BlockParser_1.BlockParser {
     constructor(nodeType = "atx_heading", nodeCtor = HeadingNode_1.HeadingNode) {

@@ -1,7 +1,7 @@
 import { BlockParser, BlockNodeCtor } from "../BlockParser";
 import { Parser } from "../Parser";
 import { Node } from "../Node";
-import { HeadingNode } from "./HeadingNode";
+import { HeadingNode } from "./block/node/HeadingNode";
 export declare class SetextHeadingParser extends BlockParser<HeadingNode> {
     acceptsLines: boolean;
     parseInlines: boolean;
