@@ -18,6 +18,10 @@ export declare class Node {
     private lastChild;
     private prev;
     private next;
+    getSourceRangeOrError(): {
+        start: Position;
+        end: Position;
+    };
     isLastLineBlank(): boolean;
     isOpen(): boolean;
     setLastLineBlank(lastLineBlank: boolean): void;

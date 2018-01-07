@@ -29,6 +29,7 @@ export declare abstract class BlockParser<NodeT extends Node = Node> implements 
     constructor(nodeType: string, nodeCtor: BlockNodeCtor<NodeT>);
     getNodeType(): string;
     getNodeCtor(): BlockNodeCtor<NodeT>;
+    instantiate(sourceRange: Range): NodeT;
     appendString(_node: NodeT, _str: string): void;
     getString(_node: NodeT): string;
     setString(_node: NodeT, _str: string): void;

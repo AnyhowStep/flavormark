@@ -56,7 +56,25 @@ import {latexBlockParser} from "../main/refactored/latex-block";
 import {IndentedCodeBlockParser} from "./../main/commonmark/block/parser/IndentedCodeBlockParser";
 import {BlockParserCollection} from "../main/BlockParserCollection";
 //import {Node} from "../main/refactored/Node";
-import {tableParser, ThParser, TdParser, TrParser, TheadParser, TbodyParser} from "../main/refactored/table";
+import {TableParser} from "./../main/gfm/block/parser/TableParser";
+import {TbodyParser} from "./../main/gfm/block/parser/TbodyParser";
+import {TdParser} from "./../main/gfm/block/parser/TdParser";
+import {TheadParser} from "./../main/gfm/block/parser/TheadParser";
+import {ThParser} from "./../main/gfm/block/parser/ThParser";
+import {TrParser} from "./../main/gfm/block/parser/TrParser";
+
+const tbodyParser = new TbodyParser();
+const tdParser = new TdParser();
+const theadParser = new TheadParser();
+const thParser = new ThParser();
+const trParser = new TrParser();
+const tableParser = new TableParser({
+    tbodyParser,
+    tdParser,
+    theadParser,
+    thParser,
+    trParser,
+})
 
 import {RefMap} from "./../main/commonmark/RefMap";
 const refMap : RefMap = {};
@@ -80,11 +98,11 @@ const blockParserCollection = new BlockParserCollection(
     .add(new IndentedCodeBlockParser())
 
     .add(tableParser)
-    .add(new ThParser())
-    .add(new TdParser())
-    .add(new TrParser())
-    .add(new TheadParser())
-    .add(new TbodyParser())
+    .add(tbodyParser)
+    .add(tdParser)
+    .add(theadParser)
+    .add(thParser)
+    .add(trParser)
 
     .add(listParser);
 

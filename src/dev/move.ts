@@ -169,8 +169,8 @@ const backupFolder = "./src/dev/backup";
 moveRefactorProject(
     projectGlobs,
     backupFolder,
-    "./src/main/refactored-misc/RefMap.ts",
-    "./src/main/commonmark/RefMap.ts"
+    "./src/main/refactored/TableNode.ts",
+    "./src/main/gfm/block/node/TableNode.ts"
 );
 
 /*moveRefactorProjectMulti(

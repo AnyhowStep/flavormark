@@ -14,6 +14,12 @@ class Node {
         this.type = type;
         this.sourceRange = sourceRange;
     }
+    getSourceRangeOrError() {
+        if (this.sourceRange == undefined) {
+            throw new Error(`sourceRange is undefined`);
+        }
+        return Object.assign({}, this.sourceRange);
+    }
     isLastLineBlank() {
         return this.lastLineBlank;
     }

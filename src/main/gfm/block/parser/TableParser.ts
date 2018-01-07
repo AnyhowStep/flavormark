@@ -1,7 +1,12 @@
-import {Parser} from "../Parser";
-import {BlockParser} from "../BlockParser";
-import {TableNode, Tr, Th, Td, Thead, Tbody} from "./TableNode";
-import {Node} from "../Node";
+import {Parser} from "./../../../Parser";
+import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
+import {TableNode} from "./../node/TableNode";
+import {Node} from "./../../../Node";
+import {TbodyParser} from "./TbodyParser";
+import {TdParser} from "./TdParser";
+import {TheadParser} from "./TheadParser";
+import {ThParser} from "./ThParser";
+import {TrParser} from "./TrParser";
 
 const VALID_CHARACTERS = "[\\-\\|\\:\\s]";
 //Must have at least one - and one |
@@ -43,8 +48,27 @@ function toColumns (str : string) {
         });
 }
 
+export interface TableParserArgs {
+    tbodyParser : TbodyParser,
+    tdParser : TdParser,
+    theadParser : TheadParser,
+    thParser : ThParser,
+    trParser : TrParser,
+}
+
 export class TableParser extends BlockParser<TableNode> {
-    tryStart (parser : Parser, container : Node) {
+    public acceptsLines = false;
+    public parseInlines = false;
+    public isLeaf = true;
+    public acceptLazyContinuation = true;
+
+    private args : TableParserArgs;
+    public constructor (args : TableParserArgs, nodeType : string = "table", nodeCtor : BlockNodeCtor<TableNode> = TableNode) {
+        super(nodeType, nodeCtor);
+        this.args = args;
+    }
+
+    public tryStart (parser : Parser, container : Node) {
         if (!parser.isParagraphNode(container)) {
             return false;
         }
@@ -58,7 +82,7 @@ export class TableParser extends BlockParser<TableNode> {
             return !/^\:?-+\:?$/.test(d);
         })) {
             //Found an invalid delimiter
-            console.log("invalid delimiter")
+            //console.log("invalid delimiter");
             return false;
         }
         const alignments = delimiters.map((d) => {
@@ -106,15 +130,15 @@ export class TableParser extends BlockParser<TableNode> {
             container.unlink();
         }
 
-        const thead = new Thead("thead");
+        const thead = this.args.theadParser.instantiate(table.getSourceRangeOrError());
         table.appendChild(thead);
 
-        const theadRow = new Tr("tr");
+        const theadRow = this.args.trParser.instantiate(table.getSourceRangeOrError());
         thead.appendChild(theadRow);
         for (let i=0; i<table.headers.length; ++i) {
             const a = table.alignments[i];
             const h = table.headers[i];
-            const th = new Th("th");
+            const th = this.args.thParser.instantiate(table.getSourceRangeOrError());
             th.alignment = a;
             th.string_content = h;
             theadRow.appendChild(th);
@@ -122,11 +146,11 @@ export class TableParser extends BlockParser<TableNode> {
 
         parser.advanceOffset(parser.currentLine.length);
         return true;
-    };
-    continue (_parser : Parser, _node : TableNode) : boolean {
+    }
+    public continue (_parser : Parser, _node : TableNode) : boolean {
         return false;
     }
-    lazyContinue (parser : Parser, node : TableNode) : void {
+    public lazyContinue (parser : Parser, node : TableNode) : void {
         if (parser.blank) {
             parser.finalize(node, parser.lineNumber);
             return;
@@ -142,91 +166,22 @@ export class TableParser extends BlockParser<TableNode> {
         node.rows.push(row);
 
         if (node.tbody == undefined) {
-            node.tbody = new Tbody("tbody");
+            node.tbody = this.args.tbodyParser.instantiate(parser.getRangeStart(0));
             node.appendChild(node.tbody);
         }
 
-        const tr = new Tr("tr");
+        const tr = this.args.trParser.instantiate(parser.getRangeStart(0));
         node.tbody.appendChild(tr);
         for (let j=0; j<row.length; ++j) {
             const a = node.alignments[j];
             const c = row[j];
-            const td = new Td("td");
+            const td = this.args.tdParser.instantiate(parser.getRangeStart(0));
             td.alignment = a;
             td.string_content = c;
             //parser.processInlines(td);
             tr.appendChild(td);
         }
-    };
-    finalize (_parser : Parser, _node : TableNode) {
-
-    };
-    canContain () { return false; }
-    acceptsLines= false;
-    parseInlines = false;
-    isLeaf = true;
-    acceptLazyContinuation = true;
-}
-
-export const tableParser = new TableParser("table", TableNode);
-
-export class ThParser extends BlockParser<Th> {
-    public constructor () {
-        super("th", Th);
     }
-    public getString (node : Th) : string {
-        return node.string_content;
-    }
-    continue (_parser : Parser, _node : Tbody) : boolean {
-        return false;
-    }
-    finalize () {}
-    canContain () { return false; }
-    parseInlines = true;
-}
-
-export class TdParser extends BlockParser<Td> {
-    public constructor () {
-        super("td", Td);
-    }
-    public getString (node : Td) : string {
-        return node.string_content;
-    }
-    continue (_parser : Parser, _node : Tbody) : boolean {
-        return false;
-    }
-    finalize () {}
-    canContain () { return false; }
-    parseInlines = true;
-}
-
-export class TrParser extends BlockParser<Tr> {
-    public constructor () {
-        super("tr", Tr);
-    }
-    continue (_parser : Parser, _node : Tbody) : boolean {
-        return false;
-    }
-    finalize () {}
-    canContain () { return false; }
-}
-export class TheadParser extends BlockParser<Thead> {
-    public constructor () {
-        super("thead", Thead);
-    }
-    continue (_parser : Parser, _node : Tbody) : boolean {
-        return false;
-    }
-    finalize () {}
-    canContain () { return false; }
-}
-export class TbodyParser extends BlockParser<Tbody> {
-    public constructor () {
-        super("tbody", Thead);
-    }
-    continue (_parser : Parser, _node : Tbody) : boolean {
-        return false;
-    }
-    finalize () {}
-    canContain () { return false; }
+    public finalize (_parser : Parser, _node : TableNode) {}
+    public canContain () { return false; }
 }

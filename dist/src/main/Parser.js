@@ -57,17 +57,9 @@ class Parser {
         p.appendString(this.tip, this.currentLine.slice(this.offset) + '\n');
     }
     ;
-    // Add block of type tag as a child of the tip.  If the tip can't
-    // accept children, close and finalize it and try its parent,
-    // and so on til we find a block that can accept children.
-    addChild(blockParser, offset) {
-        if (this.tip == undefined) {
-            throw new Error("this.tip cannot be undefined");
-        }
-        const ctor = blockParser.getNodeCtor();
-        var column_number = offset + 1; // offset 0 = column 1
-        const tag = blockParser.getNodeType();
-        var newBlock = new ctor(tag, {
+    getRangeStart(offset) {
+        const column_number = offset + 1; // offset 0 = column 1
+        return {
             start: {
                 row: this.lineNumber,
                 column: column_number,
@@ -76,7 +68,16 @@ class Parser {
                 row: 0,
                 column: 0,
             },
-        });
+        };
+    }
+    // Add block of type tag as a child of the tip.  If the tip can't
+    // accept children, close and finalize it and try its parent,
+    // and so on til we find a block that can accept children.
+    addChild(blockParser, offset) {
+        if (this.tip == undefined) {
+            throw new Error("this.tip cannot be undefined");
+        }
+        const newBlock = blockParser.instantiate(this.getRangeStart(offset));
         while (!this.blockParsers.get(this.tip).canContain(blockParser, newBlock) ||
             !blockParser.canBeContainedBy(this.blockParsers.get(this.tip), this.tip)) {
             this.finalize(this.tip, this.lineNumber - 1);

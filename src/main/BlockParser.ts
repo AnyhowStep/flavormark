@@ -55,6 +55,9 @@ export abstract class BlockParser<NodeT extends Node=Node> implements BlockParse
     public getNodeCtor () : BlockNodeCtor<NodeT> {
         return this.nodeCtor;
     }
+    public instantiate (sourceRange : Range) {
+        return new this.nodeCtor(this.nodeType, sourceRange);
+    }
 
     //Only called if acceptsLines is true
     public appendString (_node : NodeT, _str : string) : void {

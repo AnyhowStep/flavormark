@@ -28,6 +28,15 @@ export class Node {
     private prev : Node|undefined = undefined;
     private next : Node|undefined = undefined;
 
+    public getSourceRangeOrError () {
+        if (this.sourceRange == undefined) {
+            throw new Error(`sourceRange is undefined`);
+        }
+        return {
+            ...this.sourceRange
+        };
+    }
+
     public isLastLineBlank () {
         return this.lastLineBlank;
     }

@@ -27,6 +27,16 @@ export declare class Parser {
     blockParsers: BlockParserCollection;
     constructor(blockParsers: BlockParserCollection, inlineParser: InlineContentParser, options?: Options | undefined);
     addLine(): void;
+    getRangeStart(offset: number): {
+        start: {
+            row: number;
+            column: number;
+        };
+        end: {
+            row: number;
+            column: number;
+        };
+    };
     addChild<NodeT extends Node>(blockParser: BlockParser<NodeT>, offset: number): NodeT;
     closeUnmatchedBlocks(): void;
     advanceOffset(count: number, columns?: boolean): void;

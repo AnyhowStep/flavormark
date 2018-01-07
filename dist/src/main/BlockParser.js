@@ -15,6 +15,9 @@ class BlockParser {
     getNodeCtor() {
         return this.nodeCtor;
     }
+    instantiate(sourceRange) {
+        return new this.nodeCtor(this.nodeType, sourceRange);
+    }
     //Only called if acceptsLines is true
     appendString(_node, _str) {
         throw new Error(`appendString() not implemented for ${this.getNodeType()}`);
