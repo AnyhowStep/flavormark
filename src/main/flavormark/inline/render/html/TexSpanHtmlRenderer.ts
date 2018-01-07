@@ -10,9 +10,11 @@ export class TexSpanHtmlRenderer extends HtmlSubRenderer<TexSpanNode> {
     public render (builder : HtmlBuilder, node : TexSpanNode, entering : boolean) : void {
         if (entering) {
             builder
-                .tag("latex")
-                .append(escapeXml(node.literal, false))
-                .tag("/latex");
+                .tag("span", [
+                    ["class", "math inline"]
+                ])
+                .append("\\(", escapeXml(node.literal, false), "\\)")
+                .tag("/span");
         }
     }
 }

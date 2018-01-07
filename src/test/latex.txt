@@ -1,20 +1,20 @@
 
-This is a simple latex span:
+This is a simple span span:
 
 ```````````````````````````````` example
 $foo$
 .
-<p><latex>foo</latex></p>
+<p><span class="math inline">\(foo\)</span></p>
 ````````````````````````````````
 
 
-Here two backticks are used, because the latex contains a backtick.
+Here two backticks are used, because the span contains a backtick.
 This example also illustrates stripping of leading and trailing spaces:
 
 ```````````````````````````````` example
 $$ foo $ bar  $$
 .
-<latex_block> foo \$ bar  </latex_block>
+<span class="math display">\[ foo \$ bar  \]</span>
 ````````````````````````````````
 
 
@@ -24,7 +24,7 @@ spaces:
 ```````````````````````````````` example
 $ $$ $
 .
-<p><latex></latex><latex></latex></p>
+<p><span class="math inline">\(\)</span><span class="math inline">\(\)</span></p>
 ````````````````````````````````
 
 
@@ -35,9 +35,9 @@ $$
 foo
 $$
 .
-<latex_block>
+<span class="math display">\[
 foo
-</latex_block>
+\]</span>
 ````````````````````````````````
 
 
@@ -48,17 +48,17 @@ single spaces, just as they would be by a browser:
 $foo   bar
   baz$
 .
-<p><latex>foo bar baz</latex></p>
+<p><span class="math inline">\(foo bar baz\)</span></p>
 ````````````````````````````````
 
 
-Not all [Unilatex whitespace] (for instance, non-breaking space) is
+Not all [Unispan whitespace] (for instance, non-breaking space) is
 collapsed, however:
 
 ```````````````````````````````` example
 $a  b$
 .
-<p><latex>a  b</latex></p>
+<p><span class="math inline">\(a  b\)</span></p>
 ````````````````````````````````
 
 
@@ -70,7 +70,7 @@ shouldn't rely on HTML-specific rendering assumptions.
 spaces and [line endings].  Some, including `Markdown.pl` and
 `showdown`, convert an internal [line ending] into a
 `<br />` tag.  But this makes things difficult for those who like to
-hard-wrap their paragraphs, since a line break in the midst of a latex
+hard-wrap their paragraphs, since a line break in the midst of a span
 span will cause an unintended line break in the output.  Others just
 leave internal spaces as they are, which is fine if only HTML is being
 targeted.)
@@ -78,33 +78,33 @@ targeted.)
 ```````````````````````````````` example
 $foo $$ bar$
 .
-<p><latex>foo</latex><latex>bar</latex></p>
+<p><span class="math inline">\(foo\)</span><span class="math inline">\(bar\)</span></p>
 ````````````````````````````````
 
 
-Note that backslash escapes do not work in latex spans. All backslashes
+Note that backslash escapes do not work in span spans. All backslashes
 are treated literally:
 
 ```````````````````````````````` example
 $foo\$bar$
 .
-<p><latex>foo\$bar</latex></p>
+<p><span class="math inline">\(foo\$bar\)</span></p>
 ````````````````````````````````
 
 
 Backslash escapes are never needed, because one can always choose a
-string of *n* backtick characters as delimiters, where the latex does
+string of *n* backtick characters as delimiters, where the span does
 not contain any strings of exactly *n* backtick characters.
 
-latex span backticks have higher precedence than any other inline
+span span backticks have higher precedence than any other inline
 constructs except HTML tags and autolinks.  Thus, for example, this is
-not parsed as emphasized text, since the second `*` is part of a latex
+not parsed as emphasized text, since the second `*` is part of a span
 span:
 
 ```````````````````````````````` example
 *foo$*$
 .
-<p>*foo<latex>*</latex></p>
+<p>*foo<span class="math inline">\(*\)</span></p>
 ````````````````````````````````
 
 
@@ -113,17 +113,17 @@ And this is not parsed as a link:
 ```````````````````````````````` example
 [not a $link](/foo$)
 .
-<p>[not a <latex>link](/foo</latex>)</p>
+<p>[not a <span class="math inline">\(link](/foo\)</span>)</p>
 ````````````````````````````````
 
 
-latex spans, HTML tags, and autolinks have the same precedence.
-Thus, this is latex:
+span spans, HTML tags, and autolinks have the same precedence.
+Thus, this is span:
 
 ```````````````````````````````` example
 $<a href="$">$
 .
-<p><latex>&lt;a href=&quot;</latex>&quot;&gt;$</p>
+<p><span class="math inline">\(&lt;a href=&quot;\)</span>&quot;&gt;$</p>
 ````````````````````````````````
 
 
@@ -136,12 +136,12 @@ But this is an HTML tag:
 ````````````````````````````````
 
 
-And this is latex:
+And this is span:
 
 ```````````````````````````````` example
 $<http://foo.bar.$baz>$
 .
-<p><latex>&lt;http://foo.bar.</latex>baz&gt;$</p>
+<p><span class="math inline">\(&lt;http://foo.bar.\)</span>baz&gt;$</p>
 ````````````````````````````````
 
 
@@ -160,8 +160,8 @@ we just have literal backticks:
 ```````````````````````````````` example
 $$$foo$$
 .
-<latex_block>foo\$\$
-</latex_block>
+<span class="math display">\[foo\$\$
+\]</span>
 ````````````````````````````````
 
 
@@ -177,7 +177,7 @@ closing backtick strings to be equal in length:
 ```````````````````````````````` example
 $foo$$bar$$
 .
-<p><latex>foo</latex><latex>bar</latex>$</p>
+<p><span class="math inline">\(foo\)</span><span class="math inline">\(bar\)</span>$</p>
 ````````````````````````````````
 
 When a backtick string is not closed by a matching backtick string,
@@ -194,7 +194,7 @@ $\$$ mixed
 $\$\$ mixed
 $$
 .
-<latex_block>
+<span class="math display">\[
 \$\$\$ unescaped
 foo
 \$\$\$ escaped
@@ -202,7 +202,7 @@ foo
 \$\$\$ mixed
 \$\$\$ mixed
 \$\$\$ mixed
-</latex_block>
+\]</span>
 ````````````````````````````````
 
 Test
@@ -217,14 +217,14 @@ $\$$ mixed
 $\$\$ mixed
 $$
 .
-<latex_block> \$\$\$ unescaped
+<span class="math display">\[ \$\$\$ unescaped
 foo
 \$\$\$ escaped
 \$\$\$ mixed
 \$\$\$ mixed
 \$\$\$ mixed
 \$\$\$ mixed
-</latex_block>
+\]</span>
 ````````````````````````````````
 
 Accidental Latex
@@ -232,7 +232,7 @@ Accidental Latex
 ```````````````````````````````` example
 I have $32 and you have $64
 .
-<p>I have <latex>32 and you have</latex>64</p>
+<p>I have <span class="math inline">\(32 and you have\)</span>64</p>
 ````````````````````````````````
 
 Escape Latex delimiters
@@ -257,8 +257,8 @@ Empty Tex Block
 ```````````````````````````````` example
 $$$$
 .
-<latex_block>
-</latex_block>
+<span class="math display">\[
+\]</span>
 ````````````````````````````````
 
 Whitespace Tex Block
@@ -266,7 +266,7 @@ Whitespace Tex Block
 ```````````````````````````````` example
 $$ $$
 .
-<latex_block> </latex_block>
+<span class="math display">\[ \]</span>
 ````````````````````````````````
 
 Empty Tex Block
@@ -274,8 +274,8 @@ Empty Tex Block
 ```````````````````````````````` example
 $$$$$$
 .
-<latex_block>
-</latex_block>
+<span class="math display">\[
+\]</span>
 ````````````````````````````````
 
 Dollar in Tex Block
@@ -283,7 +283,7 @@ Dollar in Tex Block
 ```````````````````````````````` example
 $$ $ $$
 .
-<latex_block> \$ </latex_block>
+<span class="math display">\[ \$ \]</span>
 ````````````````````````````````
 
 Empty Tex Block
@@ -291,8 +291,8 @@ Empty Tex Block
 ```````````````````````````````` example
 $$$$$
 .
-<latex_block>
-</latex_block>
+<span class="math display">\[
+\]</span>
 ````````````````````````````````
 
 Unexpected
@@ -300,6 +300,6 @@ Unexpected
 ```````````````````````````````` example
 $$\$$$
 .
-<latex_block>\$\$\$
-</latex_block>
+<span class="math display">\[\$\$\$
+\]</span>
 ````````````````````````````````

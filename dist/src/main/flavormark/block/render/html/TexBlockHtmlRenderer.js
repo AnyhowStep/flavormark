@@ -10,9 +10,11 @@ class TexBlockHtmlRenderer extends HtmlSubRenderer_1.HtmlSubRenderer {
     render(builder, node, entering) {
         if (entering) {
             builder
-                .tag("latex_block")
-                .append(common_1.escapeXml(node.literal, false))
-                .tag("/latex_block")
+                .tag("span", [
+                ["class", "math display"]
+            ])
+                .append("\\[", common_1.escapeXml(node.literal, false), "\\]")
+                .tag("/span")
                 .nl();
         }
     }
