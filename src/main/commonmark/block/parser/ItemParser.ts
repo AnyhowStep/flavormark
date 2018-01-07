@@ -5,7 +5,7 @@ import {peek, isSpaceOrTab, isBlank} from "./../../../refactored/util";
 
 import {ListNode} from "./../node/ListNode";
 import {ItemNode} from "./../node/ItemNode";
-import {ListData} from "./../../ListData";
+import {ListData} from "./../node/ListData";
 
 var reBulletListMarker = /^[*+-]/;
 
