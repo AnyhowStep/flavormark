@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const DelimitedInlineSubParser_1 = require("../DelimitedInlineSubParser");
-const Node_1 = require("../Node");
-const DelimiterCollection_1 = require("../DelimiterCollection");
-var CARET_CHAR = "^";
-var C_CARET = CARET_CHAR.charCodeAt(0);
+const DelimitedInlineSubParser_1 = require("./../../../DelimitedInlineSubParser");
+const DelimiterCollection_1 = require("./../../../DelimiterCollection");
+const SuperscriptNode_1 = require("../node/SuperscriptNode");
+const CARET_CHAR = "^";
+const C_CARET = CARET_CHAR.charCodeAt(0);
 class SuperscriptParser extends DelimitedInlineSubParser_1.DelimitedInlineSubParser {
     getDelimiterCharacterCodes() {
         return [
@@ -48,7 +48,7 @@ class SuperscriptParser extends DelimitedInlineSubParser_1.DelimitedInlineSubPar
             opener_inl.setString(opener_inl.getString().slice(0, opener_inl.getString().length - delimitersUsed));
             closer_inl.setString(closer_inl.getString().slice(0, closer_inl.getString().length - delimitersUsed));
             // build contents for new element
-            var emph = new Node_1.Node("superscript");
+            const emph = new SuperscriptNode_1.SuperscriptNode("superscript");
             let tmp = opener_inl.getNext();
             while (tmp && tmp !== closer_inl) {
                 let next = tmp.getNext();

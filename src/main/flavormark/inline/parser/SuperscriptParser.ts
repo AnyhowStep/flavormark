@@ -1,10 +1,10 @@
-import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs, ParseResult} from "../DelimitedInlineSubParser";
-import {RegexStream} from "../RegexStream";
-import {Node} from "../Node";
-import {removeDelimitersBetween} from "../DelimiterCollection";
+import {DelimitedInlineSubParser, DelimiterInfo, ParseArgs, ParseResult} from "./../../../DelimitedInlineSubParser";
+import {RegexStream} from "./../../../RegexStream";
+import {removeDelimitersBetween} from "./../../../DelimiterCollection";
+import {SuperscriptNode} from "../node/SuperscriptNode";
 
-var CARET_CHAR = "^";
-var C_CARET = CARET_CHAR.charCodeAt(0);
+const CARET_CHAR = "^";
+const C_CARET = CARET_CHAR.charCodeAt(0);
 
 
 export class SuperscriptParser extends DelimitedInlineSubParser {
@@ -64,7 +64,7 @@ export class SuperscriptParser extends DelimitedInlineSubParser {
             );
 
             // build contents for new element
-            var emph = new Node("superscript");
+            const emph = new SuperscriptNode("superscript");
 
             let tmp = opener_inl.getNext();
             while (tmp && tmp !== closer_inl) {

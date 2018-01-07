@@ -169,8 +169,8 @@ const backupFolder = "./src/dev/backup";
 moveRefactorProject(
     projectGlobs,
     backupFolder,
-    "./src/main/refactored-inline/LatexNode.ts",
-    "./src/main/flavormark/inline/node/TexSpanNode.ts"
+    "./src/main/custom/SuperscriptParser.ts",
+    "./src/main/flavormark/inline/parser/SuperscriptParser.ts"
 );
 
 /*moveRefactorProjectMulti(

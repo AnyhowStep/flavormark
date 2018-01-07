@@ -128,7 +128,7 @@ import {EntityParser} from "./../main/commonmark/inline/parser/EntityParser";
 import {StringParser} from "./../main/commonmark/inline/parser/StringParser";
 import {InlineContentParser} from "../main/InlineContentParser";
 
-import {SuperscriptParser} from "../main/custom/SuperscriptParser";
+import {SuperscriptParser} from "./../main/flavormark/inline/parser/SuperscriptParser";
 import {SmartStringParser} from "./../main/commonmark/inline/parser/SmartStringParser";
 import {StrikethroughParser} from "./../main/gfm/inline/parser/StrikethroughParser";
 import {CheckboxParser} from "./../main/gfm/inline/parser/CheckboxParser";
