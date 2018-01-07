@@ -1,6 +1,6 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
-import {isSpaceOrTab} from "./../../../refactored/util";
+import {isSpaceOrTab} from "./../../../commonmark/string-util";
 import {TexBlockNode} from "./../node/TexBlockNode";
 
 const reCodeFence = /^\${2,}(?!.*`)/;

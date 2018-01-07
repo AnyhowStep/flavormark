@@ -1,6 +1,6 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
-import {isSpaceOrTab} from "./../../../refactored/util";
+import {isSpaceOrTab} from "./../../string-util";
 import {BlockquoteNode} from "./../node/BlockquoteNode";
 
 export class BlockquoteParser extends BlockParser<BlockquoteNode> {

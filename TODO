@@ -1,2 +1,4 @@
 Refactor inline nodes to be more descriptive
 Refactor structure of project
+Remove all usages of `var`
+Refactor all classes extending `DelimitedInlineSubParser`, most of it is a copy-paste hack

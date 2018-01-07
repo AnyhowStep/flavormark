@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
-const util_1 = require("./../../../refactored/util");
+const string_util_1 = require("./../../string-util");
 const ListNode_1 = require("./../node/ListNode");
 const ItemNode_1 = require("./../node/ItemNode");
 var reBulletListMarker = /^[*+-]/;
@@ -39,11 +39,11 @@ function parseListMarker(parser, node) {
     }
     // make sure we have spaces after
     nextc = parser.currentLine[parser.nextNonspace + match[0].length];
-    if (!(nextc == undefined || util_1.isSpaceOrTab(nextc))) {
+    if (!(nextc == undefined || string_util_1.isSpaceOrTab(nextc))) {
         return undefined;
     }
     // if it interrupts paragraph, make sure first line isn't blank
-    if (parser.isParagraphNode(node) && util_1.isBlank(parser.currentLine.slice(parser.nextNonspace + match[0].length))) {
+    if (parser.isParagraphNode(node) && string_util_1.isBlank(parser.currentLine.slice(parser.nextNonspace + match[0].length))) {
         return undefined;
     }
     // we've got a match! advance offset and calculate padding
@@ -54,7 +54,7 @@ function parseListMarker(parser, node) {
     do {
         parser.advanceOffset(1, true);
         nextc = parser.currentLine[parser.offset];
-    } while (parser.column - spacesStartCol < 5 && util_1.isSpaceOrTab(nextc));
+    } while (parser.column - spacesStartCol < 5 && string_util_1.isSpaceOrTab(nextc));
     var blank_item = (parser.currentLine[parser.offset] == undefined);
     var spaces_after_marker = parser.column - spacesStartCol;
     if (spaces_after_marker >= 5 ||
@@ -63,7 +63,7 @@ function parseListMarker(parser, node) {
         data.padding = match[0].length + 1;
         parser.column = spacesStartCol;
         parser.offset = spacesStartOffset;
-        if (util_1.isSpaceOrTab(parser.currentLine[parser.offset])) {
+        if (string_util_1.isSpaceOrTab(parser.currentLine[parser.offset])) {
             parser.advanceOffset(1, true);
         }
     }

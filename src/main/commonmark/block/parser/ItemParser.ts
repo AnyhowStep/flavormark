@@ -1,7 +1,7 @@
 import {BlockParser, BlockParserMeta, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
 import {Node} from "./../../../Node";
-import {isSpaceOrTab, isBlank} from "./../../../refactored/util";
+import {isSpaceOrTab, isBlank} from "./../../string-util";
 
 import {ListNode} from "./../node/ListNode";
 import {ItemNode} from "./../node/ItemNode";

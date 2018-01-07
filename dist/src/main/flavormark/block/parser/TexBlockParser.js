@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
-const util_1 = require("./../../../refactored/util");
+const string_util_1 = require("./../../../commonmark/string-util");
 const TexBlockNode_1 = require("./../node/TexBlockNode");
 const reCodeFence = /^\${2,}(?!.*`)/;
 const reClosingCodeFence = /^(?:\${2,})(?= *$)/;
@@ -59,7 +59,7 @@ class TexBlockParser extends BlockParser_1.BlockParser {
             parser.finalize(node, parser.lineNumber);
             return false;
         }
-        for (let i = node.fenceOffset; i > 0 && util_1.isSpaceOrTab(ln[parser.offset]); --i) {
+        for (let i = node.fenceOffset; i > 0 && string_util_1.isSpaceOrTab(ln[parser.offset]); --i) {
             parser.advanceOffset(1, true);
         }
         return true;

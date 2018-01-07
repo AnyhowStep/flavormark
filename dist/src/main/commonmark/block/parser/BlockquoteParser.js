@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
-const util_1 = require("./../../../refactored/util");
+const string_util_1 = require("./../../string-util");
 const BlockquoteNode_1 = require("./../node/BlockquoteNode");
 class BlockquoteParser extends BlockParser_1.BlockParser {
     constructor(nodeCtor = BlockquoteNode_1.BlockquoteNode) {
@@ -18,7 +18,7 @@ class BlockquoteParser extends BlockParser_1.BlockParser {
         parser.advanceNextNonspace();
         parser.advanceOffset(1, false);
         // optional following space
-        if (util_1.isSpaceOrTab(parser.currentLine[parser.offset])) {
+        if (string_util_1.isSpaceOrTab(parser.currentLine[parser.offset])) {
             parser.advanceOffset(1, true);
         }
         parser.closeUnmatchedBlocks();
@@ -34,7 +34,7 @@ class BlockquoteParser extends BlockParser_1.BlockParser {
         }
         parser.advanceNextNonspace();
         parser.advanceOffset(1, false);
-        if (util_1.isSpaceOrTab(parser.currentLine[parser.offset])) {
+        if (string_util_1.isSpaceOrTab(parser.currentLine[parser.offset])) {
             parser.advanceOffset(1, true);
         }
         return true;

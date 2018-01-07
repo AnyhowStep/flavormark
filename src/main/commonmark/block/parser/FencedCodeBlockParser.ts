@@ -1,6 +1,6 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
-import {isSpaceOrTab} from "./../../../refactored/util";
+import {isSpaceOrTab} from "./../../string-util";
 import {unescapeString} from "./../../common";
 import {FencedCodeBlockNode} from "./../node/FencedCodeBlockNode";
 

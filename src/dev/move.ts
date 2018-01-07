@@ -169,8 +169,8 @@ const backupFolder = "./src/dev/backup";
 moveRefactorProject(
     projectGlobs,
     backupFolder,
-    "./src/main/common.ts",
-    "./src/main/commonmark/common.ts"
+    "./src/main/refactored/util.ts",
+    "./src/main/commonmark/string-util.ts"
 );
 
 /*moveRefactorProjectMulti(

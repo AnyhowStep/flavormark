@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
-const util_1 = require("./../../../refactored/util");
+const string_util_1 = require("./../../string-util");
 const common_1 = require("./../../common");
 const FencedCodeBlockNode_1 = require("./../node/FencedCodeBlockNode");
 const reCodeFence = /^`{3,}(?!.*`)|^~{3,}(?!.*~)/;
@@ -46,7 +46,7 @@ class FencedCodeBlockParser extends BlockParser_1.BlockParser {
             return false;
         }
         // skip optional spaces of fence offset
-        for (let i = node.fenceOffset; i > 0 && util_1.isSpaceOrTab(ln[parser.offset]); --i) {
+        for (let i = node.fenceOffset; i > 0 && string_util_1.isSpaceOrTab(ln[parser.offset]); --i) {
             parser.advanceOffset(1, true);
         }
         return true;

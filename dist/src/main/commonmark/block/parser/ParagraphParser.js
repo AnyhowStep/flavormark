@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
-const util_1 = require("./../../../refactored/util");
+const string_util_1 = require("./../../string-util");
 const link_util_1 = require("./../../link-util");
 const ParagraphNode_1 = require("./../node/ParagraphNode");
 class ParagraphParser extends BlockParser_1.BlockParser {
@@ -34,7 +34,7 @@ class ParagraphParser extends BlockParser_1.BlockParser {
             node.stringContent = node.stringContent.slice(pos);
             hasReferenceDefs = true;
         }
-        if (hasReferenceDefs && util_1.isBlank(node.stringContent)) {
+        if (hasReferenceDefs && string_util_1.isBlank(node.stringContent)) {
             node.unlink();
         }
     }
