@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BlockParser_1 = require("./../../../BlockParser");
-const Constants_1 = require("./../../../Constants");
 const IndentedCodeBlockNode_1 = require("./../node/IndentedCodeBlockNode");
 class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
     constructor(nodeType = "indented_code_block", nodeCtor = IndentedCodeBlockNode_1.IndentedCodeBlockNode) {
@@ -19,15 +18,15 @@ class IndentedCodeBlockParser extends BlockParser_1.BlockParser {
         if (parser.tip == undefined || parser.isParagraphNode(parser.tip)) {
             return false;
         }
-        parser.advanceOffset(Constants_1.INDENT_LENGTH, true);
+        parser.advanceOffset(parser.indentLength, true);
         parser.closeUnmatchedBlocks();
         parser.addChild(this, parser.offset);
         return true;
     }
     continue(parser) {
         const indent = parser.indent;
-        if (indent >= Constants_1.INDENT_LENGTH) {
-            parser.advanceOffset(Constants_1.INDENT_LENGTH, true);
+        if (indent >= parser.indentLength) {
+            parser.advanceOffset(parser.indentLength, true);
             return true;
         }
         else if (parser.blank) {

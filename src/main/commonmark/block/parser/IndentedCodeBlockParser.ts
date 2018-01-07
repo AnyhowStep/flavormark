@@ -1,6 +1,5 @@
 import {BlockParser, BlockNodeCtor} from "./../../../BlockParser";
 import {Parser} from "./../../../Parser";
-import {INDENT_LENGTH} from "./../../../Constants";
 import {IndentedCodeBlockNode} from "./../node/IndentedCodeBlockNode";
 
 export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> {
@@ -21,15 +20,15 @@ export class IndentedCodeBlockParser extends BlockParser<IndentedCodeBlockNode> 
         if (parser.tip == undefined || parser.isParagraphNode(parser.tip)) {
             return false;
         }
-        parser.advanceOffset(INDENT_LENGTH, true);
+        parser.advanceOffset(parser.indentLength, true);
         parser.closeUnmatchedBlocks();
         parser.addChild(this, parser.offset);
         return true;
     }
     public continue (parser : Parser) {
         const indent = parser.indent;
-        if (indent >= INDENT_LENGTH) {
-            parser.advanceOffset(INDENT_LENGTH, true);
+        if (indent >= parser.indentLength) {
+            parser.advanceOffset(parser.indentLength, true);
             return true;
         } else if (parser.blank) {
             parser.advanceNextNonspace();

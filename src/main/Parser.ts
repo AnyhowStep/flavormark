@@ -1,11 +1,14 @@
 import {BlockParser} from "./BlockParser";
 import {BlockParserCollection} from "./BlockParserCollection";
 import {Node, Range} from "./Node";
-import {INDENT_LENGTH} from "./Constants";
 import {InlineContentParser}  from "./InlineContentParser";
 
 export interface Options {
-    time? : boolean
+    blockParsers : BlockParserCollection,
+    inlineParser : InlineContentParser,
+
+    time? : boolean,
+    indentLength? : number,
 }
 
 export class Parser {
@@ -28,13 +31,20 @@ export class Parser {
     inlineParser : InlineContentParser;
     options : Options;
     blockParsers : BlockParserCollection;
-    constructor (blockParsers : BlockParserCollection, inlineParser : InlineContentParser, options? : Options|undefined) {
-        this.inlineParser = inlineParser;
-        this.options = options || {};
-        this.blockParsers = blockParsers;
+    indentLength : number;
+    constructor (options : Options) {
+        this.options = options;
+
+        this.blockParsers = options.blockParsers;
+        this.inlineParser = options.inlineParser;
+        this.indentLength = (options.indentLength == undefined) ?
+            4 : Math.floor(options.indentLength);
+        if (this.indentLength <= 0) {
+            throw new Error(`Indent length must be a positive integer, received: ${options.indentLength}`);
+        }
 
         //TODO, delete this safely?
-        this.doc = blockParsers.instantiateDocument({
+        this.doc = options.blockParsers.instantiateDocument({
             start : {
                 row : 1,
                 column : 1,
@@ -63,7 +73,7 @@ export class Parser {
         if (this.partiallyConsumedTab) {
           this.offset += 1; // skip over tab
           // add space characters:
-          var charsToTab = INDENT_LENGTH - (this.column % INDENT_LENGTH);
+          var charsToTab = this.indentLength - (this.column % this.indentLength);
           p.appendString(this.tip, ' '.repeat(charsToTab));
         }
         p.appendString(this.tip, this.currentLine.slice(this.offset) + '\n');
@@ -129,7 +139,7 @@ export class Parser {
         var c;
         while (count > 0 && (c = currentLine[this.offset])) {
             if (c === '\t') {
-                charsToTab = INDENT_LENGTH - (this.column % INDENT_LENGTH);
+                charsToTab = this.indentLength - (this.column % this.indentLength);
                 if (columns) {
                     this.partiallyConsumedTab = charsToTab > count;
                     charsToAdvance = charsToTab > count ? count : charsToTab;
@@ -169,7 +179,7 @@ export class Parser {
                 cols++;
             } else if (c === '\t') {
                 i++;
-                cols += (INDENT_LENGTH - (cols % INDENT_LENGTH));
+                cols += (this.indentLength - (cols % this.indentLength));
             } else {
                 break;
             }
@@ -178,7 +188,7 @@ export class Parser {
         this.nextNonspace = i;
         this.nextNonspaceColumn = cols;
         this.indent = this.nextNonspaceColumn - this.column;
-        this.indented = this.indent >= INDENT_LENGTH;
+        this.indented = this.indent >= this.indentLength;
     };
 
     // Analyze a line of text and update the document appropriately.

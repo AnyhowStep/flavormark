@@ -237,7 +237,10 @@ const inParsers : InlineParser[] = [
 ];
 
 
-let reader = new commonmark.Parser(blockParserCollection, new InlineContentParser({inParsers}));
+let reader = new commonmark.Parser({
+    blockParsers : blockParserCollection,
+    inlineParser : new InlineContentParser({inParsers})
+});
 
 const flavorDelimParser = new DelimitedInlineParser(delimiters, [
     new EmphasisParser(),
@@ -267,9 +270,12 @@ const flavorInlineParsers : InlineParser[] = [
 ];
 
 
-let flavorReader = new commonmark.Parser(blockParserCollection, new InlineContentParser({
-    inParsers : flavorInlineParsers
-}));
+let flavorReader = new commonmark.Parser({
+    blockParsers : blockParserCollection,
+    inlineParser : new InlineContentParser({
+        inParsers : flavorInlineParsers
+    })
+});
 
 
 const smartDelimParser = new DelimitedInlineParser(delimiters, [
@@ -292,9 +298,12 @@ const smartInlineParsers : InlineParser[] = [
     new SmartStringParser(),
     new StringParser(), //Should this be a default parser that cannot be removed?
 ];
-let readerSmart = new commonmark.Parser(blockParserCollection, new InlineContentParser({
-    inParsers : smartInlineParsers
-}));
+let readerSmart = new commonmark.Parser({
+    blockParsers : blockParserCollection,
+    inlineParser : new InlineContentParser({
+        inParsers : smartInlineParsers
+    })
+});
 
 var results : { passed : number, failed : number } = {
     passed: 0,

@@ -3,7 +3,10 @@ import { BlockParserCollection } from "./BlockParserCollection";
 import { Node, Range } from "./Node";
 import { InlineContentParser } from "./InlineContentParser";
 export interface Options {
+    blockParsers: BlockParserCollection;
+    inlineParser: InlineContentParser;
     time?: boolean;
+    indentLength?: number;
 }
 export declare class Parser {
     doc: Node;
@@ -25,7 +28,8 @@ export declare class Parser {
     inlineParser: InlineContentParser;
     options: Options;
     blockParsers: BlockParserCollection;
-    constructor(blockParsers: BlockParserCollection, inlineParser: InlineContentParser, options?: Options | undefined);
+    indentLength: number;
+    constructor(options: Options);
     addLine(): void;
     getRangeStart(offset: number): {
         start: {
