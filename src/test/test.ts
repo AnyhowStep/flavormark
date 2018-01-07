@@ -95,7 +95,7 @@ const brackets = new BracketCollection(delimiters);
 
 import {InlineParser} from "../main/InlineParser";
 import {NewlineParser} from "../main/refactored-inline/NewlineParser";
-import {EscapeCharacterParser} from "../main/refactored-inline/EscapeCharacterParser";
+import {EscapeCharacterParser} from "./../main/commonmark/inline/parser/EscapeCharacterParser";
 import {CodeSpanParser} from "./../main/commonmark/inline/parser/CodeSpanParser";
 import {DelimitedInlineParser} from "../main/DelimitedInlineParser";
 import {EmphasisParser} from "../main/refactored-delimiter/EmphasisParser";

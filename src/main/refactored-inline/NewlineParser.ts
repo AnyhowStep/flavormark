@@ -1,7 +1,7 @@
 import {InlineParser} from "../InlineParser";
 import {InlineContentParser} from "../InlineContentParser";
 import {Node} from "../Node";
-import {HardbreakNode} from "./HardbreakNode";
+import {HardbreakNode} from "./../commonmark/inline/node/HardbreakNode";
 import {SoftbreakNode} from "./SoftbreakNode";
 
 var C_NEWLINE = 10;

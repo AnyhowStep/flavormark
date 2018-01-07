@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("../InlineParser");
-const HardbreakNode_1 = require("./HardbreakNode");
+const HardbreakNode_1 = require("./../commonmark/inline/node/HardbreakNode");
 const SoftbreakNode_1 = require("./SoftbreakNode");
 var C_NEWLINE = 10;
 var reFinalSpace = / *$/;
