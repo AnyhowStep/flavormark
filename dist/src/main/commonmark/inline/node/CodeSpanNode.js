@@ -4,7 +4,7 @@ const Node_1 = require("./../../../Node");
 class CodeSpanNode extends Node_1.Node {
     constructor() {
         super(...arguments);
-        this.literal = undefined;
+        this.literal = "";
     }
 }
 exports.CodeSpanNode = CodeSpanNode;

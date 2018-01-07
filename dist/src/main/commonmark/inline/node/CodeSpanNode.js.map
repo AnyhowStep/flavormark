@@ -1,1 +1,1 @@
-{"version":3,"file":"CodeSpanNode.js","sourceRoot":"","sources":["../../../../../../src/main/commonmark/inline/node/CodeSpanNode.ts"],"names":[],"mappings":";;AAAA,0CAAqC;AAErC,kBAA0B,SAAQ,WAAI;IAAtC;;QACW,YAAO,GAAsB,SAAS,CAAC;IAClD,CAAC;CAAA;AAFD,oCAEC"}
+{"version":3,"file":"CodeSpanNode.js","sourceRoot":"","sources":["../../../../../../src/main/commonmark/inline/node/CodeSpanNode.ts"],"names":[],"mappings":";;AAAA,0CAAqC;AAErC,kBAA0B,SAAQ,WAAI;IAAtC;;QACW,YAAO,GAAY,EAAE,CAAC;IACjC,CAAC;CAAA;AAFD,oCAEC"}

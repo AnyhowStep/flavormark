@@ -20,7 +20,7 @@ class FencedCodeBlockHtmlRenderer extends HtmlSubRenderer_1.HtmlSubRenderer {
                 .nl()
                 .tag("pre")
                 .tag("code", attrs)
-                .append(common_1.escapeXml(node.literal, true))
+                .append(common_1.escapeXml(node.literal, false))
                 .tag("/code")
                 .tag("/pre")
                 .nl();

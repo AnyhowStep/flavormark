@@ -13,7 +13,7 @@ export class IndentedCodeBlockHtmlRenderer extends HtmlSubRenderer<IndentedCodeB
                 .nl()
                 .tag("pre")
                 .tag("code")
-                .append(escapeXml(node.literal, true))
+                .append(escapeXml(node.literal, false))
                 .tag("/code")
                 .tag("/pre")
                 .nl();

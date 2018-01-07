@@ -12,30 +12,31 @@ class CodeSpanParser extends InlineParser_1.InlineParser {
     // return the inline matched, advancing the subject.
     // Attempt to parse backticks, adding either a backtick code span or a
     // literal sequence of backticks.
-    parse(parser, block) {
+    parse(parser, node) {
         const c = parser.peek();
         if (c != C_BACKTICK) {
             return false;
         }
-        var ticks = parser.match(reTicksHere);
+        const ticks = parser.match(reTicksHere);
         if (ticks == undefined) {
             return false;
         }
-        var afterOpenTicks = parser.pos;
-        var matched;
-        var node;
-        while ((matched = parser.match(reTicks)) != undefined) {
-            if (matched === ticks) {
-                node = new CodeSpanNode_1.CodeSpanNode('code');
-                node.literal = parser.subject.slice(afterOpenTicks, parser.pos - ticks.length)
-                    .trim().replace(reWhitespace, ' ');
-                block.appendChild(node);
+        const afterOpenTicks = parser.pos;
+        let matched = parser.match(reTicks);
+        while (matched != undefined) {
+            if (matched == ticks) {
+                const codeSpan = new CodeSpanNode_1.CodeSpanNode('code');
+                codeSpan.literal = parser.subject.slice(afterOpenTicks, parser.pos - ticks.length)
+                    .trim()
+                    .replace(reWhitespace, " ");
+                node.appendChild(codeSpan);
                 return true;
             }
+            matched = parser.match(reTicks);
         }
         // If we got here, we didn't match a closing backtick sequence.
         parser.pos = afterOpenTicks;
-        block.appendChild(parser.text(ticks));
+        node.appendChild(parser.text(ticks));
         return true;
     }
 }
