@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("../InlineParser");
 const common_1 = require("../common");
-const LinkNode_1 = require("../commonmark/inline/LinkNode");
+const LinkNode_1 = require("./../commonmark/inline/node/LinkNode");
 const common_2 = require("../common");
 class ExtendedEmailAutolinkParser extends InlineParser_1.InlineParser {
     parse(parser, block) {
