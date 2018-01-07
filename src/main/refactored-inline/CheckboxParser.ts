@@ -5,7 +5,7 @@ import {Node} from "../Node";
 import {BlockParser} from "../BlockParser";
 import {CheckboxNode} from "./CheckboxNode";
 import {Parser} from "../Parser";
-import {ItemParser} from "../commonmark/ItemParser";
+import {ItemParser} from "./../commonmark/block/parser/ItemParser";
 
 export class CheckboxParser extends InlineParser {
     public parse (parser : InlineContentParser, block : Node, blockParser : BlockParser, mainParserThing : Parser) : boolean {

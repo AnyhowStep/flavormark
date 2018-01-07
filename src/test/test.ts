@@ -42,18 +42,18 @@ var cursor = {
 var writer = new commonmark.HtmlRenderer();
 
 
-import {DocumentParser} from "../main/commonmark/DocumentParser";
-import {ListParser} from "../main/commonmark/ListParser";
-import {BlockquoteParser} from "../main/commonmark/BlockquoteParser";
-import {ItemParser} from "../main/commonmark/ItemParser";
-import {ThematicBreakParser} from "../main/commonmark/ThematicBreakParser";
-import {HtmlBlockParser} from "../main/commonmark/HtmlBlockParser";
-import {ParagraphParser} from "../main/commonmark/ParagraphParser";
-import {AtxHeadingParser} from "../main/commonmark/AtxHeadingParser";
-import {SetextHeadingParser} from "../main/commonmark/SetextHeadingParser";
-import {FencedCodeBlockParser} from "../main/commonmark/FencedCodeBlockParser";
+import {DocumentParser} from "./../main/commonmark/block/parser/DocumentParser";
+import {ListParser} from "./../main/commonmark/block/parser/ListParser";
+import {BlockquoteParser} from "./../main/commonmark/block/parser/BlockquoteParser";
+import {ItemParser} from "./../main/commonmark/block/parser/ItemParser";
+import {ThematicBreakParser} from "./../main/commonmark/block/parser/ThematicBreakParser";
+import {HtmlBlockParser} from "./../main/commonmark/block/parser/HtmlBlockParser";
+import {ParagraphParser} from "./../main/commonmark/block/parser/ParagraphParser";
+import {AtxHeadingParser} from "./../main/commonmark/block/parser/AtxHeadingParser";
+import {SetextHeadingParser} from "./../main/commonmark/block/parser/SetextHeadingParser";
+import {FencedCodeBlockParser} from "./../main/commonmark/block/parser/FencedCodeBlockParser";
 import {latexBlockParser} from "../main/refactored/latex-block";
-import {IndentedCodeBlockParser} from "../main/commonmark/IndentedCodeBlockParser";
+import {IndentedCodeBlockParser} from "./../main/commonmark/block/parser/IndentedCodeBlockParser";
 import {BlockParserCollection} from "../main/BlockParserCollection";
 //import {Node} from "../main/refactored/Node";
 import {tableParser, ThParser, TdParser, TrParser, TheadParser, TbodyParser} from "../main/refactored/table";

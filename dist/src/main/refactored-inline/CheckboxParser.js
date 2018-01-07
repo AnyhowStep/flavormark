@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const InlineParser_1 = require("../InlineParser");
 const CheckboxNode_1 = require("./CheckboxNode");
-const ItemParser_1 = require("../commonmark/ItemParser");
+const ItemParser_1 = require("./../commonmark/block/parser/ItemParser");
 class CheckboxParser extends InlineParser_1.InlineParser {
     parse(parser, block, blockParser, mainParserThing) {
         if (mainParserThing.isParagraphNode(block)) {
