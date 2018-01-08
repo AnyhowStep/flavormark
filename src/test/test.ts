@@ -1,43 +1,12 @@
-#!/usr/bin/env node
-"use strict";
+import {TestResult, cursor, specTests, pathologicalTest, repeat} from "./test-func";
 
-var fs = require('fs');
+const results : TestResult = {
+    passed : 0,
+    failed : 0,
+};
+
 import * as commonmark from "../main/index";
 //var util = require("util");
-
-// Home made mini-version of the npm ansi module:
-var escSeq = function(s : string) {
-    return function (this : any) {
-        process.stdout.write('\u001b' + s);
-        return this;
-    };
-};
-
-var repeat = function(pattern : string, count : number) {
-    if (count < 1) {
-        return '';
-    }
-    var result = '';
-    while (count > 1) {
-        if (count & 1) {
-            result += pattern;
-        }
-        count >>= 1;
-        pattern += pattern;
-    }
-    return result + pattern;
-};
-
-var cursor = {
-    write: function (s : string) {
-        process.stdout.write(s);
-        return this;
-    },
-    green: escSeq('[0;32m'),
-    red: escSeq('[0;31m'),
-    cyan: escSeq('[0;36m'),
-    reset: escSeq('[0m')
-};
 
 import {BlockquoteHtmlRenderer} from "../main/commonmark/block/render/html/BlockquoteHtmlRenderer";
 import {DocumentHtmlRenderer} from "../main/commonmark/block/render/html/DocumentHtmlRenderer";
@@ -310,117 +279,6 @@ let readerSmart = new commonmark.Parser({
     })
 });
 
-var results : { passed : number, failed : number } = {
-    passed: 0,
-    failed: 0
-};
-
-var showSpaces = function(s : string) {
-    var t = s;
-    return t.replace(/\t/g, '→')
-        .replace(/ /g, '␣');
-};
-
-var extractSpecTests = function(testfile : string) {
-    var data = fs.readFileSync(testfile, 'utf8');
-    var examples : {markdown: string,
-                   html: string,
-                   section: string,
-                   number: number}[] = [];
-    var current_section = "";
-    var example_number = 0;
-    var tests = data
-        .replace(/\r\n?/g, "\n") // Normalize newlines for platform independence
-        .replace(/^<!-- END TESTS -->(.|[\n])*/m, '');
-
-tests.replace(/^`{32} example\n([\s\S]*?)^\.\n([\s\S]*?)^`{32}$|^#{1,6} *(.*)$/gm,
-              function(_ : string, markdownSubmatch : string, htmlSubmatch : string, sectionSubmatch : string){
-                  if (sectionSubmatch) {
-                      current_section = sectionSubmatch;
-                  } else {
-                      example_number++;
-                      examples.push({markdown: markdownSubmatch,
-                                     html: htmlSubmatch,
-                                     section: current_section,
-                                     number: example_number});
-                  }
-              });
-    return examples;
-};
-
-var specTest = function(testcase:{markdown: string,
-               html: string,
-               section: string,
-               number: number}, res : { passed : number, failed : number }, converter : (str : string) => string) {
-    var markdown = testcase.markdown.replace(/→/g, '\t');
-    var expected = testcase.html.replace(/→/g, '\t');
-    var actual = converter(markdown);
-    if (actual === expected) {
-        res.passed++;
-        cursor.green().write('✓').reset();
-    } else {
-        res.failed++;
-        cursor.write('\n');
-
-        cursor.red().write('✘ Example ' + testcase.number + '\n');
-        cursor.cyan();
-        cursor.write('=== markdown ===============\n');
-        cursor.write(showSpaces(markdown));
-        cursor.write('=== expected ===============\n');
-        cursor.write(showSpaces(expected));
-        cursor.write('=== got ====================\n');
-        cursor.write(showSpaces(actual));
-        cursor.reset();
-    }
-};
-
-var specTests = function(testfile : string, _res : { failed : number, passed : number }, converter : (str : string) => string) {
-    cursor.write('Spec tests [' + testfile + ']:\n');
-
-    var current_section = "";
-    var examples = extractSpecTests(testfile);
-
-    console.time("Elapsed time");
-    for (var i = 0; i < examples.length; i++) {
-        var testcase = examples[i];
-        if (testcase.section !== current_section) {
-            if (current_section !== '') {
-                cursor.write('\n');
-            }
-            current_section = testcase.section;
-            cursor.reset().write(current_section).reset().write('  ');
-        }
-        specTest(testcase, results, converter);
-    }
-    cursor.write('\n');
-    console.timeEnd("Elapsed time");
-    cursor.write('\n');
-};
-
-var pathologicalTest = function(testcase : { name: string,
-  input: string,
-  expected: string }, res : { failed : number, passed : number }, converter : (str : string) => string) {
-    cursor.write(testcase.name + ' ');
-    console.time('  elapsed time');
-    var actual = converter(testcase.input);
-    if (actual === testcase.expected) {
-        cursor.green().write('✓\n').reset();
-        res.passed += 1;
-    } else {
-        cursor.red().write('✘\n');
-        cursor.cyan();
-        cursor.write('=== markdown ===============\n');
-        cursor.write(showSpaces(testcase.input));
-        cursor.write('=== expected ===============\n');
-        cursor.write(showSpaces(testcase.expected));
-        cursor.write('=== got ====================\n');
-        cursor.write(showSpaces(actual));
-        cursor.write('\n');
-        cursor.reset();
-        res.failed += 1;
-    }
-    console.timeEnd('  elapsed time');
-};
 /*
 pathologicalTest(
     { name: 'basic',
