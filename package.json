@@ -6,6 +6,7 @@
   "scripts": {
     "move": "ts-node ./src/dev/move.ts",
     "test": "ts-node ./src/test/test.ts",
+    "generate-code": "(rm ./src/main/index.ts || true) && (rm -r ./src/main/generated || true) && ts-node ./src/dev/generate-export",
     "build": "(rm -r ./dist || true) && tsc -d"
   },
   "author": "",
@@ -15,12 +16,13 @@
     "@types/mdurl": "^1.0.1",
     "entities": "^1.1.1",
     "mdurl": "^1.0.1",
-    "typescript": "^2.7.0-dev.20171226"
+    "typescript": "^2.7.0-insiders.20171214"
   },
   "devDependencies": {
     "@types/glob": "^5.0.34",
-    "@types/node": "^8.5.2",
+    "@types/node": "^8.5.7",
     "@types/underscore": "^1.8.6",
+    "export-generator": "^1.2.0",
     "glob": "^7.1.2",
     "ts-node": "^4.1.0",
     "underscore": "^1.8.3"
