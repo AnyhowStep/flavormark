@@ -16,6 +16,7 @@ function countChar(str, char) {
     }
     return result;
 }
+//TODO Separate this out into two classes. One for www, one for scheme
 class ExtendedWwwAutolinkParser extends InlineParser_1.InlineParser {
     parse(parser, node) {
         const startpos = parser.pos;

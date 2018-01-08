@@ -1,0 +1,305 @@
+
+This is a simple span span:
+
+```````````````````````````````` example
+$foo$
+.
+<p><span class="math inline">\(foo\)</span></p>
+````````````````````````````````
+
+
+Here two backticks are used, because the span contains a backtick.
+This example also illustrates stripping of leading and trailing spaces:
+
+```````````````````````````````` example
+$$ foo $ bar  $$
+.
+<span class="math display">\[ foo \$ bar  \]</span>
+````````````````````````````````
+
+
+This example shows the motivation for stripping leading and trailing
+spaces:
+
+```````````````````````````````` example
+$ $$ $
+.
+<p><span class="math inline">\(\)</span><span class="math inline">\(\)</span></p>
+````````````````````````````````
+
+
+[Line endings] are treated like spaces:
+
+```````````````````````````````` example
+$$
+foo
+$$
+.
+<span class="math display">\[
+foo
+\]</span>
+````````````````````````````````
+
+
+Interior spaces and [line endings] are collapsed into
+single spaces, just as they would be by a browser:
+
+```````````````````````````````` example
+$foo   bar
+  baz$
+.
+<p><span class="math inline">\(foo bar baz\)</span></p>
+````````````````````````````````
+
+
+Not all [Unispan whitespace] (for instance, non-breaking space) is
+collapsed, however:
+
+```````````````````````````````` example
+$a  b$
+.
+<p><span class="math inline">\(a  b\)</span></p>
+````````````````````````````````
+
+
+Q: Why not just leave the spaces, since browsers will collapse them
+anyway?  A:  Because we might be targeting a non-HTML format, and we
+shouldn't rely on HTML-specific rendering assumptions.
+
+(Existing implementations differ in their treatment of internal
+spaces and [line endings].  Some, including `Markdown.pl` and
+`showdown`, convert an internal [line ending] into a
+`<br />` tag.  But this makes things difficult for those who like to
+hard-wrap their paragraphs, since a line break in the midst of a span
+span will cause an unintended line break in the output.  Others just
+leave internal spaces as they are, which is fine if only HTML is being
+targeted.)
+
+```````````````````````````````` example
+$foo $$ bar$
+.
+<p><span class="math inline">\(foo\)</span><span class="math inline">\(bar\)</span></p>
+````````````````````````````````
+
+
+Note that backslash escapes do not work in span spans. All backslashes
+are treated literally:
+
+```````````````````````````````` example
+$foo\$bar$
+.
+<p><span class="math inline">\(foo\$bar\)</span></p>
+````````````````````````````````
+
+
+Backslash escapes are never needed, because one can always choose a
+string of *n* backtick characters as delimiters, where the span does
+not contain any strings of exactly *n* backtick characters.
+
+span span backticks have higher precedence than any other inline
+constructs except HTML tags and autolinks.  Thus, for example, this is
+not parsed as emphasized text, since the second `*` is part of a span
+span:
+
+```````````````````````````````` example
+*foo$*$
+.
+<p>*foo<span class="math inline">\(*\)</span></p>
+````````````````````````````````
+
+
+And this is not parsed as a link:
+
+```````````````````````````````` example
+[not a $link](/foo$)
+.
+<p>[not a <span class="math inline">\(link](/foo\)</span>)</p>
+````````````````````````````````
+
+
+span spans, HTML tags, and autolinks have the same precedence.
+Thus, this is span:
+
+```````````````````````````````` example
+$<a href="$">$
+.
+<p><span class="math inline">\(&lt;a href=&quot;\)</span>&quot;&gt;$</p>
+````````````````````````````````
+
+
+But this is an HTML tag:
+
+```````````````````````````````` example
+<a href="$">$
+.
+<p><a href="$">$</p>
+````````````````````````````````
+
+
+And this is span:
+
+```````````````````````````````` example
+$<http://foo.bar.$baz>$
+.
+<p><span class="math inline">\(&lt;http://foo.bar.\)</span>baz&gt;$</p>
+````````````````````````````````
+
+
+But this is an autolink:
+
+```````````````````````````````` example
+<http://foo.bar.$baz>$
+.
+<p><a href="http://foo.bar.$baz">http://foo.bar.$baz</a>$</p>
+````````````````````````````````
+
+
+When a backtick string is not closed by a matching backtick string,
+we just have literal backticks:
+
+```````````````````````````````` example
+$$$foo$$
+.
+<span class="math display">\[foo\$\$
+\]</span>
+````````````````````````````````
+
+
+```````````````````````````````` example
+$foo
+.
+<p>$foo</p>
+````````````````````````````````
+
+The following case also illustrates the need for opening and
+closing backtick strings to be equal in length:
+
+```````````````````````````````` example
+$foo$$bar$$
+.
+<p><span class="math inline">\(foo\)</span><span class="math inline">\(bar\)</span>$</p>
+````````````````````````````````
+
+When a backtick string is not closed by a matching backtick string,
+we just have literal backticks:
+
+```````````````````````````````` example
+$$
+$$$ unescaped
+foo
+\$\$\$ escaped
+$\$$ mixed
+\$$\$ mixed
+\$\$$ mixed
+$\$\$ mixed
+$$
+.
+<span class="math display">\[
+\$\$\$ unescaped
+foo
+\$\$\$ escaped
+\$\$\$ mixed
+\$\$\$ mixed
+\$\$\$ mixed
+\$\$\$ mixed
+\]</span>
+````````````````````````````````
+
+Test
+
+```````````````````````````````` example
+$$ $$$ unescaped
+foo
+\$\$\$ escaped
+$\$$ mixed
+\$$\$ mixed
+\$\$$ mixed
+$\$\$ mixed
+$$
+.
+<span class="math display">\[ \$\$\$ unescaped
+foo
+\$\$\$ escaped
+\$\$\$ mixed
+\$\$\$ mixed
+\$\$\$ mixed
+\$\$\$ mixed
+\]</span>
+````````````````````````````````
+
+Accidental Latex
+
+```````````````````````````````` example
+I have $32 and you have $64
+.
+<p>I have <span class="math inline">\(32 and you have\)</span>64</p>
+````````````````````````````````
+
+Escape Latex delimiters
+
+```````````````````````````````` example
+I have \$32 and you have \$64
+.
+<p>I have $32 and you have $64</p>
+````````````````````````````````
+
+You cannot have empty inline tex
+
+```````````````````````````````` example
+Empty tex renders as $$ dollar signs
+.
+<p>Empty tex renders as $$ dollar signs</p>
+````````````````````````````````
+
+
+Empty Tex Block
+
+```````````````````````````````` example
+$$$$
+.
+<span class="math display">\[
+\]</span>
+````````````````````````````````
+
+Whitespace Tex Block
+
+```````````````````````````````` example
+$$ $$
+.
+<span class="math display">\[ \]</span>
+````````````````````````````````
+
+Empty Tex Block
+
+```````````````````````````````` example
+$$$$$$
+.
+<span class="math display">\[
+\]</span>
+````````````````````````````````
+
+Dollar in Tex Block
+
+```````````````````````````````` example
+$$ $ $$
+.
+<span class="math display">\[ \$ \]</span>
+````````````````````````````````
+
+Empty Tex Block
+
+```````````````````````````````` example
+$$$$$
+.
+<span class="math display">\[
+\]</span>
+````````````````````````````````
+
+Unexpected
+
+```````````````````````````````` example
+$$\$$$
+.
+<span class="math display">\[\$\$\$
+\]</span>
+````````````````````````````````

@@ -15,6 +15,7 @@ __export(require("./../../../gfm/block/parser/TdParser"));
 __export(require("./../../../gfm/block/parser/TheadParser"));
 __export(require("./../../../gfm/block/parser/ThParser"));
 __export(require("./../../../gfm/block/parser/TrParser"));
+__export(require("./../../../gfm/block/render/html/HtmlBlockHtmlRenderer"));
 __export(require("./../../../gfm/block/render/html/TableHtmlRenderer"));
 __export(require("./../../../gfm/block/render/html/TbodyHtmlRenderer"));
 __export(require("./../../../gfm/block/render/html/TdHtmlRenderer"));

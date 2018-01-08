@@ -19,6 +19,7 @@ function countChar (str : string, char : string) {
     return result;
 }
 
+//TODO Separate this out into two classes. One for www, one for scheme
 export class ExtendedWwwAutolinkParser extends InlineParser {
     public parse (parser : InlineContentParser, node : Node) : boolean {
         const startpos = parser.pos;

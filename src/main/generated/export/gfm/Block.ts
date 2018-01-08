@@ -10,6 +10,7 @@ export * from "./../../../gfm/block/parser/TdParser";
 export * from "./../../../gfm/block/parser/TheadParser";
 export * from "./../../../gfm/block/parser/ThParser";
 export * from "./../../../gfm/block/parser/TrParser";
+export * from "./../../../gfm/block/render/html/HtmlBlockHtmlRenderer";
 export * from "./../../../gfm/block/render/html/TableHtmlRenderer";
 export * from "./../../../gfm/block/render/html/TbodyHtmlRenderer";
 export * from "./../../../gfm/block/render/html/TdHtmlRenderer";

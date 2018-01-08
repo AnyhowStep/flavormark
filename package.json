@@ -6,6 +6,7 @@
   "scripts": {
     "move": "ts-node ./src/dev/move.ts",
     "test": "ts-node ./src/test/test.ts",
+    "test-all": "ts-node ./src/test/test-all.ts",
     "generate-code": "(rm ./src/main/index.ts || true) && (rm -r ./src/main/generated || true) && ts-node ./src/dev/generate-export",
     "build": "(rm -r ./dist || true) && tsc -d"
   },

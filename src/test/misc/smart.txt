@@ -1,0 +1,7 @@
+Three periods form an ellipsis:
+
+```````````````````````````````` example
+Ellipses...and...and....
+.
+<p>Ellipses…and…and….</p>
+````````````````````````````````

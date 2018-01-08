@@ -5,4 +5,5 @@ export * from "./../../../gfm/inline/parser/ExtendedEmailAutolinkParser";
 export * from "./../../../gfm/inline/parser/ExtendedWwwAutolinkParser";
 export * from "./../../../gfm/inline/parser/StrikethroughParser";
 export * from "./../../../gfm/inline/render/html/CheckboxHtmlRenderer";
+export * from "./../../../gfm/inline/render/html/HtmlTagHtmlRenderer";
 export * from "./../../../gfm/inline/render/html/StrikethroughHtmlRenderer";

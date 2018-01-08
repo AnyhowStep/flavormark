@@ -10,5 +10,6 @@ __export(require("./../../../gfm/inline/parser/ExtendedEmailAutolinkParser"));
 __export(require("./../../../gfm/inline/parser/ExtendedWwwAutolinkParser"));
 __export(require("./../../../gfm/inline/parser/StrikethroughParser"));
 __export(require("./../../../gfm/inline/render/html/CheckboxHtmlRenderer"));
+__export(require("./../../../gfm/inline/render/html/HtmlTagHtmlRenderer"));
 __export(require("./../../../gfm/inline/render/html/StrikethroughHtmlRenderer"));
 //# sourceMappingURL=Inline.js.map
