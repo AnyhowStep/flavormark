@@ -3,7 +3,7 @@
 Based on [commonmark.js](https://github.com/commonmark/commonmark.js)
 
 FlavorMark is a Markdown parser, made in TypeScript, with emphasis placed on modularizing
-element parsing logic, making it easy to add/remove syntax for your favorite Markdown flavors.
+element parsing logic, making it easy(-ish) to add/remove syntax for your favorite Markdown flavors.
 
 ## Parsers
 
@@ -43,15 +43,14 @@ There are a lot of classes with the word `Parser` in them.
 1. Instantiate a `Parser` and pass it the `BlockParserCollection`, and `InlineContentParser`.
 1. Call `Parser.parse(str)`.
 
+See the tests in `src/test` for more examples.
+
 ## Notes
 
-`Node.type` is set by the `BlockParser` or `InlineParser` that instantiates the `Node`.
+Each `Node` constructors are used to uniquely identify `BlockParser`, and `HtmlSubRenderer`
+instances.
 
-`Node`s instantiated by a `BlockParser` should have `type` set equal to
-`BlockParser.nodeType`.
+When trying to parse a block, `instanceof` checks are used to find the `BlockParser`
+associated with a `Node`. The first matching `BlockParser` in the array is used.
 
-Each `BlockParser.nodeType` must be unique per `BlockParser` added to
-a `BlockParserCollection`.
-
-`BlockParser.nodeType` is used to match `Node` instances to the `BlockParser`
-instances that created them.
+For this reason, each unique block type should have its own `Node` sub-class.
