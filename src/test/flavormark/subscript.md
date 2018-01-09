@@ -1,5 +1,4 @@
 # Subscript
-`````````````````
 
 Basic subscript
 

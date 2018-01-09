@@ -39,18 +39,16 @@ export class FencedCodeBlockParser extends BlockParser<FencedCodeBlockNode> {
     }
     public continue (parser : Parser, node : FencedCodeBlockNode) {
         const ln = parser.currentLine;
-        let match : null|RegExpMatchArray = null;
         if (
             !parser.indented &&
             ln.charAt(parser.nextNonspace) === node.fenceChar
         ) {
-            match = ln.slice(parser.nextNonspace).match(reClosingCodeFence);
-        }
-
-        if (match != undefined && match[0].length >= node.fenceLength) {
-            // closing fence - we're at end of line, so we can return
-            parser.finalize(node, parser.lineNumber);
-            return false;
+            const match = ln.slice(parser.nextNonspace).match(reClosingCodeFence);
+            if (match != undefined && match[0].length >= node.fenceLength) {
+                // closing fence - we're at end of line, so we can return
+                parser.finalize(node, parser.lineNumber);
+                return false;
+            }
         }
 
         // skip optional spaces of fence offset

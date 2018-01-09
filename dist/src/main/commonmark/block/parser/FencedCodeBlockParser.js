@@ -35,15 +35,14 @@ class FencedCodeBlockParser extends BlockParser_1.BlockParser {
     }
     continue(parser, node) {
         const ln = parser.currentLine;
-        let match = null;
         if (!parser.indented &&
             ln.charAt(parser.nextNonspace) === node.fenceChar) {
-            match = ln.slice(parser.nextNonspace).match(reClosingCodeFence);
-        }
-        if (match != undefined && match[0].length >= node.fenceLength) {
-            // closing fence - we're at end of line, so we can return
-            parser.finalize(node, parser.lineNumber);
-            return false;
+            const match = ln.slice(parser.nextNonspace).match(reClosingCodeFence);
+            if (match != undefined && match[0].length >= node.fenceLength) {
+                // closing fence - we're at end of line, so we can return
+                parser.finalize(node, parser.lineNumber);
+                return false;
+            }
         }
         // skip optional spaces of fence offset
         for (let i = node.fenceOffset; i > 0 && string_util_1.isSpaceOrTab(ln[parser.offset]); --i) {

@@ -50,14 +50,21 @@ class TexBlockParser extends BlockParser_1.BlockParser {
             return false;
         }
         const ln = parser.currentLine;
-        let match = null;
         if (!parser.indented &&
             ln.charAt(parser.nextNonspace) === node.fenceChar) {
-            match = ln.slice(parser.nextNonspace).match(reClosingCodeFence);
+            const match = ln.slice(parser.nextNonspace).match(reClosingCodeFence);
+            if (match != undefined && match[0].length >= node.fenceLength) {
+                parser.finalize(node, parser.lineNumber);
+                return false;
+            }
         }
-        if (match != undefined && match[0].length >= node.fenceLength) {
-            parser.finalize(node, parser.lineNumber);
-            return false;
+        {
+            const match = ln.slice(parser.nextNonspace).match(/(\${2,})([ ]*$)/);
+            if (match != undefined && match[1].length >= node.fenceLength) {
+                node.stringContent += ln.slice(parser.nextNonspace).slice(0, match.index);
+                parser.finalize(node, parser.lineNumber);
+                return false;
+            }
         }
         for (let i = node.fenceOffset; i > 0 && string_util_1.isSpaceOrTab(ln[parser.offset]); --i) {
             parser.advanceOffset(1, true);

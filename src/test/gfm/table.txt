@@ -282,3 +282,43 @@ A table in a blockquote
 <td>jkl</td>
 </tr></tbody></table>
 ````````````````````````````````
+
+A table in a list item
+
+```````````````````````````````` example
+- | abc | def |
+  | --- | --- |
+  | ghi | jkl |
+
+| abc | def |
+| --- | --- |
+| ghi | jkl |
+.
+<ul>
+<li><table>
+<thead>
+<tr>
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ghi</td>
+<td>jkl</td>
+</tr></tbody></table>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ghi</td>
+<td>jkl</td>
+</tr></tbody></table>
+````````````````````````````````
