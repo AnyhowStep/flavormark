@@ -54,3 +54,10 @@ When trying to parse a block, `instanceof` checks are used to find the `BlockPar
 associated with a `Node`. The first matching `BlockParser` in the array is used.
 
 For this reason, each unique block type should have its own `Node` sub-class.
+
+# License
+
+See `LICENSE` file (copy-pasted from `commonmark.js`).
+Also, since this is just a glorified port of `commonmark.js`,
+I guess the BSD-license carries over. I have no idea how this works. I don't really
+care, personally. I just don't want to step on anyone's toes.
