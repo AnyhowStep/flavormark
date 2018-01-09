@@ -47,7 +47,7 @@ See the tests in `src/test` for more examples.
 
 ## Notes
 
-Each `Node` constructors are used to uniquely identify `BlockParser`, and `HtmlSubRenderer`
+Each `Node` constructor is used to uniquely identify `BlockParser`, and `HtmlSubRenderer`
 instances.
 
 When trying to parse a block, `instanceof` checks are used to find the `BlockParser`
