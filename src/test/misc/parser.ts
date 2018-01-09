@@ -51,7 +51,9 @@ const inParsers : fm.InlineParser[] = [
 
 const parser = new fm.Parser({
     blockParsers : blockParserCollection,
-    inlineParser : new fm.InlineContentParser({inParsers})
+    inlineContentParser : new fm.InlineContentParser({
+        inlineParsers : inParsers
+    })
 });
 
 export function parseAndRender (md : string) {

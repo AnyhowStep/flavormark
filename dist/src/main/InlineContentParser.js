@@ -10,7 +10,7 @@ const RegexStream_1 = require("./RegexStream");
 class InlineContentParser extends RegexStream_1.RegexStream {
     constructor(args) {
         super("");
-        this.inParsers = args.inParsers;
+        this.inlineParsers = args.inlineParsers;
         this.textNodeCtor = (args.textNodeCtor == undefined) ?
             TextNode_1.TextNode :
             args.textNodeCtor;
@@ -30,7 +30,7 @@ class InlineContentParser extends RegexStream_1.RegexStream {
         if (c == undefined) {
             return false;
         }
-        for (let p of this.inParsers) {
+        for (let p of this.inlineParsers) {
             if (p.parse(this, node, blockParser, parser)) {
                 //console.log("c", this.pos, c, fromCodePoint(c), this.inParsers.indexOf(p));
                 return true;
@@ -44,14 +44,14 @@ class InlineContentParser extends RegexStream_1.RegexStream {
     ;
     // Parse string content in block into inline children,
     parse(parser, blockParser, node) {
-        for (let i of this.inParsers) {
+        for (let i of this.inlineParsers) {
             i.reinit();
         }
         this.subject = (blockParser.getString(node)).trim();
         this.pos = 0;
         while (this.parseInline(parser, blockParser, node)) {
         }
-        for (let i of this.inParsers) {
+        for (let i of this.inlineParsers) {
             i.finalize();
         }
     }

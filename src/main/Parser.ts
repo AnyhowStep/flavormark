@@ -5,7 +5,7 @@ import {InlineContentParser}  from "./InlineContentParser";
 
 export interface Options {
     blockParsers : BlockParserCollection,
-    inlineParser : InlineContentParser,
+    inlineContentParser : InlineContentParser,
 
     time? : boolean,
     indentLength? : number,
@@ -28,7 +28,7 @@ export class Parser {
     allClosed = true;
     lastMatchedContainer : Node;
     lastLineLength = 0;
-    inlineParser : InlineContentParser;
+    inlineContentParser : InlineContentParser;
     options : Options;
     blockParsers : BlockParserCollection;
     indentLength : number;
@@ -36,7 +36,7 @@ export class Parser {
         this.options = options;
 
         this.blockParsers = options.blockParsers;
-        this.inlineParser = options.inlineParser;
+        this.inlineContentParser = options.inlineContentParser;
         this.indentLength = (options.indentLength == undefined) ?
             4 : Math.floor(options.indentLength);
         if (this.indentLength <= 0) {
@@ -375,7 +375,7 @@ export class Parser {
                 this.blockParsers.has(event.node) &&
                 this.blockParsers.get(event.node).parseInlines
             ) {
-                this.inlineParser.parse(this, this.getBlockParser(event.node), event.node);
+                this.inlineContentParser.parse(this, this.getBlockParser(event.node), event.node);
             }
         }
     };

@@ -5,13 +5,13 @@ import { RegexStream } from "./RegexStream";
 import { Node } from "./Node";
 import { Parser } from "./Parser";
 export interface InlineContentParserArgs {
-    inParsers: InlineParser[];
+    inlineParsers: InlineParser[];
     textNodeCtor?: {
         new (str: string): TextNode;
     };
 }
 export declare class InlineContentParser extends RegexStream {
-    private inParsers;
+    private inlineParsers;
     private textNodeCtor;
     constructor(args: InlineContentParserArgs);
     text(s: string): TextNode;

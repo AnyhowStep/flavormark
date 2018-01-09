@@ -4,7 +4,7 @@ import { Node, Range } from "./Node";
 import { InlineContentParser } from "./InlineContentParser";
 export interface Options {
     blockParsers: BlockParserCollection;
-    inlineParser: InlineContentParser;
+    inlineContentParser: InlineContentParser;
     time?: boolean;
     indentLength?: number;
 }
@@ -25,7 +25,7 @@ export declare class Parser {
     allClosed: boolean;
     lastMatchedContainer: Node;
     lastLineLength: number;
-    inlineParser: InlineContentParser;
+    inlineContentParser: InlineContentParser;
     options: Options;
     blockParsers: BlockParserCollection;
     indentLength: number;

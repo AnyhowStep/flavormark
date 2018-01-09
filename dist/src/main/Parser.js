@@ -16,7 +16,7 @@ class Parser {
         this.lastLineLength = 0;
         this.options = options;
         this.blockParsers = options.blockParsers;
-        this.inlineParser = options.inlineParser;
+        this.inlineContentParser = options.inlineContentParser;
         this.indentLength = (options.indentLength == undefined) ?
             4 : Math.floor(options.indentLength);
         if (this.indentLength <= 0) {
@@ -332,7 +332,7 @@ class Parser {
             if (!event.entering &&
                 this.blockParsers.has(event.node) &&
                 this.blockParsers.get(event.node).parseInlines) {
-                this.inlineParser.parse(this, this.getBlockParser(event.node), event.node);
+                this.inlineContentParser.parse(this, this.getBlockParser(event.node), event.node);
             }
         }
     }

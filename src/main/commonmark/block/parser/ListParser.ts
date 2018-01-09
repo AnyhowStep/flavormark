@@ -45,7 +45,7 @@ export class ListParser extends BlockParser<ListNode> {
                 for (let paragraph = item.getFirstChild(); paragraph != undefined; paragraph = paragraph.getNext()) {
                     if (parser.isParagraphNode(paragraph)) {
                         //Move all its children to item, unlink paragraph
-                        parser.inlineParser.parse(parser, parser.getBlockParsers().getParagraphParser(), paragraph);
+                        parser.inlineContentParser.parse(parser, parser.getBlockParsers().getParagraphParser(), paragraph);
                         let cur = paragraph.getFirstChild();
                         while (cur != undefined) {
                             let nxt = cur.getNext();
