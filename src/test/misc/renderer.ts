@@ -1,9 +1,6 @@
-import * as fm from "./../main/index";
+import * as fm from "../../main/index";
 
-//All HtmlRenderer instances should go here
-//There should be no risk of rendering the wrong Node
-//Because each Node should be its own class
-export const htmlRenderer = new fm.HtmlRenderer([
+export const renderer = new fm.HtmlRenderer([
     new fm.CommonMark.Block.BlockquoteHtmlRenderer(),
     new fm.CommonMark.Block.DocumentHtmlRenderer(),
     new fm.CommonMark.Block.FencedCodeBlockHtmlRenderer(),
@@ -22,17 +19,5 @@ export const htmlRenderer = new fm.HtmlRenderer([
     new fm.CommonMark.Inline.LinkHtmlRenderer(),
     new fm.CommonMark.Inline.SoftbreakHtmlRenderer(),
     new fm.CommonMark.Inline.StrongHtmlRenderer(),
-    new fm.FlavorMark.Block.TexBlockHtmlRenderer(),
-    new fm.FlavorMark.Inline.SubscriptHtmlRenderer(),
-    new fm.FlavorMark.Inline.SuperscriptHtmlRenderer(),
-    new fm.FlavorMark.Inline.TexSpanHtmlRenderer(),
-    new fm.Gfm.Block.TableHtmlRenderer(),
-    new fm.Gfm.Block.TbodyHtmlRenderer(),
-    new fm.Gfm.Block.TdHtmlRenderer(),
-    new fm.Gfm.Block.TheadHtmlRenderer(),
-    new fm.Gfm.Block.ThHtmlRenderer(),
-    new fm.Gfm.Block.TrHtmlRenderer(),
-    new fm.Gfm.Inline.CheckboxHtmlRenderer(),
-    new fm.Gfm.Inline.StrikethroughHtmlRenderer(),
     new fm.CommonMark.Inline.TextHtmlRenderer(),
 ]);

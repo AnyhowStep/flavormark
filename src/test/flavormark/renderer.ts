@@ -5,6 +5,7 @@ export const renderer = new fm.HtmlRenderer([
     new fm.CommonMark.Block.DocumentHtmlRenderer(),
     new fm.CommonMark.Block.FencedCodeBlockHtmlRenderer(),
     new fm.CommonMark.Block.HeadingHtmlRenderer(),
+    new fm.CommonMark.Block.HtmlBlockHtmlRenderer(),
     new fm.CommonMark.Block.IndentedCodeBlockHtmlRenderer(),
     new fm.CommonMark.Block.ItemHtmlRenderer(),
     new fm.CommonMark.Block.ListHtmlRenderer(),
@@ -13,24 +14,15 @@ export const renderer = new fm.HtmlRenderer([
     new fm.CommonMark.Inline.CodeSpanHtmlRenderer(),
     new fm.CommonMark.Inline.EmphasisHtmlRenderer(),
     new fm.CommonMark.Inline.HardbreakHtmlRenderer(),
+    new fm.CommonMark.Inline.HtmlTagHtmlRenderer(),
     new fm.CommonMark.Inline.ImageHtmlRenderer(),
     new fm.CommonMark.Inline.LinkHtmlRenderer(),
     new fm.CommonMark.Inline.SoftbreakHtmlRenderer(),
     new fm.CommonMark.Inline.StrongHtmlRenderer(),
     new fm.CommonMark.Inline.TextHtmlRenderer(),
 
-    //Disables some tags
-    //This breaks some CommonMark Html Block tests
-    new fm.Gfm.Block.HtmlBlockHtmlRenderer(),
-    new fm.Gfm.Block.TableHtmlRenderer(),
-    new fm.Gfm.Block.TbodyHtmlRenderer(),
-    new fm.Gfm.Block.TdHtmlRenderer(),
-    new fm.Gfm.Block.TheadHtmlRenderer(),
-    new fm.Gfm.Block.ThHtmlRenderer(),
-    new fm.Gfm.Block.TrHtmlRenderer(),
-    //Disables some tags
-    //This breaks some CommonMark Html Tag tests
-    new fm.Gfm.Inline.HtmlTagHtmlRenderer(),
-    new fm.Gfm.Inline.CheckboxHtmlRenderer(),
-    new fm.Gfm.Inline.StrikethroughHtmlRenderer(),
+    new fm.FlavorMark.Block.TexBlockHtmlRenderer(),
+    new fm.FlavorMark.Inline.SubscriptHtmlRenderer(),
+    new fm.FlavorMark.Inline.SuperscriptHtmlRenderer(),
+    new fm.FlavorMark.Inline.TexSpanHtmlRenderer(),
 ]);

@@ -9,6 +9,4 @@ export function testGfm (results : t.TestResult) {
     t.specTests(`${__dirname}/../commonmark/tight-list.txt`, results, parseAndRender);
     t.specTests(`${__dirname}/../commonmark/regression.txt`, results, parseAndRender);
     doPathologicalTests(parseAndRender, results);
-
-    t.printResult(results);
 }
