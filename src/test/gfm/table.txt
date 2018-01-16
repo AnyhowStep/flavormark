@@ -322,3 +322,43 @@ A table in a list item
 <td>jkl</td>
 </tr></tbody></table>
 ````````````````````````````````
+
+
+```````````````````````````````` example
+| abc | defghi |
+-:| -----------:
+bar | baz
+.
+<table>
+<thead>
+<tr>
+<th align="right">abc</th>
+<th align="right">defghi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">bar</td>
+<td align="right">baz</td>
+</tr></tbody></table>
+````````````````````````````````
+
+
+```````````````````````````````` example
+| abc | defghi |
+:-:| -----------:
+bar | baz
+.
+<table>
+<thead>
+<tr>
+<th align="center">abc</th>
+<th align="right">defghi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">bar</td>
+<td align="right">baz</td>
+</tr></tbody></table>
+````````````````````````````````

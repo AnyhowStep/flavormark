@@ -31,7 +31,53 @@ function toColumns(str) {
         str = str.substr(0, str.length - 1);
     }
     //Split by unescaped pipes
-    return str.split(/[^\\]\|/)
+    //This bloody ugly hand-written parsing thing makes me sick
+    //It's probably buggy, too
+    const parts = [];
+    let escaped = false;
+    let curPart = undefined;
+    for (let i = 0; i < str.length; ++i) {
+        if (str[i] == "\\") {
+            escaped = true;
+            if (curPart == undefined) {
+                curPart = "\\";
+            }
+            else {
+                curPart += "\\";
+            }
+        }
+        else if (str[i] == "|") {
+            if (escaped) {
+                if (curPart == undefined) {
+                    curPart = "|";
+                }
+                else {
+                    curPart += "|";
+                }
+                escaped = false;
+            }
+            else {
+                if (curPart != undefined) {
+                    parts.push(curPart);
+                    curPart = undefined;
+                }
+            }
+        }
+        else {
+            escaped = false;
+            if (curPart == undefined) {
+                curPart = str[i];
+            }
+            else {
+                curPart += str[i];
+            }
+        }
+    }
+    if (curPart != undefined) {
+        parts.push(curPart);
+        curPart = undefined;
+    }
+    return parts
         .map((s) => {
         return s.trim()
             .replace(/\\\|/g, "|");
@@ -64,6 +110,7 @@ class TableParser extends BlockParser_1.BlockParser {
             return false;
         }
         const alignments = delimiters.map((d) => {
+            d = d.trim();
             const left = d.startsWith(":");
             const right = d.endsWith(":");
             if (left && right) {
