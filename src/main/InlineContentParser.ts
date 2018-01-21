@@ -67,4 +67,9 @@ export class InlineContentParser extends RegexStream {
             i.finalize();
         }
     }
+    public reinitForDocument () {
+        for (let i of this.inlineParsers) {
+            i.reinitForDocument();
+        }
+    }
 }

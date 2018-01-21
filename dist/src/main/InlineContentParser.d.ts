@@ -18,4 +18,5 @@ export declare class InlineContentParser extends RegexStream {
     isTextNode(node: Node): node is TextNode;
     parseInline(parser: Parser, blockParser: BlockParser, node: Node): boolean;
     parse(parser: Parser, blockParser: BlockParser, node: Node): void;
+    reinitForDocument(): void;
 }

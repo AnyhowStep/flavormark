@@ -55,6 +55,11 @@ class InlineContentParser extends RegexStream_1.RegexStream {
             i.finalize();
         }
     }
+    reinitForDocument() {
+        for (let i of this.inlineParsers) {
+            i.reinitForDocument();
+        }
+    }
 }
 exports.InlineContentParser = InlineContentParser;
 //# sourceMappingURL=InlineContentParser.js.map

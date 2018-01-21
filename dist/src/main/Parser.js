@@ -340,6 +340,7 @@ class Parser {
     // The main parsing function.  Returns a parsed document AST.
     parse(input) {
         this.blockParsers.reinit();
+        this.inlineContentParser.reinitForDocument();
         this.doc = this.blockParsers.instantiateDocument({
             start: {
                 row: 1,
