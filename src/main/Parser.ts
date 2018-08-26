@@ -447,6 +447,9 @@ export class Parser {
     public getBlockParser<NodeT extends Node> (key : NodeT) : BlockParser<NodeT> {
         return this.blockParsers.get(key);
     }
+    public hasBlockParser<NodeT extends Node> (key : NodeT) : boolean {
+        return this.blockParsers.has(key);
+    }
     public getBlockParsers () {
         return this.blockParsers;
     }
@@ -454,6 +457,10 @@ export class Parser {
         let cur : Node|undefined = node;
         while (cur != undefined) {
             if (cur.isLastLineBlank()) {
+                return true;
+            }
+            if (!this.hasBlockParser(cur)) {
+                //For example, ending with an emphasis node
                 return true;
             }
             const p = this.getBlockParser(cur);

@@ -55,6 +55,7 @@ export declare class Parser {
     setParagraphString(node: Node, str: string): void;
     createParagraph(sourcepos: Range): Node;
     getBlockParser<NodeT extends Node>(key: NodeT): BlockParser<NodeT>;
+    hasBlockParser<NodeT extends Node>(key: NodeT): boolean;
     getBlockParsers(): BlockParserCollection<Node, Node>;
     endsWithBlankLine(node: Node): boolean;
 }

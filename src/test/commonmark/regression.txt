@@ -15,10 +15,10 @@ bar</li>
 Type 7 HTML block followed by whitespace (#98).
 
 ```````````````````````````````` example
-<a>  
+<a>
 x
 .
-<a>  
+<a>
 x
 ````````````````````````````````
 
@@ -93,4 +93,16 @@ Issue #116 - tabs before and after ATX closing heading
 # foo→#→
 .
 <h1>foo</h1>
+````````````````````````````````
+
+Nested item on same line, last child of nested item is not block node, but inline.
+```````````````````````````````` example
++ $F \circ G$ is an injection of $A$ into $C$
++ + *\forall x \forall y (\ordered{x, y} \in R \leftrightarrow \ordered{F(x), F(y)} \in S)*
+````````````````````````````````
+
+Nested item on same line, last child of nested item is not block node, but inline2
+```````````````````````````````` example
++ $F \circ G$ is an injection of $A$ into $C$
++ + $\forall x \forall y (\ordered{x, y} \in R \leftrightarrow \ordered{F(x), F(y)} \in S)$
 ````````````````````````````````

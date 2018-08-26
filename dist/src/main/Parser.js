@@ -418,6 +418,9 @@ class Parser {
     getBlockParser(key) {
         return this.blockParsers.get(key);
     }
+    hasBlockParser(key) {
+        return this.blockParsers.has(key);
+    }
     getBlockParsers() {
         return this.blockParsers;
     }
@@ -425,6 +428,10 @@ class Parser {
         let cur = node;
         while (cur != undefined) {
             if (cur.isLastLineBlank()) {
+                return true;
+            }
+            if (!this.hasBlockParser(cur)) {
+                //For example, ending with an emphasis node
                 return true;
             }
             const p = this.getBlockParser(cur);
