@@ -15,10 +15,10 @@ bar</li>
 Type 7 HTML block followed by whitespace (#98).
 
 ```````````````````````````````` example
-<a>
+<a>  
 x
 .
-<a>
+<a>  
 x
 ````````````````````````````````
 
