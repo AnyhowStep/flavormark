@@ -1,9 +1,13 @@
 {
   "name": "flavormark",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "TypeScript Markdown parser",
   "main": "dist/src/main/index.js",
   "types": "dist/src/main/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "move": "ts-node ./src/dev/move.ts",
     "test-all": "ts-node ./src/test/test-all.ts",
@@ -20,8 +24,7 @@
     "@types/entities": "^1.1.0",
     "@types/mdurl": "^1.0.1",
     "entities": "^1.1.1",
-    "mdurl": "^1.0.1",
-    "typescript": "^2.7.0-insiders.20171214"
+    "mdurl": "^1.0.1"
   },
   "devDependencies": {
     "@types/glob": "^5.0.34",
@@ -30,6 +33,7 @@
     "export-generator": "^1.2.0",
     "glob": "^7.1.2",
     "ts-node": "^4.1.0",
+    "typescript": "^2.7.0-insiders.20171214",
     "underscore": "^1.8.3"
   }
 }
